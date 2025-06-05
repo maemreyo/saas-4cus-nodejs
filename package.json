@@ -9,6 +9,9 @@
     "npm": ">=10.0.0"
   },
   "scripts": {
+    "postinstall": "prisma generate",
+    "setup": "tsx scripts/setup.ts",
+    "prebuild": "npm run db:generate",
     "dev": "tsx watch src/app.ts",
     "build": "rimraf dist && tsc && tsc-alias",
     "start": "node dist/app.js",

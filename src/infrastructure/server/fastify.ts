@@ -1,13 +1,13 @@
-import Fastify, { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify'
-import { Service } from 'typedi'
-import { config } from '@infrastructure/config'
-import { logger, fastifyLogger } from '@shared/logger'
-import { prisma } from '@infrastructure/database/prisma.service'
-import { redis } from '@infrastructure/cache/redis.service'
+import Fastify, { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
+import { Service } from 'typedi';
+import { config } from '@infrastructure/config';
+import { logger, fastifyLogger } from '@shared/logger';
+import { prisma } from '@infrastructure/database/prisma.service';
+import { redis } from '@infrastructure/cache/redis.service';
 
 @Service()
 export class FastifyServer {
-  private app: FastifyInstance
+  private app: FastifyInstance;
 
   constructor() {
     this.app = Fastify({
@@ -15,15 +15,15 @@ export class FastifyServer {
       trustProxy: true,
       requestIdHeader: 'x-request-id',
       disableRequestLogging: false,
-      bodyLimit: 10485760 // 10MB
-    })
+      bodyLimit: 10485760, // 10MB
+    });
   }
 
   async initialize(): Promise<void> {
-    await this.registerPlugins()
-    await this.registerMiddleware()
-    await this.registerRoutes()
-    await this.registerErrorHandlers()
+    await this.registerPlugins();
+    await this.registerMiddleware();
+    await this.registerRoutes();
+    await this.registerErrorHandlers();
   }
 
   private async registerPlugins(): Promise<void> {
@@ -34,8 +34,8 @@ export class FastifyServer {
       methods: config.cors.methods,
       allowedHeaders: config.cors.allowedHeaders,
       exposedHeaders: config.cors.exposedHeaders,
-      maxAge: config.cors.maxAge
-    })
+      maxAge: config.cors.maxAge,
+    });
 
     // Security headers
     await this.app.register(import('@fastify/helmet'), {
@@ -48,11 +48,11 @@ export class FastifyServer {
           fontSrc: ["'self'"],
           connectSrc: ["'self'"],
           objectSrc: ["'none'"],
-          upgradeInsecureRequests: []
-        }
+          upgradeInsecureRequests: [],
+        },
       },
-      crossOriginEmbedderPolicy: true
-    })
+      crossOriginEmbedderPolicy: true,
+    });
 
     // Cookie support
     await this.app.register(import('@fastify/cookie'), {
@@ -60,9 +60,9 @@ export class FastifyServer {
       parseOptions: {
         httpOnly: config.security.cookie.httpOnly,
         secure: config.security.cookie.secure,
-        sameSite: config.security.cookie.sameSite
-      }
-    })
+        sameSite: config.security.cookie.sameSite,
+      },
+    });
 
     // Multipart support
     await this.app.register(import('@fastify/multipart'), {
@@ -72,32 +72,30 @@ export class FastifyServer {
         fields: 10,
         fileSize: 10 * 1024 * 1024, // 10MB
         files: 5,
-        headerPairs: 2000
-      }
-    })
+        headerPairs: 2000,
+      },
+    });
 
     // Rate limiting
-    await this.app.register(import('@fastify/rate-limit'), {
+    await this.app.register((await import('@fastify/rate-limit')).default, {
       max: config.rateLimit.max,
       timeWindow: config.rateLimit.windowMs,
-      skipSuccessfulRequests: config.rateLimit.skipSuccessfulRequests,
-      skipFailedRequests: config.rateLimit.skipFailedRequests
-    })
+    });
 
     // Sensible defaults
-    await this.app.register(import('@fastify/sensible'))
+    await this.app.register(import('@fastify/sensible'));
 
     // JWT
     await this.app.register(import('@fastify/jwt'), {
       secret: config.security.jwt.accessSecret,
       sign: {
         algorithm: 'HS256',
-        expiresIn: config.security.jwt.accessExpiresIn
+        expiresIn: config.security.jwt.accessExpiresIn,
       },
       verify: {
-        algorithms: ['HS256']
-      }
-    })
+        algorithms: ['HS256'],
+      },
+    });
 
     // Swagger documentation
     if (config.api.swagger.enabled) {
@@ -106,7 +104,7 @@ export class FastifyServer {
           info: {
             title: config.api.swagger.title,
             description: config.api.swagger.description,
-            version: config.app.version
+            version: config.app.version,
           },
           host: `localhost:${config.app.port}`,
           schemes: ['http', 'https'],
@@ -117,47 +115,47 @@ export class FastifyServer {
               type: 'apiKey',
               name: 'Authorization',
               in: 'header',
-              description: 'Enter JWT token with Bearer prefix'
-            }
-          }
-        }
-      })
+              description: 'Enter JWT token with Bearer prefix',
+            },
+          },
+        },
+      });
 
       await this.app.register(import('@fastify/swagger-ui'), {
         routePrefix: config.api.swagger.route,
         uiConfig: {
           docExpansion: 'list',
-          deepLinking: false
-        }
-      })
+          deepLinking: false,
+        },
+      });
     }
   }
 
   private async registerMiddleware(): Promise<void> {
     // Request context
-    this.app.addHook('onRequest', async (request, reply) => {
-      request.context = {
+    this.app.addHook('onRequest', async (request: FastifyRequest, reply) => {
+      (request as any).customContext = {
         requestId: request.id,
-        startTime: Date.now()
-      }
-    })
+        startTime: Date.now(),
+      };
+    });
 
     // Response time
-    this.app.addHook('onSend', async (request, reply, payload) => {
-      const responseTime = Date.now() - request.context.startTime
-      reply.header('X-Response-Time', `${responseTime}ms`)
-    })
+    this.app.addHook('onSend', async (request: FastifyRequest, reply, payload) => {
+      const responseTime = Date.now() - (request as any).customContext.startTime;
+      reply.header('X-Response-Time', `${responseTime}ms`);
+    });
 
     // Maintenance mode
     this.app.addHook('preHandler', async (request, reply) => {
-      const maintenance = await redis.get('maintenance:mode')
+      const maintenance = await redis.get('maintenance:mode');
       if (maintenance && !request.url.startsWith('/health')) {
         reply.code(503).send({
           error: 'Service Unavailable',
-          message: 'System is under maintenance'
-        })
+          message: 'System is under maintenance',
+        });
       }
-    })
+    });
   }
 
   private async registerRoutes(): Promise<void> {
@@ -165,11 +163,12 @@ export class FastifyServer {
     await this.app.register(import('@fastify/autoload'), {
       dir: `${__dirname}/../../modules`,
       options: { prefix: config.api.prefix },
-      matchFilter: (path: string) => path.endsWith('.route.ts') || path.endsWith('.route.js')
-    })
+      matchFilter: (path: string) => path.endsWith('.route.ts') || path.endsWith('.route.js'),
+    });
 
     // Health check routes
-    this.app.register(healthRoutes)
+    const healthRoutes = (await import('./routes/health.route')).default;
+    this.app.register(healthRoutes);
   }
 
   private async registerErrorHandlers(): Promise<void> {
@@ -178,9 +177,9 @@ export class FastifyServer {
       reply.code(404).send({
         error: 'Not Found',
         message: `Route ${request.method} ${request.url} not found`,
-        statusCode: 404
-      })
-    })
+        statusCode: 404,
+      });
+    });
 
     // Error handler
     this.app.setErrorHandler((error, request, reply) => {
@@ -190,8 +189,8 @@ export class FastifyServer {
         method: request.method,
         url: request.url,
         params: request.params,
-        query: request.query
-      })
+        query: request.query,
+      });
 
       // Handle custom exceptions
       if (error.statusCode) {
@@ -199,9 +198,9 @@ export class FastifyServer {
           error: error.name,
           message: error.message,
           statusCode: error.statusCode,
-          details: error.details
-        })
-        return
+          details: (error as any).details,
+        });
+        return;
       }
 
       // Handle validation errors
@@ -210,46 +209,46 @@ export class FastifyServer {
           error: 'Validation Error',
           message: 'Request validation failed',
           statusCode: 400,
-          details: error.validation
-        })
-        return
+          details: error.validation,
+        });
+        return;
       }
 
       // Default error
       reply.code(500).send({
         error: 'Internal Server Error',
         message: config.app.isDevelopment ? error.message : 'Something went wrong',
-        statusCode: 500
-      })
-    })
+        statusCode: 500,
+      });
+    });
   }
 
   async start(): Promise<void> {
     try {
       await this.app.listen({
         port: config.app.port,
-        host: config.app.host
-      })
+        host: config.app.host,
+      });
 
-      logger.info(`Server listening on ${config.app.host}:${config.app.port}`)
+      logger.info(`Server listening on ${config.app.host}:${config.app.port}`);
 
       // Log routes in development
       if (config.app.isDevelopment) {
-        const routes = this.app.printRoutes()
-        logger.debug('Registered routes:\n' + routes)
+        const routes = this.app.printRoutes();
+        logger.debug('Registered routes:\n' + routes);
       }
     } catch (error) {
-      logger.error('Failed to start server', error as Error)
-      throw error
+      logger.error('Failed to start server', error as Error);
+      throw error;
     }
   }
 
   async stop(): Promise<void> {
-    await this.app.close()
-    logger.info('Server stopped')
+    await this.app.close();
+    logger.info('Server stopped');
   }
 
   getApp(): FastifyInstance {
-    return this.app
+    return this.app;
   }
 }

@@ -35,6 +35,7 @@ export interface LoginDTO {
   email: string
   password: string
   twoFactorCode?: string
+  ip?: string
 }
 
 export interface AuthTokens {
@@ -661,7 +662,7 @@ export class AuthService {
     const accessToken = jwt.sign(
       payload,
       config.security.jwt.accessSecret,
-      { expiresIn: config.security.jwt.accessExpiresIn }
+      { expiresIn: config.security.jwt.accessExpiresIn } as jwt.SignOptions
     )
 
     // Generate refresh token
@@ -669,7 +670,7 @@ export class AuthService {
     const refreshToken = jwt.sign(
       refreshPayload,
       config.security.jwt.refreshSecret,
-      { expiresIn: config.security.jwt.refreshExpiresIn }
+      { expiresIn: config.security.jwt.refreshExpiresIn } as jwt.SignOptions
     )
 
     // Store refresh token
@@ -770,5 +771,98 @@ export class AuthService {
   private isValidEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return emailRegex.test(email)
+  }
+
+  // Additional public methods
+  async verifyEmail(token: string): Promise<void> {
+    const hashedToken = createHash('sha256').update(token).digest('hex')
+
+    const tokenRecord = await prisma.client.token.findUnique({
+      where: { token: hashedToken },
+      include: { user: true }
+    })
+
+    if (!tokenRecord || tokenRecord.type !== 'EMAIL_VERIFICATION') {
+      throw new BadRequestException('Invalid or expired verification token')
+    }
+
+    if (tokenRecord.expiresAt < new Date()) {
+      throw new BadRequestException('Verification token has expired')
+    }
+
+    if (tokenRecord.usedAt) {
+      throw new BadRequestException('Verification token has already been used')
+    }
+
+    // Update user
+    await prisma.client.user.update({
+      where: { id: tokenRecord.userId! },
+      data: {
+        emailVerified: true,
+        emailVerifiedAt: new Date()
+      }
+    })
+
+    // Mark token as used
+    await prisma.client.token.update({
+      where: { id: tokenRecord.id },
+      data: { usedAt: new Date() }
+    })
+
+    await this.eventBus.emit('user.emailVerified', {
+      userId: tokenRecord.userId,
+      timestamp: new Date()
+    })
+  }
+
+  async getUserById(userId: string): Promise<User> {
+    const user = await prisma.client.user.findUnique({
+      where: { id: userId }
+    })
+
+    if (!user) {
+      throw new NotFoundException('User not found')
+    }
+
+    return user
+  }
+
+  getGoogleAuthUrl(): string {
+    const url = new URL('https://accounts.google.com/o/oauth2/v2/auth')
+    url.searchParams.append('client_id', config.oauth.google.clientId!)
+    url.searchParams.append('redirect_uri', config.oauth.google.callbackUrl!)
+    url.searchParams.append('response_type', 'code')
+    url.searchParams.append('scope', 'openid email profile')
+    url.searchParams.append('access_type', 'offline')
+    url.searchParams.append('prompt', 'consent')
+
+    return url.toString()
+  }
+
+  async handleGoogleCallback(code: string): Promise<{ user: User; tokens: AuthTokens }> {
+    // Exchange code for tokens
+    const tokenUrl = 'https://oauth2.googleapis.com/token'
+    const response = await fetch(tokenUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: new URLSearchParams({
+        code,
+        client_id: config.oauth.google.clientId!,
+        client_secret: config.oauth.google.clientSecret!,
+        redirect_uri: config.oauth.google.callbackUrl!,
+        grant_type: 'authorization_code'
+      })
+    })
+
+    if (!response.ok) {
+      throw new UnauthorizedException('Failed to exchange code for tokens')
+    }
+
+    const { id_token } = await response.json()
+    const profile = await this.verifyGoogleToken(id_token)
+
+    return this.oauthLogin(profile)
   }
 }

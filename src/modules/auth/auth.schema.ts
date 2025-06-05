@@ -7,8 +7,8 @@ export const registerSchema = {
       password: { type: 'string', minLength: 8 },
       firstName: { type: 'string', minLength: 1, maxLength: 100 },
       lastName: { type: 'string', minLength: 1, maxLength: 100 },
-      username: { type: 'string', minLength: 3, maxLength: 30, pattern: '^[a-zA-Z0-9_-]+$' }
-    }
+      username: { type: 'string', minLength: 3, maxLength: 30, pattern: '^[a-zA-Z0-9_-]+$' },
+    },
   },
   response: {
     201: {
@@ -24,8 +24,8 @@ export const registerSchema = {
                 id: { type: 'string' },
                 email: { type: 'string' },
                 firstName: { type: 'string' },
-                lastName: { type: 'string' }
-              }
+                lastName: { type: 'string' },
+              },
             },
             tokens: {
               type: 'object',
@@ -33,15 +33,15 @@ export const registerSchema = {
                 accessToken: { type: 'string' },
                 refreshToken: { type: 'string' },
                 expiresIn: { type: 'number' },
-                tokenType: { type: 'string' }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
+                tokenType: { type: 'string' },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+};
 
 export const loginSchema = {
   body: {
@@ -50,30 +50,30 @@ export const loginSchema = {
     properties: {
       email: { type: 'string', format: 'email' },
       password: { type: 'string' },
-      twoFactorCode: { type: 'string', minLength: 6, maxLength: 6 }
-    }
-  }
-}
+      twoFactorCode: { type: 'string', minLength: 6, maxLength: 6 },
+    },
+  },
+};
 
 export const refreshTokenSchema = {
   body: {
     type: 'object',
     required: ['refreshToken'],
     properties: {
-      refreshToken: { type: 'string' }
-    }
-  }
-}
+      refreshToken: { type: 'string' },
+    },
+  },
+};
 
 export const resetPasswordRequestSchema = {
   body: {
     type: 'object',
     required: ['email'],
     properties: {
-      email: { type: 'string', format: 'email' }
-    }
-  }
-}
+      email: { type: 'string', format: 'email' },
+    },
+  },
+};
 
 export const resetPasswordSchema = {
   body: {
@@ -81,10 +81,10 @@ export const resetPasswordSchema = {
     required: ['token', 'password'],
     properties: {
       token: { type: 'string' },
-      password: { type: 'string', minLength: 8 }
-    }
-  }
-}
+      password: { type: 'string', minLength: 8 },
+    },
+  },
+};
 
 export const enable2FASchema = {
   response: {
@@ -99,21 +99,21 @@ export const enable2FASchema = {
             qrCode: { type: 'string' },
             backupCodes: {
               type: 'array',
-              items: { type: 'string' }
-            }
-          }
-        }
-      }
-    }
-  }
-}
+              items: { type: 'string' },
+            },
+          },
+        },
+      },
+    },
+  },
+};
 
 export const verify2FASchema = {
   body: {
     type: 'object',
     required: ['code'],
     properties: {
-      code: { type: 'string', minLength: 6, maxLength: 6 }
-    }
-  }
-}
+      code: { type: 'string', minLength: 6, maxLength: 6 },
+    },
+  },
+};

@@ -1,4 +1,4 @@
-import { Queue, Worker, QueueScheduler, Job, JobsOptions, WorkerOptions } from 'bullmq'
+import { Queue, Worker, Job, JobsOptions, WorkerOptions } from 'bullmq'
 import { Service } from 'typedi'
 import { logger } from '@shared/logger'
 import { config } from '@infrastructure/config'
@@ -33,7 +33,6 @@ interface QueueConfig {
 export class QueueService {
   private queues: Map<string, Queue> = new Map()
   private workers: Map<string, Worker> = new Map()
-  private schedulers: Map<string, QueueScheduler> = new Map()
   private processors: Map<string, Map<string, JobProcessor>> = new Map()
 
   constructor() {
@@ -81,9 +80,6 @@ export class QueueService {
       }
     })
 
-    // Create scheduler
-    const scheduler = new QueueScheduler(name, { connection })
-
     // Create worker
     const worker = new Worker(
       name,
@@ -105,7 +101,6 @@ export class QueueService {
     this.setupWorkerEvents(worker, name)
 
     this.queues.set(name, queue)
-    this.schedulers.set(name, scheduler)
     this.workers.set(name, worker)
 
     logger.info(`Queue ${name} created`)
@@ -341,7 +336,6 @@ export class QueueService {
   async close(): Promise<void> {
     await Promise.all([
       ...Array.from(this.workers.values()).map(w => w.close()),
-      ...Array.from(this.schedulers.values()).map(s => s.close()),
       ...Array.from(this.queues.values()).map(q => q.close())
     ])
 

@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { ValidationException } from '@shared/exceptions'
 
 // Common schemas
 export const emailSchema = z.string().email().toLowerCase()

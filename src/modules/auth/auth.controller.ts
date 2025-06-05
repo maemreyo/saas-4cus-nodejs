@@ -18,7 +18,7 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   async register(request: FastifyRequest<{ Body: RegisterDTO }>, reply: FastifyReply) {
-    const dto = await validateSchema(RegisterDTO.schema, request.body)
+    const dto = await validateSchema(RegisterDTO.schema, request.body) as RegisterDTO
     const result = await this.authService.register(dto)
 
     reply.code(201).send({
@@ -36,7 +36,7 @@ export class AuthController {
   }
 
   async login(request: FastifyRequest<{ Body: LoginDTO }>, reply: FastifyReply) {
-    const dto = await validateSchema(LoginDTO.schema, request.body)
+    const dto = await validateSchema(LoginDTO.schema, request.body) as LoginDTO
     dto.ip = request.ip
 
     const result = await this.authService.login(dto)
@@ -67,7 +67,7 @@ export class AuthController {
   }
 
   async refreshToken(request: FastifyRequest<{ Body: RefreshTokenDTO }>, reply: FastifyReply) {
-    const dto = await validateSchema(RefreshTokenDTO.schema, request.body)
+    const dto = await validateSchema(RefreshTokenDTO.schema, request.body) as RefreshTokenDTO
     const tokens = await this.authService.refreshTokens(dto.refreshToken)
 
     reply.code(200).send({
@@ -78,7 +78,7 @@ export class AuthController {
 
   async logout(request: FastifyRequest, reply: FastifyReply) {
     const sessionId = request.headers['x-session-id'] as string
-    await this.authService.logout(request.user!.id, sessionId)
+    await this.authService.logout(request.customUser!.id, sessionId)
 
     reply.code(200).send({
       message: 'Logout successful'
@@ -86,7 +86,7 @@ export class AuthController {
   }
 
   async forgotPassword(request: FastifyRequest<{ Body: ResetPasswordRequestDTO }>, reply: FastifyReply) {
-    const dto = await validateSchema(ResetPasswordRequestDTO.schema, request.body)
+    const dto = await validateSchema(ResetPasswordRequestDTO.schema, request.body) as ResetPasswordRequestDTO
     await this.authService.requestPasswordReset(dto.email)
 
     reply.code(200).send({
@@ -95,7 +95,7 @@ export class AuthController {
   }
 
   async resetPassword(request: FastifyRequest<{ Body: ResetPasswordDTO }>, reply: FastifyReply) {
-    const dto = await validateSchema(ResetPasswordDTO.schema, request.body)
+    const dto = await validateSchema(ResetPasswordDTO.schema, request.body) as ResetPasswordDTO
     await this.authService.resetPassword(dto.token, dto.password)
 
     reply.code(200).send({
@@ -112,7 +112,7 @@ export class AuthController {
   }
 
   async getCurrentUser(request: FastifyRequest, reply: FastifyReply) {
-    const user = await this.authService.getUserById(request.user!.id)
+    const user = await this.authService.getUserById(request.customUser!.id)
 
     reply.code(200).send({
       data: {
@@ -134,7 +134,7 @@ export class AuthController {
   }
 
   async enable2FA(request: FastifyRequest, reply: FastifyReply) {
-    const result = await this.authService.enable2FA(request.user!.id)
+    const result = await this.authService.enable2FA(request.customUser!.id)
 
     reply.code(200).send({
       message: '2FA setup initiated',
@@ -143,8 +143,8 @@ export class AuthController {
   }
 
   async verify2FA(request: FastifyRequest<{ Body: Verify2FADTO }>, reply: FastifyReply) {
-    const dto = await validateSchema(Verify2FADTO.schema, request.body)
-    await this.authService.confirm2FA(request.user!.id, dto.code)
+    const dto = await validateSchema(Verify2FADTO.schema, request.body) as Verify2FADTO
+    await this.authService.confirm2FA(request.customUser!.id, dto.code)
 
     reply.code(200).send({
       message: '2FA enabled successfully'
@@ -152,7 +152,7 @@ export class AuthController {
   }
 
   async disable2FA(request: FastifyRequest<{ Body: { password: string } }>, reply: FastifyReply) {
-    await this.authService.disable2FA(request.user!.id, request.body.password)
+    await this.authService.disable2FA(request.customUser!.id, request.body.password)
 
     reply.code(200).send({
       message: '2FA disabled successfully'

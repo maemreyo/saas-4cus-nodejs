@@ -1,109 +1,340 @@
-# Bulletproof Node.js architecture 🛡️
+# Modern Backend Template 2025
 
-This is the example repository from the blog post ['Bulletproof node.js project architecture'](https://softwareontheroad.com/ideal-nodejs-project-structure?utm_source=github&utm_medium=readme)
+A production-ready Node.js backend template with TypeScript, featuring modern architecture patterns, comprehensive security, and scalability features.
 
-Please read the blog post in order to have a good understanding of the server architecture.
+## 🚀 Features
 
-Also, I added lots of comments to the code that are not in the blog post, because they explain the implementation and the reason behind the choices of libraries and some personal opinions and some bad jokes.
+### Core Technologies
+- **Node.js 20+** with TypeScript
+- **Fastify** - High-performance web framework
+- **Prisma** - Type-safe database ORM
+- **Redis** - Caching and session management
+- **BullMQ** - Robust job queue system
+- **Docker** - Containerization support
 
-The API by itself doesn't do anything fancy, it's just a user CRUD with authentication capabilities.
-Maybe we can transform this into something useful, a more advanced example, just open an issue and let's discuss the future of the repo.
+### Security Features
+- 🔐 JWT authentication with refresh tokens
+- 🔑 OAuth2 integration (Google, GitHub)
+- 📱 Two-factor authentication (2FA)
+- 🛡️ Rate limiting and DDoS protection
+- 🔒 Security headers with Helmet
+- 🚨 CORS configuration
+- 🔏 Password hashing with Argon2
+- 🔐 API key authentication for B2B
 
-## Development
+### Performance & Scalability
+- ⚡ Multi-layer caching (Memory + Redis)
+- 🔄 Database connection pooling
+- 📊 Query optimization with indexes
+- 🎯 Pagination helpers
+- 🔍 Full-text search support
+- 📈 Horizontal scaling ready
+- 🚀 Async job processing
+- 💾 Soft deletes
 
-We use `node` version `14.9.0`
+### Developer Experience
+- 📝 Swagger API documentation
+- 🧪 Comprehensive testing setup
+- 🔍 Structured logging with Pino
+- 📊 Health checks and metrics
+- 🐳 Docker Compose for local dev
+- 🔧 CLI tools for common tasks
+- 🎨 Code formatting with Prettier
+- 📋 ESLint configuration
 
-```
-nvm install 14.9.0
-```
+### Monitoring & Observability
+- 📊 OpenTelemetry integration
+- 🔍 Distributed tracing
+- 📈 Custom metrics
+- 🚨 Sentry error tracking
+- 📝 Audit logging
+- 🔔 Real-time monitoring
+- 📊 Performance profiling
 
-```
-nvm use 14.9.0
-```
+## 📦 Quick Start
 
-The first time, you will need to run
+### Prerequisites
+- Node.js 20+
+- Docker & Docker Compose
+- PostgreSQL 15+ (or use Docker)
+- Redis 7+ (or use Docker)
 
-```
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/modern-backend-template.git
+cd modern-backend-template
+
+# Install dependencies
 npm install
+
+# Copy environment variables
+cp .env.example .env
+
+# Start development services (PostgreSQL, Redis, MailHog)
+docker-compose -f docker-compose.dev.yml up -d
+
+# Run database migrations
+npm run db:migrate
+
+# Seed the database
+npm run db:seed
+
+# Start development server
+npm run dev
 ```
 
-Then just start the server with
+### Using Docker
+
+```bash
+# Build and start all services
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop all services
+docker-compose down
+```
+
+## 🏗️ Project Structure
 
 ```
-npm run start
+src/
+├── modules/              # Feature modules
+│   ├── auth/            # Authentication module
+│   ├── user/            # User management
+│   └── notification/    # Notification system
+├── shared/              # Shared utilities
+│   ├── cache/          # Caching layer
+│   ├── database/       # Database utilities
+│   ├── events/         # Event bus
+│   ├── exceptions/     # Custom exceptions
+│   ├── logger/         # Logging system
+│   ├── queue/          # Job queue
+│   ├── services/       # Shared services
+│   ├── utils/          # Helper functions
+│   └── validators/     # Validation schemas
+├── infrastructure/      # Infrastructure code
+│   ├── config/         # Configuration
+│   ├── database/       # Database setup
+│   ├── server/         # Server setup
+│   └── monitoring/     # Monitoring setup
+└── app.ts              # Application entry
 ```
-It uses nodemon for livereloading :peace-fingers:
 
-## Online one-click setup
+## 🔧 Configuration
 
-You can use Gitpod for the one click online setup. With a single click it will launch a workspace and automatically:
+### Environment Variables
 
-- clone the `bulletproof-nodejs` repo.
-- install the dependencies.
-- run `cp .env.example .env`.
-- run `npm run start`.
+Create a `.env` file based on `.env.example`:
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/from-referrer/)
+```env
+# Application
+NODE_ENV=development
+APP_NAME="My App"
+PORT=3000
 
-# API Validation
+# Security
+JWT_ACCESS_SECRET=your-access-secret
+JWT_REFRESH_SECRET=your-refresh-secret
 
- By using [celebrate](https://github.com/arb/celebrate), the req.body schema becomes cleary defined at route level, so even frontend devs can read what an API endpoint expects without needing to write documentation that can get outdated quickly.
+# Database
+DATABASE_URL=postgresql://user:pass@localhost:5432/mydb
 
- ```js
- route.post('/signup',
-  celebrate({
-    body: Joi.object({
-      name: Joi.string().required(),
-      email: Joi.string().required(),
-      password: Joi.string().required(),
-    }),
-  }),
-  controller.signup)
- ```
+# Redis
+REDIS_HOST=localhost
+REDIS_PORT=6379
 
- **Example error**
+# Email
+SMTP_HOST=localhost
+SMTP_PORT=1025
+SMTP_USER=test
+SMTP_PASS=test
 
- ```json
- {
-  "errors": {
-    "message": "child \"email\" fails because [\"email\" is required]"
-  }
- }
- ```
+# See .env.example for all options
+```
 
-[Read more about celebrate here](https://github.com/arb/celebrate) and [the Joi validation API](https://github.com/hapijs/joi/blob/v15.0.1/API.md)
+## 📚 API Documentation
 
-# Roadmap
-- [x] API Validation layer (Celebrate+Joi)
-- [ ] Unit tests examples
-- [ ] [Cluster mode](https://softwareontheroad.com/nodejs-scalability-issues?utm_source=github&utm_medium=readme)
-- [x] The logging _'layer'_
-- [ ] Add agenda dashboard
-- [x] Continuous integration with CircleCI 😍
-- [ ] Deploys script and docs for AWS Elastic Beanstalk and Heroku
-- [ ] Integration test with newman 😉
-- [ ] Instructions on typescript debugging with VSCode
+### Swagger UI
+When running in development, access Swagger documentation at:
+```
+http://localhost:3000/docs
+```
 
-## API Documentation
+### Authentication Endpoints
 
-To simplify documenting your API, we have included [Optic](https://useoptic.com). To use it, you will need to [install the CLI tool](https://useoptic.com/document/#add-an-optic-specification-to-your-api-project), and then you can use `api exec "npm start"` to start capturing your endpoints as you create them. Once you want to review and add them to your API specification run: `api status -- review`.
+#### Register
+```http
+POST /api/v1/auth/register
+Content-Type: application/json
 
-# FAQ
+{
+  "email": "user@example.com",
+  "password": "SecurePass123!",
+  "firstName": "John",
+  "lastName": "Doe"
+}
+```
 
- ## Where should I put the FrontEnd code? Is this a good backend for Angular or React or Vue or _whatever_ ?
+#### Login
+```http
+POST /api/v1/auth/login
+Content-Type: application/json
 
-  [It's not a good idea to have node.js serving static assets a.k.a the frontend](https://softwareontheroad.com/nodejs-scalability-issues?utm_source=github&utm_medium=readme)
+{
+  "email": "user@example.com",
+  "password": "SecurePass123!"
+}
+```
 
-  Also, I don't wanna take part in frontend frameworks wars 😅
+#### Refresh Token
+```http
+POST /api/v1/auth/refresh
+Content-Type: application/json
 
-  Just use the frontend framework you like the most _or hate the least_. It will work 😁
+{
+  "refreshToken": "your-refresh-token"
+}
+```
 
- ## Don't you think you can add X layer to do Y? Why do you still use express if the Serverless Framework is better and it's more reliable?
+## 🧪 Testing
 
-  I know this is not a perfect architecture but it's the most scalable that I know with less code and headache that I know.
+```bash
+# Run all tests
+npm test
 
-  It's meant for small startups or one-developer army projects.
+# Run unit tests
+npm run test:unit
 
-  I know if you start moving layers into another technology, you will end up with your business/domain logic into npm packages, your routing layer will be pure AWS Lambda functions and your data layer a combination of DynamoDB, Redis, maybe redshift, and Agolia.
+# Run integration tests
+npm run test:integration
 
-  Take a deep breath and go slowly, let the business grow and then scale up your product. You will need a team and talented developers anyway.
+# Run with coverage
+npm run test:coverage
+
+# Run in watch mode
+npm run test:watch
+```
+
+### Test Structure
+```
+tests/
+├── unit/           # Unit tests
+├── integration/    # Integration tests
+├── e2e/           # End-to-end tests
+└── fixtures/      # Test data
+```
+
+## 🚀 Deployment
+
+### Production Build
+```bash
+# Build the application
+npm run build
+
+# Start production server
+npm run start:prod
+```
+
+### Docker Deployment
+```bash
+# Build production image
+docker build -t myapp:latest .
+
+# Run container
+docker run -p 3000:3000 --env-file .env myapp:latest
+```
+
+### Environment-specific Configurations
+- **Development**: Hot reload, verbose logging
+- **Staging**: Production-like with debug features
+- **Production**: Optimized, minimal logging
+
+## 📊 Monitoring
+
+### Health Checks
+- `/health` - Comprehensive health status
+- `/health/live` - Kubernetes liveness probe
+- `/health/ready` - Kubernetes readiness probe
+- `/health/metrics` - Application metrics
+
+### Logging
+Structured JSON logging with different levels:
+- `fatal` - System is unusable
+- `error` - Error conditions
+- `warn` - Warning conditions
+- `info` - Informational messages
+- `debug` - Debug messages
+- `trace` - Trace messages
+
+### Metrics
+Custom metrics exposed for Prometheus:
+- Request duration
+- Active users
+- Queue sizes
+- Cache hit rates
+- Database pool stats
+
+## 🔒 Security Best Practices
+
+1. **Authentication**
+   - JWT with short-lived access tokens
+   - Refresh token rotation
+   - Session management
+
+2. **Authorization**
+   - Role-based access control (RBAC)
+   - Resource-based permissions
+   - API key authentication for services
+
+3. **Data Protection**
+   - Encryption at rest
+   - Encryption in transit (TLS)
+   - Field-level encryption for sensitive data
+
+4. **Input Validation**
+   - Request validation with Zod
+   - SQL injection prevention
+   - XSS protection
+
+5. **Rate Limiting**
+   - Per-user rate limits
+   - Global rate limits
+   - Distributed rate limiting
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### Coding Standards
+- Follow TypeScript best practices
+- Write comprehensive tests
+- Document your code
+- Use conventional commits
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Inspired by bulletproof-nodejs
+- Built with modern Node.js ecosystem
+- Community best practices
+
+## 📞 Support
+
+- Documentation: [docs.example.com](https://docs.example.com)
+- Issues: [GitHub Issues](https://github.com/yourusername/modern-backend-template/issues)
+- Discord: [Join our community](https://discord.gg/example)
+
+---
+
+Built with ❤️ by the Modern Backend Template team

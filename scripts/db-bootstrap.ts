@@ -86,7 +86,7 @@ class DatabaseBootstrap {
    */
   private generateDatabaseUrl(): string {
     const { host, port, database, username, password, schema } = this.config;
-    const schemaParam = schema ? `?schema=${schema}` : '';
+    const schemaParam = schema && schema !== 'public' ? `?schema=${schema}` : '';
     return `postgresql://${username}:${password}@${host}:${port}/${database}${schemaParam}`;
   }
 
@@ -246,27 +246,9 @@ class DatabaseBootstrap {
         `docker exec $(docker-compose -f docker-compose.dev.yml ps -q postgres) psql "${postgresUrl}" -c "DROP DATABASE IF EXISTS ${database}"`,
       );
 
-      // 4. Drop user if exists
-      await execAsync(
-        `docker exec $(docker-compose -f docker-compose.dev.yml ps -q postgres) psql "${postgresUrl}" -c "DROP USER IF EXISTS myapp_user"`,
-      );
-
-      // 5. Create fresh database
+      // 4. Create fresh database
       await execAsync(
         `docker exec $(docker-compose -f docker-compose.dev.yml ps -q postgres) psql "${postgresUrl}" -c "CREATE DATABASE ${database}"`,
-      );
-
-      // 6. Create user with proper permissions
-      await execAsync(
-        `docker exec $(docker-compose -f docker-compose.dev.yml ps -q postgres) psql "${postgresUrl}" -c "CREATE USER myapp_user WITH PASSWORD 'password'"`,
-      );
-
-      // 7. Grant all privileges
-      await execAsync(
-        `docker exec $(docker-compose -f docker-compose.dev.yml ps -q postgres) psql "${postgresUrl}" -c "GRANT ALL PRIVILEGES ON DATABASE ${database} TO myapp_user"`,
-      );
-      await execAsync(
-        `docker exec $(docker-compose -f docker-compose.dev.yml ps -q postgres) psql "${postgresUrl}" -c "ALTER USER myapp_user CREATEDB"`,
       );
 
       console.log('✅ Manual database reset completed');
@@ -306,7 +288,7 @@ class DatabaseBootstrap {
   }
 
   /**
-   * Setup database với proper permissions
+   * Setup database với proper permissions - FIXED VERSION
    */
   async setupDatabasePermissions(): Promise<void> {
     console.log('🔐 Setting up database permissions...');
@@ -316,41 +298,65 @@ class DatabaseBootstrap {
       const postgresUrl = `postgresql://${username}:${password}@${host}:${port}/postgres`;
       const dbUrl = `postgresql://${username}:${password}@${host}:${port}/${database}`;
 
-      // 1. Ensure main user has proper permissions
-      const setupCommands = [
-        `ALTER USER ${username} CREATEDB;`,
-        `ALTER USER ${username} WITH SUPERUSER;`,
-        `GRANT ALL PRIVILEGES ON DATABASE ${database} TO ${username};`,
-      ];
-
-      for (const command of setupCommands) {
-        try {
-          await execAsync(
-            `docker exec $(docker-compose -f docker-compose.dev.yml ps -q postgres) psql "${postgresUrl}" -c "${command}"`,
-          );
-        } catch (error) {
-          // Some commands might fail if already set, that's OK
-          console.log(`⚠️  Command might have failed (likely already set): ${command}`);
-        }
+      // 1. First, ensure the database exists
+      try {
+        await execAsync(
+          `docker exec $(docker-compose -f docker-compose.dev.yml ps -q postgres) psql "${postgresUrl}" -c "CREATE DATABASE ${database}"`,
+        );
+      } catch (error) {
+        // Database might already exist, that's OK
       }
 
-      // 2. Grant schema permissions
-      const schemaCommands = [
+      // 2. Connect to the specific database and setup schema permissions
+      const setupCommands = [
+        // Grant all privileges on database
+        `GRANT ALL PRIVILEGES ON DATABASE ${database} TO ${username};`,
+
+        // Connect to the database and set up schema permissions
+        `\\c ${database}`,
+
+        // Grant schema permissions
         `GRANT ALL ON SCHEMA public TO ${username};`,
+        `GRANT CREATE ON SCHEMA public TO ${username};`,
+        `ALTER SCHEMA public OWNER TO ${username};`,
+
+        // Grant all privileges on all tables
         `GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO ${username};`,
         `GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO ${username};`,
+        `GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public TO ${username};`,
+
+        // Set default privileges
         `ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO ${username};`,
         `ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO ${username};`,
+        `ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON FUNCTIONS TO ${username};`,
       ];
 
-      for (const command of schemaCommands) {
-        try {
-          await execAsync(
-            `docker exec $(docker-compose -f docker-compose.dev.yml ps -q postgres) psql "${dbUrl}" -c "${command}"`,
-          );
-        } catch (error) {
-          console.log(`⚠️  Schema command might have failed: ${command}`);
-        }
+      // Execute commands in a single psql session
+      const commandString = setupCommands.join('\\n');
+
+      try {
+        await execAsync(
+          `docker exec $(docker-compose -f docker-compose.dev.yml ps -q postgres) psql "${postgresUrl}" -c "${commandString}"`,
+        );
+      } catch (error) {
+        console.log('⚠️  Some permission commands might have failed (this is often OK)');
+      }
+
+      // 3. Additional fix: ensure public schema exists and has correct permissions
+      const schemaFixCommands = `
+        \\c ${database}
+        CREATE SCHEMA IF NOT EXISTS public;
+        GRANT ALL ON SCHEMA public TO ${username};
+        GRANT ALL ON SCHEMA public TO public;
+        ALTER SCHEMA public OWNER TO ${username};
+      `;
+
+      try {
+        await execAsync(
+          `docker exec $(docker-compose -f docker-compose.dev.yml ps -q postgres) psql "${postgresUrl}" -c "${schemaFixCommands}"`,
+        );
+      } catch (error) {
+        console.log('⚠️  Schema fix commands might have failed (this is often OK)');
       }
 
       console.log('✅ Database permissions setup completed');
@@ -359,6 +365,46 @@ class DatabaseBootstrap {
       // Don't throw, as this might not always be necessary
     }
   }
+
+  /**
+   * Ensure database and schema exist before migrations
+   */
+  async ensureDatabaseAndSchema(): Promise<void> {
+    console.log('🔍 Ensuring database and schema exist...');
+
+    try {
+      const { database, username, password, host, port } = this.config;
+      const postgresUrl = `postgresql://${username}:${password}@${host}:${port}/postgres`;
+
+      // 1. Create database if not exists
+      try {
+        await execAsync(
+          `docker exec $(docker-compose -f docker-compose.dev.yml ps -q postgres) psql "${postgresUrl}" -c "CREATE DATABASE ${database}"`,
+        );
+        console.log('✅ Database created');
+      } catch (error) {
+        console.log('ℹ️  Database already exists');
+      }
+
+      // 2. Create and setup public schema
+      const schemaCommands = `
+        \\c ${database};
+        CREATE SCHEMA IF NOT EXISTS public;
+        GRANT ALL ON SCHEMA public TO ${username};
+        GRANT ALL ON SCHEMA public TO public;
+      `;
+
+      await execAsync(
+        `docker exec $(docker-compose -f docker-compose.dev.yml ps -q postgres) psql "${postgresUrl}" -c "${schemaCommands}"`,
+      );
+
+      console.log('✅ Schema setup completed');
+    } catch (error) {
+      console.error('❌ Failed to ensure database and schema:', error);
+      throw error;
+    }
+  }
+
   async bootstrap(options?: {
     skipDocker?: boolean;
     skipMigrations?: boolean;
@@ -375,12 +421,8 @@ class DatabaseBootstrap {
       // 1. Clean reset if requested (this includes stopping and removing Docker containers)
       if (cleanReset) {
         await this.cleanReset();
-        // cleanReset already starts Docker services, so skip the next step
-      } else {
-        // 1. Start Docker services
-        if (!skipDocker) {
-          await this.startDockerServices();
-        }
+      } else if (!skipDocker) {
+        await this.startDockerServices();
       }
 
       // 2. Update .env file
@@ -391,22 +433,23 @@ class DatabaseBootstrap {
         await this.resetDatabase();
       }
 
-      // 4. Setup database permissions if requested
-      if (forcePermissions) {
-        await this.setupDatabasePermissions();
-      }
+      // 4. CRITICAL: Ensure database and schema exist before any other operations
+      await this.ensureDatabaseAndSchema();
 
-      // 5. Run migrations
+      // 5. Setup database permissions
+      await this.setupDatabasePermissions();
+
+      // 6. Run migrations
       if (!skipMigrations) {
         await this.runMigrations();
       }
 
-      // 6. Seed database
+      // 7. Seed database
       if (!skipSeeding) {
         await this.seedDatabase();
       }
 
-      // 7. Test connection
+      // 8. Test connection
       await this.testConnection();
 
       console.log('\n🎉 Database bootstrap completed successfully!');

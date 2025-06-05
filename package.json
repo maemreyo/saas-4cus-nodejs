@@ -93,14 +93,14 @@
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.8",
     "tsconfig-paths": "^4.2.0",
-    "tsx": "^4.7.1",
+    "tsx": "^4.19.4",
     "typescript": "^5.4.2",
     "vite": "^5.1.6",
     "vitest": "^1.3.1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourusername/modern-backend-template.git"
+    "url": "git+https://github.com/maemreyo/saas-4cus-nodejs.git"
   },
   "keywords": [
     "nodejs",
@@ -112,6 +112,6 @@
     "redis",
     "production-ready"
   ],
-  "author": "Your Name",
+  "author": "Htur Wehttam",
   "license": "MIT"
 }

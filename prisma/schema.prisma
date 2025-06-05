@@ -22,7 +22,7 @@ enum UserStatus {
   DELETED
 }
 
-enum AuthProvider {
+enum AuthProviderType {
   LOCAL
   GOOGLE
   GITHUB
@@ -105,7 +105,7 @@ model User {
 model AuthProvider {
   id                String           @id @default(cuid())
   userId            String
-  provider          AuthProvider
+  provider          AuthProviderType
   providerId        String           @db.VarChar(255)
   providerEmail     String?          @db.VarChar(255)
   accessToken       String?          @db.Text

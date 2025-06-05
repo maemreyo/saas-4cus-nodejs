@@ -1,5 +1,5 @@
 import { Service } from 'typedi'
-import { User, AuthProvider as AuthProviderModel, Token, Session } from '@prisma/client'
+import { User, AuthProvider as AuthProviderModel, AuthProviderType, Token, Session } from '@prisma/client'
 import jwt from 'jsonwebtoken'
 import { authenticator } from 'otplib'
 import { OAuth2Client } from 'google-auth-library'
@@ -227,7 +227,7 @@ export class AuthService {
     let authProvider = await prisma.client.authProvider.findUnique({
       where: {
         provider_providerId: {
-          provider: profile.provider.toUpperCase() as any,
+          provider: profile.provider.toUpperCase() as AuthProviderType,
           providerId: profile.id
         }
       },
@@ -268,7 +268,7 @@ export class AuthService {
       await prisma.client.authProvider.create({
         data: {
           userId: user.id,
-          provider: profile.provider.toUpperCase() as any,
+          provider: profile.provider.toUpperCase() as AuthProviderType,
           providerId: profile.id,
           providerEmail: profile.email,
           metadata: profile as any

@@ -53,6 +53,40 @@ enum JobStatus {
   CANCELLED
 }
 
+enum SubscriptionStatus {
+  ACTIVE
+  PAST_DUE
+  CANCELED
+  INCOMPLETE
+  INCOMPLETE_EXPIRED
+  TRIALING
+  UNPAID
+  PAUSED
+}
+
+enum InvoiceStatus {
+  DRAFT
+  OPEN
+  PAID
+  UNCOLLECTIBLE
+  VOID
+  FAILED
+}
+
+enum TenantStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  DELETED
+}
+
+enum TenantMemberRole {
+  OWNER
+  ADMIN
+  MEMBER
+  VIEWER
+}
+
 // Models
 model User {
   id                String           @id @default(cuid())
@@ -93,6 +127,11 @@ model User {
   notifications     Notification[]
   auditLogs         AuditLog[]
   files             File[]
+  subscriptions     Subscription[]
+  projects          Project[]
+  apiUsage          ApiUsage[]
+  tenantMembers     TenantMember[]
+  ownedTenants      Tenant[]
 
   // Indexes
   @@index([email])
@@ -171,6 +210,329 @@ model Session {
   @@map("sessions")
 }
 
+// Multi-tenancy Models
+model Tenant {
+  id                String           @id @default(cuid())
+  name              String           @db.VarChar(255)
+  slug              String           @unique @db.VarChar(100)
+  logo              String?          @db.Text
+  description       String?          @db.Text
+
+  ownerId           String
+  status            TenantStatus     @default(ACTIVE)
+
+  // Billing
+  stripeCustomerId  String?          @unique
+  subscriptionId    String?          @unique
+
+  // Settings
+  settings          Json?            @db.JsonB
+  metadata          Json?            @db.JsonB
+
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  deletedAt         DateTime?
+
+  // Relations
+  owner             User             @relation(fields: [ownerId], references: [id])
+  members           TenantMember[]
+  subscription      Subscription?    @relation(fields: [subscriptionId], references: [id])
+  projects          Project[]
+  invitations       TenantInvitation[]
+
+  // Indexes
+  @@index([slug])
+  @@index([ownerId])
+  @@index([status])
+  @@map("tenants")
+}
+
+model TenantMember {
+  id                String           @id @default(cuid())
+  tenantId          String
+  userId            String
+  role              TenantMemberRole @default(MEMBER)
+
+  joinedAt          DateTime         @default(now())
+  invitedById       String?
+
+  // Relations
+  tenant            Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user              User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Constraints
+  @@unique([tenantId, userId])
+  @@index([tenantId])
+  @@index([userId])
+  @@map("tenant_members")
+}
+
+model TenantInvitation {
+  id                String           @id @default(cuid())
+  tenantId          String
+  email             String           @db.VarChar(255)
+  role              TenantMemberRole @default(MEMBER)
+  token             String           @unique
+
+  invitedById       String
+  expiresAt         DateTime
+  acceptedAt        DateTime?
+
+  createdAt         DateTime         @default(now())
+
+  // Relations
+  tenant            Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  // Indexes
+  @@index([token])
+  @@index([email])
+  @@index([tenantId])
+  @@map("tenant_invitations")
+}
+
+// Billing Models
+model Subscription {
+  id                  String              @id
+  userId              String
+  tenantId            String?             @unique
+  stripeCustomerId    String
+  stripePriceId       String
+  stripeProductId     String
+  status              SubscriptionStatus
+
+  currentPeriodStart  DateTime
+  currentPeriodEnd    DateTime
+  cancelAtPeriodEnd   Boolean             @default(false)
+  canceledAt          DateTime?
+  trialEnd            DateTime?
+
+  metadata            Json?               @db.JsonB
+
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+
+  // Relations
+  user                User                @relation(fields: [userId], references: [id])
+  tenant              Tenant?
+  invoices            Invoice[]
+  usageRecords        UsageRecord[]
+
+  // Indexes
+  @@index([userId])
+  @@index([status])
+  @@index([stripeCustomerId])
+  @@map("subscriptions")
+}
+
+model Invoice {
+  id                  String              @id @default(cuid())
+  subscriptionId      String
+  stripeInvoiceId     String              @unique
+  customerId          String
+
+  amount              Int
+  currency            String              @db.VarChar(3)
+  status              InvoiceStatus
+
+  periodStart         DateTime
+  periodEnd           DateTime
+  paidAt              DateTime?
+
+  hostedInvoiceUrl    String?             @db.Text
+  invoicePdf          String?             @db.Text
+
+  metadata            Json?               @db.JsonB
+
+  createdAt           DateTime            @default(now())
+
+  // Relations
+  subscription        Subscription        @relation(fields: [subscriptionId], references: [id])
+
+  // Indexes
+  @@index([subscriptionId])
+  @@index([status])
+  @@index([customerId])
+  @@map("invoices")
+}
+
+model UsageRecord {
+  id                  String              @id @default(cuid())
+  subscriptionId      String
+
+  quantity            Int
+  timestamp           DateTime
+  action              String              @db.VarChar(100)
+
+  metadata            Json?               @db.JsonB
+
+  createdAt           DateTime            @default(now())
+
+  // Relations
+  subscription        Subscription        @relation(fields: [subscriptionId], references: [id])
+
+  // Indexes
+  @@index([subscriptionId])
+  @@index([timestamp])
+  @@index([action])
+  @@map("usage_records")
+}
+
+// Feature Management
+model Plan {
+  id                  String              @id @default(cuid())
+  name                String              @db.VarChar(100)
+  slug                String              @unique @db.VarChar(50)
+  description         String?             @db.Text
+
+  stripePriceId       String?             @unique
+  stripeProductId     String?
+
+  price               Int                 // in cents
+  currency            String              @default("usd") @db.VarChar(3)
+  interval            String              @default("month") @db.VarChar(20)
+
+  trialDays           Int                 @default(0)
+  active              Boolean             @default(true)
+  popular             Boolean             @default(false)
+
+  metadata            Json?               @db.JsonB
+
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+
+  // Relations
+  features            PlanFeature[]
+
+  // Indexes
+  @@index([slug])
+  @@index([active])
+  @@map("plans")
+}
+
+model Feature {
+  id                  String              @id @default(cuid())
+  name                String              @db.VarChar(100)
+  key                 String              @unique @db.VarChar(50)
+  description         String?             @db.Text
+  category            String?             @db.VarChar(50)
+
+  metadata            Json?               @db.JsonB
+
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+
+  // Relations
+  plans               PlanFeature[]
+  featureUsage        FeatureUsage[]
+
+  // Indexes
+  @@index([key])
+  @@index([category])
+  @@map("features")
+}
+
+model PlanFeature {
+  id                  String              @id @default(cuid())
+  planId              String
+  featureId           String
+
+  included            Boolean             @default(true)
+  limitValue          Int?                // For numeric limits (e.g., max projects)
+
+  metadata            Json?               @db.JsonB
+
+  // Relations
+  plan                Plan                @relation(fields: [planId], references: [id], onDelete: Cascade)
+  feature             Feature             @relation(fields: [featureId], references: [id], onDelete: Cascade)
+
+  // Constraints
+  @@unique([planId, featureId])
+  @@index([planId])
+  @@index([featureId])
+  @@map("plan_features")
+}
+
+model FeatureUsage {
+  id                  String              @id @default(cuid())
+  userId              String
+  featureId           String
+  tenantId            String?
+
+  count               Int                 @default(1)
+  lastUsedAt          DateTime            @default(now())
+
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+
+  // Relations
+  feature             Feature             @relation(fields: [featureId], references: [id])
+
+  // Indexes
+  @@index([userId])
+  @@index([featureId])
+  @@index([tenantId])
+  @@index([lastUsedAt])
+  @@map("feature_usage")
+}
+
+// API Usage Tracking
+model ApiUsage {
+  id                  String              @id @default(cuid())
+  userId              String
+  tenantId            String?
+
+  endpoint            String              @db.VarChar(255)
+  method              String              @db.VarChar(10)
+  statusCode          Int
+  responseTime        Int                 // in milliseconds
+
+  ipAddress           String?             @db.VarChar(45)
+  userAgent           String?             @db.Text
+
+  metadata            Json?               @db.JsonB
+
+  createdAt           DateTime            @default(now())
+
+  // Relations
+  user                User                @relation(fields: [userId], references: [id])
+
+  // Indexes
+  @@index([userId])
+  @@index([tenantId])
+  @@index([endpoint])
+  @@index([createdAt])
+  @@map("api_usage")
+}
+
+// Project Model (Example business entity)
+model Project {
+  id                  String              @id @default(cuid())
+  userId              String
+  tenantId            String?
+
+  name                String              @db.VarChar(255)
+  description         String?             @db.Text
+  slug                String              @unique
+
+  settings            Json?               @db.JsonB
+  metadata            Json?               @db.JsonB
+
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+  deletedAt           DateTime?
+
+  // Relations
+  user                User                @relation(fields: [userId], references: [id])
+  tenant              Tenant?             @relation(fields: [tenantId], references: [id])
+
+  // Indexes
+  @@index([userId])
+  @@index([tenantId])
+  @@index([slug])
+  @@map("projects")
+}
+
+// Existing models remain unchanged...
 model Notification {
   id                String           @id @default(cuid())
   userId            String

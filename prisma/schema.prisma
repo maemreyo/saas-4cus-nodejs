@@ -133,6 +133,14 @@ model User {
   tenantMembers TenantMember[]
   ownedTenants  Tenant[]
 
+  // Ticket
+  tickets           Ticket[]           @relation("UserTickets")
+  assignedTickets   Ticket[]           @relation("AssignedTickets")
+  ticketMessages    TicketMessage[]
+  ticketAttachments TicketAttachment[]
+  ticketHistory     TicketHistory[]
+  watchedTickets    TicketWatcher[]
+
   // Indexes
   @@index([email])
   @@index([username])
@@ -532,7 +540,6 @@ model Project {
   @@map("projects")
 }
 
-// Existing models remain unchanged...
 model Notification {
   id     String           @id @default(cuid())
   userId String
@@ -606,7 +613,8 @@ model File {
   deletedAt DateTime?
 
   // Relations
-  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+  user              User?              @relation(fields: [userId], references: [id], onDelete: SetNull)
+  ticketAttachments TicketAttachment[]
 
   // Indexes
   @@index([userId])
@@ -688,6 +696,8 @@ model AnalyticsEvent {
   @@map("analytics_events")
 }
 
+// ========================= WEBHOOKS =========================
+
 model WebhookEndpoint {
   id       String  @id @default(cuid())
   userId   String
@@ -760,6 +770,8 @@ model WebhookDelivery {
   @@index([createdAt])
   @@map("webhook_deliveries")
 }
+
+// ========================= USER ONBOARDING =========================
 
 enum OnboardingStatus {
   IN_PROGRESS
@@ -841,4 +853,260 @@ model OnboardingProgress {
   percentComplete        Int
   isComplete             Boolean
   estimatedTimeRemaining Int // in minutes
+}
+
+// ========================= TICKET SYSTEM =========================
+
+// Enums for Support Ticket System
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  WAITING_CUSTOMER
+  WAITING_AGENT
+  RESOLVED
+  CLOSED
+  CANCELLED
+}
+
+enum TicketPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+  CRITICAL
+}
+
+enum TicketType {
+  QUESTION
+  PROBLEM
+  FEATURE_REQUEST
+  BUG_REPORT
+  BILLING
+  ACCOUNT
+  OTHER
+}
+
+// Support Ticket Models
+model TicketCategory {
+  id          String  @id @default(cuid())
+  name        String  @db.VarChar(100)
+  slug        String  @unique @db.VarChar(50)
+  description String? @db.Text
+  icon        String? @db.VarChar(50)
+  color       String? @db.VarChar(7)
+  sortOrder   Int     @default(0)
+  active      Boolean @default(true)
+
+  parentId String?
+  parent   TicketCategory?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children TicketCategory[] @relation("CategoryHierarchy")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  tickets Ticket[]
+
+  // Indexes
+  @@index([slug])
+  @@index([parentId])
+  @@map("ticket_categories")
+}
+
+model Ticket {
+  id       String  @id @default(cuid())
+  number   String  @unique @db.VarChar(20) // Format: TICK-YYYYMMDD-XXXX
+  userId   String
+  tenantId String?
+
+  subject     String         @db.VarChar(255)
+  description String         @db.Text
+  type        TicketType     @default(QUESTION)
+  status      TicketStatus   @default(OPEN)
+  priority    TicketPriority @default(MEDIUM)
+
+  categoryId String?
+  category   TicketCategory? @relation(fields: [categoryId], references: [id])
+
+  assignedToId String?
+  assignedTo   User?   @relation("AssignedTickets", fields: [assignedToId], references: [id])
+
+  // Customer satisfaction
+  rating          Int?      @db.SmallInt
+  ratingComment   String?   @db.Text
+  ratingCreatedAt DateTime?
+
+  // SLA tracking
+  firstResponseAt  DateTime?
+  firstResponseSla Int? // in minutes
+  resolutionAt     DateTime?
+  resolutionSla    Int? // in minutes
+  slaBreached      Boolean   @default(false)
+
+  // Metadata
+  source    String? @db.VarChar(50) // email, web, api, chat
+  ipAddress String? @db.VarChar(45)
+  userAgent String? @db.Text
+  metadata  Json?   @db.JsonB
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  closedAt  DateTime?
+  deletedAt DateTime?
+
+  // Relations
+  user        User               @relation("UserTickets", fields: [userId], references: [id])
+  messages    TicketMessage[]
+  attachments TicketAttachment[]
+  tags        TicketTag[]        @relation("TicketTags")
+  history     TicketHistory[]
+  watchers    TicketWatcher[]
+
+  // Indexes
+  @@index([number])
+  @@index([userId])
+  @@index([tenantId])
+  @@index([status])
+  @@index([priority])
+  @@index([assignedToId])
+  @@index([categoryId])
+  @@index([createdAt])
+  @@map("tickets")
+}
+
+model TicketMessage {
+  id       String  @id @default(cuid())
+  ticketId String
+  userId   String
+  content  String  @db.Text
+  internal Boolean @default(false) // Internal notes not visible to customer
+
+  // For system messages
+  isSystem   Boolean @default(false)
+  systemType String? @db.VarChar(50) // status_change, assignment_change, etc.
+
+  metadata Json? @db.JsonB
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  editedAt  DateTime?
+  deletedAt DateTime?
+
+  // Relations
+  ticket      Ticket             @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  user        User               @relation(fields: [userId], references: [id])
+  attachments TicketAttachment[]
+
+  // Indexes
+  @@index([ticketId])
+  @@index([userId])
+  @@index([createdAt])
+  @@map("ticket_messages")
+}
+
+model TicketAttachment {
+  id        String  @id @default(cuid())
+  ticketId  String
+  messageId String?
+  userId    String
+  fileId    String
+
+  filename String @db.VarChar(255)
+  size     Int
+  mimeType String @db.VarChar(100)
+  url      String @db.Text
+
+  createdAt DateTime @default(now())
+
+  // Relations
+  ticket  Ticket         @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  message TicketMessage? @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  user    User           @relation(fields: [userId], references: [id])
+  file    File           @relation(fields: [fileId], references: [id])
+
+  // Constraints
+  @@unique([ticketId, fileId])
+  @@index([ticketId])
+  @@index([messageId])
+  @@map("ticket_attachments")
+}
+
+model TicketTag {
+  id    String @id @default(cuid())
+  name  String @unique @db.VarChar(50)
+  slug  String @unique @db.VarChar(50)
+  color String @default("#6B7280") @db.VarChar(7)
+
+  createdAt DateTime @default(now())
+
+  // Relations
+  tickets Ticket[] @relation("TicketTags")
+
+  // Indexes
+  @@index([slug])
+  @@map("ticket_tags")
+}
+
+model TicketHistory {
+  id       String @id @default(cuid())
+  ticketId String
+  userId   String
+  action   String @db.VarChar(100) // created, updated, status_changed, assigned, etc.
+
+  field    String? @db.VarChar(50)
+  oldValue String? @db.Text
+  newValue String? @db.Text
+  metadata Json?   @db.JsonB
+
+  createdAt DateTime @default(now())
+
+  // Relations
+  ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id])
+
+  // Indexes
+  @@index([ticketId])
+  @@index([action])
+  @@index([createdAt])
+  @@map("ticket_history")
+}
+
+model TicketWatcher {
+  id       String @id @default(cuid())
+  ticketId String
+  userId   String
+
+  createdAt DateTime @default(now())
+
+  // Relations
+  ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id])
+
+  // Constraints
+  @@unique([ticketId, userId])
+  @@index([ticketId])
+  @@index([userId])
+  @@map("ticket_watchers")
+}
+
+model TicketTemplate {
+  id          String          @id @default(cuid())
+  name        String          @db.VarChar(100)
+  slug        String          @unique @db.VarChar(50)
+  description String?         @db.Text
+  subject     String          @db.VarChar(255)
+  content     String          @db.Text
+  categoryId  String?
+  type        TicketType?
+  priority    TicketPriority?
+  active      Boolean         @default(true)
+
+  metadata Json? @db.JsonB
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Indexes
+  @@index([slug])
+  @@map("ticket_templates")
 }

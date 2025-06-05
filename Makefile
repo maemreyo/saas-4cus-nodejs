@@ -13,7 +13,7 @@ help:
 .PHONY: dev
 dev:
 	docker-compose -f docker-compose.dev.yml up -d
-	npm run dev
+	pnpm dev
 
 .PHONY: build
 build:
@@ -34,15 +34,15 @@ logs:
 
 .PHONY: test
 test:
-	npm test
+	pnpm test
 
 .PHONY: migrate
 migrate:
-	npm run db:migrate
+	pnpm db:migrate
 
 .PHONY: seed
 seed:
-	npm run db:seed
+	pnpm db:seed
 
 .PHONY: clean
 clean:

@@ -67,7 +67,7 @@ git clone https://github.com/yourusername/modern-backend-template.git
 cd modern-backend-template
 
 # Install dependencies
-npm install
+pnpm install
 
 # Copy environment variables
 cp .env.example .env
@@ -76,13 +76,13 @@ cp .env.example .env
 docker-compose -f docker-compose.dev.yml up -d
 
 # Run database migrations
-npm run db:migrate
+pnpm db:migrate
 
 # Seed the database
-npm run db:seed
+pnpm db:seed
 
 # Start development server
-npm run dev
+pnpm dev
 ```
 
 ### Using Docker
@@ -204,19 +204,19 @@ Content-Type: application/json
 
 ```bash
 # Run all tests
-npm test
+pnpm test
 
 # Run unit tests
-npm run test:unit
+pnpm test:unit
 
 # Run integration tests
-npm run test:integration
+pnpm test:integration
 
 # Run with coverage
-npm run test:coverage
+pnpm test:coverage
 
 # Run in watch mode
-npm run test:watch
+pnpm test:watch
 ```
 
 ### Test Structure
@@ -233,10 +233,10 @@ tests/
 ### Production Build
 ```bash
 # Build the application
-npm run build
+pnpm build
 
 # Start production server
-npm run start:prod
+pnpm start:prod
 ```
 
 ### Docker Deployment

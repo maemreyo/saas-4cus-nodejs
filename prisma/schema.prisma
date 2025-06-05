@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
@@ -89,49 +89,49 @@ enum TenantMemberRole {
 
 // Models
 model User {
-  id                String           @id @default(cuid())
-  email             String           @unique @db.VarChar(255)
-  username          String?          @unique @db.VarChar(50)
-  password          String?          @db.VarChar(255)
+  id       String  @id @default(cuid())
+  email    String  @unique @db.VarChar(255)
+  username String? @unique @db.VarChar(50)
+  password String? @db.VarChar(255)
 
-  firstName         String?          @db.VarChar(100)
-  lastName          String?          @db.VarChar(100)
-  displayName       String?          @db.VarChar(100)
-  avatar            String?          @db.Text
-  bio               String?          @db.Text
+  firstName   String? @db.VarChar(100)
+  lastName    String? @db.VarChar(100)
+  displayName String? @db.VarChar(100)
+  avatar      String? @db.Text
+  bio         String? @db.Text
 
-  role              UserRole         @default(USER)
-  status            UserStatus       @default(ACTIVE)
+  role   UserRole   @default(USER)
+  status UserStatus @default(ACTIVE)
 
-  emailVerified     Boolean          @default(false)
-  emailVerifiedAt   DateTime?
+  emailVerified   Boolean   @default(false)
+  emailVerifiedAt DateTime?
 
-  twoFactorEnabled  Boolean          @default(false)
-  twoFactorSecret   String?          @db.VarChar(255)
+  twoFactorEnabled Boolean @default(false)
+  twoFactorSecret  String? @db.VarChar(255)
 
-  lastLoginAt       DateTime?
-  lastLoginIp       String?          @db.VarChar(45)
-  loginCount        Int              @default(0)
+  lastLoginAt DateTime?
+  lastLoginIp String?   @db.VarChar(45)
+  loginCount  Int       @default(0)
 
-  metadata          Json?            @db.JsonB
-  preferences       Json?            @db.JsonB
+  metadata    Json? @db.JsonB
+  preferences Json? @db.JsonB
 
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
-  deletedAt         DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 
   // Relations
-  authProviders     AuthProvider[]
-  tokens            Token[]
-  sessions          Session[]
-  notifications     Notification[]
-  auditLogs         AuditLog[]
-  files             File[]
-  subscriptions     Subscription[]
-  projects          Project[]
-  apiUsage          ApiUsage[]
-  tenantMembers     TenantMember[]
-  ownedTenants      Tenant[]
+  authProviders AuthProvider[]
+  tokens        Token[]
+  sessions      Session[]
+  notifications Notification[]
+  auditLogs     AuditLog[]
+  files         File[]
+  subscriptions Subscription[]
+  projects      Project[]
+  apiUsage      ApiUsage[]
+  tenantMembers TenantMember[]
+  ownedTenants  Tenant[]
 
   // Indexes
   @@index([email])
@@ -142,21 +142,21 @@ model User {
 }
 
 model AuthProvider {
-  id                String           @id @default(cuid())
-  userId            String
-  provider          AuthProviderType
-  providerId        String           @db.VarChar(255)
-  providerEmail     String?          @db.VarChar(255)
-  accessToken       String?          @db.Text
-  refreshToken      String?          @db.Text
-  expiresAt         DateTime?
-  metadata          Json?            @db.JsonB
+  id            String           @id @default(cuid())
+  userId        String
+  provider      AuthProviderType
+  providerId    String           @db.VarChar(255)
+  providerEmail String?          @db.VarChar(255)
+  accessToken   String?          @db.Text
+  refreshToken  String?          @db.Text
+  expiresAt     DateTime?
+  metadata      Json?            @db.JsonB
 
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Relations
-  user              User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   // Constraints
   @@unique([provider, providerId])
@@ -165,18 +165,18 @@ model AuthProvider {
 }
 
 model Token {
-  id                String           @id @default(cuid())
-  userId            String?
-  type              TokenType
-  token             String           @unique @db.VarChar(500)
-  expiresAt         DateTime
-  usedAt            DateTime?
-  metadata          Json?            @db.JsonB
+  id        String    @id @default(cuid())
+  userId    String?
+  type      TokenType
+  token     String    @unique @db.VarChar(500)
+  expiresAt DateTime
+  usedAt    DateTime?
+  metadata  Json?     @db.JsonB
 
-  createdAt         DateTime         @default(now())
+  createdAt DateTime @default(now())
 
   // Relations
-  user              User?            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   // Indexes
   @@index([token])
@@ -186,22 +186,22 @@ model Token {
 }
 
 model Session {
-  id                String           @id @default(cuid())
-  userId            String
-  token             String           @unique @db.VarChar(500)
+  id     String @id @default(cuid())
+  userId String
+  token  String @unique @db.VarChar(500)
 
-  ipAddress         String?          @db.VarChar(45)
-  userAgent         String?          @db.Text
-  device            String?          @db.VarChar(255)
-  location          String?          @db.VarChar(255)
+  ipAddress String? @db.VarChar(45)
+  userAgent String? @db.Text
+  device    String? @db.VarChar(255)
+  location  String? @db.VarChar(255)
 
-  lastActivityAt    DateTime         @default(now())
-  expiresAt         DateTime
+  lastActivityAt DateTime @default(now())
+  expiresAt      DateTime
 
-  createdAt         DateTime         @default(now())
+  createdAt DateTime @default(now())
 
   // Relations
-  user              User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   // Indexes
   @@index([token])
@@ -212,33 +212,33 @@ model Session {
 
 // Multi-tenancy Models
 model Tenant {
-  id                String           @id @default(cuid())
-  name              String           @db.VarChar(255)
-  slug              String           @unique @db.VarChar(100)
-  logo              String?          @db.Text
-  description       String?          @db.Text
+  id          String  @id @default(cuid())
+  name        String  @db.VarChar(255)
+  slug        String  @unique @db.VarChar(100)
+  logo        String? @db.Text
+  description String? @db.Text
 
-  ownerId           String
-  status            TenantStatus     @default(ACTIVE)
+  ownerId String
+  status  TenantStatus @default(ACTIVE)
 
   // Billing
-  stripeCustomerId  String?          @unique
-  subscriptionId    String?          @unique
+  stripeCustomerId String? @unique
+  subscriptionId   String? @unique
 
   // Settings
-  settings          Json?            @db.JsonB
-  metadata          Json?            @db.JsonB
+  settings Json? @db.JsonB
+  metadata Json? @db.JsonB
 
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
-  deletedAt         DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 
   // Relations
-  owner             User             @relation(fields: [ownerId], references: [id])
-  members           TenantMember[]
-  subscription      Subscription?    @relation(fields: [subscriptionId], references: [id])
-  projects          Project[]
-  invitations       TenantInvitation[]
+  owner        User               @relation(fields: [ownerId], references: [id])
+  members      TenantMember[]
+  subscription Subscription?      @relation(fields: [subscriptionId], references: [id])
+  projects     Project[]
+  invitations  TenantInvitation[]
 
   // Indexes
   @@index([slug])
@@ -248,17 +248,17 @@ model Tenant {
 }
 
 model TenantMember {
-  id                String           @id @default(cuid())
-  tenantId          String
-  userId            String
-  role              TenantMemberRole @default(MEMBER)
+  id       String           @id @default(cuid())
+  tenantId String
+  userId   String
+  role     TenantMemberRole @default(MEMBER)
 
-  joinedAt          DateTime         @default(now())
-  invitedById       String?
+  joinedAt    DateTime @default(now())
+  invitedById String?
 
   // Relations
-  tenant            Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  user              User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   // Constraints
   @@unique([tenantId, userId])
@@ -268,20 +268,20 @@ model TenantMember {
 }
 
 model TenantInvitation {
-  id                String           @id @default(cuid())
-  tenantId          String
-  email             String           @db.VarChar(255)
-  role              TenantMemberRole @default(MEMBER)
-  token             String           @unique
+  id       String           @id @default(cuid())
+  tenantId String
+  email    String           @db.VarChar(255)
+  role     TenantMemberRole @default(MEMBER)
+  token    String           @unique
 
-  invitedById       String
-  expiresAt         DateTime
-  acceptedAt        DateTime?
+  invitedById String
+  expiresAt   DateTime
+  acceptedAt  DateTime?
 
-  createdAt         DateTime         @default(now())
+  createdAt DateTime @default(now())
 
   // Relations
-  tenant            Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 
   // Indexes
   @@index([token])
@@ -292,30 +292,30 @@ model TenantInvitation {
 
 // Billing Models
 model Subscription {
-  id                  String              @id
-  userId              String
-  tenantId            String?             @unique
-  stripeCustomerId    String
-  stripePriceId       String
-  stripeProductId     String
-  status              SubscriptionStatus
+  id               String             @id
+  userId           String
+  tenantId         String?            @unique
+  stripeCustomerId String
+  stripePriceId    String
+  stripeProductId  String
+  status           SubscriptionStatus
 
-  currentPeriodStart  DateTime
-  currentPeriodEnd    DateTime
-  cancelAtPeriodEnd   Boolean             @default(false)
-  canceledAt          DateTime?
-  trialEnd            DateTime?
+  currentPeriodStart DateTime
+  currentPeriodEnd   DateTime
+  cancelAtPeriodEnd  Boolean   @default(false)
+  canceledAt         DateTime?
+  trialEnd           DateTime?
 
-  metadata            Json?               @db.JsonB
+  metadata Json? @db.JsonB
 
-  createdAt           DateTime            @default(now())
-  updatedAt           DateTime            @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Relations
-  user                User                @relation(fields: [userId], references: [id])
-  tenant              Tenant?
-  invoices            Invoice[]
-  usageRecords        UsageRecord[]
+  user         User          @relation(fields: [userId], references: [id])
+  tenant       Tenant?
+  invoices     Invoice[]
+  usageRecords UsageRecord[]
 
   // Indexes
   @@index([userId])
@@ -325,28 +325,28 @@ model Subscription {
 }
 
 model Invoice {
-  id                  String              @id @default(cuid())
-  subscriptionId      String
-  stripeInvoiceId     String              @unique
-  customerId          String
+  id              String @id @default(cuid())
+  subscriptionId  String
+  stripeInvoiceId String @unique
+  customerId      String
 
-  amount              Int
-  currency            String              @db.VarChar(3)
-  status              InvoiceStatus
+  amount   Int
+  currency String        @db.VarChar(3)
+  status   InvoiceStatus
 
-  periodStart         DateTime
-  periodEnd           DateTime
-  paidAt              DateTime?
+  periodStart DateTime
+  periodEnd   DateTime
+  paidAt      DateTime?
 
-  hostedInvoiceUrl    String?             @db.Text
-  invoicePdf          String?             @db.Text
+  hostedInvoiceUrl String? @db.Text
+  invoicePdf       String? @db.Text
 
-  metadata            Json?               @db.JsonB
+  metadata Json? @db.JsonB
 
-  createdAt           DateTime            @default(now())
+  createdAt DateTime @default(now())
 
   // Relations
-  subscription        Subscription        @relation(fields: [subscriptionId], references: [id])
+  subscription Subscription @relation(fields: [subscriptionId], references: [id])
 
   // Indexes
   @@index([subscriptionId])
@@ -356,19 +356,19 @@ model Invoice {
 }
 
 model UsageRecord {
-  id                  String              @id @default(cuid())
-  subscriptionId      String
+  id             String @id @default(cuid())
+  subscriptionId String
 
-  quantity            Int
-  timestamp           DateTime
-  action              String              @db.VarChar(100)
+  quantity  Int
+  timestamp DateTime
+  action    String   @db.VarChar(100)
 
-  metadata            Json?               @db.JsonB
+  metadata Json? @db.JsonB
 
-  createdAt           DateTime            @default(now())
+  createdAt DateTime @default(now())
 
   // Relations
-  subscription        Subscription        @relation(fields: [subscriptionId], references: [id])
+  subscription Subscription @relation(fields: [subscriptionId], references: [id])
 
   // Indexes
   @@index([subscriptionId])
@@ -379,29 +379,29 @@ model UsageRecord {
 
 // Feature Management
 model Plan {
-  id                  String              @id @default(cuid())
-  name                String              @db.VarChar(100)
-  slug                String              @unique @db.VarChar(50)
-  description         String?             @db.Text
+  id          String  @id @default(cuid())
+  name        String  @db.VarChar(100)
+  slug        String  @unique @db.VarChar(50)
+  description String? @db.Text
 
-  stripePriceId       String?             @unique
-  stripeProductId     String?
+  stripePriceId   String? @unique
+  stripeProductId String?
 
-  price               Int                 // in cents
-  currency            String              @default("usd") @db.VarChar(3)
-  interval            String              @default("month") @db.VarChar(20)
+  price    Int // in cents
+  currency String @default("usd") @db.VarChar(3)
+  interval String @default("month") @db.VarChar(20)
 
-  trialDays           Int                 @default(0)
-  active              Boolean             @default(true)
-  popular             Boolean             @default(false)
+  trialDays Int     @default(0)
+  active    Boolean @default(true)
+  popular   Boolean @default(false)
 
-  metadata            Json?               @db.JsonB
+  metadata Json? @db.JsonB
 
-  createdAt           DateTime            @default(now())
-  updatedAt           DateTime            @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Relations
-  features            PlanFeature[]
+  features PlanFeature[]
 
   // Indexes
   @@index([slug])
@@ -410,20 +410,20 @@ model Plan {
 }
 
 model Feature {
-  id                  String              @id @default(cuid())
-  name                String              @db.VarChar(100)
-  key                 String              @unique @db.VarChar(50)
-  description         String?             @db.Text
-  category            String?             @db.VarChar(50)
+  id          String  @id @default(cuid())
+  name        String  @db.VarChar(100)
+  key         String  @unique @db.VarChar(50)
+  description String? @db.Text
+  category    String? @db.VarChar(50)
 
-  metadata            Json?               @db.JsonB
+  metadata Json? @db.JsonB
 
-  createdAt           DateTime            @default(now())
-  updatedAt           DateTime            @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Relations
-  plans               PlanFeature[]
-  featureUsage        FeatureUsage[]
+  plans        PlanFeature[]
+  featureUsage FeatureUsage[]
 
   // Indexes
   @@index([key])
@@ -432,18 +432,18 @@ model Feature {
 }
 
 model PlanFeature {
-  id                  String              @id @default(cuid())
-  planId              String
-  featureId           String
+  id        String @id @default(cuid())
+  planId    String
+  featureId String
 
-  included            Boolean             @default(true)
-  limitValue          Int?                // For numeric limits (e.g., max projects)
+  included   Boolean @default(true)
+  limitValue Int? // For numeric limits (e.g., max projects)
 
-  metadata            Json?               @db.JsonB
+  metadata Json? @db.JsonB
 
   // Relations
-  plan                Plan                @relation(fields: [planId], references: [id], onDelete: Cascade)
-  feature             Feature             @relation(fields: [featureId], references: [id], onDelete: Cascade)
+  plan    Plan    @relation(fields: [planId], references: [id], onDelete: Cascade)
+  feature Feature @relation(fields: [featureId], references: [id], onDelete: Cascade)
 
   // Constraints
   @@unique([planId, featureId])
@@ -453,19 +453,19 @@ model PlanFeature {
 }
 
 model FeatureUsage {
-  id                  String              @id @default(cuid())
-  userId              String
-  featureId           String
-  tenantId            String?
+  id        String  @id @default(cuid())
+  userId    String
+  featureId String
+  tenantId  String?
 
-  count               Int                 @default(1)
-  lastUsedAt          DateTime            @default(now())
+  count      Int      @default(1)
+  lastUsedAt DateTime @default(now())
 
-  createdAt           DateTime            @default(now())
-  updatedAt           DateTime            @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Relations
-  feature             Feature             @relation(fields: [featureId], references: [id])
+  feature Feature @relation(fields: [featureId], references: [id])
 
   // Indexes
   @@index([userId])
@@ -477,24 +477,24 @@ model FeatureUsage {
 
 // API Usage Tracking
 model ApiUsage {
-  id                  String              @id @default(cuid())
-  userId              String
-  tenantId            String?
+  id       String  @id @default(cuid())
+  userId   String
+  tenantId String?
 
-  endpoint            String              @db.VarChar(255)
-  method              String              @db.VarChar(10)
-  statusCode          Int
-  responseTime        Int                 // in milliseconds
+  endpoint     String @db.VarChar(255)
+  method       String @db.VarChar(10)
+  statusCode   Int
+  responseTime Int // in milliseconds
 
-  ipAddress           String?             @db.VarChar(45)
-  userAgent           String?             @db.Text
+  ipAddress String? @db.VarChar(45)
+  userAgent String? @db.Text
 
-  metadata            Json?               @db.JsonB
+  metadata Json? @db.JsonB
 
-  createdAt           DateTime            @default(now())
+  createdAt DateTime @default(now())
 
   // Relations
-  user                User                @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 
   // Indexes
   @@index([userId])
@@ -506,24 +506,24 @@ model ApiUsage {
 
 // Project Model (Example business entity)
 model Project {
-  id                  String              @id @default(cuid())
-  userId              String
-  tenantId            String?
+  id       String  @id @default(cuid())
+  userId   String
+  tenantId String?
 
-  name                String              @db.VarChar(255)
-  description         String?             @db.Text
-  slug                String              @unique
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+  slug        String  @unique
 
-  settings            Json?               @db.JsonB
-  metadata            Json?               @db.JsonB
+  settings Json? @db.JsonB
+  metadata Json? @db.JsonB
 
-  createdAt           DateTime            @default(now())
-  updatedAt           DateTime            @updatedAt
-  deletedAt           DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 
   // Relations
-  user                User                @relation(fields: [userId], references: [id])
-  tenant              Tenant?             @relation(fields: [tenantId], references: [id])
+  user   User    @relation(fields: [userId], references: [id])
+  tenant Tenant? @relation(fields: [tenantId], references: [id])
 
   // Indexes
   @@index([userId])
@@ -534,23 +534,23 @@ model Project {
 
 // Existing models remain unchanged...
 model Notification {
-  id                String           @id @default(cuid())
-  userId            String
-  type              NotificationType
+  id     String           @id @default(cuid())
+  userId String
+  type   NotificationType
 
-  title             String           @db.VarChar(255)
-  content           String           @db.Text
+  title   String @db.VarChar(255)
+  content String @db.Text
 
-  readAt            DateTime?
-  sentAt            DateTime?
+  readAt DateTime?
+  sentAt DateTime?
 
-  metadata          Json?            @db.JsonB
+  metadata Json? @db.JsonB
 
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Relations
-  user              User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   // Indexes
   @@index([userId, readAt])
@@ -560,23 +560,23 @@ model Notification {
 }
 
 model AuditLog {
-  id                String           @id @default(cuid())
-  userId            String?
+  id     String  @id @default(cuid())
+  userId String?
 
-  action            String           @db.VarChar(100)
-  entity            String           @db.VarChar(100)
-  entityId          String?          @db.VarChar(255)
+  action   String  @db.VarChar(100)
+  entity   String  @db.VarChar(100)
+  entityId String? @db.VarChar(255)
 
-  oldValues         Json?            @db.JsonB
-  newValues         Json?            @db.JsonB
+  oldValues Json? @db.JsonB
+  newValues Json? @db.JsonB
 
-  ipAddress         String?          @db.VarChar(45)
-  userAgent         String?          @db.Text
+  ipAddress String? @db.VarChar(45)
+  userAgent String? @db.Text
 
-  createdAt         DateTime         @default(now())
+  createdAt DateTime @default(now())
 
   // Relations
-  user              User?            @relation(fields: [userId], references: [id], onDelete: SetNull)
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   // Indexes
   @@index([userId])
@@ -587,26 +587,26 @@ model AuditLog {
 }
 
 model File {
-  id                String           @id @default(cuid())
-  userId            String?
+  id     String  @id @default(cuid())
+  userId String?
 
-  filename          String           @db.VarChar(255)
-  originalName      String           @db.VarChar(255)
-  mimeType          String           @db.VarChar(100)
-  size              Int
+  filename     String @db.VarChar(255)
+  originalName String @db.VarChar(255)
+  mimeType     String @db.VarChar(100)
+  size         Int
 
-  storage           String           @db.VarChar(50)
-  path              String           @db.Text
-  url               String?          @db.Text
+  storage String  @db.VarChar(50)
+  path    String  @db.Text
+  url     String? @db.Text
 
-  metadata          Json?            @db.JsonB
+  metadata Json? @db.JsonB
 
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
-  deletedAt         DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 
   // Relations
-  user              User?            @relation(fields: [userId], references: [id], onDelete: SetNull)
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   // Indexes
   @@index([userId])
@@ -615,26 +615,26 @@ model File {
 }
 
 model Job {
-  id                String           @id @default(cuid())
+  id String @id @default(cuid())
 
-  queue             String           @db.VarChar(100)
-  name              String           @db.VarChar(100)
-  status            JobStatus        @default(PENDING)
+  queue  String    @db.VarChar(100)
+  name   String    @db.VarChar(100)
+  status JobStatus @default(PENDING)
 
-  data              Json             @db.JsonB
-  result            Json?            @db.JsonB
-  error             Json?            @db.JsonB
+  data   Json  @db.JsonB
+  result Json? @db.JsonB
+  error  Json? @db.JsonB
 
-  attempts          Int              @default(0)
-  maxAttempts       Int              @default(3)
+  attempts    Int @default(0)
+  maxAttempts Int @default(3)
 
-  scheduledFor      DateTime?
-  startedAt         DateTime?
-  completedAt       DateTime?
-  failedAt          DateTime?
+  scheduledFor DateTime?
+  startedAt    DateTime?
+  completedAt  DateTime?
+  failedAt     DateTime?
 
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Indexes
   @@index([queue, status])
@@ -644,15 +644,201 @@ model Job {
 }
 
 model Setting {
-  id                String           @id @default(cuid())
-  key               String           @unique @db.VarChar(255)
-  value             Json             @db.JsonB
-  description       String?          @db.Text
+  id          String  @id @default(cuid())
+  key         String  @unique @db.VarChar(255)
+  value       Json    @db.JsonB
+  description String? @db.Text
 
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Indexes
   @@index([key])
   @@map("settings")
+}
+
+model AnalyticsEvent {
+  id       String  @id @default(cuid())
+  userId   String?
+  tenantId String?
+
+  event      String @db.VarChar(100)
+  properties Json?  @db.JsonB
+
+  sessionId String? @db.VarChar(100)
+  deviceId  String? @db.VarChar(100)
+
+  ipAddress String? @db.VarChar(45)
+  userAgent String? @db.Text
+  referrer  String? @db.Text
+
+  utmSource   String? @db.VarChar(100)
+  utmMedium   String? @db.VarChar(100)
+  utmCampaign String? @db.VarChar(100)
+  utmTerm     String? @db.VarChar(100)
+  utmContent  String? @db.VarChar(100)
+
+  timestamp DateTime @default(now())
+
+  @@index([userId])
+  @@index([tenantId])
+  @@index([event])
+  @@index([timestamp])
+  @@index([sessionId])
+  @@map("analytics_events")
+}
+
+model WebhookEndpoint {
+  id       String  @id @default(cuid())
+  userId   String
+  tenantId String?
+
+  url         String   @db.Text
+  events      String[]
+  description String?  @db.Text
+  secret      String   @db.VarChar(255)
+  enabled     Boolean  @default(true)
+  headers     Json?    @db.JsonB
+  metadata    Json?    @db.JsonB
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  deliveries WebhookDelivery[]
+
+  @@index([userId])
+  @@index([tenantId])
+  @@index([enabled])
+  @@map("webhook_endpoints")
+}
+
+model WebhookEvent {
+  id        String   @id @default(cuid())
+  eventType String   @db.VarChar(100)
+  payload   Json     @db.JsonB
+  createdAt DateTime @default(now())
+
+  deliveries WebhookDelivery[]
+
+  @@index([eventType])
+  @@index([createdAt])
+  @@map("webhook_events")
+}
+
+enum WebhookDeliveryStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+model WebhookDelivery {
+  id                String @id @default(cuid())
+  webhookEndpointId String
+  eventId           String
+
+  eventType String @db.VarChar(100)
+  payload   Json   @db.JsonB
+
+  status     WebhookDeliveryStatus @default(PENDING)
+  statusCode Int?
+  error      String?               @db.Text
+  response   Json?                 @db.JsonB
+
+  attemptNumber Int  @default(1)
+  duration      Int? // in milliseconds
+
+  createdAt DateTime  @default(now())
+  retriedAt DateTime?
+
+  webhookEndpoint WebhookEndpoint @relation(fields: [webhookEndpointId], references: [id])
+  event           WebhookEvent?   @relation(fields: [eventId], references: [id])
+
+  @@index([webhookEndpointId])
+  @@index([eventId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("webhook_deliveries")
+}
+
+enum OnboardingStatus {
+  IN_PROGRESS
+  COMPLETED
+  SKIPPED
+}
+
+enum OnboardingStepStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  SKIPPED
+}
+
+model OnboardingFlow {
+  id             String @id @default(cuid())
+  userId         String
+  flowTemplateId String @db.VarChar(100)
+
+  status  OnboardingStatus @default(IN_PROGRESS)
+  context Json?            @db.JsonB
+
+  totalSteps     Int
+  completedSteps Int     @default(0)
+  allowSkip      Boolean @default(true)
+
+  startedAt   DateTime  @default(now())
+  completedAt DateTime?
+  skippedAt   DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  steps OnboardingStep[]
+
+  @@index([userId])
+  @@index([status])
+  @@map("onboarding_flows")
+}
+
+model OnboardingStep {
+  id     String @id @default(cuid())
+  flowId String
+  stepId String @db.VarChar(100)
+
+  title       String  @db.VarChar(255)
+  description String? @db.Text
+  type        String  @db.VarChar(50)
+  order       Int
+  required    Boolean @default(false)
+
+  status         OnboardingStepStatus @default(PENDING)
+  content        Json?                @db.JsonB
+  action         Json?                @db.JsonB
+  completionData Json?                @db.JsonB
+  metadata       Json?                @db.JsonB
+
+  startedAt   DateTime?
+  completedAt DateTime?
+  skippedAt   DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  flow OnboardingFlow @relation(fields: [flowId], references: [id], onDelete: Cascade)
+
+  @@index([flowId])
+  @@index([status])
+  @@map("onboarding_steps")
+}
+
+model OnboardingProgress {
+  flowId                 String  @id
+  totalSteps             Int
+  completedSteps         Int
+  skippedSteps           Int
+  requiredSteps          Int
+  requiredCompleted      Int
+  percentComplete        Int
+  isComplete             Boolean
+  estimatedTimeRemaining Int // in minutes
 }

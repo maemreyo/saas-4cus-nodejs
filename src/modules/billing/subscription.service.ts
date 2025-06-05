@@ -61,15 +61,15 @@ export class SubscriptionService {
           { id: 'advanced_analytics', name: 'Advanced Analytics', included: false },
           { id: 'custom_domain', name: 'Custom Domain', included: false },
           { id: 'team_collaboration', name: 'Team Collaboration', included: false },
-          { id: 'sso', name: 'SSO/SAML', included: false }
+          { id: 'sso', name: 'SSO/SAML', included: false },
         ],
         limits: {
           maxProjects: 3,
           maxUsers: 1,
           maxStorage: 1024, // 1 GB
           maxApiCalls: 1000,
-          maxFileUploads: 10
-        }
+          maxFileUploads: 10,
+        },
       },
       {
         id: 'starter',
@@ -88,15 +88,15 @@ export class SubscriptionService {
           { id: 'advanced_analytics', name: 'Advanced Analytics', included: false },
           { id: 'custom_domain', name: 'Custom Domain', included: false },
           { id: 'team_collaboration', name: 'Team Collaboration', included: true },
-          { id: 'sso', name: 'SSO/SAML', included: false }
+          { id: 'sso', name: 'SSO/SAML', included: false },
         ],
         limits: {
           maxProjects: 10,
           maxUsers: 5,
           maxStorage: 10240, // 10 GB
           maxApiCalls: 10000,
-          maxFileUploads: 100
-        }
+          maxFileUploads: 100,
+        },
       },
       {
         id: 'pro',
@@ -116,15 +116,15 @@ export class SubscriptionService {
           { id: 'advanced_analytics', name: 'Advanced Analytics', included: true },
           { id: 'custom_domain', name: 'Custom Domain', included: true },
           { id: 'team_collaboration', name: 'Team Collaboration', included: true },
-          { id: 'sso', name: 'SSO/SAML', included: false }
+          { id: 'sso', name: 'SSO/SAML', included: false },
         ],
         limits: {
           maxProjects: 50,
           maxUsers: 20,
           maxStorage: 102400, // 100 GB
           maxApiCalls: 100000,
-          maxFileUploads: 1000
-        }
+          maxFileUploads: 1000,
+        },
       },
       {
         id: 'enterprise',
@@ -143,16 +143,16 @@ export class SubscriptionService {
           { id: 'advanced_analytics', name: 'Advanced Analytics', included: true },
           { id: 'custom_domain', name: 'Custom Domain', included: true },
           { id: 'team_collaboration', name: 'Team Collaboration', included: true },
-          { id: 'sso', name: 'SSO/SAML', included: true }
+          { id: 'sso', name: 'SSO/SAML', included: true },
         ],
         limits: {
           maxProjects: -1, // Unlimited
           maxUsers: -1,
           maxStorage: -1,
           maxApiCalls: -1,
-          maxFileUploads: -1
-        }
-      }
+          maxFileUploads: -1,
+        },
+      },
     ];
 
     plans.forEach(plan => this.plans.set(plan.id, plan));
@@ -187,11 +187,11 @@ export class SubscriptionService {
     const subscription = await prisma.client.subscription.findFirst({
       where: {
         userId,
-        status: { in: ['active', 'trialing', 'past_due'] }
+        status: { in: ['ACTIVE', 'TRIALING', 'PAST_DUE'] },
       },
       orderBy: {
-        createdAt: 'desc'
-      }
+        createdAt: 'desc',
+      },
     });
 
     if (!subscription) {
@@ -199,7 +199,7 @@ export class SubscriptionService {
         plan: this.getPlan('free'),
         subscription: null,
         isActive: true,
-        isTrial: false
+        isTrial: false,
       };
     }
 
@@ -208,9 +208,9 @@ export class SubscriptionService {
     return {
       plan: plan || this.getPlan('free'),
       subscription,
-      isActive: subscription.status === 'active' || subscription.status === 'trialing',
-      isTrial: subscription.status === 'trialing',
-      willCancelAt: subscription.cancelAtPeriodEnd ? subscription.currentPeriodEnd : null
+      isActive: subscription.status === 'ACTIVE' || subscription.status === 'TRIALING',
+      isTrial: subscription.status === 'TRIALING',
+      willCancelAt: subscription.cancelAtPeriodEnd ? subscription.currentPeriodEnd : null,
     };
   }
 
@@ -244,7 +244,7 @@ export class SubscriptionService {
   async checkUsageLimit(
     userId: string,
     resource: keyof PlanLimits,
-    currentUsage?: number
+    currentUsage?: number,
   ): Promise<{
     allowed: boolean;
     limit: number;
@@ -259,7 +259,7 @@ export class SubscriptionService {
         limit: 0,
         used: 0,
         remaining: 0,
-        unlimited: false
+        unlimited: false,
       };
     }
 
@@ -280,7 +280,7 @@ export class SubscriptionService {
       limit: unlimited ? Infinity : limit,
       used,
       remaining,
-      unlimited
+      unlimited,
     };
   }
 
@@ -299,7 +299,7 @@ export class SubscriptionService {
       case 'maxStorage':
         const files = await prisma.client.file.aggregate({
           where: { userId },
-          _sum: { size: true }
+          _sum: { size: true },
         });
         return Math.ceil((files._sum.size || 0) / (1024 * 1024)); // Convert to MB
 
@@ -312,8 +312,8 @@ export class SubscriptionService {
         return await prisma.client.apiUsage.count({
           where: {
             userId,
-            createdAt: { gte: startOfMonth }
-          }
+            createdAt: { gte: startOfMonth },
+          },
         });
 
       case 'maxFileUploads':
@@ -337,8 +337,8 @@ export class SubscriptionService {
           resource,
           limit: usage.limit,
           used: usage.used,
-          upgrade_url: '/billing/upgrade'
-        }
+          upgrade_url: '/billing/upgrade',
+        },
       );
     }
   }
@@ -364,10 +364,10 @@ export class SubscriptionService {
     const invoices = await prisma.client.invoice.findMany({
       where: {
         subscriptionId: subscription?.id,
-        status: 'paid'
+        status: 'PAID',
       },
       orderBy: { createdAt: 'desc' },
-      take: 12 // Last 12 invoices
+      take: 12, // Last 12 invoices
     });
 
     const totalSpent = invoices.reduce((sum, invoice) => sum + invoice.amount, 0);
@@ -380,15 +380,18 @@ export class SubscriptionService {
         totalSpent: totalSpent / 100, // Convert from cents
         invoiceCount: invoices.length,
         lastPayment: invoices[0]?.paidAt || null,
-        nextPayment: subscription?.currentPeriodEnd || null
-      }
+        nextPayment: subscription?.currentPeriodEnd || null,
+      },
     };
   }
 
   /**
    * Calculate proration for plan change
    */
-  async calculateProration(userId: string, newPlanId: string): Promise<{
+  async calculateProration(
+    userId: string,
+    newPlanId: string,
+  ): Promise<{
     amount: number;
     credits: number;
     description: string;
@@ -400,7 +403,7 @@ export class SubscriptionService {
       return {
         amount: newPlan?.price || 0,
         credits: 0,
-        description: 'New subscription'
+        description: 'New subscription',
       };
     }
 
@@ -421,7 +424,7 @@ export class SubscriptionService {
     return {
       amount: Math.round(amount * 100) / 100,
       credits: Math.round(credits * 100) / 100,
-      description: `Upgrade from ${currentPlan.name} to ${newPlan.name} (${daysRemaining} days remaining)`
+      description: `Upgrade from ${currentPlan.name} to ${newPlan.name} (${daysRemaining} days remaining)`,
     };
   }
 }

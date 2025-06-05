@@ -14,13 +14,10 @@ export function requireFeature(featureId: string) {
     const hasAccess = await subscriptionService.hasFeature(userId, featureId);
 
     if (!hasAccess) {
-      throw new ForbiddenException(
-        'This feature is not available in your current plan',
-        {
-          feature: featureId,
-          upgrade_url: '/billing/upgrade'
-        }
-      );
+      throw new ForbiddenException('This feature is not available in your current plan', {
+        feature: featureId,
+        upgrade_url: '/billing/upgrade',
+      });
     }
   };
 }
@@ -40,14 +37,11 @@ export function requirePlan(minPlanId: string) {
     const requiredPlanIndex = planHierarchy.indexOf(minPlanId);
 
     if (currentPlanIndex < requiredPlanIndex) {
-      throw new ForbiddenException(
-        `This feature requires ${minPlanId} plan or higher`,
-        {
-          current_plan: plan?.id || 'free',
-          required_plan: minPlanId,
-          upgrade_url: '/billing/upgrade'
-        }
-      );
+      throw new ForbiddenException(`This feature requires ${minPlanId} plan or higher`, {
+        current_plan: plan?.id || 'free',
+        required_plan: minPlanId,
+        upgrade_url: '/billing/upgrade',
+      });
     }
   };
 }

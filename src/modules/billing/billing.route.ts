@@ -6,11 +6,15 @@ export default async function billingRoutes(fastify: FastifyInstance) {
   const billingController = Container.get(BillingController);
 
   // Public webhook endpoint - MUST be before auth middleware
-  fastify.post('/webhook', {
-    config: {
-      rawBody: true // Important for Stripe signature verification
-    }
-  }, billingController.handleWebhook.bind(billingController));
+  fastify.post(
+    '/webhook',
+    {
+      config: {
+        rawBody: true, // Important for Stripe signature verification
+      },
+    },
+    billingController.handleWebhook.bind(billingController),
+  );
 
   // Public plans endpoint
   fastify.get('/plans', billingController.getPlans.bind(billingController));

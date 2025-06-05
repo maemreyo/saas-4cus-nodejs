@@ -17,7 +17,7 @@ export const TenantEvents = {
   // Subscription
   TENANT_SUBSCRIBED: 'tenant.subscribed',
   TENANT_UNSUBSCRIBED: 'tenant.unsubscribed',
-  TENANT_PLAN_CHANGED: 'tenant.plan.changed'
+  TENANT_PLAN_CHANGED: 'tenant.plan.changed',
 } as const;
 
-export type TenantEventName = typeof TenantEvents[keyof typeof TenantEvents];
+export type TenantEventName = (typeof TenantEvents)[keyof typeof TenantEvents];

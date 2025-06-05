@@ -5,12 +5,7 @@ import { redis } from '@infrastructure/cache/redis.service';
 import { logger } from '@shared/logger';
 import { EventBus } from '@shared/events/event-bus';
 import { EmailService } from '@shared/services/email.service';
-import {
-  BadRequestException,
-  NotFoundException,
-  ConflictException,
-  ForbiddenException
-} from '@shared/exceptions';
+import { BadRequestException, NotFoundException, ConflictException, ForbiddenException } from '@shared/exceptions';
 import { nanoid } from 'nanoid';
 import { slugify } from '@shared/utils/helpers';
 import { TenantEvents } from './tenant.events';
@@ -44,7 +39,7 @@ export interface InviteMemberOptions {
 export class TenantService {
   constructor(
     private eventBus: EventBus,
-    private emailService: EmailService
+    private emailService: EmailService,
   ) {}
 
   /**
@@ -60,7 +55,7 @@ export class TenantService {
 
     while (!isUnique && attempts < 10) {
       const existing = await prisma.client.tenant.findUnique({
-        where: { slug }
+        where: { slug },
       });
 
       if (!existing) {
@@ -83,8 +78,8 @@ export class TenantService {
         description: options.description,
         logo: options.logo,
         ownerId: options.ownerId,
-        metadata: options.metadata || {}
-      }
+        metadata: options.metadata || {},
+      },
     });
 
     // Add owner as a member
@@ -92,8 +87,8 @@ export class TenantService {
       data: {
         tenantId: tenant.id,
         userId: options.ownerId,
-        role: TenantMemberRole.OWNER
-      }
+        role: TenantMemberRole.OWNER,
+      },
     });
 
     logger.info('Tenant created', { tenantId: tenant.id, ownerId: options.ownerId });
@@ -101,7 +96,7 @@ export class TenantService {
     await this.eventBus.emit(TenantEvents.TENANT_CREATED, {
       tenantId: tenant.id,
       ownerId: options.ownerId,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
 
     return tenant;
@@ -112,7 +107,7 @@ export class TenantService {
    */
   async getTenant(tenantId: string): Promise<Tenant> {
     const tenant = await prisma.client.tenant.findUnique({
-      where: { id: tenantId }
+      where: { id: tenantId },
     });
 
     if (!tenant || tenant.deletedAt) {
@@ -127,7 +122,7 @@ export class TenantService {
    */
   async getTenantBySlug(slug: string): Promise<Tenant> {
     const tenant = await prisma.client.tenant.findUnique({
-      where: { slug }
+      where: { slug },
     });
 
     if (!tenant || tenant.deletedAt) {
@@ -140,18 +135,14 @@ export class TenantService {
   /**
    * Update tenant
    */
-  async updateTenant(
-    tenantId: string,
-    userId: string,
-    options: UpdateTenantOptions
-  ): Promise<Tenant> {
+  async updateTenant(tenantId: string, userId: string, options: UpdateTenantOptions): Promise<Tenant> {
     // Check permissions
     await this.checkTenantPermission(tenantId, userId, [TenantMemberRole.OWNER, TenantMemberRole.ADMIN]);
 
     // Check slug uniqueness if updating
     if (options.slug) {
       const existing = await prisma.client.tenant.findUnique({
-        where: { slug: options.slug }
+        where: { slug: options.slug },
       });
 
       if (existing && existing.id !== tenantId) {
@@ -167,8 +158,8 @@ export class TenantService {
         description: options.description,
         logo: options.logo,
         settings: options.settings,
-        metadata: options.metadata
-      }
+        metadata: options.metadata,
+      },
     });
 
     // Clear cache
@@ -180,7 +171,7 @@ export class TenantService {
       tenantId,
       updatedBy: userId,
       changes: options,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
 
     return tenant;
@@ -197,8 +188,8 @@ export class TenantService {
       where: { id: tenantId },
       data: {
         status: TenantStatus.DELETED,
-        deletedAt: new Date()
-      }
+        deletedAt: new Date(),
+      },
     });
 
     // Clear cache
@@ -209,29 +200,31 @@ export class TenantService {
     await this.eventBus.emit(TenantEvents.TENANT_DELETED, {
       tenantId,
       deletedBy: userId,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   }
 
   /**
    * Get user's tenants
    */
-  async getUserTenants(userId: string): Promise<Array<{
-    tenant: Tenant;
-    membership: TenantMember;
-  }>> {
+  async getUserTenants(userId: string): Promise<
+    Array<{
+      tenant: Tenant;
+      membership: TenantMember;
+    }>
+  > {
     const memberships = await prisma.client.tenantMember.findMany({
       where: { userId },
       include: {
-        tenant: true
-      }
+        tenant: true,
+      },
     });
 
     return memberships
       .filter(m => !m.tenant.deletedAt)
       .map(m => ({
         tenant: m.tenant,
-        membership: m
+        membership: m,
       }));
   }
 
@@ -245,7 +238,7 @@ export class TenantService {
       limit?: number;
       offset?: number;
       role?: TenantMemberRole;
-    }
+    },
   ): Promise<{
     members: Array<TenantMember & { user: any }>;
     total: number;
@@ -255,7 +248,7 @@ export class TenantService {
 
     const where = {
       tenantId,
-      ...(options?.role && { role: options.role })
+      ...(options?.role && { role: options.role }),
     };
 
     const [members, total] = await Promise.all([
@@ -269,15 +262,15 @@ export class TenantService {
               firstName: true,
               lastName: true,
               displayName: true,
-              avatar: true
-            }
-          }
+              avatar: true,
+            },
+          },
         },
         take: options?.limit || 50,
         skip: options?.offset || 0,
-        orderBy: { joinedAt: 'desc' }
+        orderBy: { joinedAt: 'desc' },
       }),
-      prisma.client.tenantMember.count({ where })
+      prisma.client.tenantMember.count({ where }),
     ]);
 
     return { members, total };
@@ -286,17 +279,13 @@ export class TenantService {
   /**
    * Invite member to tenant
    */
-  async inviteMember(
-    tenantId: string,
-    inviterId: string,
-    options: InviteMemberOptions
-  ): Promise<void> {
+  async inviteMember(tenantId: string, inviterId: string, options: InviteMemberOptions): Promise<void> {
     // Check permissions
     await this.checkTenantPermission(tenantId, inviterId, [TenantMemberRole.OWNER, TenantMemberRole.ADMIN]);
 
     // Check if user is already a member
     const existingUser = await prisma.client.user.findUnique({
-      where: { email: options.email }
+      where: { email: options.email },
     });
 
     if (existingUser) {
@@ -304,9 +293,9 @@ export class TenantService {
         where: {
           tenantId_userId: {
             tenantId,
-            userId: existingUser.id
-          }
-        }
+            userId: existingUser.id,
+          },
+        },
       });
 
       if (existingMember) {
@@ -320,8 +309,8 @@ export class TenantService {
         tenantId,
         email: options.email,
         acceptedAt: null,
-        expiresAt: { gt: new Date() }
-      }
+        expiresAt: { gt: new Date() },
+      },
     });
 
     if (existingInvite) {
@@ -336,11 +325,11 @@ export class TenantService {
         role: options.role || TenantMemberRole.MEMBER,
         token: nanoid(32),
         invitedById: inviterId,
-        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
       },
       include: {
-        tenant: true
-      }
+        tenant: true,
+      },
     });
 
     // Send invitation email
@@ -352,22 +341,22 @@ export class TenantService {
         context: {
           tenantName: invitation.tenant.name,
           inviteUrl: `${process.env.APP_URL}/invitations/${invitation.token}`,
-          role: invitation.role
-        }
+          role: invitation.role,
+        },
       });
     }
 
     logger.info('Tenant invitation sent', {
       tenantId,
       email: options.email,
-      inviterId
+      inviterId,
     });
 
     await this.eventBus.emit(TenantEvents.MEMBER_INVITED, {
       tenantId,
       email: options.email,
       invitedBy: inviterId,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   }
 
@@ -377,7 +366,7 @@ export class TenantService {
   async acceptInvitation(token: string, userId: string): Promise<Tenant> {
     const invitation = await prisma.client.tenantInvitation.findUnique({
       where: { token },
-      include: { tenant: true }
+      include: { tenant: true },
     });
 
     if (!invitation) {
@@ -394,7 +383,7 @@ export class TenantService {
 
     // Check if user email matches
     const user = await prisma.client.user.findUnique({
-      where: { id: userId }
+      where: { id: userId },
     });
 
     if (!user || user.email !== invitation.email) {
@@ -407,26 +396,26 @@ export class TenantService {
         tenantId: invitation.tenantId,
         userId,
         role: invitation.role,
-        invitedById: invitation.invitedById
-      }
+        invitedById: invitation.invitedById,
+      },
     });
 
     // Mark invitation as accepted
     await prisma.client.tenantInvitation.update({
       where: { id: invitation.id },
-      data: { acceptedAt: new Date() }
+      data: { acceptedAt: new Date() },
     });
 
     logger.info('Tenant invitation accepted', {
       tenantId: invitation.tenantId,
-      userId
+      userId,
     });
 
     await this.eventBus.emit(TenantEvents.MEMBER_JOINED, {
       tenantId: invitation.tenantId,
       userId,
       role: invitation.role,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
 
     return invitation.tenant;
@@ -439,7 +428,7 @@ export class TenantService {
     tenantId: string,
     memberId: string,
     newRole: TenantMemberRole,
-    updatedBy: string
+    updatedBy: string,
   ): Promise<void> {
     // Check permissions - only owner and admin can update roles
     await this.checkTenantPermission(tenantId, updatedBy, [TenantMemberRole.OWNER, TenantMemberRole.ADMIN]);
@@ -448,9 +437,9 @@ export class TenantService {
       where: {
         tenantId_userId: {
           tenantId,
-          userId: memberId
-        }
-      }
+          userId: memberId,
+        },
+      },
     });
 
     if (!member) {
@@ -471,17 +460,17 @@ export class TenantService {
       where: {
         tenantId_userId: {
           tenantId,
-          userId: memberId
-        }
+          userId: memberId,
+        },
       },
-      data: { role: newRole }
+      data: { role: newRole },
     });
 
     logger.info('Member role updated', {
       tenantId,
       memberId,
       newRole,
-      updatedBy
+      updatedBy,
     });
 
     await this.eventBus.emit(TenantEvents.MEMBER_ROLE_UPDATED, {
@@ -490,18 +479,14 @@ export class TenantService {
       oldRole: member.role,
       newRole,
       updatedBy,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   }
 
   /**
    * Remove member from tenant
    */
-  async removeMember(
-    tenantId: string,
-    memberId: string,
-    removedBy: string
-  ): Promise<void> {
+  async removeMember(tenantId: string, memberId: string, removedBy: string): Promise<void> {
     // Check permissions
     await this.checkTenantPermission(tenantId, removedBy, [TenantMemberRole.OWNER, TenantMemberRole.ADMIN]);
 
@@ -509,9 +494,9 @@ export class TenantService {
       where: {
         tenantId_userId: {
           tenantId,
-          userId: memberId
-        }
-      }
+          userId: memberId,
+        },
+      },
     });
 
     if (!member) {
@@ -532,22 +517,22 @@ export class TenantService {
       where: {
         tenantId_userId: {
           tenantId,
-          userId: memberId
-        }
-      }
+          userId: memberId,
+        },
+      },
     });
 
     logger.info('Member removed from tenant', {
       tenantId,
       memberId,
-      removedBy
+      removedBy,
     });
 
     await this.eventBus.emit(TenantEvents.MEMBER_REMOVED, {
       tenantId,
       memberId,
       removedBy,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   }
 
@@ -559,9 +544,9 @@ export class TenantService {
       where: {
         tenantId_userId: {
           tenantId,
-          userId
-        }
-      }
+          userId,
+        },
+      },
     });
 
     if (!member) {
@@ -577,9 +562,9 @@ export class TenantService {
       where: {
         tenantId_userId: {
           tenantId,
-          userId
-        }
-      }
+          userId,
+        },
+      },
     });
 
     logger.info('Member left tenant', { tenantId, userId });
@@ -587,18 +572,14 @@ export class TenantService {
     await this.eventBus.emit(TenantEvents.MEMBER_LEFT, {
       tenantId,
       userId,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   }
 
   /**
    * Transfer ownership
    */
-  async transferOwnership(
-    tenantId: string,
-    currentOwnerId: string,
-    newOwnerId: string
-  ): Promise<void> {
+  async transferOwnership(tenantId: string, currentOwnerId: string, newOwnerId: string): Promise<void> {
     // Verify current owner
     await this.checkTenantPermission(tenantId, currentOwnerId, [TenantMemberRole.OWNER]);
 
@@ -607,9 +588,9 @@ export class TenantService {
       where: {
         tenantId_userId: {
           tenantId,
-          userId: newOwnerId
-        }
-      }
+          userId: newOwnerId,
+        },
+      },
     });
 
     if (!newOwnerMembership) {
@@ -617,11 +598,11 @@ export class TenantService {
     }
 
     // Use transaction to ensure atomicity
-    await prisma.client.$transaction(async (tx) => {
+    await prisma.client.$transaction(async tx => {
       // Update tenant owner
       await tx.tenant.update({
         where: { id: tenantId },
-        data: { ownerId: newOwnerId }
+        data: { ownerId: newOwnerId },
       });
 
       // Update old owner to admin
@@ -629,10 +610,10 @@ export class TenantService {
         where: {
           tenantId_userId: {
             tenantId,
-            userId: currentOwnerId
-          }
+            userId: currentOwnerId,
+          },
         },
-        data: { role: TenantMemberRole.ADMIN }
+        data: { role: TenantMemberRole.ADMIN },
       });
 
       // Update new owner role
@@ -640,24 +621,24 @@ export class TenantService {
         where: {
           tenantId_userId: {
             tenantId,
-            userId: newOwnerId
-          }
+            userId: newOwnerId,
+          },
         },
-        data: { role: TenantMemberRole.OWNER }
+        data: { role: TenantMemberRole.OWNER },
       });
     });
 
     logger.info('Tenant ownership transferred', {
       tenantId,
       from: currentOwnerId,
-      to: newOwnerId
+      to: newOwnerId,
     });
 
     await this.eventBus.emit(TenantEvents.OWNERSHIP_TRANSFERRED, {
       tenantId,
       fromUserId: currentOwnerId,
       toUserId: newOwnerId,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   }
 
@@ -667,15 +648,15 @@ export class TenantService {
   async checkTenantPermission(
     tenantId: string,
     userId: string,
-    allowedRoles?: TenantMemberRole[]
+    allowedRoles?: TenantMemberRole[],
   ): Promise<TenantMember> {
     const member = await prisma.client.tenantMember.findUnique({
       where: {
         tenantId_userId: {
           tenantId,
-          userId
-        }
-      }
+          userId,
+        },
+      },
     });
 
     if (!member) {
@@ -703,26 +684,21 @@ export class TenantService {
     // Check permissions
     await this.checkTenantPermission(tenantId, userId);
 
-    const [
-      memberCount,
-      projectCount,
-      storageUsed,
-      apiCallsThisMonth
-    ] = await Promise.all([
+    const [memberCount, projectCount, storageUsed, apiCallsThisMonth] = await Promise.all([
       prisma.client.tenantMember.count({ where: { tenantId } }),
       prisma.client.project.count({ where: { tenantId } }),
       prisma.client.file.aggregate({
         where: { tenantId },
-        _sum: { size: true }
+        _sum: { size: true },
       }),
       prisma.client.apiUsage.count({
         where: {
           tenantId,
           createdAt: {
-            gte: new Date(new Date().setDate(1)) // Start of month
-          }
-        }
-      })
+            gte: new Date(new Date().setDate(1)), // Start of month
+          },
+        },
+      }),
     ]);
 
     return {
@@ -730,9 +706,9 @@ export class TenantService {
       projects: projectCount,
       storage: {
         used: storageUsed._sum.size || 0,
-        usedMB: Math.ceil((storageUsed._sum.size || 0) / (1024 * 1024))
+        usedMB: Math.ceil((storageUsed._sum.size || 0) / (1024 * 1024)),
       },
-      apiCalls: apiCallsThisMonth
+      apiCalls: apiCallsThisMonth,
     };
   }
 }

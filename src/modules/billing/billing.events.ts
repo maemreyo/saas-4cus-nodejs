@@ -24,7 +24,7 @@ export const BillingEvents = {
 
   // Usage events
   USAGE_LIMIT_REACHED: 'billing.usage.limit_reached',
-  USAGE_LIMIT_WARNING: 'billing.usage.limit_warning'
+  USAGE_LIMIT_WARNING: 'billing.usage.limit_warning',
 } as const;
 
-export type BillingEventName = typeof BillingEvents[keyof typeof BillingEvents];
+export type BillingEventName = (typeof BillingEvents)[keyof typeof BillingEvents];

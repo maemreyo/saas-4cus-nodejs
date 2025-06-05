@@ -3,18 +3,14 @@ import { Service } from 'typedi';
 import { BillingService } from './billing.service';
 import { SubscriptionService } from './subscription.service';
 import { validateSchema } from '@shared/validators';
-import {
-  CreateCheckoutDTO,
-  UpdateSubscriptionDTO,
-  ApplyCouponDTO,
-  CalculateProrationDTO
-} from './billing.dto';
+import { CreateCheckoutDTO, UpdateSubscriptionDTO, ApplyCouponDTO, CalculateProrationDTO } from './billing.dto';
+import { prisma } from '@/infrastructure/database/prisma.service';
 
 @Service()
 export class BillingController {
   constructor(
     private billingService: BillingService,
-    private subscriptionService: SubscriptionService
+    private subscriptionService: SubscriptionService,
   ) {}
 
   /**
@@ -35,8 +31,8 @@ export class BillingController {
     reply.send({
       data: {
         plans,
-        currentPlanId
-      }
+        currentPlanId,
+      },
     });
   }
 
@@ -63,10 +59,7 @@ export class BillingController {
   /**
    * Create checkout session for new subscription or upgrade
    */
-  async createCheckoutSession(
-    request: FastifyRequest<{ Body: CreateCheckoutDTO }>,
-    reply: FastifyReply
-  ) {
+  async createCheckoutSession(request: FastifyRequest<{ Body: CreateCheckoutDTO }>, reply: FastifyReply) {
     const dto = await validateSchema(CreateCheckoutDTO.schema, request.body);
     const userId = request.customUser!.id;
 
@@ -78,8 +71,8 @@ export class BillingController {
       {
         couponId: dto.couponId,
         trialDays: dto.trialDays,
-        metadata: dto.metadata
-      }
+        metadata: dto.metadata,
+      },
     );
 
     reply.send({ data: { url: checkoutUrl } });
@@ -88,10 +81,7 @@ export class BillingController {
   /**
    * Create customer portal session
    */
-  async createPortalSession(
-    request: FastifyRequest<{ Body: { returnUrl: string } }>,
-    reply: FastifyReply
-  ) {
+  async createPortalSession(request: FastifyRequest<{ Body: { returnUrl: string } }>, reply: FastifyReply) {
     const userId = request.customUser!.id;
     const { returnUrl } = request.body;
 
@@ -103,10 +93,7 @@ export class BillingController {
   /**
    * Update subscription (upgrade/downgrade)
    */
-  async updateSubscription(
-    request: FastifyRequest<{ Body: UpdateSubscriptionDTO }>,
-    reply: FastifyReply
-  ) {
+  async updateSubscription(request: FastifyRequest<{ Body: UpdateSubscriptionDTO }>, reply: FastifyReply) {
     const dto = await validateSchema(UpdateSubscriptionDTO.schema, request.body);
     const userId = request.customUser!.id;
 
@@ -116,11 +103,7 @@ export class BillingController {
       return reply.code(404).send({ error: 'No active subscription found' });
     }
 
-    await this.billingService.updateSubscription(
-      subscription.id,
-      dto.priceId,
-      dto.prorationBehavior
-    );
+    await this.billingService.updateSubscription(subscription.id, dto.priceId, dto.prorationBehavior);
 
     reply.send({ message: 'Subscription updated successfully' });
   }
@@ -128,10 +111,7 @@ export class BillingController {
   /**
    * Cancel subscription
    */
-  async cancelSubscription(
-    request: FastifyRequest<{ Body: { immediately?: boolean } }>,
-    reply: FastifyReply
-  ) {
+  async cancelSubscription(request: FastifyRequest<{ Body: { immediately?: boolean } }>, reply: FastifyReply) {
     const userId = request.customUser!.id;
     const { immediately = false } = request.body;
 
@@ -146,7 +126,7 @@ export class BillingController {
     reply.send({
       message: immediately
         ? 'Subscription cancelled immediately'
-        : 'Subscription will be cancelled at the end of the billing period'
+        : 'Subscription will be cancelled at the end of the billing period',
     });
   }
 
@@ -174,10 +154,7 @@ export class BillingController {
   /**
    * Apply coupon to subscription
    */
-  async applyCoupon(
-    request: FastifyRequest<{ Body: ApplyCouponDTO }>,
-    reply: FastifyReply
-  ) {
+  async applyCoupon(request: FastifyRequest<{ Body: ApplyCouponDTO }>, reply: FastifyReply) {
     const dto = await validateSchema(ApplyCouponDTO.schema, request.body);
     const userId = request.customUser!.id;
 
@@ -195,10 +172,7 @@ export class BillingController {
   /**
    * Calculate proration for plan change
    */
-  async calculateProration(
-    request: FastifyRequest<{ Body: CalculateProrationDTO }>,
-    reply: FastifyReply
-  ) {
+  async calculateProration(request: FastifyRequest<{ Body: CalculateProrationDTO }>, reply: FastifyReply) {
     const dto = await validateSchema(CalculateProrationDTO.schema, request.body);
     const userId = request.customUser!.id;
 
@@ -210,10 +184,7 @@ export class BillingController {
   /**
    * Check feature access
    */
-  async checkFeature(
-    request: FastifyRequest<{ Querystring: { feature: string } }>,
-    reply: FastifyReply
-  ) {
+  async checkFeature(request: FastifyRequest<{ Querystring: { feature: string } }>, reply: FastifyReply) {
     const userId = request.customUser!.id;
     const { feature } = request.query;
 
@@ -225,10 +196,7 @@ export class BillingController {
   /**
    * Check usage limit
    */
-  async checkUsageLimit(
-    request: FastifyRequest<{ Querystring: { resource: string } }>,
-    reply: FastifyReply
-  ) {
+  async checkUsageLimit(request: FastifyRequest<{ Querystring: { resource: string } }>, reply: FastifyReply) {
     const userId = request.customUser!.id;
     const { resource } = request.query;
 
@@ -242,7 +210,7 @@ export class BillingController {
    */
   async handleWebhook(request: FastifyRequest, reply: FastifyReply) {
     const signature = request.headers['stripe-signature'] as string;
-    const payload = request.rawBody!;
+    const payload = (request as any).rawBody!;
 
     await this.billingService.handleWebhook(payload, signature);
 
@@ -254,7 +222,7 @@ export class BillingController {
    */
   async getBillingHistory(
     request: FastifyRequest<{ Querystring: { limit?: number; offset?: number } }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
     const userId = request.customUser!.id;
     const { limit = 20, offset = 0 } = request.query;
@@ -270,11 +238,11 @@ export class BillingController {
         where: { subscriptionId: subscription.id },
         orderBy: { createdAt: 'desc' },
         take: limit,
-        skip: offset
+        skip: offset,
       }),
       prisma.client.invoice.count({
-        where: { subscriptionId: subscription.id }
-      })
+        where: { subscriptionId: subscription.id },
+      }),
     ]);
 
     reply.send({
@@ -282,8 +250,8 @@ export class BillingController {
         invoices,
         total,
         limit,
-        offset
-      }
+        offset,
+      },
     });
   }
 }

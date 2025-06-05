@@ -3,6 +3,7 @@ import { Container } from 'typedi';
 import { TenantService } from './tenant.service';
 import { TenantContextService } from './tenant.context';
 import { ForbiddenException, BadRequestException } from '@shared/exceptions';
+import { logger } from '@/shared/logger';
 
 /**
  * Extract tenant from subdomain or header
@@ -60,20 +61,20 @@ export async function tenantMiddleware(request: FastifyRequest, reply: FastifyRe
 
     // Check if user is member of tenant
     if (request.customUser) {
-      const membership = await tenantService.checkTenantPermission(
-        tenant.id,
-        request.customUser.id
-      );
+      const membership = await tenantService.checkTenantPermission(tenant.id, request.customUser.id);
 
       // Set tenant context
-      await contextService.run({
-        tenantId: tenant.id,
-        userId: request.customUser.id,
-        role: membership.role
-      }, async () => {
-        // Continue with request
-        await reply;
-      });
+      await contextService.run(
+        {
+          tenantId: tenant.id,
+          userId: request.customUser.id,
+          role: membership.role,
+        },
+        async () => {
+          // Continue with request
+          await reply;
+        },
+      );
     }
 
     // Add tenant to request

@@ -28,9 +28,7 @@ export interface CreateSubscriptionOptions {
 export class BillingService {
   private stripe: Stripe;
 
-  constructor(
-    private eventBus: EventBus
-  ) {
+  constructor(private eventBus: EventBus) {
     this.stripe = new Stripe(config.external.stripe.secretKey!, {
       apiVersion: '2023-10-16',
       typescript: true,
@@ -42,7 +40,7 @@ export class BillingService {
    */
   async getOrCreateCustomer(options: CreateCustomerOptions): Promise<string> {
     const user = await prisma.client.user.findUnique({
-      where: { id: options.userId }
+      where: { id: options.userId },
     });
 
     if (!user) {
@@ -70,8 +68,8 @@ export class BillingService {
       phone: options.phone,
       metadata: {
         userId: options.userId,
-        ...options.metadata
-      }
+        ...options.metadata,
+      },
     });
 
     // Update user with Stripe customer ID
@@ -79,10 +77,10 @@ export class BillingService {
       where: { id: options.userId },
       data: {
         metadata: {
-          ...(user.metadata as any || {}),
-          stripeCustomerId: customer.id
-        }
-      }
+          ...((user.metadata as any) || {}),
+          stripeCustomerId: customer.id,
+        },
+      },
     });
 
     // Cache customer ID
@@ -93,7 +91,7 @@ export class BillingService {
     await this.eventBus.emit(BillingEvents.CUSTOMER_CREATED, {
       userId: options.userId,
       customerId: customer.id,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
 
     return customer.id;
@@ -111,10 +109,10 @@ export class BillingService {
       couponId?: string;
       trialDays?: number;
       metadata?: Record<string, string>;
-    }
+    },
   ): Promise<string> {
     const user = await prisma.client.user.findUnique({
-      where: { id: userId }
+      where: { id: userId },
     });
 
     if (!user) {
@@ -125,15 +123,15 @@ export class BillingService {
     const customerId = await this.getOrCreateCustomer({
       userId,
       email: user.email,
-      name: user.displayName || undefined
+      name: user.displayName || undefined,
     });
 
     // Check for existing active subscription
     const existingSubscription = await prisma.client.subscription.findFirst({
       where: {
         userId,
-        status: { in: ['active', 'trialing'] }
-      }
+        status: { in: ['ACTIVE', 'TRIALING'] },
+      },
     });
 
     if (existingSubscription) {
@@ -144,28 +142,30 @@ export class BillingService {
     const sessionConfig: Stripe.Checkout.SessionCreateParams = {
       customer: customerId,
       payment_method_types: ['card'],
-      line_items: [{
-        price: priceId,
-        quantity: 1
-      }],
+      line_items: [
+        {
+          price: priceId,
+          quantity: 1,
+        },
+      ],
       mode: 'subscription',
       success_url: successUrl,
       cancel_url: cancelUrl,
       metadata: {
         userId,
-        ...options?.metadata
+        ...options?.metadata,
       },
       subscription_data: {
         metadata: {
           userId,
-          ...options?.metadata
-        }
+          ...options?.metadata,
+        },
       },
       allow_promotion_codes: true,
       billing_address_collection: 'required',
       customer_update: {
-        address: 'auto'
-      }
+        address: 'auto',
+      },
     };
 
     // Add trial period if specified
@@ -175,9 +175,11 @@ export class BillingService {
 
     // Add coupon if specified
     if (options?.couponId) {
-      sessionConfig.discounts = [{
-        coupon: options.couponId
-      }];
+      sessionConfig.discounts = [
+        {
+          coupon: options.couponId,
+        },
+      ];
     }
 
     const session = await this.stripe.checkout.sessions.create(sessionConfig);
@@ -185,14 +187,14 @@ export class BillingService {
     logger.info('Checkout session created', {
       userId,
       sessionId: session.id,
-      priceId
+      priceId,
     });
 
     await this.eventBus.emit(BillingEvents.CHECKOUT_STARTED, {
       userId,
       sessionId: session.id,
       priceId,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
 
     return session.url!;
@@ -203,7 +205,7 @@ export class BillingService {
    */
   async createPortalSession(userId: string, returnUrl: string): Promise<string> {
     const user = await prisma.client.user.findUnique({
-      where: { id: userId }
+      where: { id: userId },
     });
 
     if (!user) {
@@ -217,7 +219,7 @@ export class BillingService {
 
     const session = await this.stripe.billingPortal.sessions.create({
       customer: customerId,
-      return_url: returnUrl
+      return_url: returnUrl,
     });
 
     return session.url;
@@ -230,11 +232,7 @@ export class BillingService {
     let event: Stripe.Event;
 
     try {
-      event = this.stripe.webhooks.constructEvent(
-        payload,
-        signature,
-        config.external.stripe.webhookSecret!
-      );
+      event = this.stripe.webhooks.constructEvent(payload, signature, config.external.stripe.webhookSecret!);
     } catch (error) {
       logger.error('Webhook signature verification failed', error as Error);
       throw new BadRequestException('Invalid webhook signature');
@@ -291,8 +289,8 @@ export class BillingService {
           metadata: {
             ...subscription.metadata,
             cancelledAt: new Date().toISOString(),
-            cancelReason: 'user_requested'
-          }
+            cancelReason: 'user_requested',
+          },
         });
       }
 
@@ -304,9 +302,9 @@ export class BillingService {
           canceledAt: immediately ? new Date() : null,
           metadata: {
             cancelReason: 'user_requested',
-            cancelledAt: new Date().toISOString()
-          }
-        }
+            cancelledAt: new Date().toISOString(),
+          },
+        },
       });
 
       logger.info('Subscription cancelled', { subscriptionId, immediately });
@@ -314,7 +312,7 @@ export class BillingService {
       await this.eventBus.emit(BillingEvents.SUBSCRIPTION_CANCELLED, {
         subscriptionId,
         immediately,
-        timestamp: new Date()
+        timestamp: new Date(),
       });
     } catch (error) {
       logger.error('Failed to cancel subscription', error as Error);
@@ -328,18 +326,20 @@ export class BillingService {
   async updateSubscription(
     subscriptionId: string,
     newPriceId: string,
-    prorationBehavior: 'create_prorations' | 'none' | 'always_invoice' = 'always_invoice'
+    prorationBehavior: 'create_prorations' | 'none' | 'always_invoice' = 'always_invoice',
   ): Promise<void> {
     try {
       const subscription = await this.stripe.subscriptions.retrieve(subscriptionId);
 
       // Update subscription with new price
       const updatedSubscription = await this.stripe.subscriptions.update(subscriptionId, {
-        items: [{
-          id: subscription.items.data[0].id,
-          price: newPriceId
-        }],
-        proration_behavior: prorationBehavior
+        items: [
+          {
+            id: subscription.items.data[0].id,
+            price: newPriceId,
+          },
+        ],
+        proration_behavior: prorationBehavior,
       });
 
       // Update local database
@@ -349,9 +349,9 @@ export class BillingService {
           stripePriceId: newPriceId,
           metadata: {
             previousPriceId: subscription.items.data[0].price.id,
-            updatedAt: new Date().toISOString()
-          }
-        }
+            updatedAt: new Date().toISOString(),
+          },
+        },
       });
 
       logger.info('Subscription updated', { subscriptionId, newPriceId });
@@ -360,7 +360,7 @@ export class BillingService {
         subscriptionId,
         oldPriceId: subscription.items.data[0].price.id,
         newPriceId,
-        timestamp: new Date()
+        timestamp: new Date(),
       });
     } catch (error) {
       logger.error('Failed to update subscription', error as Error);
@@ -374,15 +374,15 @@ export class BillingService {
   async resumeSubscription(subscriptionId: string): Promise<void> {
     try {
       await this.stripe.subscriptions.update(subscriptionId, {
-        cancel_at_period_end: false
+        cancel_at_period_end: false,
       });
 
       await prisma.client.subscription.update({
         where: { id: subscriptionId },
         data: {
           cancelAtPeriodEnd: false,
-          canceledAt: null
-        }
+          canceledAt: null,
+        },
       });
 
       logger.info('Subscription resumed', { subscriptionId });
@@ -398,7 +398,7 @@ export class BillingService {
   async applyCoupon(subscriptionId: string, couponId: string): Promise<void> {
     try {
       await this.stripe.subscriptions.update(subscriptionId, {
-        coupon: couponId
+        coupon: couponId,
       });
 
       logger.info('Coupon applied to subscription', { subscriptionId, couponId });
@@ -423,7 +423,7 @@ export class BillingService {
       sessionId: session.id,
       customerId: session.customer as string,
       subscriptionId: session.subscription as string,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   }
 
@@ -436,7 +436,7 @@ export class BillingService {
 
     // Check if subscription already exists
     const existingSubscription = await prisma.client.subscription.findUnique({
-      where: { id: subscription.id }
+      where: { id: subscription.id },
     });
 
     if (existingSubscription) {
@@ -457,7 +457,7 @@ export class BillingService {
         stripeCustomerId: subscription.customer as string,
         stripePriceId: priceId,
         stripeProductId: product.id,
-        status: subscription.status,
+        status: subscription.status.toUpperCase() as any,
         currentPeriodStart: new Date(subscription.current_period_start * 1000),
         currentPeriodEnd: new Date(subscription.current_period_end * 1000),
         cancelAtPeriodEnd: subscription.cancel_at_period_end,
@@ -467,9 +467,9 @@ export class BillingService {
           priceAmount: price.unit_amount,
           priceCurrency: price.currency,
           priceInterval: price.recurring?.interval,
-          ...subscription.metadata
-        }
-      }
+          ...subscription.metadata,
+        },
+      },
     });
 
     // Clear cache
@@ -482,13 +482,13 @@ export class BillingService {
       subscriptionId: subscription.id,
       priceId,
       status: subscription.status,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   }
 
   private async handleSubscriptionUpdated(subscription: Stripe.Subscription) {
     const existing = await prisma.client.subscription.findUnique({
-      where: { id: subscription.id }
+      where: { id: subscription.id },
     });
 
     if (!existing) {
@@ -502,17 +502,17 @@ export class BillingService {
       where: { id: subscription.id },
       data: {
         stripePriceId: priceId,
-        status: subscription.status,
+        status: subscription.status.toUpperCase() as any,
         currentPeriodStart: new Date(subscription.current_period_start * 1000),
         currentPeriodEnd: new Date(subscription.current_period_end * 1000),
         cancelAtPeriodEnd: subscription.cancel_at_period_end,
         canceledAt: subscription.canceled_at ? new Date(subscription.canceled_at * 1000) : null,
         trialEnd: subscription.trial_end ? new Date(subscription.trial_end * 1000) : null,
         metadata: {
-          ...existing.metadata as any,
-          lastUpdated: new Date().toISOString()
-        }
-      }
+          ...(existing.metadata as any),
+          lastUpdated: new Date().toISOString(),
+        },
+      },
     });
 
     // Clear cache
@@ -523,13 +523,13 @@ export class BillingService {
     await this.eventBus.emit(BillingEvents.SUBSCRIPTION_UPDATED, {
       subscriptionId: subscription.id,
       status: subscription.status,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   }
 
   private async handleSubscriptionDeleted(subscription: Stripe.Subscription) {
     const existing = await prisma.client.subscription.findUnique({
-      where: { id: subscription.id }
+      where: { id: subscription.id },
     });
 
     if (!existing) {
@@ -540,13 +540,13 @@ export class BillingService {
     await prisma.client.subscription.update({
       where: { id: subscription.id },
       data: {
-        status: 'canceled',
+        status: 'CANCELED',
         canceledAt: new Date(),
         metadata: {
-          ...existing.metadata as any,
-          cancelledAt: new Date().toISOString()
-        }
-      }
+          ...(existing.metadata as any),
+          cancelledAt: new Date().toISOString(),
+        },
+      },
     });
 
     // Clear cache
@@ -557,7 +557,7 @@ export class BillingService {
     await this.eventBus.emit(BillingEvents.SUBSCRIPTION_CANCELLED, {
       userId: existing.userId,
       subscriptionId: subscription.id,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   }
 
@@ -572,7 +572,7 @@ export class BillingService {
         customerId: invoice.customer as string,
         amount: invoice.amount_paid,
         currency: invoice.currency,
-        status: 'paid',
+        status: 'PAID',
         paidAt: new Date(),
         periodStart: new Date(invoice.period_start * 1000),
         periodEnd: new Date(invoice.period_end * 1000),
@@ -584,10 +584,10 @@ export class BillingService {
           lineItems: invoice.lines.data.map(item => ({
             description: item.description,
             amount: item.amount,
-            quantity: item.quantity
-          }))
-        }
-      }
+            quantity: item.quantity,
+          })),
+        },
+      },
     });
 
     logger.info('Invoice payment succeeded', { invoiceId: invoice.id });
@@ -596,7 +596,7 @@ export class BillingService {
       invoiceId: invoice.id,
       subscriptionId: invoice.subscription as string,
       amount: invoice.amount_paid,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   }
 
@@ -604,7 +604,7 @@ export class BillingService {
     logger.warn('Invoice payment failed', {
       invoiceId: invoice.id,
       customerId: invoice.customer,
-      attemptCount: invoice.attempt_count
+      attemptCount: invoice.attempt_count,
     });
 
     await prisma.client.invoice.create({
@@ -614,21 +614,21 @@ export class BillingService {
         customerId: invoice.customer as string,
         amount: invoice.amount_due,
         currency: invoice.currency,
-        status: 'failed',
+        status: 'FAILED',
         periodStart: new Date(invoice.period_start * 1000),
         periodEnd: new Date(invoice.period_end * 1000),
         metadata: {
           attemptCount: invoice.attempt_count,
-          nextPaymentAttempt: invoice.next_payment_attempt
-        }
-      }
+          nextPaymentAttempt: invoice.next_payment_attempt,
+        },
+      },
     });
 
     await this.eventBus.emit(BillingEvents.PAYMENT_FAILED, {
       invoiceId: invoice.id,
       subscriptionId: invoice.subscription as string,
       attemptCount: invoice.attempt_count,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   }
 
@@ -638,14 +638,14 @@ export class BillingService {
 
     logger.info('Trial will end soon', {
       subscriptionId: subscription.id,
-      trialEnd: subscription.trial_end
+      trialEnd: subscription.trial_end,
     });
 
     await this.eventBus.emit(BillingEvents.TRIAL_WILL_END, {
       userId,
       subscriptionId: subscription.id,
       trialEndDate: new Date(subscription.trial_end! * 1000),
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   }
 }

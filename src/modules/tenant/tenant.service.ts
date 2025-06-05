@@ -684,11 +684,21 @@ export class TenantService {
     // Check permissions
     await this.checkTenantPermission(tenantId, userId);
 
+    // Get tenant member user IDs for file aggregation
+    const tenantMembers = await prisma.client.tenantMember.findMany({
+      where: { tenantId },
+      select: { userId: true },
+    });
+    const memberUserIds = tenantMembers.map(member => member.userId);
+
     const [memberCount, projectCount, storageUsed, apiCallsThisMonth] = await Promise.all([
       prisma.client.tenantMember.count({ where: { tenantId } }),
       prisma.client.project.count({ where: { tenantId } }),
       prisma.client.file.aggregate({
-        where: { tenantId },
+        where: {
+          userId: { in: memberUserIds },
+          deletedAt: null,
+        },
         _sum: { size: true },
       }),
       prisma.client.apiUsage.count({

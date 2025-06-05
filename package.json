@@ -6,12 +6,13 @@
   "type": "module",
   "engines": {
     "node": ">=20.0.0",
-    "npm": ">=10.0.0"
+    "pnpm": ">=8.0.0"
   },
+  "packageManager": "pnpm@8.15.0",
   "scripts": {
     "postinstall": "prisma generate",
     "setup": "tsx scripts/setup.ts",
-    "prebuild": "npm run db:generate",
+    "prebuild": "pnpm run db:generate",
     "dev": "tsx watch src/app.ts",
     "build": "rimraf dist && tsc && tsc-alias",
     "start": "node dist/app.js",
@@ -34,7 +35,15 @@
     "docker:run": "docker-compose up -d",
     "docker:stop": "docker-compose down",
     "docs:generate": "tsx scripts/generate-docs.ts",
-    "cli": "tsx src/cli/index.ts"
+    "cli": "tsx src/cli/index.ts",
+    "services:start": "tsx scripts/services-manager.ts start",
+    "services:stop": "tsx scripts/services-manager.ts stop",
+    "services:restart": "tsx scripts/services-manager.ts restart",
+    "services:status": "tsx scripts/services-manager.ts status",
+    "services:health": "tsx scripts/services-manager.ts health",
+    "bootstrap": "tsx scripts/db-bootstrap.ts bootstrap",
+    "bootstrap:fresh": "tsx scripts/db-bootstrap.ts fresh",
+    "bootstrap:reset": "tsx scripts/db-bootstrap.ts reset"
   },
   "dependencies": {
     "@fastify/autoload": "^5.8.0",

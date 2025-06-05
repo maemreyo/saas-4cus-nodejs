@@ -101,7 +101,7 @@ Make sure these are set in your `.env`:
 
 ```env
 # Required
-DATABASE_URL=postgresql://user:pass@localhost:5432/mydb
+DATABASE_URL=postgresql://user:pass@localhost:5555/mydb
 JWT_ACCESS_SECRET=minimum-32-characters-secret-key
 JWT_REFRESH_SECRET=another-minimum-32-characters-key
 ENCRYPTION_KEY=exactly-32-character-encryption

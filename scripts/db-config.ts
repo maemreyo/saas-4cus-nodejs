@@ -59,7 +59,7 @@ export interface DatabaseBootstrapConfig {
 const defaultConfig: DatabaseBootstrapConfig = {
   database: {
     host: process.env.DB_HOST || 'localhost',
-    port: parseInt(process.env.DB_PORT || '5432'),
+    port: parseInt(process.env.DB_PORT || '5555'),
     name: process.env.DB_NAME || 'myapp_dev',
     username: process.env.DB_USER || 'postgres',
     password: process.env.DB_PASS || 'postgres',
@@ -181,7 +181,7 @@ function applyEnvironmentOverrides(config: DatabaseBootstrapConfig): DatabaseBoo
   if (process.env.DATABASE_URL) {
     const dbUrl = new URL(process.env.DATABASE_URL);
     config.database.host = dbUrl.hostname;
-    config.database.port = parseInt(dbUrl.port) || 5432;
+    config.database.port = parseInt(dbUrl.port) || 5555;
     config.database.name = dbUrl.pathname.substring(1);
     config.database.username = dbUrl.username;
     config.database.password = dbUrl.password;
@@ -262,7 +262,7 @@ export function generateConfigFile(): string {
 module.exports = {
   database: {
     host: 'localhost',
-    port: 5432,
+    port: 5555,
     name: 'myapp_dev',
     username: 'postgres',
     password: 'postgres',

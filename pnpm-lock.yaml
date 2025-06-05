@@ -59,6 +59,9 @@ importers:
       argon2:
         specifier: ^0.31.2
         version: 0.31.2(encoding@0.1.13)
+      bcryptjs:
+        specifier: ^3.0.2
+        version: 3.0.2
       bullmq:
         specifier: ^5.4.2
         version: 5.53.2
@@ -1324,6 +1327,10 @@ packages:
 
   base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
+
+  bcryptjs@3.0.2:
+    resolution: {integrity: sha512-k38b3XOZKv60C4E2hVsXTolJWfkGRMbILBIe2IBITXciy5bOsTKot5kDrf3ZfufQtQOUN5mXceUEpU1rTl9Uog==}
+    hasBin: true
 
   bignumber.js@9.3.0:
     resolution: {integrity: sha512-EM7aMFTXbptt/wZdMlBv2t8IViwQL+h6SLHosp8Yf0dqJMTnY6iL32opnAB6kAdL0SZPuvcAzFr31o0c/R3/RA==}
@@ -4364,6 +4371,8 @@ snapshots:
   balanced-match@1.0.2: {}
 
   base64-js@1.5.1: {}
+
+  bcryptjs@3.0.2: {}
 
   bignumber.js@9.3.0: {}
 

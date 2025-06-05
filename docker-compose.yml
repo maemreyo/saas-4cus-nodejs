@@ -7,7 +7,7 @@ services:
       - '3000:3000'
     environment:
       NODE_ENV: production
-      DATABASE_URL: 'postgresql://postgres:postgres@postgres:5432/myapp?schema=public'
+      DATABASE_URL: 'postgresql://postgres:postgres@postgres:5555/myapp?schema=public'
       REDIS_HOST: redis
       REDIS_PORT: 6379
     depends_on:
@@ -22,7 +22,7 @@ services:
   postgres:
     image: postgres:15-alpine
     ports:
-      - '5432:5432'
+      - '5555:5432'
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres

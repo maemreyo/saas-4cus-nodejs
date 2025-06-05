@@ -141,7 +141,7 @@ JWT_ACCESS_SECRET=your-access-secret
 JWT_REFRESH_SECRET=your-refresh-secret
 
 # Database
-DATABASE_URL=postgresql://user:pass@localhost:5432/mydb
+DATABASE_URL=postgresql://user:pass@localhost:5555/mydb
 
 # Redis
 REDIS_HOST=localhost

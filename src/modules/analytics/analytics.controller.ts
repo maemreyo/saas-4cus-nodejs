@@ -155,12 +155,17 @@ export class AnalyticsController {
     const dto = await validateSchema(GenerateReportDTO.schema, request.body);
     const tenantId = dto.filters?.tenantId || (request as any).tenant?.id;
 
+    // Convert string dates to Date objects
+    const filters = {
+      ...dto.filters,
+      tenantId,
+      startDate: dto.filters?.startDate ? new Date(dto.filters.startDate) : undefined,
+      endDate: dto.filters?.endDate ? new Date(dto.filters.endDate) : undefined
+    };
+
     const report = await this.reportService.generateReport({
       ...dto,
-      filters: {
-        ...dto.filters,
-        tenantId
-      }
+      filters
     });
 
     reply.send({ data: report });
@@ -176,12 +181,17 @@ export class AnalyticsController {
     const dto = await validateSchema(ScheduleReportDTO.schema, request.body);
     const tenantId = dto.filters?.tenantId || (request as any).tenant?.id;
 
+    // Convert string dates to Date objects
+    const filters = {
+      ...dto.filters,
+      tenantId,
+      startDate: dto.filters?.startDate ? new Date(dto.filters.startDate) : undefined,
+      endDate: dto.filters?.endDate ? new Date(dto.filters.endDate) : undefined
+    };
+
     const jobId = await this.reportService.scheduleReport({
       ...dto,
-      filters: {
-        ...dto.filters,
-        tenantId
-      }
+      filters
     });
 
     reply.send({

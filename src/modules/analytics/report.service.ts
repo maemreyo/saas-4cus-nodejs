@@ -3,8 +3,8 @@ import { prisma } from '@infrastructure/database/prisma.service';
 import { logger } from '@shared/logger';
 import { queueService } from '@shared/queue/queue.service';
 import { EmailService } from '@shared/services/email.service';
-import { StorageService } from '@shared/services/storage.service';
 import { AnalyticsService } from './analytics.service';
+import { StorageService } from '@/shared/services/storage.service';
 import PDFDocument from 'pdfkit';
 import { Parser } from 'json2csv';
 import { format } from 'date-fns';
@@ -33,7 +33,7 @@ export class ReportService {
   constructor(
     private analyticsService: AnalyticsService,
     private emailService: EmailService,
-    private storageService: StorageService
+    private storageService: StorageService,
   ) {}
 
   /**
@@ -107,7 +107,7 @@ export class ReportService {
       buffer: file,
       filename,
       mimeType,
-      path: 'reports'
+      path: 'reports',
     });
 
     // Send to recipients if specified
@@ -115,14 +115,14 @@ export class ReportService {
       await this.sendReportEmail(options.recipients, {
         url,
         filename,
-        type: options.type
+        type: options.type,
       });
     }
 
     return {
       url,
       filename,
-      size: file.length
+      size: file.length,
     };
   }
 
@@ -137,19 +137,19 @@ export class ReportService {
       switch (options.schedule.frequency) {
         case 'daily':
           repeatOptions = {
-            cron: `0 ${options.schedule.hour || 9} * * *`
+            cron: `0 ${options.schedule.hour || 9} * * *`,
           };
           break;
 
         case 'weekly':
           repeatOptions = {
-            cron: `0 ${options.schedule.hour || 9} * * ${options.schedule.dayOfWeek || 1}`
+            cron: `0 ${options.schedule.hour || 9} * * ${options.schedule.dayOfWeek || 1}`,
           };
           break;
 
         case 'monthly':
           repeatOptions = {
-            cron: `0 ${options.schedule.hour || 9} ${options.schedule.dayOfMonth || 1} * *`
+            cron: `0 ${options.schedule.hour || 9} ${options.schedule.dayOfMonth || 1} * *`,
           };
           break;
       }
@@ -157,7 +157,8 @@ export class ReportService {
 
     await queueService.addJob('report', 'generate', options, {
       repeat: repeatOptions,
-      jobId
+      // Use a custom property for job tracking instead of jobId
+      opts: { jobId },
     });
 
     logger.info('Report scheduled', { jobId, schedule: options.schedule });
@@ -169,18 +170,15 @@ export class ReportService {
    * Get dashboard report data
    */
   private async getDashboardReportData(filters?: any): Promise<any> {
-    const metrics = await this.analyticsService.getDashboardMetrics(
-      filters?.tenantId,
-      filters?.dateRange || 30
-    );
+    const metrics = await this.analyticsService.getDashboardMetrics(filters?.tenantId, filters?.dateRange || 30);
 
     return {
       generatedAt: new Date(),
       period: {
         start: filters?.startDate || new Date(Date.now() - (filters?.dateRange || 30) * 24 * 60 * 60 * 1000),
-        end: filters?.endDate || new Date()
+        end: filters?.endDate || new Date(),
       },
-      metrics
+      metrics,
     };
   }
 
@@ -190,12 +188,13 @@ export class ReportService {
   private async getRevenueReportData(filters?: any): Promise<any> {
     const where = {
       ...(filters?.tenantId && { subscription: { tenantId: filters.tenantId } }),
-      ...(filters?.startDate && filters?.endDate && {
-        paidAt: {
-          gte: filters.startDate,
-          lte: filters.endDate
-        }
-      })
+      ...(filters?.startDate &&
+        filters?.endDate && {
+          paidAt: {
+            gte: filters.startDate,
+            lte: filters.endDate,
+          },
+        }),
     };
 
     const [invoices, summary, byPlan, byMonth] = await Promise.all([
@@ -205,12 +204,12 @@ export class ReportService {
         include: {
           subscription: {
             include: {
-              user: true
-            }
-          }
+              user: true,
+            },
+          },
         },
         orderBy: { paidAt: 'desc' },
-        take: 100
+        take: 100,
       }),
 
       // Summary
@@ -218,7 +217,7 @@ export class ReportService {
         where,
         _sum: { amount: true },
         _count: { id: true },
-        _avg: { amount: true }
+        _avg: { amount: true },
       }),
 
       // Revenue by plan
@@ -226,7 +225,7 @@ export class ReportService {
         by: ['stripePriceId'],
         where,
         _sum: { amount: true },
-        _count: { id: true }
+        _count: { id: true },
       }),
 
       // Monthly revenue
@@ -237,24 +236,24 @@ export class ReportService {
           COUNT(*) as transactions
         FROM invoices
         WHERE status = 'paid'
-          ${filters?.tenantId ? prisma.Prisma.sql`AND subscription_id IN (SELECT id FROM subscriptions WHERE tenant_id = ${filters.tenantId})` : prisma.Prisma.empty}
-          ${filters?.startDate ? prisma.Prisma.sql`AND paid_at >= ${filters.startDate}` : prisma.Prisma.empty}
-          ${filters?.endDate ? prisma.Prisma.sql`AND paid_at <= ${filters.endDate}` : prisma.Prisma.empty}
+          ${filters?.tenantId ? prisma.client.$queryRaw`AND subscription_id IN (SELECT id FROM subscriptions WHERE tenant_id = ${filters.tenantId})` : prisma.client.$queryRaw``}
+          ${filters?.startDate ? prisma.client.$queryRaw`AND paid_at >= ${filters.startDate}` : prisma.client.$queryRaw``}
+          ${filters?.endDate ? prisma.client.$queryRaw`AND paid_at <= ${filters.endDate}` : prisma.client.$queryRaw``}
         GROUP BY DATE_TRUNC('month', paid_at)
         ORDER BY month DESC
-      `
+      `,
     ]);
 
     return {
       generatedAt: new Date(),
       period: {
         start: filters?.startDate,
-        end: filters?.endDate
+        end: filters?.endDate,
       },
       summary: {
         totalRevenue: (summary._sum.amount || 0) / 100,
         totalTransactions: summary._count.id,
-        averageTransaction: (summary._avg.amount || 0) / 100
+        averageTransaction: (summary._avg.amount || 0) / 100,
       },
       byPlan,
       byMonth,
@@ -267,9 +266,9 @@ export class ReportService {
         customer: {
           id: inv.subscription.user.id,
           email: inv.subscription.user.email,
-          name: inv.subscription.user.displayName
-        }
-      }))
+          name: inv.subscription.user.displayName,
+        },
+      })),
     };
   }
 
@@ -279,12 +278,13 @@ export class ReportService {
   private async getUsersReportData(filters?: any): Promise<any> {
     const where = {
       ...(filters?.tenantId && { tenantMembers: { some: { tenantId: filters.tenantId } } }),
-      ...(filters?.startDate && filters?.endDate && {
-        createdAt: {
-          gte: filters.startDate,
-          lte: filters.endDate
-        }
-      })
+      ...(filters?.startDate &&
+        filters?.endDate && {
+          createdAt: {
+            gte: filters.startDate,
+            lte: filters.endDate,
+          },
+        }),
     };
 
     const [users, summary, byPlan, byStatus, signupTrend] = await Promise.all([
@@ -293,18 +293,18 @@ export class ReportService {
         where,
         include: {
           subscriptions: {
-            where: { status: { in: ['active', 'trialing'] } },
-            take: 1
-          }
+            where: { status: { in: ['ACTIVE', 'TRIALING'] } },
+            take: 1,
+          },
         },
         orderBy: { createdAt: 'desc' },
-        take: 100
+        take: 100,
       }),
 
       // Summary
       prisma.client.user.aggregate({
         where,
-        _count: { id: true }
+        _count: { id: true },
       }),
 
       // Users by subscription plan
@@ -312,16 +312,16 @@ export class ReportService {
         by: ['stripePriceId'],
         where: {
           status: { in: ['active', 'trialing'] },
-          ...(filters?.tenantId && { tenantId: filters.tenantId })
+          ...(filters?.tenantId && { tenantId: filters.tenantId }),
         },
-        _count: { userId: true }
+        _count: { userId: true },
       }),
 
       // Users by status
       prisma.client.user.groupBy({
         by: ['status'],
         where,
-        _count: { id: true }
+        _count: { id: true },
       }),
 
       // Signup trend
@@ -331,25 +331,25 @@ export class ReportService {
           COUNT(*) as signups
         FROM users
         WHERE 1=1
-          ${filters?.tenantId ? prisma.Prisma.sql`AND id IN (SELECT user_id FROM tenant_members WHERE tenant_id = ${filters.tenantId})` : prisma.Prisma.empty}
-          ${filters?.startDate ? prisma.Prisma.sql`AND created_at >= ${filters.startDate}` : prisma.Prisma.empty}
-          ${filters?.endDate ? prisma.Prisma.sql`AND created_at <= ${filters.endDate}` : prisma.Prisma.empty}
+          ${filters?.tenantId ? prisma.client.$queryRaw`AND id IN (SELECT user_id FROM tenant_members WHERE tenant_id = ${filters.tenantId})` : prisma.client.$queryRaw``}
+          ${filters?.startDate ? prisma.client.$queryRaw`AND created_at >= ${filters.startDate}` : prisma.client.$queryRaw``}
+          ${filters?.endDate ? prisma.client.$queryRaw`AND created_at <= ${filters.endDate}` : prisma.client.$queryRaw``}
         GROUP BY DATE_TRUNC('day', created_at)
         ORDER BY date DESC
         LIMIT 30
-      `
+      `,
     ]);
 
     return {
       generatedAt: new Date(),
       period: {
         start: filters?.startDate,
-        end: filters?.endDate
+        end: filters?.endDate,
       },
       summary: {
         totalUsers: summary._count.id,
         activeUsers: users.filter(u => u.status === 'ACTIVE').length,
-        paidUsers: users.filter(u => u.subscriptions.length > 0).length
+        paidUsers: users.filter(u => u.subscriptions.length > 0).length,
       },
       byPlan,
       byStatus,
@@ -360,11 +360,13 @@ export class ReportService {
         name: user.displayName,
         status: user.status,
         createdAt: user.createdAt,
-        subscription: user.subscriptions[0] ? {
-          plan: user.subscriptions[0].stripePriceId,
-          status: user.subscriptions[0].status
-        } : null
-      }))
+        subscription: user.subscriptions[0]
+          ? {
+              plan: user.subscriptions[0].stripePriceId,
+              status: user.subscriptions[0].status,
+            }
+          : null,
+      })),
     };
   }
 
@@ -408,7 +410,7 @@ export class ReportService {
     // This is a simplified version - you'd want to format this nicely
     doc.fontSize(10).text(JSON.stringify(data, null, 2), {
       width: 500,
-      align: 'left'
+      align: 'left',
     });
   }
 
@@ -421,7 +423,7 @@ export class ReportService {
 
     if (Array.isArray(flatData) && flatData.length > 0) {
       const parser = new Parser({
-        fields: Object.keys(flatData[0])
+        fields: Object.keys(flatData[0]),
       });
       return Buffer.from(parser.parse(flatData));
     }
@@ -451,7 +453,7 @@ export class ReportService {
    */
   private async sendReportEmail(
     recipients: string[],
-    report: { url: string; filename: string; type: string }
+    report: { url: string; filename: string; type: string },
   ): Promise<void> {
     for (const recipient of recipients) {
       await this.emailService.queue({
@@ -461,8 +463,8 @@ export class ReportService {
         context: {
           reportType: report.type,
           downloadUrl: report.url,
-          filename: report.filename
-        }
+          filename: report.filename,
+        },
       });
     }
   }

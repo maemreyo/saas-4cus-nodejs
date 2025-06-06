@@ -318,7 +318,7 @@ export class AnalyticsService {
   ): Promise<number> {
     const where = {
       ...(tenantId && { subscription: { tenantId } }),
-      status: 'paid',
+      status: 'PAID',
       paidAt: {
         gte: startDate,
         lte: endDate
@@ -401,7 +401,7 @@ export class AnalyticsService {
       const revenue = await prisma.client.invoice.aggregate({
         where: {
           ...(tenantId && { subscription: { tenantId } }),
-          status: 'paid',
+          status: 'PAID',
           paidAt: {
             gte: startOfDay(date),
             lte: endOfDay(date)
@@ -515,7 +515,7 @@ export class AnalyticsService {
       by: ['stripePriceId'],
       where: {
         ...(tenantId && { subscription: { tenantId } }),
-        status: 'paid',
+        status: 'PAID',
         paidAt: { gte: last30Days }
       },
       _sum: { amount: true }

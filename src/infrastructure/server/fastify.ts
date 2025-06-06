@@ -13,6 +13,7 @@ import analyticsRoutes from '@modules/analytics/analytics.route';
 import webhookRoutes from '@modules/webhooks/webhook.route';
 import onboardingRoutes from '@modules/onboarding/onboarding.route';
 import ticketRoutes from '@modules/support/ticket.route'; // NEW: Support routes
+import { apiUsageRoutes } from '@/modules/api-usage';
 
 @Service()
 export class FastifyServer {
@@ -166,6 +167,25 @@ export class FastifyServer {
         });
       }
     });
+
+    // Track API usage for all authenticated requests
+    this.app.addHook('onRequest', async (request, reply) => {
+      // Skip for health and metrics endpoints
+      if (request.url.startsWith('/health') || request.url.startsWith('/metrics')) {
+        return;
+      }
+
+      // Only track authenticated requests
+      if (request.customUser) {
+        await trackApiUsage(request, reply);
+      }
+    });
+
+    // Add global quota enforcement
+    this.app.addHook('onRequest', enforceApiQuota());
+
+    // Add plan-based rate limiting
+    this.app.addHook('onRequest', planBasedRateLimit);
   }
 
   private async registerRoutes() {
@@ -189,7 +209,8 @@ export class FastifyServer {
     await this.app.register(analyticsRoutes, { prefix: '/api/analytics' });
     await this.app.register(webhookRoutes, { prefix: '/api/webhooks' });
     await this.app.register(onboardingRoutes, { prefix: '/api/onboarding' });
-    await this.app.register(ticketRoutes, { prefix: '/api/tickets' }); // NEW: Support routes
+    await this.app.register(ticketRoutes, { prefix: '/api/tickets' });
+    await this.app.register(apiUsageRoutes, { prefix: '/api/api-usage' });
 
     // 404 handler
     this.app.setNotFoundHandler((request, reply) => {

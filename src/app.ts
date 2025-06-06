@@ -20,6 +20,8 @@ import './modules/support/ticket.events.handlers';
 
 // Import module initializers
 import { initializeSupportModule, shutdownSupportModule } from './modules/support';
+import { initializeApiUsageModule, shutdownApiUsageModule } from './modules/api-usage';
+import { trackApiUsage, enforceApiQuota, planBasedRateLimit } from './modules/api-usage/api-usage.middleware';
 
 // Sentry initialization
 import * as Sentry from '@sentry/node';
@@ -57,6 +59,9 @@ async function bootstrap() {
     // Initialize modules
     await initializeSupportModule();
     logger.info('Support module initialized');
+
+    await initializeApiUsageModule();
+    logger.info('API Usage module initialized');
 
     // Initialize Fastify server
     const server = Container.get(FastifyServer);
@@ -120,6 +125,9 @@ async function gracefulShutdown() {
 
     // Shutdown modules
     await shutdownSupportModule();
+
+    // In gracefulShutdown function:
+    await shutdownApiUsageModule();
 
     // Close queue connections
     await queueService.close();

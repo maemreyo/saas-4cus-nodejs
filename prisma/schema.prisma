@@ -134,12 +134,14 @@ model User {
   ownedTenants  Tenant[]
 
   // Ticket/Support
-  tickets           Ticket[]
-  assignedTickets   Ticket[]         @relation("AssignedTickets")
-  ticketMessages    TicketMessage[]
-  ticketActivities  TicketActivity[]
-  ticketWatchers    TicketWatcher[]
+  tickets          Ticket[]
+  assignedTickets  Ticket[]         @relation("AssignedTickets")
+  ticketMessages   TicketMessage[]
+  ticketActivities TicketActivity[]
+  ticketWatchers   TicketWatcher[]
 
+  incidents       Incident[]       @relation("ResolvedIncidents")
+  incidentUpdates IncidentUpdate[]
 
   // Indexes
   @@index([email])
@@ -147,6 +149,7 @@ model User {
   @@index([status])
   @@index([createdAt])
   @@map("users")
+  Incident Incident[]
 }
 
 model AuthProvider {
@@ -247,7 +250,7 @@ model Tenant {
   subscription Subscription?      @relation(fields: [subscriptionId], references: [id])
   projects     Project[]
   invitations  TenantInvitation[]
-  tickets Ticket[]
+  tickets      Ticket[]
 
   // Indexes
   @@index([slug])
@@ -614,7 +617,7 @@ model File {
   deletedAt DateTime?
 
   // Relations
-  user              User?              @relation(fields: [userId], references: [id], onDelete: SetNull)
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   // Indexes
   @@index([userId])
@@ -1074,4 +1077,67 @@ model TicketTemplate {
   @@index([name])
   @@index([category])
   @@map("ticket_templates")
+}
+
+enum IncidentSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum IncidentStatus {
+  OPEN
+  INVESTIGATING
+  IDENTIFIED
+  MONITORING
+  RESOLVED
+  CLOSED
+}
+
+model Incident {
+  id          String           @id @default(cuid())
+  title       String           @db.VarChar(255)
+  description String           @db.Text
+  severity    IncidentSeverity
+  status      IncidentStatus
+
+  affectedServices String[]
+  impactedUsers    Int?
+
+  resolution   String?   @db.Text
+  resolvedAt   DateTime?
+  resolvedById String?
+
+  metadata Json? @db.JsonB
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  resolvedBy User?            @relation(fields: [resolvedById], references: [id])
+  updates    IncidentUpdate[]
+  userId     String?
+
+  @@index([status])
+  @@index([severity])
+  @@index([createdAt])
+  @@map("incidents")
+  User User[] @relation("ResolvedIncidents")
+}
+
+model IncidentUpdate {
+  id         String @id @default(cuid())
+  incidentId String
+  userId     String
+
+  message String          @db.Text
+  status  IncidentStatus?
+
+  createdAt DateTime @default(now())
+
+  incident Incident @relation(fields: [incidentId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id])
+
+  @@index([incidentId])
+  @@map("incident_updates")
 }

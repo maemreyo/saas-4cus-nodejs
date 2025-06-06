@@ -182,7 +182,7 @@ const configSchema = z.object({
     openai: z.object({
       apiKey: z.string().optional(),
       organization: z.string().optional(),
-  }),
+    }),
     stripe: z.object({
       secretKey: z.string().optional(),
       webhookSecret: z.string().optional(),
@@ -193,6 +193,48 @@ const configSchema = z.object({
     timeout: z.number().int().positive().default(30000),
     maxRetries: z.number().int().positive().default(3),
     retryDelay: z.number().int().positive().default(1000),
+  }),
+
+  search: z.object({
+    elasticsearch: z.object({
+      url: z.string().url().default('http://localhost:9200'),
+      auth: z.union([
+        z.object({
+          username: z.string(),
+          password: z.string().default(''),
+        }),
+        z.undefined()
+      ]).optional(),
+    }),
+  }),
+
+  support: z.object({
+    email: z.string().email().default('support@example.com'),
+    autoCloseDays: z.number().int().positive().default(7),
+    autoCloseWarningDays: z.number().int().positive().default(5),
+    satisfactionSurveyDelay: z.number().int().positive().default(86400000),
+    sla: z.object({
+      firstResponse: z.object({
+        critical: z.number().int().positive().default(30),
+        urgent: z.number().int().positive().default(60),
+        high: z.number().int().positive().default(120),
+        medium: z.number().int().positive().default(240),
+        low: z.number().int().positive().default(480),
+      }),
+      resolution: z.object({
+        critical: z.number().int().positive().default(240),
+        urgent: z.number().int().positive().default(480),
+        high: z.number().int().positive().default(1440),
+        medium: z.number().int().positive().default(2880),
+        low: z.number().int().positive().default(5760),
+      }),
+    }),
+    rateLimit: z.object({
+      max: z.number().int().positive().default(10),
+      window: z.number().int().positive().default(3600),
+    }),
+    teamEmails: z.array(z.string()).default([]),
+    managementEmails: z.array(z.string()).default([]),
   }),
 });
 

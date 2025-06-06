@@ -134,12 +134,11 @@ model User {
   ownedTenants  Tenant[]
 
   // Ticket
-  tickets           Ticket[]           @relation("UserTickets")
-  assignedTickets   Ticket[]           @relation("AssignedTickets")
+  tickets           Ticket[]
+  assignedTickets   Ticket[]         @relation("AssignedTickets")
   ticketMessages    TicketMessage[]
-  ticketAttachments TicketAttachment[]
-  ticketHistory     TicketHistory[]
-  watchedTickets    TicketWatcher[]
+  ticketActivities  TicketActivity[]
+  ticketWatchers    TicketWatcher[]
 
   // Indexes
   @@index([email])
@@ -247,6 +246,7 @@ model Tenant {
   subscription Subscription?      @relation(fields: [subscriptionId], references: [id])
   projects     Project[]
   invitations  TenantInvitation[]
+  tickets Ticket[]
 
   // Indexes
   @@index([slug])
@@ -614,7 +614,6 @@ model File {
 
   // Relations
   user              User?              @relation(fields: [userId], references: [id], onDelete: SetNull)
-  ticketAttachments TicketAttachment[]
 
   // Indexes
   @@index([userId])
@@ -857,12 +856,12 @@ model OnboardingProgress {
 
 // ========================= TICKET SYSTEM =========================
 
-// Enums for Support Ticket System
+// Support Ticket System Models
 enum TicketStatus {
   OPEN
   IN_PROGRESS
-  WAITING_CUSTOMER
-  WAITING_AGENT
+  WAITING_FOR_CUSTOMER
+  WAITING_FOR_SUPPORT
   RESOLVED
   CLOSED
   CANCELLED
@@ -877,35 +876,34 @@ enum TicketPriority {
 }
 
 enum TicketType {
-  QUESTION
-  PROBLEM
-  FEATURE_REQUEST
+  GENERAL_INQUIRY
+  TECHNICAL_ISSUE
   BUG_REPORT
-  BILLING
-  ACCOUNT
+  FEATURE_REQUEST
+  BILLING_ISSUE
+  ACCOUNT_ISSUE
   OTHER
 }
 
-// Support Ticket Models
 model TicketCategory {
   id          String  @id @default(cuid())
   name        String  @db.VarChar(100)
-  slug        String  @unique @db.VarChar(50)
+  slug        String  @unique @db.VarChar(100)
   description String? @db.Text
   icon        String? @db.VarChar(50)
-  color       String? @db.VarChar(7)
-  sortOrder   Int     @default(0)
+  parentId    String?
+  order       Int     @default(0)
   active      Boolean @default(true)
 
-  parentId String?
-  parent   TicketCategory?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
-  children TicketCategory[] @relation("CategoryHierarchy")
+  metadata Json? @db.JsonB
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // Relations
-  tickets Ticket[]
+  parent   TicketCategory?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children TicketCategory[] @relation("CategoryHierarchy")
+  tickets  Ticket[]
 
   // Indexes
   @@index([slug])
@@ -914,27 +912,18 @@ model TicketCategory {
 }
 
 model Ticket {
-  id       String  @id @default(cuid())
-  number   String  @unique @db.VarChar(20) // Format: TICK-YYYYMMDD-XXXX
-  userId   String
-  tenantId String?
+  id         String  @id @default(cuid())
+  number     String  @unique @db.VarChar(20)
+  userId     String
+  tenantId   String?
+  categoryId String?
+  assigneeId String?
 
   subject     String         @db.VarChar(255)
   description String         @db.Text
-  type        TicketType     @default(QUESTION)
+  type        TicketType     @default(GENERAL_INQUIRY)
   status      TicketStatus   @default(OPEN)
   priority    TicketPriority @default(MEDIUM)
-
-  categoryId String?
-  category   TicketCategory? @relation(fields: [categoryId], references: [id])
-
-  assignedToId String?
-  assignedTo   User?   @relation("AssignedTickets", fields: [assignedToId], references: [id])
-
-  // Customer satisfaction
-  rating          Int?      @db.SmallInt
-  ratingComment   String?   @db.Text
-  ratingCreatedAt DateTime?
 
   // SLA tracking
   firstResponseAt  DateTime?
@@ -943,11 +932,14 @@ model Ticket {
   resolutionSla    Int? // in minutes
   slaBreached      Boolean   @default(false)
 
-  // Metadata
-  source    String? @db.VarChar(50) // email, web, api, chat
-  ipAddress String? @db.VarChar(45)
-  userAgent String? @db.Text
-  metadata  Json?   @db.JsonB
+  // Satisfaction
+  satisfactionRating  Int? // 1-5
+  satisfactionComment String? @db.Text
+
+  // Additional info
+  tags        String[]
+  attachments String[] // file IDs
+  metadata    Json?    @db.JsonB
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -955,47 +947,43 @@ model Ticket {
   deletedAt DateTime?
 
   // Relations
-  user        User               @relation("UserTickets", fields: [userId], references: [id])
-  messages    TicketMessage[]
-  attachments TicketAttachment[]
-  tags        TicketTag[]        @relation("TicketTags")
-  history     TicketHistory[]
-  watchers    TicketWatcher[]
+  user       User             @relation(fields: [userId], references: [id])
+  tenant     Tenant?          @relation(fields: [tenantId], references: [id])
+  category   TicketCategory?  @relation(fields: [categoryId], references: [id])
+  assignee   User?            @relation("AssignedTickets", fields: [assigneeId], references: [id])
+  messages   TicketMessage[]
+  activities TicketActivity[]
+  watchers   TicketWatcher[]
 
   // Indexes
   @@index([number])
   @@index([userId])
   @@index([tenantId])
+  @@index([assigneeId])
   @@index([status])
   @@index([priority])
-  @@index([assignedToId])
-  @@index([categoryId])
   @@index([createdAt])
   @@map("tickets")
 }
 
 model TicketMessage {
-  id       String  @id @default(cuid())
+  id       String @id @default(cuid())
   ticketId String
   userId   String
-  content  String  @db.Text
-  internal Boolean @default(false) // Internal notes not visible to customer
 
-  // For system messages
-  isSystem   Boolean @default(false)
-  systemType String? @db.VarChar(50) // status_change, assignment_change, etc.
+  content     String   @db.Text
+  attachments String[] // file IDs
+  internal    Boolean  @default(false) // Internal notes not visible to customer
 
   metadata Json? @db.JsonB
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  editedAt  DateTime?
   deletedAt DateTime?
 
   // Relations
-  ticket      Ticket             @relation(fields: [ticketId], references: [id], onDelete: Cascade)
-  user        User               @relation(fields: [userId], references: [id])
-  attachments TicketAttachment[]
+  ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id])
 
   // Indexes
   @@index([ticketId])
@@ -1004,71 +992,46 @@ model TicketMessage {
   @@map("ticket_messages")
 }
 
-model TicketAttachment {
-  id        String  @id @default(cuid())
-  ticketId  String
-  messageId String?
-  userId    String
-  fileId    String
-
-  filename String @db.VarChar(255)
-  size     Int
-  mimeType String @db.VarChar(100)
-  url      String @db.Text
-
-  createdAt DateTime @default(now())
-
-  // Relations
-  ticket  Ticket         @relation(fields: [ticketId], references: [id], onDelete: Cascade)
-  message TicketMessage? @relation(fields: [messageId], references: [id], onDelete: Cascade)
-  user    User           @relation(fields: [userId], references: [id])
-  file    File           @relation(fields: [fileId], references: [id])
-
-  // Constraints
-  @@unique([ticketId, fileId])
-  @@index([ticketId])
-  @@index([messageId])
-  @@map("ticket_attachments")
+enum TicketActivityType {
+  CREATED
+  STATUS_CHANGED
+  PRIORITY_CHANGED
+  ASSIGNED
+  UNASSIGNED
+  MESSAGE_ADDED
+  INTERNAL_NOTE_ADDED
+  ATTACHMENT_ADDED
+  CATEGORY_CHANGED
+  TAGS_UPDATED
+  MERGED
+  ESCALATED
+  RESOLVED
+  CLOSED
+  REOPENED
 }
 
-model TicketTag {
-  id    String @id @default(cuid())
-  name  String @unique @db.VarChar(50)
-  slug  String @unique @db.VarChar(50)
-  color String @default("#6B7280") @db.VarChar(7)
-
-  createdAt DateTime @default(now())
-
-  // Relations
-  tickets Ticket[] @relation("TicketTags")
-
-  // Indexes
-  @@index([slug])
-  @@map("ticket_tags")
-}
-
-model TicketHistory {
-  id       String @id @default(cuid())
+model TicketActivity {
+  id       String             @id @default(cuid())
   ticketId String
-  userId   String
-  action   String @db.VarChar(100) // created, updated, status_changed, assigned, etc.
+  userId   String?
+  type     TicketActivityType
 
-  field    String? @db.VarChar(50)
-  oldValue String? @db.Text
-  newValue String? @db.Text
-  metadata Json?   @db.JsonB
+  description String? @db.Text
+  oldValue    String? @db.VarChar(255)
+  newValue    String? @db.VarChar(255)
+  metadata    Json?   @db.JsonB
 
   createdAt DateTime @default(now())
 
   // Relations
   ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
-  user   User   @relation(fields: [userId], references: [id])
+  user   User?  @relation(fields: [userId], references: [id])
 
   // Indexes
   @@index([ticketId])
-  @@index([action])
+  @@index([type])
   @@index([createdAt])
-  @@map("ticket_history")
+  @@map("ticket_activities")
 }
 
 model TicketWatcher {
@@ -1080,7 +1043,7 @@ model TicketWatcher {
 
   // Relations
   ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   // Constraints
   @@unique([ticketId, userId])
@@ -1090,16 +1053,16 @@ model TicketWatcher {
 }
 
 model TicketTemplate {
-  id          String          @id @default(cuid())
-  name        String          @db.VarChar(100)
-  slug        String          @unique @db.VarChar(50)
-  description String?         @db.Text
-  subject     String          @db.VarChar(255)
-  content     String          @db.Text
-  categoryId  String?
-  type        TicketType?
-  priority    TicketPriority?
-  active      Boolean         @default(true)
+  id          String  @id @default(cuid())
+  name        String  @db.VarChar(100)
+  description String? @db.Text
+
+  subject  String   @db.VarChar(255)
+  content  String   @db.Text
+  category String?  @db.VarChar(50)
+  tags     String[]
+
+  active Boolean @default(true)
 
   metadata Json? @db.JsonB
 
@@ -1107,6 +1070,7 @@ model TicketTemplate {
   updatedAt DateTime @updatedAt
 
   // Indexes
-  @@index([slug])
+  @@index([name])
+  @@index([category])
   @@map("ticket_templates")
 }

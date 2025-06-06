@@ -133,12 +133,13 @@ model User {
   tenantMembers TenantMember[]
   ownedTenants  Tenant[]
 
-  // Ticket
+  // Ticket/Support
   tickets           Ticket[]
   assignedTickets   Ticket[]         @relation("AssignedTickets")
   ticketMessages    TicketMessage[]
   ticketActivities  TicketActivity[]
   ticketWatchers    TicketWatcher[]
+
 
   // Indexes
   @@index([email])

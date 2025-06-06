@@ -1,9 +1,18 @@
-import Fastify, { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { Service } from 'typedi';
+import Fastify, { FastifyInstance, FastifyRequest } from 'fastify';
 import { config } from '@infrastructure/config';
-import { logger, fastifyLogger } from '@shared/logger';
-import { prisma } from '@infrastructure/database/prisma.service';
-import { redis } from '@infrastructure/cache/redis.service';
+import { logger } from '@shared/logger';
+
+// Import route modules
+import authRoutes from '@modules/auth/auth.route';
+import userRoutes from '@modules/user/user.route';
+import billingRoutes from '@modules/billing/billing.route';
+import tenantRoutes from '@modules/tenant/tenant.route';
+import featureRoutes from '@modules/features/feature.route';
+import analyticsRoutes from '@modules/analytics/analytics.route';
+import webhookRoutes from '@modules/webhooks/webhook.route';
+import onboardingRoutes from '@modules/onboarding/onboarding.route';
+import ticketRoutes from '@modules/support/ticket.route'; // NEW: Support routes
 
 @Service()
 export class FastifyServer {
@@ -11,19 +20,20 @@ export class FastifyServer {
 
   constructor() {
     this.app = Fastify({
-      logger: fastifyLogger,
-      trustProxy: true,
+      logger: logger.getPino(),
       requestIdHeader: 'x-request-id',
+      requestIdLogLabel: 'requestId',
       disableRequestLogging: false,
+      trustProxy: true,
       bodyLimit: 10485760, // 10MB
     });
   }
 
-  async initialize(): Promise<void> {
+  async initialize() {
     await this.registerPlugins();
     await this.registerMiddleware();
-    await this.registerRoutes();
     await this.registerErrorHandlers();
+    await this.registerRoutes();
   }
 
   private async registerPlugins(): Promise<void> {
@@ -158,17 +168,37 @@ export class FastifyServer {
     });
   }
 
-  private async registerRoutes(): Promise<void> {
-    // Auto-load routes
-    await this.app.register(import('@fastify/autoload'), {
-      dir: `${__dirname}/../../modules`,
-      options: { prefix: config.api.prefix },
-      matchFilter: (path: string) => path.endsWith('.route.ts') || path.endsWith('.route.js'),
+  private async registerRoutes() {
+    // Health check
+    this.app.get('/health', async (request, reply) => {
+      const health = {
+        status: 'ok',
+        timestamp: new Date().toISOString(),
+        version: config.app.version,
+        environment: config.app.env,
+      };
+      reply.send(health);
     });
 
-    // Health check routes
-    const healthRoutes = (await import('./routes/health.route')).default;
-    this.app.register(healthRoutes);
+    // API routes
+    await this.app.register(authRoutes, { prefix: '/api/auth' });
+    await this.app.register(userRoutes, { prefix: '/api/users' });
+    await this.app.register(billingRoutes, { prefix: '/api/billing' });
+    await this.app.register(tenantRoutes, { prefix: '/api/tenants' });
+    await this.app.register(featureRoutes, { prefix: '/api/features' });
+    await this.app.register(analyticsRoutes, { prefix: '/api/analytics' });
+    await this.app.register(webhookRoutes, { prefix: '/api/webhooks' });
+    await this.app.register(onboardingRoutes, { prefix: '/api/onboarding' });
+    await this.app.register(ticketRoutes, { prefix: '/api/tickets' }); // NEW: Support routes
+
+    // 404 handler
+    this.app.setNotFoundHandler((request, reply) => {
+      reply.code(404).send({
+        error: 'Not Found',
+        message: 'The requested resource was not found',
+        path: request.url,
+      });
+    });
   }
 
   private async registerErrorHandlers(): Promise<void> {

@@ -229,10 +229,12 @@ const configSchema = z.object({
         low: z.number().int().positive().default(5760),
       }),
     }),
+
     rateLimit: z.object({
       max: z.number().int().positive().default(10),
       window: z.number().int().positive().default(3600),
     }),
+
     teamEmails: z.array(z.string()).default([]),
     managementEmails: z.array(z.string()).default([]),
   }),

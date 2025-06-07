@@ -2,6 +2,10 @@ import { Client } from '@elastic/elasticsearch';
 import { config } from '@infrastructure/config';
 import { logger } from '@shared/logger';
 
+interface ElasticsearchMapping {
+  properties: Record<string, any>;
+}
+
 class ElasticsearchService {
   private client: Client;
   private isConnected: boolean = false;
@@ -9,13 +13,15 @@ class ElasticsearchService {
   constructor() {
     this.client = new Client({
       node: config.search?.elasticsearch?.url || 'http://localhost:9200',
-      auth: config.search?.elasticsearch?.auth ? {
-        username: config.search.elasticsearch.auth.username,
-        password: config.search.elasticsearch.auth.password
-      } : undefined,
+      auth: config.search?.elasticsearch?.auth
+        ? {
+            username: config.search.elasticsearch.auth.username,
+            password: config.search.elasticsearch.auth.password,
+          }
+        : undefined,
       tls: {
-        rejectUnauthorized: false
-      }
+        rejectUnauthorized: false,
+      },
     });
   }
 
@@ -24,7 +30,7 @@ class ElasticsearchService {
       const info = await this.client.info();
       logger.info('Elasticsearch connected', {
         version: info.version.number,
-        cluster: info.cluster_name
+        cluster: info.cluster_name,
       });
       this.isConnected = true;
 
@@ -49,34 +55,34 @@ class ElasticsearchService {
         name: 'knowledge_articles',
         mappings: {
           properties: {
-            title: { type: 'text', analyzer: 'standard' },
-            content: { type: 'text', analyzer: 'standard' },
-            category: { type: 'keyword' },
-            tags: { type: 'keyword' },
-            viewCount: { type: 'integer' },
-            helpful: { type: 'integer' },
-            notHelpful: { type: 'integer' },
-            createdAt: { type: 'date' },
-            updatedAt: { type: 'date' }
-          }
-        }
+            title: { type: 'text' as const, analyzer: 'standard' },
+            content: { type: 'text' as const, analyzer: 'standard' },
+            category: { type: 'keyword' as const },
+            tags: { type: 'keyword' as const },
+            viewCount: { type: 'integer' as const },
+            helpful: { type: 'integer' as const },
+            notHelpful: { type: 'integer' as const },
+            createdAt: { type: 'date' as const },
+            updatedAt: { type: 'date' as const },
+          },
+        } as ElasticsearchMapping,
       },
       {
         name: 'tickets',
         mappings: {
           properties: {
-            number: { type: 'keyword' },
-            subject: { type: 'text', analyzer: 'standard' },
-            description: { type: 'text', analyzer: 'standard' },
-            status: { type: 'keyword' },
-            priority: { type: 'keyword' },
-            category: { type: 'keyword' },
-            tags: { type: 'keyword' },
-            createdAt: { type: 'date' },
-            resolvedAt: { type: 'date' }
-          }
-        }
-      }
+            number: { type: 'keyword' as const },
+            subject: { type: 'text' as const, analyzer: 'standard' },
+            description: { type: 'text' as const, analyzer: 'standard' },
+            status: { type: 'keyword' as const },
+            priority: { type: 'keyword' as const },
+            category: { type: 'keyword' as const },
+            tags: { type: 'keyword' as const },
+            createdAt: { type: 'date' as const },
+            resolvedAt: { type: 'date' as const },
+          },
+        } as ElasticsearchMapping,
+      },
     ];
 
     for (const index of indices) {
@@ -90,9 +96,9 @@ class ElasticsearchService {
               mappings: index.mappings,
               settings: {
                 number_of_shards: 1,
-                number_of_replicas: 0
-              }
-            }
+                number_of_replicas: 0,
+              },
+            },
           });
 
           logger.info(`Elasticsearch index created: ${index.name}`);

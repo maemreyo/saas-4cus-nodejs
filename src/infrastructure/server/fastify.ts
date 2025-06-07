@@ -2,6 +2,8 @@ import { Service } from 'typedi';
 import Fastify, { FastifyInstance, FastifyRequest } from 'fastify';
 import { config } from '@infrastructure/config';
 import { logger } from '@shared/logger';
+import { redis } from '@infrastructure/cache/redis.service';
+import { trackApiUsage, enforceApiQuota, planBasedRateLimit } from '@modules/api-usage/api-usage.middleware';
 
 // Import route modules
 import authRoutes from '@modules/auth/auth.route';
@@ -12,8 +14,9 @@ import featureRoutes from '@modules/features/feature.route';
 import analyticsRoutes from '@modules/analytics/analytics.route';
 import webhookRoutes from '@modules/webhooks/webhook.route';
 import onboardingRoutes from '@modules/onboarding/onboarding.route';
-import ticketRoutes from '@modules/support/ticket.route'; // NEW: Support routes
-import { apiUsageRoutes } from '@/modules/api-usage';
+import ticketRoutes from '@modules/support/ticket.route';
+import apiUsageRoutes from '@modules/api-usage/api-usage.route';
+import adminRoutes from '@modules/admin/admin.route';
 
 @Service()
 export class FastifyServer {
@@ -211,6 +214,7 @@ export class FastifyServer {
     await this.app.register(onboardingRoutes, { prefix: '/api/onboarding' });
     await this.app.register(ticketRoutes, { prefix: '/api/tickets' });
     await this.app.register(apiUsageRoutes, { prefix: '/api/api-usage' });
+    await this.app.register(adminRoutes, { prefix: '/api/admin' });
 
     // 404 handler
     this.app.setNotFoundHandler((request, reply) => {

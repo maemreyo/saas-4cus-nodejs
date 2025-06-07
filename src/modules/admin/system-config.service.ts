@@ -17,7 +17,7 @@ export interface SystemConfig {
   features: {
     registration: boolean;
     oauth: boolean;
-    twoFactor: boolean;
+    twoFactorAuth: boolean; // Changed from twoFactor to match config
     emailVerification: boolean;
     apiAccess: boolean;
     fileUpload: boolean;
@@ -150,7 +150,10 @@ export class SystemConfigService {
   @CacheInvalidate(['system:config'])
   async updateConfig(updates: Partial<SystemConfig>): Promise<SystemConfig> {
     const currentConfig = await this.getConfig();
-    const newConfig = this.deepMerge(currentConfig, updates);
+
+    // Ensure we're properly merging nested objects
+    const processedUpdates = this.ensureCompleteNestedObjects(updates, currentConfig);
+    const newConfig = this.deepMerge(currentConfig, processedUpdates);
 
     // Validate configuration
     this.validateConfig(newConfig);
@@ -185,6 +188,81 @@ export class SystemConfigService {
     await this.applyConfigChanges(currentConfig, newConfig);
 
     return newConfig;
+  }
+
+  /**
+   * Ensures that partial nested objects are properly merged with current config
+   * to avoid TypeScript errors with required properties
+   */
+  private ensureCompleteNestedObjects(updates: Partial<SystemConfig>, currentConfig: SystemConfig): Partial<SystemConfig> {
+    const result: Partial<SystemConfig> = { ...updates };
+
+    // Handle features object if it exists in updates
+    if (updates.features) {
+      result.features = { ...currentConfig.features, ...updates.features };
+    }
+
+    // Handle security object if it exists in updates
+    if (updates.security) {
+      result.security = { ...currentConfig.security, ...updates.security };
+    }
+
+    // Handle other nested objects as needed
+    if (updates.limits) {
+      result.limits = { ...currentConfig.limits, ...updates.limits };
+    }
+
+    if (updates.email) {
+      result.email = { ...currentConfig.email, ...updates.email };
+      // Handle nested templates if they exist
+      if (updates.email.templates) {
+        result.email.templates = { ...currentConfig.email.templates, ...updates.email.templates };
+      }
+    }
+
+    if (updates.billing) {
+      result.billing = { ...currentConfig.billing, ...updates.billing };
+    }
+
+    if (updates.integrations) {
+      result.integrations = { ...currentConfig.integrations };
+
+      // Handle nested integration objects
+      if (updates.integrations.slack) {
+        result.integrations.slack = {
+          ...currentConfig.integrations.slack,
+          ...updates.integrations.slack
+        };
+
+        // Handle nested channels if they exist
+        if (updates.integrations.slack.channels) {
+          result.integrations.slack.channels = {
+            ...currentConfig.integrations.slack.channels,
+            ...updates.integrations.slack.channels
+          };
+        }
+      }
+
+      if (updates.integrations.analytics) {
+        result.integrations.analytics = {
+          ...currentConfig.integrations.analytics,
+          ...updates.integrations.analytics
+        };
+      }
+
+      if (updates.integrations.monitoring) {
+        result.integrations.monitoring = {
+          ...currentConfig.integrations.monitoring,
+          ...updates.integrations.monitoring
+        };
+      }
+    }
+
+    if (updates.ui) {
+      result.ui = { ...currentConfig.ui, ...updates.ui };
+    }
+
+    return result;
   }
 
   /**
@@ -243,14 +321,18 @@ export class SystemConfigService {
    * Update feature flags
    */
   async updateFeatureFlags(features: Partial<SystemConfig['features']>): Promise<void> {
-    await this.updateConfig({ features });
+    const currentConfig = await this.getConfig();
+    const mergedFeatures = { ...currentConfig.features, ...features };
+    await this.updateConfig({ features: mergedFeatures });
   }
 
   /**
    * Update security settings
    */
   async updateSecuritySettings(security: Partial<SystemConfig['security']>): Promise<void> {
-    await this.updateConfig({ security });
+    const currentConfig = await this.getConfig();
+    const mergedSecurity = { ...currentConfig.security, ...security };
+    await this.updateConfig({ security: mergedSecurity });
 
     // Log security changes for audit
     logger.security('Security settings updated', security);
@@ -288,6 +370,14 @@ export class SystemConfigService {
   async isFeatureEnabled(feature: keyof SystemConfig['features']): Promise<boolean> {
     const config = await this.getConfig();
     return config.features[feature] ?? false;
+  }
+
+  /**
+   * Legacy method for backward compatibility
+   * @deprecated Use isFeatureEnabled with 'twoFactorAuth' instead
+   */
+  async isTwoFactorEnabled(): Promise<boolean> {
+    return this.isFeatureEnabled('twoFactorAuth');
   }
 
   /**
@@ -356,7 +446,7 @@ export class SystemConfigService {
       features: {
         registration: appConfig.features.registration,
         oauth: appConfig.features.oauth,
-        twoFactor: appConfig.features.twoFactor,
+        twoFactorAuth: appConfig.features.twoFactorAuth, // Changed from twoFactor to twoFactorAuth
         emailVerification: appConfig.features.emailVerification,
         apiAccess: true,
         fileUpload: true,

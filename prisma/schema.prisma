@@ -580,6 +580,7 @@ model AuditLog {
 
   oldValues Json? @db.JsonB
   newValues Json? @db.JsonB
+  metadata  Json? @db.JsonB
 
   ipAddress String? @db.VarChar(45)
   userAgent String? @db.Text

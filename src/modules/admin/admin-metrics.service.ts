@@ -150,7 +150,8 @@ export class AdminMetricsService {
       const lastInvoice = sub.invoices[0];
       if (lastInvoice) {
         // Normalize to monthly
-        const interval = sub.metadata?.interval as string || 'month';
+        const metadata = sub.metadata as any;
+        const interval = metadata?.interval || 'month';
         const amount = lastInvoice.amount / 100;
         return sum + (interval === 'year' ? amount / 12 : amount);
       }
@@ -197,7 +198,11 @@ export class AdminMetricsService {
       byPlan: revenueByPlan,
       churnRate: Math.round(churnRate * 100) / 100,
       ltv: Math.round(ltv),
-      growth
+      growth: {
+        daily: growth.daily || 0,
+        weekly: growth.weekly || 0,
+        monthly: growth.monthly || 0
+      }
     };
   }
 
@@ -269,16 +274,18 @@ export class AdminMetricsService {
     const oneMinuteAgo = new Date(now.getTime() - 60000);
     const fiveMinutesAgo = new Date(now.getTime() - 300000);
 
-    // Get from Redis for real-time data
+    // Get from Redis for real-time data - using smembers instead of scard
     const [
-      activeUsers,
+      activeUsersList,
       requestsLastMinute,
       errorsLastMinute
     ] = await Promise.all([
-      redis.scard('active_users'),
+      redis.smembers('active_users'),
       redis.get('metrics:requests:1min') || 0,
       redis.get('metrics:errors:1min') || 0
     ]);
+
+    const activeUsers = activeUsersList.length;
 
     // Get recent API calls
     const recentApiCalls = await prisma.client.apiUsage.findMany({
@@ -307,7 +314,7 @@ export class AdminMetricsService {
 
     return {
       timestamp: now,
-      activeUsers: Number(activeUsers),
+      activeUsers,
       requestsPerMinute: Number(requestsLastMinute),
       errorsPerMinute: Number(errorsLastMinute),
       averageResponseTime: Math.round(avgResponseTime),
@@ -560,7 +567,7 @@ export class AdminMetricsService {
   private async calculateRevenueGrowth(
     invoices: any[],
     periods: Record<string, Date>
-  ) {
+  ): Promise<Record<string, number>> {
     const growth: Record<string, number> = {};
 
     for (const [period, startDate] of Object.entries(periods)) {

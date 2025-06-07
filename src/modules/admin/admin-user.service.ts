@@ -383,12 +383,20 @@ export class AdminUserService {
    * Suspend user account
    */
   async suspendUser(adminId: string, userId: string, reason?: string) {
+    const currentUser = await prisma.client.user.findUnique({
+      where: { id: userId }
+    });
+
+    if (!currentUser) {
+      throw new NotFoundException('User not found');
+    }
+
     const user = await prisma.client.user.update({
       where: { id: userId },
       data: {
         status: UserStatus.SUSPENDED,
         metadata: {
-          ...(user.metadata as any || {}),
+          ...(currentUser.metadata as any || {}),
           suspendedAt: new Date(),
           suspendedBy: adminId,
           suspendReason: reason
@@ -419,12 +427,20 @@ export class AdminUserService {
    * Activate user account
    */
   async activateUser(adminId: string, userId: string) {
+    const currentUser = await prisma.client.user.findUnique({
+      where: { id: userId }
+    });
+
+    if (!currentUser) {
+      throw new NotFoundException('User not found');
+    }
+
     const user = await prisma.client.user.update({
       where: { id: userId },
       data: {
         status: UserStatus.ACTIVE,
         metadata: {
-          ...(user.metadata as any || {}),
+          ...(currentUser.metadata as any || {}),
           activatedAt: new Date(),
           activatedBy: adminId
         }
@@ -456,6 +472,14 @@ export class AdminUserService {
       throw new BadRequestException('Cannot delete user with active subscriptions');
     }
 
+    const currentUser = await prisma.client.user.findUnique({
+      where: { id: userId }
+    });
+
+    if (!currentUser) {
+      throw new NotFoundException('User not found');
+    }
+
     const user = await prisma.client.user.update({
       where: { id: userId },
       data: {
@@ -463,9 +487,9 @@ export class AdminUserService {
         deletedAt: new Date(),
         email: `deleted_${userId}@deleted.local`, // Anonymize email
         metadata: {
-          ...(user.metadata as any || {}),
+          ...(currentUser.metadata as any || {}),
           deletedBy: adminId,
-          originalEmail: user.email
+          originalEmail: currentUser.email
         }
       }
     });

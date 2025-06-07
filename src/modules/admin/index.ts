@@ -196,7 +196,7 @@ async function initializeSystemConfig(configService: SystemConfigService): Promi
         features: {
           registration: true,
           oauth: true,
-          twoFactor: true,
+          twoFactorAuth: true, // Changed from twoFactor to twoFactorAuth
           emailVerification: true,
           apiAccess: true,
           fileUpload: true,

@@ -348,8 +348,7 @@ export class AdminModerationService {
         ...dateFilter
       },
       select: {
-        createdAt: true,
-        metadata: true
+        createdAt: true
       }
     });
 
@@ -641,13 +640,14 @@ export class AdminModerationService {
   }
 
   private formatReport(auditLog: any): ContentReport {
+    const metadata = auditLog.metadata as any;
     return {
       id: auditLog.id,
       entityType: auditLog.entity,
       entityId: auditLog.entityId,
       reportedBy: auditLog.userId,
-      reason: auditLog.metadata?.reason || 'Unknown',
-      description: auditLog.metadata?.description,
+      reason: metadata?.reason || 'Unknown',
+      description: metadata?.description,
       status: 'pending',
       createdAt: auditLog.createdAt
     };

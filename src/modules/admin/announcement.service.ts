@@ -93,10 +93,11 @@ export class AnnouncementService {
     };
 
     // Store in database (using Setting model for simplicity)
+    // Convert to proper JSON structure
     await prisma.client.setting.create({
       data: {
         key: `announcement:${announcement.id}`,
-        value: announcement,
+        value: JSON.parse(JSON.stringify(announcement)),
         description: `Announcement: ${announcement.title}`
       }
     });
@@ -191,7 +192,11 @@ export class AnnouncementService {
     // Get view/dismiss status
     if (!options?.includeViewed || !options?.includeDismissed) {
       const viewKeys = filteredAnnouncements.map(a => `announcement:view:${a.id}:${userId}`);
-      const viewStatuses = await redis.mget(...viewKeys);
+
+      // Fetch all view statuses in parallel
+      const viewStatuses = await Promise.all(
+        viewKeys.map(key => redis.get(key))
+      );
 
       return filteredAnnouncements.filter((announcement, index) => {
         const viewStatus = viewStatuses[index] as any;
@@ -221,11 +226,15 @@ export class AnnouncementService {
     });
 
     const announcements = settings
-      .map(setting => setting.value as Announcement)
+      .map(setting => {
+        // Parse the JSON value to Announcement type
+        const value = setting.value as any;
+        return value as Announcement;
+      })
       .filter(announcement => {
         // Filter by date range
-        if (announcement.startDate && announcement.startDate > now) return false;
-        if (announcement.endDate && announcement.endDate < now) return false;
+        if (announcement.startDate && new Date(announcement.startDate) > now) return false;
+        if (announcement.endDate && new Date(announcement.endDate) < now) return false;
         return true;
       })
       .sort((a, b) => b.priority - a.priority);
@@ -249,7 +258,7 @@ export class AnnouncementService {
       throw new NotFoundException('Announcement not found');
     }
 
-    const announcement = setting.value as Announcement;
+    const announcement = setting.value as any as Announcement;
     const updatedAnnouncement = {
       ...announcement,
       ...updates,
@@ -258,7 +267,7 @@ export class AnnouncementService {
 
     await prisma.client.setting.update({
       where: { key: `announcement:${announcementId}` },
-      data: { value: updatedAnnouncement }
+      data: { value: JSON.parse(JSON.stringify(updatedAnnouncement)) }
     });
 
     await this.clearAnnouncementCache();

@@ -88,7 +88,7 @@ export default async function adminRoutes(fastify: FastifyInstance) {
     // System reset operations
     fastify.post('/system/reset-cache', async (request, reply) => {
       const { redis } = await import('@infrastructure/cache/redis.service');
-      await redis.flushall();
+      await redis.flush();
       reply.send({ message: 'Cache cleared' });
     });
   });

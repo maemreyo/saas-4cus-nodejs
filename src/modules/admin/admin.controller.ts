@@ -1,5 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { Service } from 'typedi';
+import { logger } from '@shared/logger';
 import { AdminUserService } from './admin-user.service';
 import { AdminMetricsService } from './admin-metrics.service';
 import { AdminModerationService } from './admin-moderation.service';
@@ -28,7 +29,7 @@ import { BillingService } from '@modules/billing/billing.service';
 import { TicketService } from '@modules/support/ticket.service';
 import { FeatureService } from '@modules/features/feature.service';
 import { AnnouncementService } from './announcement.service';
-import { DataExportService } from './data-export.service';
+import { DataExportService, ExportOptions } from './data-export.service';
 
 @Service()
 export class AdminController {
@@ -270,11 +271,19 @@ export class AdminController {
     reply: FastifyReply
   ) {
     const adminId = request.customUser!.id;
-    const dto = await validateSchema(BulkContentActionDTO.schema, request.body);
+    const dto = await validateSchema(BulkContentActionDTO.schema, request.body) as BulkContentActionDTO;
+
+    // Ensure all items have required properties
+    const validItems = dto.items.filter(item => item.entityType && item.entityId);
+
+    if (validItems.length !== dto.items.length) {
+      const invalidCount = dto.items.length - validItems.length;
+      logger.warn(`Filtered out ${invalidCount} invalid items from bulk moderation request`);
+    }
 
     const result = await this.adminModerationService.bulkModerate(
       adminId,
-      dto.items,
+      validItems,
       dto.action,
       dto.reason
     );
@@ -375,7 +384,14 @@ export class AdminController {
     reply: FastifyReply
   ) {
     const dto = await validateSchema(SystemConfigDTO.schema, request.body);
-    const config = await this.systemConfigService.updateConfig(dto);
+
+    // Ensure maintenance.enabled is set if maintenance is provided
+    if (dto.maintenance && dto.maintenance.enabled === undefined) {
+      const currentConfig = await this.systemConfigService.getConfig();
+      dto.maintenance.enabled = currentConfig.maintenance.enabled;
+    }
+
+    const config = await this.systemConfigService.updateConfig(dto as any);
 
     reply.send({
       message: 'System configuration updated',
@@ -512,13 +528,27 @@ export class AdminController {
     request: FastifyRequest<{ Body: CreateAnnouncementDTO }>,
     reply: FastifyReply
   ) {
-    const dto = await validateSchema(CreateAnnouncementDTO.schema, request.body);
+    const dto = await validateSchema(CreateAnnouncementDTO.schema, request.body) as CreateAnnouncementDTO;
     const adminId = request.customUser!.id;
 
-    const announcement = await this.announcementService.create({
-      ...dto,
+    // Ensure required fields are set
+    dto.createdBy = adminId;
+
+    // Create a properly typed announcement object
+    const announcementData = {
+      title: dto.title,
+      content: dto.content,
+      type: dto.type,
+      targetAudience: dto.targetAudience || 'all',
+      targetUserIds: dto.targetUserIds,
+      targetTenantIds: dto.targetTenantIds,
+      startDate: dto.startDate ? new Date(dto.startDate) : undefined,
+      endDate: dto.endDate ? new Date(dto.endDate) : undefined,
+      dismissible: dto.dismissible ?? true,
       createdBy: adminId
-    });
+    };
+
+    const announcement = await this.announcementService.create(announcementData);
 
     reply.send({
       message: 'Announcement created successfully',
@@ -543,10 +573,23 @@ export class AdminController {
     request: FastifyRequest<{ Body: DataExportDTO }>,
     reply: FastifyReply
   ) {
-    const dto = await validateSchema(DataExportDTO.schema, request.body);
+    const dto = await validateSchema(DataExportDTO.schema, request.body) as DataExportDTO;
     const adminId = request.customUser!.id;
 
-    const exportResult = await this.dataExportService.export(dto);
+    // Create a properly typed export options object
+    const exportOptions: ExportOptions = {
+      entityType: dto.entityType,
+      format: dto.format,
+      filters: dto.filters,
+      dateRange: dto.dateRange,
+      includeRelations: dto.includeRelations,
+      fields: dto.fields,
+      limit: dto.limit,
+      async: dto.async,
+      recipientEmail: dto.recipientEmail
+    };
+
+    const exportResult = await this.dataExportService.export(exportOptions);
 
     await this.auditService.log({
       userId: adminId,

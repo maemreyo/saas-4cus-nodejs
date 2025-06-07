@@ -52,7 +52,7 @@ export class SystemConfigDTO {
     features: z.object({
       registration: z.boolean().optional(),
       oauth: z.boolean().optional(),
-      twoFactor: z.boolean().optional(),
+      twoFactorAuth: z.boolean().optional(), // Changed from twoFactor to twoFactorAuth
       emailVerification: z.boolean().optional()
     }).optional(),
     limits: z.object({
@@ -68,6 +68,30 @@ export class SystemConfigDTO {
       lockoutDuration: z.number().int().positive().optional()
     }).optional()
   });
+
+  maintenance?: {
+    enabled: boolean;
+    message?: string;
+    allowedIps?: string[];
+  };
+  features?: {
+    registration?: boolean;
+    oauth?: boolean;
+    twoFactorAuth?: boolean;
+    emailVerification?: boolean;
+  };
+  limits?: {
+    maxUsersPerTenant?: number;
+    maxProjectsPerUser?: number;
+    maxFileSize?: number;
+    apiRateLimit?: number;
+  };
+  security?: {
+    passwordMinLength?: number;
+    sessionTimeout?: number;
+    maxLoginAttempts?: number;
+    lockoutDuration?: number;
+  };
 }
 
 // Analytics & Metrics DTOs
@@ -111,6 +135,10 @@ export class BulkContentActionDTO {
     action: z.enum(['approve', 'reject', 'flag', 'delete']),
     reason: z.string().optional()
   });
+
+  items!: Array<{ entityType: string; entityId: string }>;
+  action!: 'approve' | 'reject' | 'flag' | 'delete';
+  reason?: string;
 }
 
 // Audit & Compliance DTOs
@@ -188,6 +216,17 @@ export class CreateAnnouncementDTO {
     endDate: z.string().datetime().optional(),
     dismissible: z.boolean().default(true)
   });
+
+  title!: string;
+  content!: string;
+  type!: 'info' | 'warning' | 'critical' | 'maintenance';
+  targetAudience?: 'all' | 'users' | 'admins' | 'specific' = 'all';
+  targetUserIds?: string[];
+  targetTenantIds?: string[];
+  startDate?: string;
+  endDate?: string;
+  dismissible?: boolean = true;
+  createdBy?: string; // Added for the controller
 }
 
 // Export/Import DTOs
@@ -202,4 +241,18 @@ export class DataExportDTO {
     }).optional(),
     includeRelations: z.boolean().default(false)
   });
+
+  entityType!: 'users' | 'subscriptions' | 'invoices' | 'tickets' | 'analytics';
+  format!: 'csv' | 'json' | 'xlsx';
+  filters?: Record<string, any>;
+  dateRange?: {
+    start: string;
+    end: string;
+  };
+  includeRelations?: boolean;
+  // Add these fields to match ExportOptions interface
+  fields?: string[];
+  limit?: number;
+  async?: boolean;
+  recipientEmail?: string;
 }

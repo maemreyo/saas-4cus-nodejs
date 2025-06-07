@@ -618,4 +618,44 @@ export class WebhookService {
 
     logger.info('Webhook delivery replay queued', { deliveryId });
   }
+
+  /**
+   * Manually trigger a webhook event
+   * This method allows other services to directly trigger webhook events
+   * without going through the event bus
+   */
+  async trigger(eventName: string, payload: any): Promise<void> {
+    // This method is similar to handleEvent but can be called directly
+    // Find all webhooks subscribed to this event
+    const webhooks = await prisma.client.webhookEndpoint.findMany({
+      where: {
+        events: { has: eventName },
+        enabled: true,
+        deletedAt: null
+      }
+    });
+
+    if (webhooks.length === 0) return;
+
+    // Create webhook event
+    const event = await prisma.client.webhookEvent.create({
+      data: {
+        eventType: eventName,
+        payload
+      }
+    });
+
+    // Queue delivery for each webhook
+    for (const webhook of webhooks) {
+      await queueService.addJob('webhook', 'deliver', {
+        webhookId: webhook.id,
+        eventId: event.id
+      });
+    }
+
+    logger.info('Webhook deliveries manually triggered', {
+      event: eventName,
+      webhookCount: webhooks.length
+    });
+  }
 }

@@ -29,8 +29,8 @@ export class ApiUsageEventHandlers {
     await this.notificationService.create({
       userId: payload.userId,
       type: 'WARNING',
-      title: `API Quota Warning - ${threshold}% Used`,
-      content: `You have used ${threshold}% of your ${payload.resource} quota`,
+      title: `API Rate Limit Warning - ${payload.percentage}% Used`,
+      content: `You have used ${payload.percentage}% of your rate limit for ${payload.endpoint}`,
       metadata: payload
     });
   }
@@ -308,15 +308,6 @@ export class ApiUsageEventHandlers {
       metadata: payload
     });
   }
-} notification
-    await this.notificationService.create({
-      userId: payload.userId,
-      type: 'WARNING',
-      title: 'API Rate Limit Warning',
-      content: `You have used ${payload.percentage}% of your rate limit for ${payload.endpoint}`,
-      metadata: payload
-    });
-  }
 
   @OnEvent(ApiUsageEvents.RATE_LIMIT_EXCEEDED)
   async handleRateLimitExceeded(payload: {
@@ -394,4 +385,242 @@ export class ApiUsageEventHandlers {
       }
     });
 
-    // Create in-app
+    // Create in-app notification
+    await this.notificationService.create({
+      userId: payload.userId,
+      type: 'WARNING',
+      title: `API Quota Warning - ${threshold}% Used`,
+      content: `You have used ${threshold}% of your ${payload.resource} quota`,
+      metadata: payload
+    });
+  }
+
+  @OnEvent(ApiUsageEvents.QUOTA_RESET)
+  async handleQuotaReset(payload: {
+    userId: string;
+    resource: string;
+    limit: number;
+    resetDate: Date;
+  }) {
+    logger.info('API quota reset', payload);
+
+    const user = await prisma.client.user.findUnique({
+      where: { id: payload.userId }
+    });
+
+    if (!user) return;
+
+    // Create in-app notification
+    await this.notificationService.create({
+      userId: payload.userId,
+      type: 'INFO',
+      title: 'API Quota Reset',
+      content: `Your ${payload.resource} quota has been reset to ${payload.limit}`,
+      metadata: payload
+    });
+  }
+
+  @OnEvent(ApiUsageEvents.API_USAGE_TRACKED)
+  async handleApiUsageTracked(payload: {
+    userId: string;
+    endpoint: string;
+    method: string;
+    statusCode: number;
+    responseTime: number;
+    metadata?: Record<string, any>;
+  }) {
+    // This is a high-volume event, so we only log at debug level
+    logger.debug('API usage tracked', payload);
+
+    // We don't need to take any action for each individual usage event
+    // This event is primarily for analytics and monitoring systems to consume
+  }
+
+  @OnEvent(ApiUsageEvents.ENDPOINT_DOWN)
+  async handleEndpointDown(payload: {
+    endpoint: string;
+    lastChecked: Date;
+    consecutiveFailures: number;
+    error?: string;
+  }) {
+    logger.error('API endpoint down', payload);
+
+    // Create incident
+    await prisma.client.incident.create({
+      data: {
+        title: `Endpoint Down: ${payload.endpoint}`,
+        description: `Endpoint ${payload.endpoint} is not responding. ${payload.error || 'No error details available.'}`,
+        severity: 'HIGH',
+        status: 'OPEN',
+        metadata: payload
+      }
+    });
+
+    // Notify admins
+    const admins = await prisma.client.user.findMany({
+      where: { role: { in: ['ADMIN', 'SUPER_ADMIN'] } }
+    });
+
+    for (const admin of admins) {
+      await this.notificationService.create({
+        userId: admin.id,
+        type: 'CRITICAL',
+        title: 'API Endpoint Down',
+        content: `Endpoint ${payload.endpoint} is not responding`,
+        metadata: payload,
+        priority: 'HIGH'
+      });
+    }
+
+    // Send alert email to ops team
+    if (process.env.OPS_ALERT_EMAIL) {
+      await this.emailService.queue({
+        to: process.env.OPS_ALERT_EMAIL,
+        subject: `[ALERT] Endpoint Down: ${payload.endpoint}`,
+        template: 'endpoint-down-alert',
+        context: payload
+      });
+    }
+  }
+
+  @OnEvent(ApiUsageEvents.USAGE_EXPORTED)
+  async handleUsageExported(payload: {
+    userId: string;
+    exportType: string;
+    period: string;
+    fileUrl: string;
+    format: string;
+  }) {
+    logger.info('Usage data exported', payload);
+
+    const user = await prisma.client.user.findUnique({
+      where: { id: payload.userId }
+    });
+
+    if (!user) return;
+
+    // Send email with export link
+    await this.emailService.queue({
+      to: user.email,
+      subject: `Your API Usage Export - ${payload.period}`,
+      template: 'usage-export',
+      context: {
+        name: user.displayName || user.email,
+        exportType: payload.exportType,
+        period: payload.period,
+        format: payload.format,
+        downloadUrl: payload.fileUrl
+      }
+    });
+
+    // Create notification
+    await this.notificationService.create({
+      userId: payload.userId,
+      type: 'INFO',
+      title: 'API Usage Export Ready',
+      content: `Your ${payload.exportType} export in ${payload.format} format is ready for download`,
+      metadata: payload
+    });
+  }
+
+  @OnEvent(ApiUsageEvents.USAGE_LIMIT_WARNING)
+  async handleUsageLimitWarning(payload: {
+    userId: string;
+    tenantId?: string;
+    plan: string;
+    feature: string;
+    limit: number;
+    used: number;
+    percentage: number;
+  }) {
+    logger.warn('Usage limit warning', payload);
+
+    // Only send warning at specific thresholds
+    const thresholds = [80, 90, 95];
+    const threshold = thresholds.find(t => payload.percentage >= t && payload.percentage < t + 5);
+
+    if (!threshold) return;
+
+    const user = await prisma.client.user.findUnique({
+      where: { id: payload.userId }
+    });
+
+    if (!user) return;
+
+    // Send email notification
+    await this.emailService.queue({
+      to: user.email,
+      subject: `Usage Limit Warning - ${threshold}% Used`,
+      template: 'usage-limit-warning',
+      context: {
+        name: user.displayName || user.email,
+        feature: payload.feature,
+        plan: payload.plan,
+        percentage: threshold,
+        used: payload.used,
+        limit: payload.limit,
+        remaining: payload.limit - payload.used,
+        upgradeUrl: '/billing/upgrade'
+      }
+    });
+
+    // Create in-app notification
+    await this.notificationService.create({
+      userId: payload.userId,
+      type: 'WARNING',
+      title: `Usage Limit Warning - ${threshold}% Used`,
+      content: `You have used ${threshold}% of your ${payload.feature} limit on the ${payload.plan} plan`,
+      metadata: payload
+    });
+  }
+
+  @OnEvent(ApiUsageEvents.USAGE_LIMIT_REACHED)
+  async handleUsageLimitReached(payload: {
+    userId: string;
+    tenantId?: string;
+    plan: string;
+    feature: string;
+    limit: number;
+    upgradeOptions: Array<{
+      plan: string;
+      limit: number;
+      price: number;
+    }>;
+  }) {
+    logger.error('Usage limit reached', payload);
+
+    const user = await prisma.client.user.findUnique({
+      where: { id: payload.userId }
+    });
+
+    if (!user) return;
+
+    // Send email notification
+    await this.emailService.queue({
+      to: user.email,
+      subject: `Usage Limit Reached for ${payload.feature}`,
+      template: 'usage-limit-reached',
+      context: {
+        name: user.displayName || user.email,
+        feature: payload.feature,
+        plan: payload.plan,
+        limit: payload.limit,
+        upgradeOptions: payload.upgradeOptions,
+        upgradeUrl: '/billing/upgrade'
+      }
+    });
+
+    // Create urgent in-app notification
+    await this.notificationService.create({
+      userId: payload.userId,
+      type: 'ERROR',
+      title: 'Usage Limit Reached',
+      content: `You've reached the ${payload.feature} limit on your ${payload.plan} plan. Please upgrade to continue using this feature.`,
+      metadata: payload,
+      priority: 'HIGH'
+    });
+
+    // Trigger webhook
+    await this.webhookService.trigger('api.usage.limit_reached', payload);
+  }
+}

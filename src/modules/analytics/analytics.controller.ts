@@ -9,23 +9,20 @@ import {
   GetFunnelDTO,
   GetCohortDTO,
   GenerateReportDTO,
-  ScheduleReportDTO
+  ScheduleReportDTO,
 } from './analytics.dto';
 
 @Service()
 export class AnalyticsController {
   constructor(
     private analyticsService: AnalyticsService,
-    private reportService: ReportService
+    private reportService: ReportService,
   ) {}
 
   /**
    * Track analytics event
    */
-  async trackEvent(
-    request: FastifyRequest<{ Body: TrackEventDTO }>,
-    reply: FastifyReply
-  ) {
+  async trackEvent(request: FastifyRequest<{ Body: TrackEventDTO }>, reply: FastifyReply) {
     const dto = await validateSchema(TrackEventDTO.schema, request.body);
     const userId = request.customUser?.id;
     const tenantId = (request as any).tenant?.id;
@@ -40,7 +37,7 @@ export class AnalyticsController {
       ipAddress: request.ip,
       userAgent: request.headers['user-agent'],
       referrer: request.headers.referer,
-      utm: dto.utm
+      utm: dto.utm,
     });
 
     reply.code(204).send();
@@ -49,10 +46,7 @@ export class AnalyticsController {
   /**
    * Track page view
    */
-  async trackPageView(
-    request: FastifyRequest<{ Body: { page: string; properties?: any } }>,
-    reply: FastifyReply
-  ) {
+  async trackPageView(request: FastifyRequest<{ Body: { page: string; properties?: any } }>, reply: FastifyReply) {
     const { page, properties } = request.body;
     const userId = request.customUser?.id;
 
@@ -64,17 +58,11 @@ export class AnalyticsController {
   /**
    * Get dashboard metrics
    */
-  async getDashboard(
-    request: FastifyRequest<{ Querystring: GetDashboardDTO }>,
-    reply: FastifyReply
-  ) {
+  async getDashboard(request: FastifyRequest<{ Querystring: GetDashboardDTO }>, reply: FastifyReply) {
     const { dateRange, tenantId } = request.query;
     const actualTenantId = tenantId || (request as any).tenant?.id;
 
-    const metrics = await this.analyticsService.getDashboardMetrics(
-      actualTenantId,
-      dateRange
-    );
+    const metrics = await this.analyticsService.getDashboardMetrics(actualTenantId, dateRange);
 
     reply.send({ data: metrics });
   }
@@ -82,10 +70,7 @@ export class AnalyticsController {
   /**
    * Get funnel analytics
    */
-  async getFunnel(
-    request: FastifyRequest<{ Body: GetFunnelDTO }>,
-    reply: FastifyReply
-  ) {
+  async getFunnel(request: FastifyRequest<{ Body: GetFunnelDTO }>, reply: FastifyReply) {
     const dto = await validateSchema(GetFunnelDTO.schema, request.body);
     const tenantId = dto.tenantId || (request as any).tenant?.id;
 
@@ -93,7 +78,7 @@ export class AnalyticsController {
       tenantId,
       startDate: dto.startDate ? new Date(dto.startDate) : undefined,
       endDate: dto.endDate ? new Date(dto.endDate) : undefined,
-      groupBy: dto.groupBy
+      groupBy: dto.groupBy,
     });
 
     reply.send({ data: funnel });
@@ -102,17 +87,14 @@ export class AnalyticsController {
   /**
    * Get cohort retention
    */
-  async getCohortRetention(
-    request: FastifyRequest<{ Querystring: GetCohortDTO }>,
-    reply: FastifyReply
-  ) {
+  async getCohortRetention(request: FastifyRequest<{ Querystring: GetCohortDTO }>, reply: FastifyReply) {
     const { cohortSize, periods, tenantId } = request.query;
     const actualTenantId = tenantId || (request as any).tenant?.id;
 
     const retention = await this.analyticsService.getCohortRetention({
       tenantId: actualTenantId,
       cohortSize,
-      periods
+      periods,
     });
 
     reply.send({ data: retention });
@@ -126,7 +108,7 @@ export class AnalyticsController {
       Params: { userId: string };
       Querystring: { limit?: number; startDate?: string; endDate?: string };
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
     const { userId } = request.params;
     const { limit, startDate, endDate } = request.query;
@@ -139,19 +121,15 @@ export class AnalyticsController {
     const journey = await this.analyticsService.getUserJourney(userId, {
       limit,
       startDate: startDate ? new Date(startDate) : undefined,
-      endDate: endDate ? new Date(endDate) : undefined
+      endDate: endDate ? new Date(endDate) : undefined,
     });
 
     reply.send({ data: journey });
   }
-
   /**
    * Generate report
    */
-  async generateReport(
-    request: FastifyRequest<{ Body: GenerateReportDTO }>,
-    reply: FastifyReply
-  ) {
+  async generateReport(request: FastifyRequest<{ Body: GenerateReportDTO }>, reply: FastifyReply) {
     const dto = await validateSchema(GenerateReportDTO.schema, request.body);
     const tenantId = dto.filters?.tenantId || (request as any).tenant?.id;
 
@@ -160,12 +138,15 @@ export class AnalyticsController {
       ...dto.filters,
       tenantId,
       startDate: dto.filters?.startDate ? new Date(dto.filters.startDate) : undefined,
-      endDate: dto.filters?.endDate ? new Date(dto.filters.endDate) : undefined
+      endDate: dto.filters?.endDate ? new Date(dto.filters.endDate) : undefined,
     };
 
     const report = await this.reportService.generateReport({
-      ...dto,
-      filters
+      type: dto.type, // Ensure type is always provided
+      format: dto.format,
+      recipients: dto.recipients,
+      filters,
+      customQuery: dto.customQuery,
     });
 
     reply.send({ data: report });
@@ -174,10 +155,7 @@ export class AnalyticsController {
   /**
    * Schedule recurring report
    */
-  async scheduleReport(
-    request: FastifyRequest<{ Body: ScheduleReportDTO }>,
-    reply: FastifyReply
-  ) {
+  async scheduleReport(request: FastifyRequest<{ Body: ScheduleReportDTO }>, reply: FastifyReply) {
     const dto = await validateSchema(ScheduleReportDTO.schema, request.body);
     const tenantId = dto.filters?.tenantId || (request as any).tenant?.id;
 
@@ -186,17 +164,22 @@ export class AnalyticsController {
       ...dto.filters,
       tenantId,
       startDate: dto.filters?.startDate ? new Date(dto.filters.startDate) : undefined,
-      endDate: dto.filters?.endDate ? new Date(dto.filters.endDate) : undefined
+      endDate: dto.filters?.endDate ? new Date(dto.filters.endDate) : undefined,
     };
 
     const jobId = await this.reportService.scheduleReport({
-      ...dto,
-      filters
+      name: dto.name,
+      type: dto.type, // Ensure type is always provided
+      format: dto.format,
+      recipients: dto.recipients,
+      schedule: dto.schedule,
+      filters,
+      customQuery: dto.customQuery,
     });
 
     reply.send({
       message: 'Report scheduled successfully',
-      data: { jobId }
+      data: { jobId },
     });
   }
 }

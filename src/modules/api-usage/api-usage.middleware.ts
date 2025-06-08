@@ -2,7 +2,9 @@ import { FastifyRequest, FastifyReply } from 'fastify';
 import { Container } from 'typedi';
 import { ApiUsageService } from './api-usage.service';
 import { logger } from '@shared/logger';
-
+/**
+ * Middleware to track API usage
+ */
 /**
  * Middleware to track API usage
  */
@@ -13,7 +15,7 @@ export async function trackApiUsage(request: FastifyRequest, reply: FastifyReply
     '/metrics',
     '/docs',
     '/api/api-usage', // Don't track usage tracking endpoints
-    '/api/auth/refresh' // Don't track token refresh
+    '/api/auth/refresh', // Don't track token refresh
   ];
 
   if (skipEndpoints.some(endpoint => request.url.startsWith(endpoint))) {
@@ -22,11 +24,14 @@ export async function trackApiUsage(request: FastifyRequest, reply: FastifyReply
 
   const startTime = Date.now();
 
-  // Add hook to track response
-  reply.addHook('onResponse', async (request, reply) => {
+  // Store start time on request context
+  (request as any).apiUsageStartTime = startTime;
+
+  // Hook into the onSend to track after response is prepared
+  reply.addHook('onSend', async (request, reply, payload) => {
     try {
       const apiUsageService = Container.get(ApiUsageService);
-      const responseTime = Date.now() - startTime;
+      const responseTime = Date.now() - ((request as any).apiUsageStartTime || startTime);
 
       // Only track for authenticated users
       if (request.customUser) {
@@ -43,9 +48,9 @@ export async function trackApiUsage(request: FastifyRequest, reply: FastifyReply
             metadata: {
               query: request.query,
               params: request.params,
-              error: reply.statusCode >= 400 ? (reply as any).payload : undefined
-            }
-          }
+              error: reply.statusCode >= 400 ? payload : undefined,
+            },
+          },
         );
       }
     } catch (error) {
@@ -58,11 +63,7 @@ export async function trackApiUsage(request: FastifyRequest, reply: FastifyReply
 /**
  * Rate limiting middleware
  */
-export function rateLimitMiddleware(options?: {
-  endpoint?: string;
-  limit?: number;
-  windowMs?: number;
-}) {
+export function rateLimitMiddleware(options?: { endpoint?: string; limit?: number; windowMs?: number }) {
   return async (request: FastifyRequest, reply: FastifyReply) => {
     if (!request.customUser) {
       return; // Skip rate limiting for unauthenticated requests
@@ -72,11 +73,7 @@ export function rateLimitMiddleware(options?: {
     const endpoint = options?.endpoint || request.routerPath || '*';
 
     try {
-      const rateLimitInfo = await apiUsageService.checkRateLimit(
-        request.customUser.id,
-        endpoint,
-        options?.limit
-      );
+      const rateLimitInfo = await apiUsageService.checkRateLimit(request.customUser.id, endpoint, options?.limit);
 
       // Add rate limit headers
       reply.header('X-RateLimit-Limit', rateLimitInfo.limit.toString());
@@ -92,7 +89,7 @@ export function rateLimitMiddleware(options?: {
         reply.code(429).send({
           error: 'Too Many Requests',
           message: error.message,
-          details: error.details
+          details: error.details,
         });
       } else {
         throw error;
@@ -123,8 +120,8 @@ export function enforceApiQuota() {
           details: {
             limit: apiQuota.limit,
             used: apiQuota.used,
-            resetAt: apiQuota.resetAt
-          }
+            resetAt: apiQuota.resetAt,
+          },
         });
       }
 
@@ -144,11 +141,7 @@ export function enforceApiQuota() {
 /**
  * Endpoint-specific rate limiting
  */
-export function endpointRateLimit(
-  endpoint: string,
-  limit: number,
-  windowMs: number = 60000
-) {
+export function endpointRateLimit(endpoint: string, limit: number, windowMs: number = 60000) {
   return rateLimitMiddleware({ endpoint, limit, windowMs });
 }
 
@@ -165,10 +158,7 @@ export async function planBasedRateLimit(request: FastifyRequest, reply: Fastify
 
   try {
     // Check rate limit based on user's plan
-    const rateLimitInfo = await apiUsageService.checkRateLimit(
-      request.customUser.id,
-      endpoint
-    );
+    const rateLimitInfo = await apiUsageService.checkRateLimit(request.customUser.id, endpoint);
 
     // Add headers
     reply.header('X-RateLimit-Limit', rateLimitInfo.limit.toString());
@@ -179,7 +169,7 @@ export async function planBasedRateLimit(request: FastifyRequest, reply: Fastify
       reply.code(429).send({
         error: 'Too Many Requests',
         message: 'Rate limit exceeded for your plan',
-        details: error.details
+        details: error.details,
       });
     }
   }

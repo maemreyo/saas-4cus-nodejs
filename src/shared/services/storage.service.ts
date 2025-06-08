@@ -1,3 +1,4 @@
+// src/shared/services/storage.service.ts
 import { Service } from 'typedi';
 import { config } from '@infrastructure/config';
 import { logger } from '@shared/logger';
@@ -39,6 +40,15 @@ export class StorageService {
       default:
         throw new Error(`Unsupported storage type: ${this.storageType}`);
     }
+  }
+
+  async storeFile(buffer: Buffer, filename: string, options?: { contentType?: string }): Promise<string> {
+    const result = await this.upload({
+      buffer,
+      filename,
+      mimeType: options?.contentType || 'application/octet-stream',
+    });
+    return result.url;
   }
 
   private async uploadLocal(
@@ -129,3 +139,6 @@ export class StorageService {
     throw new Error('S3 storage not implemented yet');
   }
 }
+
+// Create singleton instance
+export const storageService = new StorageService();

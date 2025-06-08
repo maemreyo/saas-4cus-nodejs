@@ -5,6 +5,7 @@ import { logger } from '@shared/logger';
 import { EventBus } from '@shared/events/event-bus';
 import { Cacheable } from '@infrastructure/cache/redis.service';
 import { subDays, startOfDay, endOfDay, format } from 'date-fns';
+import { InvoiceStatus, SubscriptionStatus } from '@prisma/client';
 
 export interface AnalyticsEvent {
   userId?: string;

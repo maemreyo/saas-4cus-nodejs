@@ -52,7 +52,7 @@ export class ApiUsageQueueProcessor {
             previousStatus: previousHealth.status,
             currentStatus: health.status,
             downtime: Math.round(downtime / 1000 / 60), // minutes
-            metrics: health.metrics
+            metrics: health.metrics,
           });
         } else if (health.status === 'degraded') {
           await eventBus.emit(ApiUsageEvents.API_HEALTH_DEGRADED, health);
@@ -66,7 +66,7 @@ export class ApiUsageQueueProcessor {
 
       return {
         health,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
     } catch (error) {
       logger.error('Health check failed', error as Error);
@@ -89,24 +89,27 @@ export class ApiUsageQueueProcessor {
         where: {
           createdAt: {
             gte: startDate,
-            lte: endDate
-          }
-        }
+            lte: endDate,
+          },
+        },
       });
 
       // Aggregate by endpoint
-      const endpointMetrics = new Map<string, {
-        count: number;
-        totalResponseTime: number;
-        errors: number;
-      }>();
+      const endpointMetrics = new Map<
+        string,
+        {
+          count: number;
+          totalResponseTime: number;
+          errors: number;
+        }
+      >();
 
       usage.forEach(record => {
         const key = `${record.endpoint}:${record.method}`;
         const current = endpointMetrics.get(key) || {
           count: 0,
           totalResponseTime: 0,
-          errors: 0
+          errors: 0,
         };
 
         current.count++;
@@ -130,7 +133,7 @@ export class ApiUsageQueueProcessor {
             errorRate,
             timeWindow: `${timeWindow} minutes`,
             errors: metrics.errors,
-            total: metrics.count
+            total: metrics.count,
           });
         }
 
@@ -139,7 +142,7 @@ export class ApiUsageQueueProcessor {
           await eventBus.emit(ApiUsageEvents.SLOW_RESPONSE_TIME, {
             endpoint,
             averageResponseTime: avgResponseTime,
-            timeWindow: `${timeWindow} minutes`
+            timeWindow: `${timeWindow} minutes`,
           });
         }
       }
@@ -149,7 +152,7 @@ export class ApiUsageQueueProcessor {
       return {
         aggregated: endpointMetrics.size,
         timeWindow,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
     } catch (error) {
       logger.error('Metrics aggregation failed', error as Error);
@@ -168,10 +171,10 @@ export class ApiUsageQueueProcessor {
           status: 'ACTIVE',
           subscriptions: {
             some: {
-              status: { in: ['ACTIVE', 'TRIALING'] }
-            }
-          }
-        }
+              status: { in: ['ACTIVE', 'TRIALING'] },
+            },
+          },
+        },
       });
 
       let warnings = 0;
@@ -186,7 +189,7 @@ export class ApiUsageQueueProcessor {
               resource: quota.resource,
               limit: quota.limit,
               used: quota.used,
-              percentage: quota.percentage
+              percentage: quota.percentage,
             });
             warnings++;
           }
@@ -198,7 +201,7 @@ export class ApiUsageQueueProcessor {
 
       return {
         usersChecked: activeUsers.length,
-        warningsSent: warnings
+        warningsSent: warnings,
       };
     } catch (error) {
       logger.error('Alert checking failed', error as Error);
@@ -230,12 +233,12 @@ export class ApiUsageQueueProcessor {
 
       await eventBus.emit(ApiUsageEvents.QUOTA_RESET, {
         resetAt: now,
-        type: 'monthly'
+        type: 'monthly',
       });
 
       return {
         resetAt: now,
-        message: 'Monthly quotas reset successfully'
+        message: 'Monthly quotas reset successfully',
       };
     } catch (error) {
       logger.error('Quota reset failed', error as Error);
@@ -257,21 +260,21 @@ export class ApiUsageQueueProcessor {
       const result = await prisma.client.apiUsage.deleteMany({
         where: {
           createdAt: {
-            lt: cutoffDate
-          }
-        }
+            lt: cutoffDate,
+          },
+        },
       });
 
       logger.info('Cleaned up old API usage records', {
         deleted: result.count,
-        cutoffDate
+        cutoffDate,
       });
 
       await job.updateProgress(100);
 
       return {
         deleted: result.count,
-        cutoffDate
+        cutoffDate,
       };
     } catch (error) {
       logger.error('Cleanup failed', error as Error);
@@ -290,14 +293,14 @@ export class ApiUsageQueueProcessor {
       const data = await this.apiUsageService.exportUsageData(userId, {
         startDate: new Date(startDate),
         endDate: new Date(endDate),
-        format
+        format,
       });
 
       // Upload to storage
       const filename = `api-usage-${userId}-${startDate}-${endDate}.${format}`;
-      const { storageService } = await import('@shared/services/storage.service');
-      const fileUrl = await storageService.storeFile(data, filename, {
-        contentType: format === 'csv' ? 'text/csv' : 'application/json'
+      const storageServiceModule = await import('@shared/services/storage.service');
+      const fileUrl = await storageServiceModule.storageService.storeFile(data, filename, {
+        contentType: format === 'csv' ? 'text/csv' : 'application/json',
       });
 
       // Emit event
@@ -305,14 +308,14 @@ export class ApiUsageQueueProcessor {
         userId,
         reportType: 'api-usage',
         period: `${startDate} to ${endDate}`,
-        fileUrl
+        fileUrl,
       });
 
       await job.updateProgress(100);
 
       return {
         fileUrl,
-        size: data.length
+        size: data.length,
       };
     } catch (error) {
       logger.error('Report generation failed', error as Error);
@@ -329,8 +332,8 @@ export async function initializeApiUsageJobs() {
     'health-check',
     { previousHealth: null },
     {
-      repeat: { cron: '*/5 * * * *' }
-    }
+      repeat: { cron: '*/5 * * * *' },
+    },
   );
 
   // Aggregate metrics every hour
@@ -339,8 +342,8 @@ export async function initializeApiUsageJobs() {
     'aggregate-metrics',
     { timeWindow: 60 },
     {
-      repeat: { cron: '0 * * * *' }
-    }
+      repeat: { cron: '0 * * * *' },
+    },
   );
 
   // Check alerts every 30 minutes
@@ -349,8 +352,8 @@ export async function initializeApiUsageJobs() {
     'check-alerts',
     {},
     {
-      repeat: { cron: '*/30 * * * *' }
-    }
+      repeat: { cron: '*/30 * * * *' },
+    },
   );
 
   // Reset quotas at start of each month
@@ -359,8 +362,8 @@ export async function initializeApiUsageJobs() {
     'reset-quotas',
     {},
     {
-      repeat: { cron: '0 0 1 * *' }
-    }
+      repeat: { cron: '0 0 1 * *' },
+    },
   );
 
   // Cleanup old data daily at 3 AM
@@ -369,8 +372,8 @@ export async function initializeApiUsageJobs() {
     'cleanup',
     { retentionDays: 90 },
     {
-      repeat: { cron: '0 3 * * *' }
-    }
+      repeat: { cron: '0 3 * * *' },
+    },
   );
 
   logger.info('API usage queue jobs initialized');

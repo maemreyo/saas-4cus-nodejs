@@ -157,8 +157,7 @@ export class ReportService {
 
     await queueService.addJob('report', 'generate', options, {
       repeat: repeatOptions,
-      // Use a custom property for job tracking instead of jobId
-      opts: { jobId },
+      jobId,
     });
 
     logger.info('Report scheduled', { jobId, schedule: options.schedule });

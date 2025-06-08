@@ -8,6 +8,7 @@ import { StorageService } from '@/shared/services/storage.service';
 import PDFDocument from 'pdfkit';
 import { Parser } from 'json2csv';
 import { format } from 'date-fns';
+import { SubscriptionStatus } from '@prisma/client';
 
 export interface ReportOptions {
   type: 'dashboard' | 'revenue' | 'users' | 'custom';
@@ -226,13 +227,8 @@ export class ReportService {
         _avg: { amount: true },
       }),
 
-      // Revenue by plan
-      prisma.client.invoice.groupBy({
-        by: ['stripePriceId'],
-        where,
-        _sum: { amount: true },
-        _count: { id: true },
-      }),
+      // Revenue by plan - Fixed groupBy
+      this.getRevenueByPlan(filters?.tenantId),
 
       // Monthly revenue
       prisma.client.$queryRaw`
@@ -299,7 +295,7 @@ export class ReportService {
         where,
         include: {
           subscriptions: {
-            where: { status: { in: ['ACTIVE', 'TRIALING'] } },
+            where: { status: { in: [SubscriptionStatus.ACTIVE, SubscriptionStatus.TRIALING] } },
             take: 1,
           },
         },
@@ -313,15 +309,32 @@ export class ReportService {
         _count: { id: true },
       }),
 
-      // Users by subscription plan
-      prisma.client.subscription.groupBy({
-        by: ['stripePriceId'],
-        where: {
-          status: { in: ['active', 'trialing'] },
-          ...(filters?.tenantId && { tenantId: filters.tenantId }),
-        },
-        _count: { userId: true },
-      }),
+      // Users by subscription plan - Get from subscription data
+      prisma.client.subscription
+        .findMany({
+          where: {
+            status: { in: [SubscriptionStatus.ACTIVE, SubscriptionStatus.TRIALING] },
+            ...(filters?.tenantId && { tenantId: filters.tenantId }),
+          },
+          select: {
+            stripePriceId: true,
+            userId: true,
+          },
+        })
+        .then(subs => {
+          const grouped = subs.reduce(
+            (acc, sub) => {
+              acc[sub.stripePriceId] = (acc[sub.stripePriceId] || 0) + 1;
+              return acc;
+            },
+            {} as Record<string, number>,
+          );
+
+          return Object.entries(grouped).map(([stripePriceId, count]) => ({
+            stripePriceId,
+            _count: { userId: count },
+          }));
+        }),
 
       // Users by status
       prisma.client.user.groupBy({
@@ -473,5 +486,33 @@ export class ReportService {
         },
       });
     }
+  }
+
+  /**
+   * Helper method to get revenue by plan
+   */
+  private async getRevenueByPlan(tenantId?: string): Promise<any[]> {
+    const invoices = await prisma.client.invoice.findMany({
+      where: {
+        status: 'PAID',
+        ...(tenantId && { subscription: { tenantId } }),
+      },
+      select: {
+        amount: true,
+        stripePriceId: true,
+      },
+    });
+
+    // Group revenues by stripePriceId manually
+    const revenueByPrice = new Map<string, number>();
+    invoices.forEach(invoice => {
+      const current = revenueByPrice.get(invoice.stripePriceId) || 0;
+      revenueByPrice.set(invoice.stripePriceId, current + invoice.amount);
+    });
+
+    return Array.from(revenueByPrice.entries()).map(([stripePriceId, amount]) => ({
+      stripePriceId,
+      _sum: { amount },
+    }));
   }
 }

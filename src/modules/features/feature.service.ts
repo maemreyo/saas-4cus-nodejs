@@ -36,6 +36,19 @@ export interface CreatePlanOptions {
     included: boolean;
     limitValue?: number;
   }>;
+  metadata?: Record<string, any>;
+}
+
+export interface UpdatePlanOptions {
+  name?: string;
+  description?: string;
+  price?: number;
+  popular?: boolean;
+  features?: Array<{
+    featureId: string;
+    included: boolean;
+    limitValue?: number;
+  }>;
 }
 
 export interface FeatureFlag {
@@ -194,7 +207,8 @@ export class FeatureService {
           currency: options.currency || 'usd',
           interval: options.interval || 'month',
           trialDays: options.trialDays || 0,
-          popular: options.popular || false
+          popular: options.popular || false,
+          metadata: options.metadata
         }
       });
 
@@ -277,7 +291,7 @@ export class FeatureService {
   @CacheInvalidate(['plans'])
   async updatePlan(
     planId: string,
-    updates: Partial<CreatePlanOptions>
+    updates: UpdatePlanOptions
   ): Promise<Plan> {
     const plan = await prisma.client.plan.update({
       where: { id: planId },
@@ -285,8 +299,7 @@ export class FeatureService {
         name: updates.name,
         description: updates.description,
         price: updates.price,
-        popular: updates.popular,
-        metadata: updates.metadata
+        popular: updates.popular
       }
     });
 

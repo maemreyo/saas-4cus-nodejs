@@ -7,7 +7,7 @@ import {
   TicketPriority,
   TicketType,
   TicketActivityType,
-  Prisma
+  Prisma,
 } from '@prisma/client';
 import { prisma } from '@infrastructure/database/prisma.service';
 import { redis } from '@infrastructure/cache/redis.service';
@@ -15,11 +15,7 @@ import { logger } from '@shared/logger';
 import { EventBus } from '@shared/events/event-bus';
 import { EmailService } from '@shared/services/email.service';
 import { queueService } from '@shared/queue/queue.service';
-import {
-  NotFoundException,
-  BadRequestException,
-  ForbiddenException
-} from '@shared/exceptions';
+import { NotFoundException, BadRequestException, ForbiddenException } from '@shared/exceptions';
 import { Cacheable, CacheInvalidate } from '@infrastructure/cache/redis.service';
 import { TicketEvents } from './ticket.events';
 import { nanoid } from 'nanoid';
@@ -43,6 +39,11 @@ export interface UpdateTicketOptions {
   status?: TicketStatus;
   categoryId?: string;
   tags?: string[];
+  assigneeId?: string | null;
+  resolutionAt?: Date;
+  closedAt?: Date;
+  firstResponseSla?: number;
+  resolutionSla?: number;
 }
 
 export interface TicketFilters {
@@ -77,7 +78,7 @@ export class TicketService {
     [TicketPriority.URGENT]: 60,
     [TicketPriority.HIGH]: 120,
     [TicketPriority.MEDIUM]: 240,
-    [TicketPriority.LOW]: 480
+    [TicketPriority.LOW]: 480,
   };
 
   private readonly SLA_RESOLUTION_MINUTES = {
@@ -85,21 +86,18 @@ export class TicketService {
     [TicketPriority.URGENT]: 480,
     [TicketPriority.HIGH]: 1440,
     [TicketPriority.MEDIUM]: 2880,
-    [TicketPriority.LOW]: 5760
+    [TicketPriority.LOW]: 5760,
   };
 
   constructor(
     private eventBus: EventBus,
-    private emailService: EmailService
+    private emailService: EmailService,
   ) {}
 
   /**
    * Create a new ticket
    */
-  async createTicket(
-    userId: string,
-    options: CreateTicketOptions
-  ): Promise<Ticket> {
+  async createTicket(userId: string, options: CreateTicketOptions): Promise<Ticket> {
     // Generate ticket number
     const ticketNumber = await this.generateTicketNumber();
 
@@ -126,7 +124,7 @@ export class TicketService {
         attachments: options.attachments || [],
         firstResponseSla,
         resolutionSla,
-        metadata: {}
+        metadata: {},
       },
       include: {
         user: {
@@ -135,16 +133,16 @@ export class TicketService {
             email: true,
             firstName: true,
             lastName: true,
-            displayName: true
-          }
+            displayName: true,
+          },
         },
-        category: true
-      }
+        category: true,
+      },
     });
 
     // Create initial activity
     await this.createActivity(ticket.id, userId, TicketActivityType.CREATED, {
-      description: 'Ticket created'
+      description: 'Ticket created',
     });
 
     // Schedule SLA monitoring
@@ -153,20 +151,20 @@ export class TicketService {
     // Send notifications
     await queueService.addJob('notification', 'ticketCreated', {
       ticketId: ticket.id,
-      userId
+      userId,
     });
 
     logger.info('Ticket created', {
       ticketId: ticket.id,
       number: ticket.number,
-      userId
+      userId,
     });
 
     await this.eventBus.emit(TicketEvents.TICKET_CREATED, {
       ticketId: ticket.id,
       number: ticket.number,
       userId,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
 
     return ticket;
@@ -180,7 +178,7 @@ export class TicketService {
     ticketId: string,
     userId: string,
     updates: UpdateTicketOptions,
-    isAgent: boolean = false
+    isAgent: boolean = false,
   ): Promise<Ticket> {
     const ticket = await this.getTicket(ticketId);
 
@@ -196,7 +194,7 @@ export class TicketService {
       changes.push({
         type: TicketActivityType.STATUS_CHANGED,
         oldValue: ticket.status,
-        newValue: updates.status
+        newValue: updates.status,
       });
 
       // Handle special status transitions
@@ -211,7 +209,7 @@ export class TicketService {
       changes.push({
         type: TicketActivityType.PRIORITY_CHANGED,
         oldValue: ticket.priority,
-        newValue: updates.priority
+        newValue: updates.priority,
       });
 
       // Update SLA if priority changed
@@ -223,7 +221,7 @@ export class TicketService {
       changes.push({
         type: TicketActivityType.CATEGORY_CHANGED,
         oldValue: ticket.categoryId,
-        newValue: updates.categoryId
+        newValue: updates.categoryId,
       });
     }
 
@@ -231,7 +229,7 @@ export class TicketService {
       changes.push({
         type: TicketActivityType.TAGS_UPDATED,
         oldValue: ticket.tags.join(', '),
-        newValue: updates.tags.join(', ')
+        newValue: updates.tags.join(', '),
       });
     }
 
@@ -246,8 +244,8 @@ export class TicketService {
             email: true,
             firstName: true,
             lastName: true,
-            displayName: true
-          }
+            displayName: true,
+          },
         },
         assignee: {
           select: {
@@ -255,32 +253,32 @@ export class TicketService {
             email: true,
             firstName: true,
             lastName: true,
-            displayName: true
-          }
+            displayName: true,
+          },
         },
-        category: true
-      }
+        category: true,
+      },
     });
 
     // Create activities for changes
     for (const change of changes) {
       await this.createActivity(ticketId, userId, change.type, {
         oldValue: change.oldValue,
-        newValue: change.newValue
+        newValue: change.newValue,
       });
     }
 
     logger.info('Ticket updated', {
       ticketId,
       userId,
-      changes: changes.length
+      changes: changes.length,
     });
 
     await this.eventBus.emit(TicketEvents.TICKET_UPDATED, {
       ticketId,
       userId,
       changes,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
 
     return updatedTicket;
@@ -301,8 +299,8 @@ export class TicketService {
             firstName: true,
             lastName: true,
             displayName: true,
-            avatar: true
-          }
+            avatar: true,
+          },
         },
         assignee: {
           select: {
@@ -311,12 +309,12 @@ export class TicketService {
             firstName: true,
             lastName: true,
             displayName: true,
-            avatar: true
-          }
+            avatar: true,
+          },
         },
         category: true,
-        tenant: true
-      }
+        tenant: true,
+      },
     });
 
     if (!ticket || ticket.deletedAt) {
@@ -335,8 +333,8 @@ export class TicketService {
       include: {
         user: true,
         assignee: true,
-        category: true
-      }
+        category: true,
+      },
     });
 
     if (!ticket || ticket.deletedAt) {
@@ -356,7 +354,7 @@ export class TicketService {
       limit: number;
       sort?: string;
       order?: 'asc' | 'desc';
-    }
+    },
   ): Promise<{
     tickets: Ticket[];
     total: number;
@@ -372,22 +370,24 @@ export class TicketService {
       ...(filters.assigneeId && { assigneeId: filters.assigneeId }),
       ...(filters.userId && { userId: filters.userId }),
       ...(filters.tenantId && { tenantId: filters.tenantId }),
-      ...(filters.dateFrom && filters.dateTo && {
-        createdAt: {
-          gte: filters.dateFrom,
-          lte: filters.dateTo
-        }
-      }),
-      ...(filters.tags && filters.tags.length > 0 && {
-        tags: { hasEvery: filters.tags }
-      }),
+      ...(filters.dateFrom &&
+        filters.dateTo && {
+          createdAt: {
+            gte: filters.dateFrom,
+            lte: filters.dateTo,
+          },
+        }),
+      ...(filters.tags &&
+        filters.tags.length > 0 && {
+          tags: { hasEvery: filters.tags },
+        }),
       ...(filters.search && {
         OR: [
           { subject: { contains: filters.search, mode: 'insensitive' } },
           { description: { contains: filters.search, mode: 'insensitive' } },
-          { number: { contains: filters.search, mode: 'insensitive' } }
-        ]
-      })
+          { number: { contains: filters.search, mode: 'insensitive' } },
+        ],
+      }),
     };
 
     const orderBy: any = {};
@@ -407,8 +407,8 @@ export class TicketService {
               email: true,
               firstName: true,
               lastName: true,
-              displayName: true
-            }
+              displayName: true,
+            },
           },
           assignee: {
             select: {
@@ -416,42 +416,38 @@ export class TicketService {
               email: true,
               firstName: true,
               lastName: true,
-              displayName: true
-            }
+              displayName: true,
+            },
           },
           category: true,
           _count: {
-            select: { messages: true }
-          }
+            select: { messages: true },
+          },
         },
         orderBy,
         skip: (pagination.page - 1) * pagination.limit,
-        take: pagination.limit
+        take: pagination.limit,
       }),
-      prisma.client.ticket.count({ where })
+      prisma.client.ticket.count({ where }),
     ]);
 
     return {
       tickets,
       total,
       page: pagination.page,
-      totalPages: Math.ceil(total / pagination.limit)
+      totalPages: Math.ceil(total / pagination.limit),
     };
   }
 
   /**
    * Assign ticket to agent
    */
-  async assignTicket(
-    ticketId: string,
-    assigneeId: string,
-    assignedBy: string
-  ): Promise<Ticket> {
+  async assignTicket(ticketId: string, assigneeId: string, assignedBy: string): Promise<Ticket> {
     const ticket = await this.getTicket(ticketId);
 
     // Verify assignee is valid (should be an agent/admin)
     const assignee = await prisma.client.user.findUnique({
-      where: { id: assigneeId }
+      where: { id: assigneeId },
     });
 
     if (!assignee || !['ADMIN', 'SUPER_ADMIN'].includes(assignee.role)) {
@@ -465,20 +461,20 @@ export class TicketService {
       where: { id: ticketId },
       data: {
         assigneeId,
-        status: ticket.status === TicketStatus.OPEN ? TicketStatus.IN_PROGRESS : ticket.status
+        status: ticket.status === TicketStatus.OPEN ? TicketStatus.IN_PROGRESS : ticket.status,
       },
       include: {
         user: true,
         assignee: true,
-        category: true
-      }
+        category: true,
+      },
     });
 
     // Create activity
     await this.createActivity(ticketId, assignedBy, TicketActivityType.ASSIGNED, {
       description: `Assigned to ${assignee.displayName || assignee.email}`,
       oldValue: oldAssigneeId,
-      newValue: assigneeId
+      newValue: assigneeId,
     });
 
     // Clear cache
@@ -488,20 +484,20 @@ export class TicketService {
     await queueService.addJob('notification', 'ticketAssigned', {
       ticketId,
       assigneeId,
-      assignedBy
+      assignedBy,
     });
 
     logger.info('Ticket assigned', {
       ticketId,
       assigneeId,
-      assignedBy
+      assignedBy,
     });
 
     await this.eventBus.emit(TicketEvents.TICKET_ASSIGNED, {
       ticketId,
       assigneeId,
       assignedBy,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
 
     return updatedTicket;
@@ -517,13 +513,13 @@ export class TicketService {
     options?: {
       attachments?: string[];
       internal?: boolean;
-    }
+    },
   ): Promise<TicketMessage> {
     const ticket = await this.getTicket(ticketId);
 
     // Check permissions
     const user = await prisma.client.user.findUnique({
-      where: { id: userId }
+      where: { id: userId },
     });
 
     if (!user) {
@@ -549,7 +545,7 @@ export class TicketService {
         userId,
         content,
         attachments: options?.attachments || [],
-        internal: options?.internal || false
+        internal: options?.internal || false,
       },
       include: {
         user: {
@@ -559,15 +555,15 @@ export class TicketService {
             firstName: true,
             lastName: true,
             displayName: true,
-            avatar: true
-          }
-        }
-      }
+            avatar: true,
+          },
+        },
+      },
     });
 
     // Update ticket
     const updateData: any = {
-      updatedAt: new Date()
+      updatedAt: new Date(),
     };
 
     // Set first response time if this is the first agent response
@@ -592,7 +588,7 @@ export class TicketService {
 
     await prisma.client.ticket.update({
       where: { id: ticketId },
-      data: updateData
+      data: updateData,
     });
 
     // Create activity
@@ -600,7 +596,7 @@ export class TicketService {
       ticketId,
       userId,
       options?.internal ? TicketActivityType.INTERNAL_NOTE_ADDED : TicketActivityType.MESSAGE_ADDED,
-      { messageId: message.id }
+      { messageId: message.id },
     );
 
     // Clear cache
@@ -611,7 +607,7 @@ export class TicketService {
       await queueService.addJob('notification', 'ticketMessageAdded', {
         ticketId,
         messageId: message.id,
-        userId
+        userId,
       });
     }
 
@@ -619,7 +615,7 @@ export class TicketService {
       ticketId,
       messageId: message.id,
       userId,
-      internal: options?.internal
+      internal: options?.internal,
     });
 
     await this.eventBus.emit(TicketEvents.TICKET_MESSAGE_ADDED, {
@@ -627,7 +623,7 @@ export class TicketService {
       messageId: message.id,
       userId,
       internal: options?.internal,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
 
     return message;
@@ -639,13 +635,13 @@ export class TicketService {
   async getTicketMessages(
     ticketId: string,
     userId: string,
-    includeInternal: boolean = false
+    includeInternal: boolean = false,
   ): Promise<TicketMessage[]> {
     const ticket = await this.getTicket(ticketId);
 
     // Check permissions
     const user = await prisma.client.user.findUnique({
-      where: { id: userId }
+      where: { id: userId },
     });
 
     if (!user) {
@@ -661,7 +657,7 @@ export class TicketService {
 
     const where: Prisma.TicketMessageWhereInput = {
       ticketId,
-      deletedAt: null
+      deletedAt: null,
     };
 
     // Customers cannot see internal notes
@@ -679,11 +675,11 @@ export class TicketService {
             firstName: true,
             lastName: true,
             displayName: true,
-            avatar: true
-          }
-        }
+            avatar: true,
+          },
+        },
       },
-      orderBy: { createdAt: 'asc' }
+      orderBy: { createdAt: 'asc' },
     });
 
     return messages;
@@ -692,11 +688,7 @@ export class TicketService {
   /**
    * Close ticket
    */
-  async closeTicket(
-    ticketId: string,
-    userId: string,
-    isAgent: boolean = false
-  ): Promise<Ticket> {
+  async closeTicket(ticketId: string, userId: string, isAgent: boolean = false): Promise<Ticket> {
     const ticket = await this.getTicket(ticketId);
 
     // Check permissions
@@ -712,13 +704,13 @@ export class TicketService {
       where: { id: ticketId },
       data: {
         status: TicketStatus.CLOSED,
-        closedAt: new Date()
+        closedAt: new Date(),
       },
       include: {
         user: true,
         assignee: true,
-        category: true
-      }
+        category: true,
+      },
     });
 
     // Create activity
@@ -732,7 +724,7 @@ export class TicketService {
     await this.eventBus.emit(TicketEvents.TICKET_CLOSED, {
       ticketId,
       userId,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
 
     return updatedTicket;
@@ -741,10 +733,7 @@ export class TicketService {
   /**
    * Reopen ticket
    */
-  async reopenTicket(
-    ticketId: string,
-    userId: string
-  ): Promise<Ticket> {
+  async reopenTicket(ticketId: string, userId: string): Promise<Ticket> {
     const ticket = await this.getTicket(ticketId);
 
     if (ticket.status !== TicketStatus.CLOSED) {
@@ -763,13 +752,13 @@ export class TicketService {
       where: { id: ticketId },
       data: {
         status: TicketStatus.OPEN,
-        closedAt: null
+        closedAt: null,
       },
       include: {
         user: true,
         assignee: true,
-        category: true
-      }
+        category: true,
+      },
     });
 
     // Create activity
@@ -783,7 +772,7 @@ export class TicketService {
     await this.eventBus.emit(TicketEvents.TICKET_REOPENED, {
       ticketId,
       userId,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
 
     return updatedTicket;
@@ -792,12 +781,7 @@ export class TicketService {
   /**
    * Rate ticket satisfaction
    */
-  async rateTicket(
-    ticketId: string,
-    userId: string,
-    rating: number,
-    comment?: string
-  ): Promise<Ticket> {
+  async rateTicket(ticketId: string, userId: string, rating: number, comment?: string): Promise<Ticket> {
     const ticket = await this.getTicket(ticketId);
 
     // Check permissions
@@ -813,13 +797,13 @@ export class TicketService {
       where: { id: ticketId },
       data: {
         satisfactionRating: rating,
-        satisfactionComment: comment
+        satisfactionComment: comment,
       },
       include: {
         user: true,
         assignee: true,
-        category: true
-      }
+        category: true,
+      },
     });
 
     // Clear cache
@@ -828,14 +812,14 @@ export class TicketService {
     logger.info('Ticket rated', {
       ticketId,
       userId,
-      rating
+      rating,
     });
 
     await this.eventBus.emit(TicketEvents.TICKET_RATED, {
       ticketId,
       userId,
       rating,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
 
     return updatedTicket;
@@ -845,68 +829,61 @@ export class TicketService {
    * Get ticket statistics
    */
   @Cacheable({ ttl: 300, namespace: 'ticket:stats' })
-  async getTicketStats(
-    filters?: {
-      userId?: string;
-      tenantId?: string;
-      assigneeId?: string;
-      dateFrom?: Date;
-      dateTo?: Date;
-    }
-  ): Promise<TicketStats> {
+  async getTicketStats(filters?: {
+    userId?: string;
+    tenantId?: string;
+    assigneeId?: string;
+    dateFrom?: Date;
+    dateTo?: Date;
+  }): Promise<TicketStats> {
     const where: Prisma.TicketWhereInput = {
       deletedAt: null,
       ...(filters?.userId && { userId: filters.userId }),
       ...(filters?.tenantId && { tenantId: filters.tenantId }),
       ...(filters?.assigneeId && { assigneeId: filters.assigneeId }),
-      ...(filters?.dateFrom && filters?.dateTo && {
-        createdAt: {
-          gte: filters.dateFrom,
-          lte: filters.dateTo
-        }
-      })
+      ...(filters?.dateFrom &&
+        filters?.dateTo && {
+          createdAt: {
+            gte: filters.dateFrom,
+            lte: filters.dateTo,
+          },
+        }),
     };
 
-    const [
-      total,
-      statusCounts,
-      resolutionTimes,
-      firstResponseTimes,
-      satisfactionScores
-    ] = await Promise.all([
+    const [total, statusCounts, resolutionTimes, firstResponseTimes, satisfactionScores] = await Promise.all([
       prisma.client.ticket.count({ where }),
       prisma.client.ticket.groupBy({
         by: ['status'],
         where,
-        _count: { id: true }
+        _count: { id: true },
       }),
       prisma.client.ticket.aggregate({
         where: {
           ...where,
-          resolutionAt: { not: null }
+          resolutionAt: { not: null },
         },
         _avg: {
-          resolutionSla: true
-        }
+          resolutionSla: true,
+        },
       }),
       prisma.client.ticket.aggregate({
         where: {
           ...where,
-          firstResponseAt: { not: null }
+          firstResponseAt: { not: null },
         },
         _avg: {
-          firstResponseSla: true
-        }
+          firstResponseSla: true,
+        },
       }),
       prisma.client.ticket.aggregate({
         where: {
           ...where,
-          satisfactionRating: { not: null }
+          satisfactionRating: { not: null },
         },
         _avg: {
-          satisfactionRating: true
-        }
-      })
+          satisfactionRating: true,
+        },
+      }),
     ]);
 
     const statusMap = new Map(statusCounts.map(s => [s.status, s._count.id]));
@@ -919,17 +896,14 @@ export class TicketService {
       closed: statusMap.get(TicketStatus.CLOSED) || 0,
       avgResolutionTime: resolutionTimes._avg.resolutionSla || 0,
       avgFirstResponseTime: firstResponseTimes._avg.firstResponseSla || 0,
-      satisfactionScore: satisfactionScores._avg.satisfactionRating || 0
+      satisfactionScore: satisfactionScores._avg.satisfactionRating || 0,
     };
   }
 
   /**
    * Get ticket activities
    */
-  async getTicketActivities(
-    ticketId: string,
-    limit: number = 50
-  ): Promise<TicketActivity[]> {
+  async getTicketActivities(ticketId: string, limit: number = 50): Promise<TicketActivity[]> {
     const activities = await prisma.client.ticketActivity.findMany({
       where: { ticketId },
       include: {
@@ -939,12 +913,12 @@ export class TicketService {
             email: true,
             firstName: true,
             lastName: true,
-            displayName: true
-          }
-        }
+            displayName: true,
+          },
+        },
       },
       orderBy: { createdAt: 'desc' },
-      take: limit
+      take: limit,
     });
 
     return activities;
@@ -962,14 +936,14 @@ export class TicketService {
       categoryId?: string;
       tags?: string[];
     },
-    userId: string
+    userId: string,
   ): Promise<number> {
     // Verify all tickets exist and user has permission
     const tickets = await prisma.client.ticket.findMany({
       where: {
         id: { in: ticketIds },
-        deletedAt: null
-      }
+        deletedAt: null,
+      },
     });
 
     if (tickets.length !== ticketIds.length) {
@@ -979,9 +953,9 @@ export class TicketService {
     // Update tickets
     const result = await prisma.client.ticket.updateMany({
       where: {
-        id: { in: ticketIds }
+        id: { in: ticketIds },
       },
-      data: updates
+      data: updates,
     });
 
     // Create activities for each ticket
@@ -989,7 +963,7 @@ export class TicketService {
       if (updates.status) {
         await this.createActivity(ticketId, userId, TicketActivityType.STATUS_CHANGED, {
           newValue: updates.status,
-          bulk: true
+          bulk: true,
         });
       }
     }
@@ -999,7 +973,7 @@ export class TicketService {
 
     logger.info('Bulk tickets update', {
       count: result.count,
-      userId
+      userId,
     });
 
     return result.count;
@@ -1010,7 +984,7 @@ export class TicketService {
   /**
    * Generate unique ticket number
    */
-  private async generateTicketNumber(): string {
+  private async generateTicketNumber(): Promise<string> {
     const date = new Date();
     const year = date.getFullYear().toString().slice(-2);
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -1057,7 +1031,7 @@ export class TicketService {
     ticketId: string,
     userId: string | null,
     type: TicketActivityType,
-    metadata?: any
+    metadata?: any,
   ): Promise<void> {
     await prisma.client.ticketActivity.create({
       data: {
@@ -1067,8 +1041,8 @@ export class TicketService {
         description: metadata?.description,
         oldValue: metadata?.oldValue,
         newValue: metadata?.newValue,
-        metadata: metadata || {}
-      }
+        metadata: metadata || {},
+      },
     });
   }
 
@@ -1083,15 +1057,25 @@ export class TicketService {
       const warningTime = ticket.firstResponseSla * 0.8 * 60 * 1000; // 80% of SLA in ms
       const breachTime = ticket.firstResponseSla * 60 * 1000; // 100% of SLA in ms
 
-      await queueService.addJob('ticket', 'checkFirstResponseSLA', {
-        ticketId,
-        type: 'warning'
-      }, { delay: warningTime });
+      await queueService.addJob(
+        'ticket',
+        'checkFirstResponseSLA',
+        {
+          ticketId,
+          type: 'warning',
+        },
+        { delay: warningTime },
+      );
 
-      await queueService.addJob('ticket', 'checkFirstResponseSLA', {
-        ticketId,
-        type: 'breach'
-      }, { delay: breachTime });
+      await queueService.addJob(
+        'ticket',
+        'checkFirstResponseSLA',
+        {
+          ticketId,
+          type: 'breach',
+        },
+        { delay: breachTime },
+      );
     }
 
     // Schedule resolution SLA check
@@ -1099,15 +1083,25 @@ export class TicketService {
       const warningTime = ticket.resolutionSla * 0.8 * 60 * 1000; // 80% of SLA in ms
       const breachTime = ticket.resolutionSla * 60 * 1000; // 100% of SLA in ms
 
-      await queueService.addJob('ticket', 'checkResolutionSLA', {
-        ticketId,
-        type: 'warning'
-      }, { delay: warningTime });
+      await queueService.addJob(
+        'ticket',
+        'checkResolutionSLA',
+        {
+          ticketId,
+          type: 'warning',
+        },
+        { delay: warningTime },
+      );
 
-      await queueService.addJob('ticket', 'checkResolutionSLA', {
-        ticketId,
-        type: 'breach'
-      }, { delay: breachTime });
+      await queueService.addJob(
+        'ticket',
+        'checkResolutionSLA',
+        {
+          ticketId,
+          type: 'breach',
+        },
+        { delay: breachTime },
+      );
     }
   }
 }

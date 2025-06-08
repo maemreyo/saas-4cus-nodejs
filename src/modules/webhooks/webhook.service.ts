@@ -30,6 +30,7 @@ export interface WebhookPayload {
   data: any;
   timestamp: string;
   webhookId?: string;
+  [key: string]: any; // Index signature for JsonValue compatibility
 }
 
 export interface WebhookDeliveryResult {

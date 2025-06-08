@@ -295,7 +295,7 @@ export class AnalyticsService {
   private async getRevenue(tenantId: string | undefined, startDate: Date, endDate: Date): Promise<number> {
     // Create a properly typed where condition
     const whereCondition: Prisma.InvoiceWhereInput = {
-      status: 'PAID' as InvoiceStatus,
+      status: InvoiceStatus.PAID,
       paidAt: {
         gte: startDate,
         lte: endDate,
@@ -321,7 +321,7 @@ export class AnalyticsService {
   private async getChurnedUsers(tenantId: string | undefined, startDate: Date, endDate: Date): Promise<number> {
     // Create a properly typed where condition
     const whereCondition: Prisma.SubscriptionWhereInput = {
-      status: 'canceled' as SubscriptionStatus,
+      status: SubscriptionStatus.CANCELED,
       canceledAt: {
         gte: startDate,
         lte: endDate,
@@ -385,7 +385,7 @@ export class AnalyticsService {
     for (const date of dates) {
       // Create a properly typed where condition
       const whereCondition: Prisma.InvoiceWhereInput = {
-        status: 'PAID' as InvoiceStatus,
+        status: InvoiceStatus.PAID,
         paidAt: {
           gte: startOfDay(date),
           lte: endOfDay(date),
@@ -441,7 +441,7 @@ export class AnalyticsService {
   private async getUsersByPlan(tenantId?: string): Promise<Array<{ plan: string; count: number; percentage: number }>> {
     // Create the where condition separately to avoid circular reference
     const whereCondition: Prisma.SubscriptionWhereInput = {
-      status: { in: ['active', 'trialing'] as unknown as SubscriptionStatus[] },
+      status: { in: [SubscriptionStatus.ACTIVE, SubscriptionStatus.TRIALING] },
     };
 
     // Add tenantId condition if provided
@@ -501,33 +501,36 @@ export class AnalyticsService {
   ): Promise<Array<{ plan: string; revenue: number; percentage: number }>> {
     const last30Days = subDays(new Date(), 30);
 
-    // Create a properly typed where condition to avoid circular references
-    const whereCondition: Prisma.InvoiceWhereInput = {
-      status: 'PAID' as InvoiceStatus,
-      paidAt: { gte: last30Days },
-    };
+    // First, get all invoices with their stripe price IDs
+    const invoices = await prisma.client.invoice.findMany({
+      where: {
+        status: InvoiceStatus.PAID,
+        paidAt: { gte: last30Days },
+        ...(tenantId && { subscription: { tenantId } }),
+      },
+      select: {
+        amount: true,
+        stripePriceId: true,
+      },
+    });
 
-    // Add tenant filter if tenantId is provided
-    if (tenantId) {
-      whereCondition.subscription = { tenantId };
-    }
-
-    const revenues = await prisma.client.invoice.groupBy({
-      by: ['stripePriceId'],
-      where: whereCondition,
-      _sum: { amount: true },
+    // Group revenues by stripePriceId manually
+    const revenueByPrice = new Map<string, number>();
+    invoices.forEach(invoice => {
+      const current = revenueByPrice.get(invoice.stripePriceId) || 0;
+      revenueByPrice.set(invoice.stripePriceId, current + invoice.amount);
     });
 
     // Get plan names
     const plans = await prisma.client.plan.findMany();
     const planMap = new Map(plans.map(p => [p.stripePriceId, p.name]));
 
-    const total = revenues.reduce((sum, r) => sum + (r._sum.amount || 0), 0);
+    const total = Array.from(revenueByPrice.values()).reduce((sum, amount) => sum + amount, 0);
 
-    return revenues.map(rev => ({
-      plan: planMap.get(rev.stripePriceId) || 'Unknown',
-      revenue: (rev._sum.amount || 0) / 100,
-      percentage: total > 0 ? ((rev._sum.amount || 0) / total) * 100 : 0,
+    return Array.from(revenueByPrice.entries()).map(([stripePriceId, amount]) => ({
+      plan: planMap.get(stripePriceId) || 'Unknown',
+      revenue: amount / 100,
+      percentage: total > 0 ? (amount / total) * 100 : 0,
     }));
   }
 

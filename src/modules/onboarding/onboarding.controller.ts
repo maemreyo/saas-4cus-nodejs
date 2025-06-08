@@ -25,7 +25,7 @@ export class OnboardingController {
     const flow = await this.onboardingService.startOnboarding(
       userId,
       dto.flowId,
-      dto.context
+      dto.context ? { ...dto.context, userId } : { userId }
     );
 
     reply.send({

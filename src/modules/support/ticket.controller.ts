@@ -220,7 +220,7 @@ export class TicketController {
       return reply.code(403).send({ error: 'Only agents can unassign tickets' });
     }
 
-    const ticket = await this.ticketService.updateTicket(ticketId, userId, { assigneeId: null }, true);
+    const ticket = await this.ticketService.assignTicket(ticketId, '', userId); // Pass empty string to unassign
 
     reply.send({
       message: 'Ticket unassigned successfully',

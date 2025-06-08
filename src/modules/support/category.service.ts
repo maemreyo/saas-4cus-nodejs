@@ -4,10 +4,7 @@ import { prisma } from '@infrastructure/database/prisma.service';
 import { redis } from '@infrastructure/cache/redis.service';
 import { logger } from '@shared/logger';
 import { Cacheable, CacheInvalidate } from '@infrastructure/cache/redis.service';
-import {
-  NotFoundException,
-  ConflictException
-} from '@shared/exceptions';
+import { NotFoundException, ConflictException } from '@shared/exceptions';
 import { CreateCategoryDTO } from './ticket.dto';
 
 @Service()
@@ -24,16 +21,13 @@ export class CategoryService {
       include: {
         parent: true,
         children: {
-          where: includeInactive ? {} : { active: true }
+          where: includeInactive ? {} : { active: true },
         },
         _count: {
-          select: { tickets: true }
-        }
+          select: { tickets: true },
+        },
       },
-      orderBy: [
-        { order: 'asc' },
-        { name: 'asc' }
-      ]
+      orderBy: [{ order: 'asc' }, { name: 'asc' }],
     });
 
     // Build hierarchy
@@ -59,16 +53,16 @@ export class CategoryService {
   /**
    * Get category by ID
    */
-  async getCategory(categoryId: string): Promise<TicketCategory> {
+  async getCategory(categoryId: string): Promise<TicketCategory & { children?: TicketCategory[] }> {
     const category = await prisma.client.ticketCategory.findUnique({
       where: { id: categoryId },
       include: {
         parent: true,
         children: true,
         _count: {
-          select: { tickets: true }
-        }
-      }
+          select: { tickets: true },
+        },
+      },
     });
 
     if (!category) {
@@ -86,8 +80,8 @@ export class CategoryService {
       where: { slug },
       include: {
         parent: true,
-        children: true
-      }
+        children: true,
+      },
     });
 
     if (!category) {
@@ -104,7 +98,7 @@ export class CategoryService {
   async createCategory(data: CreateCategoryDTO): Promise<TicketCategory> {
     // Check if slug exists
     const existing = await prisma.client.ticketCategory.findUnique({
-      where: { slug: data.slug }
+      where: { slug: data.slug },
     });
 
     if (existing) {
@@ -114,7 +108,7 @@ export class CategoryService {
     // Validate parent if provided
     if (data.parentId) {
       const parent = await prisma.client.ticketCategory.findUnique({
-        where: { id: data.parentId }
+        where: { id: data.parentId },
       });
 
       if (!parent) {
@@ -134,8 +128,8 @@ export class CategoryService {
         description: data.description,
         icon: data.icon,
         parentId: data.parentId,
-        order: data.order || 0
-      }
+        order: data.order || 0,
+      },
     });
 
     logger.info('Ticket category created', { categoryId: category.id });
@@ -149,14 +143,14 @@ export class CategoryService {
   @CacheInvalidate(['ticket:categories'])
   async updateCategory(
     categoryId: string,
-    updates: Partial<CreateCategoryDTO>
-  ): Promise<TicketCategory> {
+    updates: Partial<CreateCategoryDTO>,
+  ): Promise<TicketCategory & { children?: TicketCategory[] }> {
     const category = await this.getCategory(categoryId);
 
     // Check slug uniqueness if updating
     if (updates.slug && updates.slug !== category.slug) {
       const existing = await prisma.client.ticketCategory.findUnique({
-        where: { slug: updates.slug }
+        where: { slug: updates.slug },
       });
 
       if (existing) {
@@ -168,7 +162,7 @@ export class CategoryService {
     if (updates.parentId !== undefined && updates.parentId !== category.parentId) {
       if (updates.parentId) {
         const parent = await prisma.client.ticketCategory.findUnique({
-          where: { id: updates.parentId }
+          where: { id: updates.parentId },
         });
 
         if (!parent) {
@@ -199,9 +193,9 @@ export class CategoryService {
         parent: true,
         children: true,
         _count: {
-          select: { tickets: true }
-        }
-      }
+          select: { tickets: true },
+        },
+      },
     });
 
     logger.info('Ticket category updated', { categoryId });
@@ -218,7 +212,7 @@ export class CategoryService {
 
     // Check if category has tickets
     const ticketCount = await prisma.client.ticket.count({
-      where: { categoryId }
+      where: { categoryId },
     });
 
     if (ticketCount > 0) {
@@ -231,7 +225,7 @@ export class CategoryService {
     }
 
     await prisma.client.ticketCategory.delete({
-      where: { id: categoryId }
+      where: { id: categoryId },
     });
 
     logger.info('Ticket category deleted', { categoryId });
@@ -249,13 +243,13 @@ export class CategoryService {
       data: { active: !category.active },
       include: {
         parent: true,
-        children: true
-      }
+        children: true,
+      },
     });
 
     logger.info('Ticket category status toggled', {
       categoryId,
-      active: updatedCategory.active
+      active: updatedCategory.active,
     });
 
     return updatedCategory;
@@ -265,21 +259,19 @@ export class CategoryService {
    * Reorder categories
    */
   @CacheInvalidate(['ticket:categories'])
-  async reorderCategories(
-    categoryOrders: Array<{ id: string; order: number }>
-  ): Promise<void> {
+  async reorderCategories(categoryOrders: Array<{ id: string; order: number }>): Promise<void> {
     // Update each category's order
     await Promise.all(
       categoryOrders.map(({ id, order }) =>
         prisma.client.ticketCategory.update({
           where: { id },
-          data: { order }
-        })
-      )
+          data: { order },
+        }),
+      ),
     );
 
     logger.info('Ticket categories reordered', {
-      count: categoryOrders.length
+      count: categoryOrders.length,
     });
   }
 
@@ -296,22 +288,20 @@ export class CategoryService {
       where: {
         categoryId: { not: null },
         createdAt: { gte: last30Days },
-        deletedAt: null
+        deletedAt: null,
       },
       _count: {
-        id: true
+        id: true,
       },
       orderBy: {
         _count: {
-          id: 'desc'
-        }
+          id: 'desc',
+        },
       },
-      take: limit
+      take: limit,
     });
 
-    const categoryIds = popularCategories
-      .filter(cat => cat.categoryId !== null)
-      .map(cat => cat.categoryId as string);
+    const categoryIds = popularCategories.filter(cat => cat.categoryId !== null).map(cat => cat.categoryId as string);
 
     if (categoryIds.length === 0) {
       return [];
@@ -320,8 +310,8 @@ export class CategoryService {
     const categories = await prisma.client.ticketCategory.findMany({
       where: {
         id: { in: categoryIds },
-        active: true
-      }
+        active: true,
+      },
     });
 
     // Sort by popularity

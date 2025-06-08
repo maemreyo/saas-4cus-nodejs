@@ -12,7 +12,7 @@ import { redis } from '@/infrastructure/cache/redis.service';
 export class TicketEventHandlers {
   constructor(
     private analyticsService: AnalyticsService,
-    private webhookService: WebhookService
+    private webhookService: WebhookService,
   ) {}
 
   @OnEvent(TicketEvents.TICKET_CREATED)
@@ -25,8 +25,8 @@ export class TicketEventHandlers {
       event: 'ticket.created',
       properties: {
         ticketId: payload.ticketId,
-        number: payload.number
-      }
+        number: payload.number,
+      },
     });
 
     // Schedule satisfaction survey for 2 days after resolution
@@ -45,8 +45,8 @@ export class TicketEventHandlers {
         properties: {
           ticketId: payload.ticketId,
           oldValue: change.oldValue,
-          newValue: change.newValue
-        }
+          newValue: change.newValue,
+        },
       });
     }
   }
@@ -60,12 +60,12 @@ export class TicketEventHandlers {
       'ticket',
       'sendSatisfactionSurvey',
       { ticketId: payload.ticketId },
-      { delay: 24 * 60 * 60 * 1000 } // 24 hours
+      { delay: 24 * 60 * 60 * 1000 }, // 24 hours
     );
 
     // Calculate and track resolution time
     const ticket = await prisma.client.ticket.findUnique({
-      where: { id: payload.ticketId }
+      where: { id: payload.ticketId },
     });
 
     if (ticket) {
@@ -77,8 +77,8 @@ export class TicketEventHandlers {
         properties: {
           ticketId: payload.ticketId,
           resolutionTimeMs: resolutionTime,
-          resolutionTimeHours: Math.round(resolutionTime / (1000 * 60 * 60))
-        }
+          resolutionTimeHours: Math.round(resolutionTime / (1000 * 60 * 60)),
+        },
       });
     }
   }
@@ -101,8 +101,8 @@ export class TicketEventHandlers {
       event: 'ticket.assigned',
       properties: {
         ticketId: payload.ticketId,
-        assigneeId: payload.assigneeId
-      }
+        assigneeId: payload.assigneeId,
+      },
     });
 
     // Update assignee's workload metrics
@@ -116,7 +116,7 @@ export class TicketEventHandlers {
     if (!payload.internal) {
       // Update ticket status if needed
       const ticket = await prisma.client.ticket.findUnique({
-        where: { id: payload.ticketId }
+        where: { id: payload.ticketId },
       });
 
       if (ticket) {
@@ -129,8 +129,8 @@ export class TicketEventHandlers {
             properties: {
               ticketId: payload.ticketId,
               responseTimeMs: responseTime,
-              responseTimeMinutes: Math.round(responseTime / (1000 * 60))
-            }
+              responseTimeMinutes: Math.round(responseTime / (1000 * 60)),
+            },
           });
         }
       }
@@ -147,14 +147,14 @@ export class TicketEventHandlers {
       properties: {
         ticketId: payload.ticketId,
         slaType: payload.type,
-        slaMinutes: payload.slaMinutes
-      }
+        slaMinutes: payload.slaMinutes,
+      },
     });
 
     // Send alerts to management
     const ticket = await prisma.client.ticket.findUnique({
       where: { id: payload.ticketId },
-      include: { assignee: true }
+      include: { assignee: true },
     });
 
     if (ticket && ticket.priority === 'CRITICAL') {
@@ -173,8 +173,8 @@ export class TicketEventHandlers {
       properties: {
         ticketId: payload.ticketId,
         slaType: payload.type,
-        slaMinutes: payload.slaMinutes
-      }
+        slaMinutes: payload.slaMinutes,
+      },
     });
 
     // Update SLA metrics
@@ -191,8 +191,8 @@ export class TicketEventHandlers {
       event: 'ticket.rated',
       properties: {
         ticketId: payload.ticketId,
-        rating: payload.rating
-      }
+        rating: payload.rating,
+      },
     });
 
     // Update satisfaction metrics
@@ -213,8 +213,8 @@ export class TicketEventHandlers {
       event: 'ticket.escalated',
       properties: {
         ticketId: payload.ticketId,
-        reason: payload.reason
-      }
+        reason: payload.reason,
+      },
     });
   }
 
@@ -226,8 +226,8 @@ export class TicketEventHandlers {
     await this.analyticsService.track({
       event: 'ticket.auto_closed',
       properties: {
-        ticketId: payload.ticketId
-      }
+        ticketId: payload.ticketId,
+      },
     });
   }
 
@@ -238,25 +238,23 @@ export class TicketEventHandlers {
       prisma.client.ticket.count({
         where: {
           assigneeId: agentId,
-          status: { in: ['OPEN', 'IN_PROGRESS', 'WAITING_FOR_CUSTOMER'] }
-        }
+          status: { in: ['OPEN', 'IN_PROGRESS', 'WAITING_FOR_CUSTOMER'] },
+        },
       }),
       prisma.client.ticket.count({
         where: {
           assigneeId: agentId,
           createdAt: {
-            gte: new Date(new Date().setHours(0, 0, 0, 0))
-          }
-        }
-      })
+            gte: new Date(new Date().setHours(0, 0, 0, 0)),
+          },
+        },
+      }),
     ]);
 
     // Store in Redis for real-time dashboard
-    await redis.hset(`agent:workload:${agentId}`, {
-      openTickets,
-      todayTickets,
-      lastUpdated: new Date().toISOString()
-    });
+    await redis.hset(`agent:workload:${agentId}`, 'openTickets', openTickets);
+    await redis.hset(`agent:workload:${agentId}`, 'todayTickets', todayTickets);
+    await redis.hset(`agent:workload:${agentId}`, 'lastUpdated', new Date().toISOString());
   }
 
   private async updateSLAMetrics(ticketId: string, slaType: string) {
@@ -285,9 +283,9 @@ export class TicketEventHandlers {
         ticketId: ticket.id,
         ticketNumber: ticket.number,
         priority: ticket.priority,
-        subject: ticket.subject
+        subject: ticket.subject,
       },
-      { priority: 1 } // High priority job
+      { priority: 1 }, // High priority job
     );
   }
 
@@ -301,9 +299,9 @@ export class TicketEventHandlers {
         description: `Low satisfaction rating (${rating}/5) - requires follow-up`,
         metadata: {
           autoGenerated: true,
-          reason: 'low_satisfaction'
-        }
-      }
+          reason: 'low_satisfaction',
+        },
+      },
     });
   }
 }

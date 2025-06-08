@@ -5,10 +5,7 @@ import { redis } from '@infrastructure/cache/redis.service';
 import { logger } from '@shared/logger';
 import { EventBus } from '@shared/events/event-bus';
 import { AnalyticsService } from '@modules/analytics/analytics.service';
-import {
-  NotFoundException,
-  BadRequestException
-} from '@shared/exceptions';
+import { NotFoundException, BadRequestException } from '@shared/exceptions';
 
 export interface OnboardingFlowTemplate {
   id: string;
@@ -51,7 +48,7 @@ export class OnboardingService {
 
   constructor(
     private eventBus: EventBus,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
   ) {
     this.initializeFlowTemplates();
   }
@@ -70,14 +67,14 @@ export class OnboardingService {
           {
             id: 'welcome',
             title: 'Welcome to Our Platform!',
-            description: 'Let\'s get you started with a quick tour',
+            description: "Let's get you started with a quick tour",
             type: 'welcome',
             order: 1,
             required: true,
             content: {
               image: '/images/welcome.png',
-              video: '/videos/welcome.mp4'
-            }
+              video: '/videos/welcome.mp4',
+            },
           },
           {
             id: 'complete_profile',
@@ -88,8 +85,8 @@ export class OnboardingService {
             required: true,
             action: {
               type: 'navigation',
-              target: '/settings/profile'
-            }
+              target: '/settings/profile',
+            },
           },
           {
             id: 'create_first_project',
@@ -100,8 +97,8 @@ export class OnboardingService {
             required: false,
             action: {
               type: 'navigation',
-              target: '/projects/new'
-            }
+              target: '/projects/new',
+            },
           },
           {
             id: 'invite_team',
@@ -112,11 +109,11 @@ export class OnboardingService {
             required: false,
             action: {
               type: 'navigation',
-              target: '/team/invite'
+              target: '/team/invite',
             },
             skipCondition: {
-              plan: ['free']
-            }
+              plan: ['free'],
+            },
           },
           {
             id: 'explore_features',
@@ -129,11 +126,11 @@ export class OnboardingService {
               tour: [
                 { element: '#dashboard', content: 'This is your dashboard' },
                 { element: '#projects', content: 'Manage your projects here' },
-                { element: '#analytics', content: 'View your analytics' }
-              ]
-            }
-          }
-        ]
+                { element: '#analytics', content: 'View your analytics' },
+              ],
+            },
+          },
+        ],
       },
       {
         id: 'new_tenant',
@@ -150,8 +147,8 @@ export class OnboardingService {
             required: true,
             action: {
               type: 'navigation',
-              target: '/organization/settings'
-            }
+              target: '/organization/settings',
+            },
           },
           {
             id: 'billing_setup',
@@ -162,8 +159,8 @@ export class OnboardingService {
             required: true,
             action: {
               type: 'navigation',
-              target: '/billing/setup'
-            }
+              target: '/billing/setup',
+            },
           },
           {
             id: 'invite_members',
@@ -174,11 +171,11 @@ export class OnboardingService {
             required: false,
             action: {
               type: 'navigation',
-              target: '/organization/members/invite'
-            }
-          }
-        ]
-      }
+              target: '/organization/members/invite',
+            },
+          },
+        ],
+      },
     ];
 
     templates.forEach(template => {
@@ -189,11 +186,7 @@ export class OnboardingService {
   /**
    * Start onboarding for user
    */
-  async startOnboarding(
-    userId: string,
-    flowId: string,
-    context?: OnboardingContext
-  ): Promise<OnboardingFlow> {
+  async startOnboarding(userId: string, flowId: string, context?: OnboardingContext): Promise<OnboardingFlow> {
     const template = this.flowTemplates.get(flowId);
     if (!template) {
       throw new NotFoundException('Onboarding flow template not found');
@@ -203,8 +196,8 @@ export class OnboardingService {
     const existingFlow = await prisma.client.onboardingFlow.findFirst({
       where: {
         userId,
-        status: 'IN_PROGRESS'
-      }
+        status: 'IN_PROGRESS',
+      },
     });
 
     if (existingFlow) {
@@ -219,8 +212,8 @@ export class OnboardingService {
         status: 'IN_PROGRESS',
         context: context || {},
         totalSteps: template.steps.length,
-        completedSteps: 0
-      }
+        completedSteps: 0,
+      },
     });
 
     // Create steps
@@ -238,10 +231,10 @@ export class OnboardingService {
             status: 'PENDING',
             content: stepTemplate.content,
             action: stepTemplate.action,
-            metadata: stepTemplate.metadata
-          }
-        })
-      )
+            metadata: stepTemplate.metadata,
+          },
+        }),
+      ),
     );
 
     // Track analytics
@@ -251,8 +244,8 @@ export class OnboardingService {
       properties: {
         flowId,
         flowName: template.name,
-        totalSteps: template.steps.length
-      }
+        totalSteps: template.steps.length,
+      },
     });
 
     logger.info('Onboarding started', { userId, flowId });
@@ -260,7 +253,7 @@ export class OnboardingService {
     await this.eventBus.emit('onboarding.started', {
       userId,
       flowId,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
 
     return flow;
@@ -277,24 +270,24 @@ export class OnboardingService {
     const flow = await prisma.client.onboardingFlow.findFirst({
       where: {
         userId,
-        status: 'IN_PROGRESS'
-      }
+        status: 'IN_PROGRESS',
+      },
     });
 
     if (!flow) {
       return {
         flow: null,
         steps: [],
-        progress: null
+        progress: null,
       };
     }
 
     const [steps, progress] = await Promise.all([
       prisma.client.onboardingStep.findMany({
         where: { flowId: flow.id },
-        orderBy: { order: 'asc' }
+        orderBy: { order: 'asc' },
       }),
-      this.calculateProgress(flow.id)
+      this.calculateProgress(flow.id),
     ]);
 
     return { flow, steps, progress };
@@ -303,17 +296,13 @@ export class OnboardingService {
   /**
    * Complete onboarding step
    */
-  async completeStep(
-    userId: string,
-    stepId: string,
-    data?: any
-  ): Promise<void> {
+  async completeStep(userId: string, stepId: string, data?: any): Promise<void> {
     // Get active flow
     const flow = await prisma.client.onboardingFlow.findFirst({
       where: {
         userId,
-        status: 'IN_PROGRESS'
-      }
+        status: 'IN_PROGRESS',
+      },
     });
 
     if (!flow) {
@@ -324,8 +313,8 @@ export class OnboardingService {
     const step = await prisma.client.onboardingStep.findFirst({
       where: {
         flowId: flow.id,
-        stepId
-      }
+        stepId,
+      },
     });
 
     if (!step) {
@@ -342,16 +331,16 @@ export class OnboardingService {
       data: {
         status: 'COMPLETED',
         completedAt: new Date(),
-        completionData: data
-      }
+        completionData: data,
+      },
     });
 
     // Update flow progress
     const completedCount = await prisma.client.onboardingStep.count({
       where: {
         flowId: flow.id,
-        status: 'COMPLETED'
-      }
+        status: 'COMPLETED',
+      },
     });
 
     const allCompleted = completedCount === flow.totalSteps;
@@ -363,9 +352,9 @@ export class OnboardingService {
         completedSteps: completedCount,
         ...(allCompleted && {
           status: 'COMPLETED',
-          completedAt: new Date()
-        })
-      }
+          completedAt: new Date(),
+        }),
+      },
     });
 
     // Track analytics
@@ -377,8 +366,8 @@ export class OnboardingService {
         stepId,
         stepOrder: step.order,
         stepsCompleted: completedCount,
-        totalSteps: flow.totalSteps
-      }
+        totalSteps: flow.totalSteps,
+      },
     });
 
     // Clear cache
@@ -390,7 +379,7 @@ export class OnboardingService {
       userId,
       flowId: flow.id,
       stepId,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
 
     // Check if onboarding is complete
@@ -406,8 +395,8 @@ export class OnboardingService {
     const flow = await prisma.client.onboardingFlow.findFirst({
       where: {
         userId,
-        status: 'IN_PROGRESS'
-      }
+        status: 'IN_PROGRESS',
+      },
     });
 
     if (!flow) {
@@ -417,8 +406,8 @@ export class OnboardingService {
     const step = await prisma.client.onboardingStep.findFirst({
       where: {
         flowId: flow.id,
-        stepId
-      }
+        stepId,
+      },
     });
 
     if (!step) {
@@ -433,8 +422,8 @@ export class OnboardingService {
       where: { id: step.id },
       data: {
         status: 'SKIPPED',
-        skippedAt: new Date()
-      }
+        skippedAt: new Date(),
+      },
     });
 
     // Track analytics
@@ -443,8 +432,8 @@ export class OnboardingService {
       event: 'onboarding.step_skipped',
       properties: {
         flowId: flow.flowTemplateId,
-        stepId
-      }
+        stepId,
+      },
     });
   }
 
@@ -455,8 +444,8 @@ export class OnboardingService {
     const flow = await prisma.client.onboardingFlow.findFirst({
       where: {
         userId,
-        status: 'IN_PROGRESS'
-      }
+        status: 'IN_PROGRESS',
+      },
     });
 
     if (!flow) {
@@ -467,8 +456,8 @@ export class OnboardingService {
       where: { id: flow.id },
       data: {
         status: 'SKIPPED',
-        skippedAt: new Date()
-      }
+        skippedAt: new Date(),
+      },
     });
 
     // Track analytics
@@ -478,14 +467,14 @@ export class OnboardingService {
       properties: {
         flowId: flow.flowTemplateId,
         stepsCompleted: flow.completedSteps,
-        totalSteps: flow.totalSteps
-      }
+        totalSteps: flow.totalSteps,
+      },
     });
 
     await this.eventBus.emit('onboarding.skipped', {
       userId,
       flowId: flow.id,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   }
 
@@ -515,7 +504,7 @@ export class OnboardingService {
       description: step.description,
       completed: step.status === 'COMPLETED',
       required: step.required,
-      action: step.action
+      action: step.action,
     }));
 
     const completedCount = items.filter(item => item.completed).length;
@@ -523,20 +512,25 @@ export class OnboardingService {
 
     return {
       items,
-      progress: Math.round(progress)
+      progress: Math.round(progress),
     };
   }
 
   /**
    * Get onboarding hints/tooltips
    */
-  async getHints(userId: string, page: string): Promise<Array<{
-    id: string;
-    target: string;
-    content: string;
-    position: string;
-    show: boolean;
-  }>> {
+  async getHints(
+    userId: string,
+    page: string,
+  ): Promise<
+    Array<{
+      id: string;
+      target: string;
+      content: string;
+      position: string;
+      show: boolean;
+    }>
+  > {
     const { flow, steps } = await this.getProgress(userId);
 
     if (!flow) {
@@ -545,32 +539,38 @@ export class OnboardingService {
 
     // Get hints for current page
     const hints = steps
-      .filter(step =>
-        step.type === 'tour' &&
-        step.status === 'PENDING' &&
-        step.content?.tour
+      .filter(
+        step =>
+          step.type === 'tour' &&
+          step.status === 'PENDING' &&
+          step.content &&
+          typeof step.content === 'object' &&
+          'tour' in step.content,
       )
-      .flatMap(step =>
-        step.content.tour
-          .filter((tour: any) => tour.page === page)
-          .map((tour: any) => ({
-            id: `${step.stepId}-${tour.element}`,
-            target: tour.element,
-            content: tour.content,
-            position: tour.position || 'bottom',
-            show: true
-          }))
-      );
+      .flatMap(step => {
+        const content = step.content as any;
+        if (Array.isArray(content.tour)) {
+          return content.tour
+            .filter((tour: any) => tour.page === page)
+            .map((tour: any) => ({
+              id: `${step.stepId}-${tour.element}`,
+              target: tour.element,
+              content: tour.content,
+              position: tour.position || 'bottom',
+              show: true,
+            }));
+        }
+        return [];
+      });
 
     return hints;
   }
-
   /**
    * Complete onboarding flow
    */
   private async completeOnboarding(userId: string, flowId: string): Promise<void> {
     const flow = await prisma.client.onboardingFlow.findUnique({
-      where: { id: flowId }
+      where: { id: flowId },
     });
 
     if (!flow) return;
@@ -587,14 +587,14 @@ export class OnboardingService {
         flowName: template?.name,
         duration: flow.createdAt ? Date.now() - flow.createdAt.getTime() : 0,
         stepsCompleted: flow.completedSteps,
-        totalSteps: flow.totalSteps
-      }
+        totalSteps: flow.totalSteps,
+      },
     });
 
     await this.eventBus.emit('onboarding.completed', {
       userId,
       flowId: flow.id,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
 
     // Clear cache
@@ -609,8 +609,8 @@ export class OnboardingService {
       where: {
         flowId,
         required: true,
-        status: { not: 'COMPLETED' }
-      }
+        status: { not: 'COMPLETED' },
+      },
     });
 
     return requiredSteps === 0;
@@ -621,7 +621,7 @@ export class OnboardingService {
    */
   private async calculateProgress(flowId: string): Promise<OnboardingProgress> {
     const flow = await prisma.client.onboardingFlow.findUnique({
-      where: { id: flowId }
+      where: { id: flowId },
     });
 
     if (!flow) {
@@ -629,7 +629,7 @@ export class OnboardingService {
     }
 
     const steps = await prisma.client.onboardingStep.findMany({
-      where: { flowId }
+      where: { flowId },
     });
 
     const completed = steps.filter(s => s.status === 'COMPLETED').length;
@@ -646,7 +646,7 @@ export class OnboardingService {
       requiredCompleted,
       percentComplete: Math.round((completed / steps.length) * 100),
       isComplete: flow.status === 'COMPLETED',
-      estimatedTimeRemaining: (steps.length - completed) * 2 // 2 minutes per step estimate
+      estimatedTimeRemaining: (steps.length - completed) * 2, // 2 minutes per step estimate
     };
   }
 
@@ -657,7 +657,7 @@ export class OnboardingService {
     options: {
       flowId?: string;
       dateRange?: number;
-    } = {}
+    } = {},
   ): Promise<{
     overview: {
       totalStarted: number;
@@ -682,39 +682,37 @@ export class OnboardingService {
       ...(options.flowId && { flowTemplateId: options.flowId }),
       ...(options.dateRange && {
         createdAt: {
-          gte: new Date(Date.now() - options.dateRange * 24 * 60 * 60 * 1000)
-        }
-      })
+          gte: new Date(Date.now() - options.dateRange * 24 * 60 * 60 * 1000),
+        },
+      }),
     };
 
     // Get overview metrics
     const [started, completed, skipped] = await Promise.all([
       prisma.client.onboardingFlow.count({ where }),
       prisma.client.onboardingFlow.count({
-        where: { ...where, status: 'COMPLETED' }
+        where: { ...where, status: 'COMPLETED' },
       }),
       prisma.client.onboardingFlow.count({
-        where: { ...where, status: 'SKIPPED' }
-      })
+        where: { ...where, status: 'SKIPPED' },
+      }),
     ]);
 
     // Get average completion and duration
     const flows = await prisma.client.onboardingFlow.findMany({
-      where: { ...where, status: 'COMPLETED' }
+      where: { ...where, status: 'COMPLETED' },
     });
 
-    const averageCompletion = flows.length > 0
-      ? flows.reduce((sum, f) => sum + (f.completedSteps / f.totalSteps) * 100, 0) / flows.length
-      : 0;
+    const averageCompletion =
+      flows.length > 0 ? flows.reduce((sum, f) => sum + (f.completedSteps / f.totalSteps) * 100, 0) / flows.length : 0;
 
-    const averageDuration = flows.length > 0
-      ? flows.reduce((sum, f) => {
-          const duration = f.completedAt && f.createdAt
-            ? f.completedAt.getTime() - f.createdAt.getTime()
-            : 0;
-          return sum + duration;
-        }, 0) / flows.length
-      : 0;
+    const averageDuration =
+      flows.length > 0
+        ? flows.reduce((sum, f) => {
+            const duration = f.completedAt && f.createdAt ? f.completedAt.getTime() - f.createdAt.getTime() : 0;
+            return sum + duration;
+          }, 0) / flows.length
+        : 0;
 
     return {
       overview: {
@@ -722,10 +720,10 @@ export class OnboardingService {
         totalCompleted: completed,
         totalSkipped: skipped,
         averageCompletion: Math.round(averageCompletion),
-        averageDuration: Math.round(averageDuration / 1000 / 60) // in minutes
+        averageDuration: Math.round(averageDuration / 1000 / 60), // in minutes
       },
       stepAnalytics: [], // Would need more complex query
-      dropoffFunnel: [] // Would need funnel analysis
+      dropoffFunnel: [], // Would need funnel analysis
     };
   }
 }

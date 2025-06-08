@@ -1,19 +1,14 @@
 import { Service } from 'typedi';
-import { User, Session } from '@prisma/client';
+import { User, Session, UserRole } from '@prisma/client';
 import { prisma } from '@infrastructure/database/prisma.service';
 import { redis } from '@infrastructure/cache/redis.service';
 import { logger } from '@shared/logger';
 import { EventBus } from '@shared/events/event-bus';
-import {
-  NotFoundException,
-  BadRequestException,
-  UnauthorizedException,
-  ConflictException
-} from '@shared/exceptions';
+import { NotFoundException, BadRequestException, UnauthorizedException, ConflictException } from '@shared/exceptions';
 import { hashPassword, verifyPassword } from '@shared/utils/crypto';
 import { Cacheable, CacheInvalidate } from '@infrastructure/cache/redis.service';
 import { AuditService } from '@shared/services/audit.service';
-import { storageService } from '@shared/services/storage.service';
+import { storageService } from '@/shared/services/storage.service';
 
 export interface UpdateProfileOptions {
   firstName?: string;
@@ -50,7 +45,7 @@ export interface SearchUsersOptions {
 export class UserService {
   constructor(
     private eventBus: EventBus,
-    private auditService: AuditService
+    private auditService: AuditService,
   ) {}
 
   /**
@@ -59,7 +54,7 @@ export class UserService {
   @Cacheable({ ttl: 300, namespace: 'users' })
   async getUserById(userId: string): Promise<User> {
     const user = await prisma.client.user.findUnique({
-      where: { id: userId }
+      where: { id: userId },
     });
 
     if (!user) {
@@ -74,7 +69,7 @@ export class UserService {
    */
   async getUserByEmail(email: string): Promise<User | null> {
     return prisma.client.user.findUnique({
-      where: { email: email.toLowerCase() }
+      where: { email: email.toLowerCase() },
     });
   }
 
@@ -83,7 +78,7 @@ export class UserService {
    */
   async getUserByUsername(username: string): Promise<User | null> {
     return prisma.client.user.findUnique({
-      where: { username }
+      where: { username },
     });
   }
 
@@ -107,16 +102,27 @@ export class UserService {
       lastName: user.lastName,
       displayName: user.displayName,
       username: user.username,
-      bio: user.bio
+      bio: user.bio,
+    };
+
+    // Merge metadata
+    const updatedMetadata = {
+      ...((user.metadata as any) || {}),
+      ...(options.website && { website: options.website }),
+      ...(options.location && { location: options.location }),
     };
 
     const updatedUser = await prisma.client.user.update({
       where: { id: userId },
       data: {
-        ...options,
-        displayName: options.displayName ||
-          `${options.firstName || user.firstName} ${options.lastName || user.lastName}`.trim()
-      }
+        firstName: options.firstName,
+        lastName: options.lastName,
+        username: options.username,
+        bio: options.bio,
+        displayName:
+          options.displayName || `${options.firstName || user.firstName} ${options.lastName || user.lastName}`.trim(),
+        metadata: updatedMetadata,
+      },
     });
 
     // Audit log
@@ -126,7 +132,7 @@ export class UserService {
       entity: 'User',
       entityId: userId,
       oldValues,
-      newValues: options
+      newValues: options,
     });
 
     logger.info('User profile updated', { userId });
@@ -134,7 +140,7 @@ export class UserService {
     await this.eventBus.emit('user.updated', {
       userId,
       changes: options,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
 
     return updatedUser;
@@ -161,7 +167,7 @@ export class UserService {
 
     await prisma.client.user.update({
       where: { id: userId },
-      data: { password: hashedPassword }
+      data: { password: hashedPassword },
     });
 
     // Invalidate all sessions except current
@@ -172,14 +178,14 @@ export class UserService {
       userId,
       action: 'user.password.changed',
       entity: 'User',
-      entityId: userId
+      entityId: userId,
     });
 
     logger.info('User password changed', { userId });
 
     await this.eventBus.emit('user.passwordChanged', {
       userId,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   }
 
@@ -193,14 +199,14 @@ export class UserService {
     const currentPreferences = (user.preferences as any) || {};
     const updatedPreferences = {
       ...currentPreferences,
-      ...preferences
+      ...preferences,
     };
 
     await prisma.client.user.update({
       where: { id: userId },
       data: {
-        preferences: updatedPreferences
-      }
+        preferences: updatedPreferences,
+      },
     });
 
     logger.info('User preferences updated', { userId });
@@ -220,15 +226,18 @@ export class UserService {
       throw new NotFoundException('User profile is private');
     }
 
+    const metadata = (user.metadata as any) || {};
+
     return {
       id: user.id,
       username: user.username,
       displayName: user.displayName,
       avatar: user.avatar,
       bio: user.bio,
-      website: (user.metadata as any)?.website,
-      location: (user.metadata as any)?.location,
-      createdAt: user.createdAt
+      createdAt: user.createdAt,
+      // Include metadata fields
+      ...(metadata.website && { website: metadata.website }),
+      ...(metadata.location && { location: metadata.location }),
     };
   }
 
@@ -236,29 +245,31 @@ export class UserService {
    * Search users
    */
   async searchUsers(options: SearchUsersOptions) {
-    const {
-      query,
-      role,
-      status,
-      verified,
-      page = 1,
-      limit = 20
-    } = options;
+    const { query, role, status, verified, page = 1, limit = 20 } = options;
 
-    const where = {
-      ...(query && {
-        OR: [
-          { email: { contains: query, mode: 'insensitive' as any } },
-          { username: { contains: query, mode: 'insensitive' as any } },
-          { displayName: { contains: query, mode: 'insensitive' as any } },
-          { firstName: { contains: query, mode: 'insensitive' as any } },
-          { lastName: { contains: query, mode: 'insensitive' as any } }
-        ]
-      }),
-      ...(role && { role }),
-      ...(status && { status }),
-      ...(verified !== undefined && { emailVerified: verified })
-    };
+    const where: any = {};
+
+    if (query) {
+      where.OR = [
+        { email: { contains: query, mode: 'insensitive' } },
+        { username: { contains: query, mode: 'insensitive' } },
+        { displayName: { contains: query, mode: 'insensitive' } },
+        { firstName: { contains: query, mode: 'insensitive' } },
+        { lastName: { contains: query, mode: 'insensitive' } },
+      ];
+    }
+
+    if (role) {
+      where.role = role as UserRole;
+    }
+
+    if (status) {
+      where.status = status;
+    }
+
+    if (verified !== undefined) {
+      where.emailVerified = verified;
+    }
 
     const [users, total] = await Promise.all([
       prisma.client.user.findMany({
@@ -272,13 +283,13 @@ export class UserService {
           role: true,
           status: true,
           emailVerified: true,
-          createdAt: true
+          createdAt: true,
         },
         orderBy: { createdAt: 'desc' },
         skip: (page - 1) * limit,
-        take: limit
+        take: limit,
       }),
-      prisma.client.user.count({ where })
+      prisma.client.user.count({ where }),
     ]);
 
     return {
@@ -287,10 +298,10 @@ export class UserService {
         page,
         limit,
         total,
-        pages: Math.ceil(total / limit)
-      }
+        pages: Math.ceil(total / limit),
+      },
     };
-  }
+}
 
   /**
    * Upload user avatar
@@ -313,9 +324,9 @@ export class UserService {
     // Delete old avatar if exists
     if (user.avatar) {
       try {
-        const oldFilename = user.avatar.split('/').pop();
-        if (oldFilename) {
-          await storageService.deleteFile(oldFilename);
+        const oldKey = user.avatar.split('/').pop();
+        if (oldKey) {
+          await storageService.delete(oldKey);
         }
       } catch (error) {
         logger.error('Failed to delete old avatar', error as Error);
@@ -324,17 +335,17 @@ export class UserService {
 
     // Upload new avatar
     const filename = `avatars/${userId}-${Date.now()}.${file.mimetype.split('/')[1]}`;
-    await storageService.storeFile(buffer, filename, {
-      contentType: file.mimetype,
-      public: true
+    const result = await storageService.upload({
+      buffer,
+      filename,
+      mimeType: file.mimetype,
+      path: 'avatars',
     });
-
-    const avatarUrl = storageService.getPublicUrl(filename);
 
     // Update user
     await prisma.client.user.update({
       where: { id: userId },
-      data: { avatar: avatarUrl }
+      data: { avatar: result.url },
     });
 
     // Clear cache
@@ -342,7 +353,7 @@ export class UserService {
 
     logger.info('User avatar uploaded', { userId, filename });
 
-    return avatarUrl;
+    return result.url;
   }
 
   /**
@@ -366,8 +377,8 @@ export class UserService {
         status: 'DELETED',
         deletedAt: new Date(),
         email: `deleted_${Date.now()}_${user.email}`,
-        username: user.username ? `deleted_${Date.now()}_${user.username}` : null
-      }
+        username: user.username ? `deleted_${Date.now()}_${user.username}` : null,
+      },
     });
 
     // Invalidate all sessions
@@ -381,14 +392,14 @@ export class UserService {
       userId,
       action: 'user.account.deleted',
       entity: 'User',
-      entityId: userId
+      entityId: userId,
     });
 
     logger.info('User account deleted', { userId });
 
     await this.eventBus.emit('user.deleted', {
       userId,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   }
 
@@ -405,10 +416,10 @@ export class UserService {
         where: {
           userId,
           action: { in: ['user.login', 'user.logout'] },
-          createdAt: { gte: startDate }
+          createdAt: { gte: startDate },
         },
         orderBy: { createdAt: 'desc' },
-        take: 50
+        take: 50,
       }),
 
       // API usage
@@ -416,19 +427,19 @@ export class UserService {
         by: ['createdAt'],
         where: {
           userId,
-          createdAt: { gte: startDate }
+          createdAt: { gte: startDate },
         },
-        _count: true
+        _count: true,
       }),
 
       // User actions
-      this.auditService.getUserActivity(userId, days)
+      this.auditService.getUserActivity(userId, days),
     ]);
 
     return {
       loginHistory,
       apiUsage,
-      actions
+      actions,
     };
   }
 
@@ -439,9 +450,9 @@ export class UserService {
     return prisma.client.session.findMany({
       where: {
         userId,
-        expiresAt: { gt: new Date() }
+        expiresAt: { gt: new Date() },
       },
-      orderBy: { createdAt: 'desc' }
+      orderBy: { createdAt: 'desc' },
     });
   }
 
@@ -452,8 +463,8 @@ export class UserService {
     const session = await prisma.client.session.findFirst({
       where: {
         id: sessionId,
-        userId
-      }
+        userId,
+      },
     });
 
     if (!session) {
@@ -461,7 +472,7 @@ export class UserService {
     }
 
     await prisma.client.session.delete({
-      where: { id: sessionId }
+      where: { id: sessionId },
     });
 
     // Clear from cache
@@ -475,12 +486,12 @@ export class UserService {
    */
   private async invalidateUserSessions(userId: string): Promise<void> {
     const sessions = await prisma.client.session.findMany({
-      where: { userId }
+      where: { userId },
     });
 
     // Delete from database
     await prisma.client.session.deleteMany({
-      where: { userId }
+      where: { userId },
     });
 
     // Clear from cache

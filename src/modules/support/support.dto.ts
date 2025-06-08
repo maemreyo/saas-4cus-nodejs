@@ -6,7 +6,7 @@ export class CreateTicketDTO {
   static schema = z.object({
     subject: z.string().min(5).max(255),
     description: z.string().min(10).max(5000),
-    type: z.nativeEnum(TicketType).default(TicketType.QUESTION),
+    type: z.nativeEnum(TicketType).default(TicketType.OTHER),
     priority: z.nativeEnum(TicketPriority).default(TicketPriority.MEDIUM),
     categoryId: z.string().uuid().optional(),
     attachmentIds: z.array(z.string().uuid()).optional(),

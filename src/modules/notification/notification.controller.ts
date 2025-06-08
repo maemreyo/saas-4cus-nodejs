@@ -46,7 +46,7 @@ export class NotificationController {
     request: FastifyRequest<{ Body: CreateNotificationDTO }>,
     reply: FastifyReply
   ) {
-    const dto = await validateSchema(CreateNotificationDTO.schema, request.body);
+    const dto = await validateSchema(CreateNotificationDTO.schema, request.body) as any;
 
     const notification = await this.notificationService.create(dto);
 
@@ -130,7 +130,7 @@ export class NotificationController {
     request: FastifyRequest<{ Body: UpdatePreferencesDTO }>,
     reply: FastifyReply
   ) {
-    const dto = await validateSchema(UpdatePreferencesDTO.schema, request.body);
+    const dto = await validateSchema(UpdatePreferencesDTO.schema, request.body) as any;
     const userId = request.customUser!.id;
 
     await this.notificationService.updateUserPreferences(userId, dto);

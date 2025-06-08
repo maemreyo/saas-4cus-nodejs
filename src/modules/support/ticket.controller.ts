@@ -13,7 +13,7 @@ import {
   ListTicketsDTO,
   CreateCategoryDTO,
   CreateTemplateDTO,
-  BulkUpdateTicketsDTO
+  BulkUpdateTicketsDTO,
 } from './ticket.dto';
 
 @Service()
@@ -21,38 +21,32 @@ export class TicketController {
   constructor(
     private ticketService: TicketService,
     private categoryService: CategoryService,
-    private templateService: TemplateService
+    private templateService: TemplateService,
   ) {}
 
   /**
    * Create a new ticket
    */
-  async createTicket(
-    request: FastifyRequest<{ Body: CreateTicketDTO }>,
-    reply: FastifyReply
-  ) {
-    const dto = await validateSchema(CreateTicketDTO.schema, request.body);
+  async createTicket(request: FastifyRequest<{ Body: CreateTicketDTO }>, reply: FastifyReply) {
+    const dto = (await validateSchema(CreateTicketDTO.schema, request.body)) as any;
     const userId = request.customUser!.id;
     const tenantId = (request as any).tenant?.id;
 
     const ticket = await this.ticketService.createTicket(userId, {
       ...dto,
-      tenantId
+      tenantId,
     });
 
     reply.code(201).send({
       message: 'Ticket created successfully',
-      data: ticket
+      data: ticket,
     });
   }
 
   /**
    * Get ticket by ID
    */
-  async getTicket(
-    request: FastifyRequest<{ Params: { ticketId: string } }>,
-    reply: FastifyReply
-  ) {
+  async getTicket(request: FastifyRequest<{ Params: { ticketId: string } }>, reply: FastifyReply) {
     const { ticketId } = request.params;
     const userId = request.customUser!.id;
 
@@ -70,10 +64,7 @@ export class TicketController {
   /**
    * Get ticket by number
    */
-  async getTicketByNumber(
-    request: FastifyRequest<{ Params: { number: string } }>,
-    reply: FastifyReply
-  ) {
+  async getTicketByNumber(request: FastifyRequest<{ Params: { number: string } }>, reply: FastifyReply) {
     const { number } = request.params;
     const userId = request.customUser!.id;
 
@@ -96,33 +87,25 @@ export class TicketController {
       Params: { ticketId: string };
       Body: UpdateTicketDTO;
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
     const { ticketId } = request.params;
     const dto = await validateSchema(UpdateTicketDTO.schema, request.body);
     const userId = request.customUser!.id;
     const isAgent = ['ADMIN', 'SUPER_ADMIN'].includes(request.customUser!.role);
 
-    const ticket = await this.ticketService.updateTicket(
-      ticketId,
-      userId,
-      dto,
-      isAgent
-    );
+    const ticket = await this.ticketService.updateTicket(ticketId, userId, dto, isAgent);
 
     reply.send({
       message: 'Ticket updated successfully',
-      data: ticket
+      data: ticket,
     });
   }
 
   /**
    * List tickets
    */
-  async listTickets(
-    request: FastifyRequest<{ Querystring: ListTicketsDTO }>,
-    reply: FastifyReply
-  ) {
+  async listTickets(request: FastifyRequest<{ Querystring: ListTicketsDTO }>, reply: FastifyReply) {
     const filters = request.query;
     const userId = request.customUser!.id;
     const isAgent = ['ADMIN', 'SUPER_ADMIN'].includes(request.customUser!.role);
@@ -141,14 +124,14 @@ export class TicketController {
       {
         ...filters,
         dateFrom: filters.dateFrom ? new Date(filters.dateFrom) : undefined,
-        dateTo: filters.dateTo ? new Date(filters.dateTo) : undefined
+        dateTo: filters.dateTo ? new Date(filters.dateTo) : undefined,
       },
       {
         page: filters.page || 1,
         limit: filters.limit || 20,
         sort: filters.sort,
-        order: filters.order
-      }
+        order: filters.order,
+      },
     );
 
     reply.send({ data: result });
@@ -162,25 +145,20 @@ export class TicketController {
       Params: { ticketId: string };
       Body: CreateMessageDTO;
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
     const { ticketId } = request.params;
     const dto = await validateSchema(CreateMessageDTO.schema, request.body);
     const userId = request.customUser!.id;
 
-    const message = await this.ticketService.addMessage(
-      ticketId,
-      userId,
-      dto.content,
-      {
-        attachments: dto.attachments,
-        internal: dto.internal
-      }
-    );
+    const message = await this.ticketService.addMessage(ticketId, userId, dto.content, {
+      attachments: dto.attachments,
+      internal: dto.internal,
+    });
 
     reply.send({
       message: 'Message added successfully',
-      data: message
+      data: message,
     });
   }
 
@@ -192,17 +170,13 @@ export class TicketController {
       Params: { ticketId: string };
       Querystring: { includeInternal?: boolean };
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
     const { ticketId } = request.params;
     const { includeInternal } = request.query;
     const userId = request.customUser!.id;
 
-    const messages = await this.ticketService.getTicketMessages(
-      ticketId,
-      userId,
-      includeInternal
-    );
+    const messages = await this.ticketService.getTicketMessages(ticketId, userId, includeInternal);
 
     reply.send({ data: messages });
   }
@@ -215,7 +189,7 @@ export class TicketController {
       Params: { ticketId: string };
       Body: AssignTicketDTO;
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
     const { ticketId } = request.params;
     const dto = await validateSchema(AssignTicketDTO.schema, request.body);
@@ -226,25 +200,18 @@ export class TicketController {
       return reply.code(403).send({ error: 'Only agents can assign tickets' });
     }
 
-    const ticket = await this.ticketService.assignTicket(
-      ticketId,
-      dto.assigneeId,
-      assignedBy
-    );
+    const ticket = await this.ticketService.assignTicket(ticketId, dto.assigneeId, assignedBy);
 
     reply.send({
       message: 'Ticket assigned successfully',
-      data: ticket
+      data: ticket,
     });
   }
 
   /**
    * Unassign ticket
    */
-  async unassignTicket(
-    request: FastifyRequest<{ Params: { ticketId: string } }>,
-    reply: FastifyReply
-  ) {
+  async unassignTicket(request: FastifyRequest<{ Params: { ticketId: string } }>, reply: FastifyReply) {
     const { ticketId } = request.params;
     const userId = request.customUser!.id;
 
@@ -253,26 +220,18 @@ export class TicketController {
       return reply.code(403).send({ error: 'Only agents can unassign tickets' });
     }
 
-    const ticket = await this.ticketService.updateTicket(
-      ticketId,
-      userId,
-      { assigneeId: null },
-      true
-    );
+    const ticket = await this.ticketService.updateTicket(ticketId, userId, { assigneeId: null }, true);
 
     reply.send({
       message: 'Ticket unassigned successfully',
-      data: ticket
+      data: ticket,
     });
   }
 
   /**
    * Close ticket
    */
-  async closeTicket(
-    request: FastifyRequest<{ Params: { ticketId: string } }>,
-    reply: FastifyReply
-  ) {
+  async closeTicket(request: FastifyRequest<{ Params: { ticketId: string } }>, reply: FastifyReply) {
     const { ticketId } = request.params;
     const userId = request.customUser!.id;
     const isAgent = ['ADMIN', 'SUPER_ADMIN'].includes(request.customUser!.role);
@@ -281,17 +240,14 @@ export class TicketController {
 
     reply.send({
       message: 'Ticket closed successfully',
-      data: ticket
+      data: ticket,
     });
   }
 
   /**
    * Reopen ticket
    */
-  async reopenTicket(
-    request: FastifyRequest<{ Params: { ticketId: string } }>,
-    reply: FastifyReply
-  ) {
+  async reopenTicket(request: FastifyRequest<{ Params: { ticketId: string } }>, reply: FastifyReply) {
     const { ticketId } = request.params;
     const userId = request.customUser!.id;
 
@@ -299,7 +255,7 @@ export class TicketController {
 
     reply.send({
       message: 'Ticket reopened successfully',
-      data: ticket
+      data: ticket,
     });
   }
 
@@ -311,22 +267,17 @@ export class TicketController {
       Params: { ticketId: string };
       Body: RateTicketDTO;
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
     const { ticketId } = request.params;
     const dto = await validateSchema(RateTicketDTO.schema, request.body);
     const userId = request.customUser!.id;
 
-    const ticket = await this.ticketService.rateTicket(
-      ticketId,
-      userId,
-      dto.rating,
-      dto.comment
-    );
+    const ticket = await this.ticketService.rateTicket(ticketId, userId, dto.rating, dto.comment);
 
     reply.send({
       message: 'Thank you for your feedback',
-      data: ticket
+      data: ticket,
     });
   }
 
@@ -343,7 +294,7 @@ export class TicketController {
         dateTo?: string;
       };
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
     const { userId, tenantId, assigneeId, dateFrom, dateTo } = request.query;
     const isAgent = ['ADMIN', 'SUPER_ADMIN'].includes(request.customUser!.role);
@@ -354,7 +305,7 @@ export class TicketController {
       tenantId: tenantId || (request as any).tenant?.id,
       assigneeId: isAgent ? assigneeId : undefined,
       dateFrom: dateFrom ? new Date(dateFrom) : undefined,
-      dateTo: dateTo ? new Date(dateTo) : undefined
+      dateTo: dateTo ? new Date(dateTo) : undefined,
     };
 
     const stats = await this.ticketService.getTicketStats(filters);
@@ -370,7 +321,7 @@ export class TicketController {
       Params: { ticketId: string };
       Querystring: { limit?: number };
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
     const { ticketId } = request.params;
     const { limit } = request.query;
@@ -392,10 +343,7 @@ export class TicketController {
   /**
    * Bulk update tickets (admin only)
    */
-  async bulkUpdateTickets(
-    request: FastifyRequest<{ Body: BulkUpdateTicketsDTO }>,
-    reply: FastifyReply
-  ) {
+  async bulkUpdateTickets(request: FastifyRequest<{ Body: BulkUpdateTicketsDTO }>, reply: FastifyReply) {
     const dto = await validateSchema(BulkUpdateTicketsDTO.schema, request.body);
     const userId = request.customUser!.id;
 
@@ -404,15 +352,11 @@ export class TicketController {
       return reply.code(403).send({ error: 'Only agents can bulk update tickets' });
     }
 
-    const count = await this.ticketService.bulkUpdateTickets(
-      dto.ticketIds,
-      dto.updates,
-      userId
-    );
+    const count = await this.ticketService.bulkUpdateTickets(dto.ticketIds, dto.updates, userId);
 
     reply.send({
       message: `${count} tickets updated successfully`,
-      data: { count }
+      data: { count },
     });
   }
 
@@ -429,20 +373,17 @@ export class TicketController {
   /**
    * Create category (admin only)
    */
-  async createCategory(
-    request: FastifyRequest<{ Body: CreateCategoryDTO }>,
-    reply: FastifyReply
-  ) {
+  async createCategory(request: FastifyRequest<{ Body: CreateCategoryDTO }>, reply: FastifyReply) {
     if (!['ADMIN', 'SUPER_ADMIN'].includes(request.customUser!.role)) {
       return reply.code(403).send({ error: 'Admin access required' });
     }
 
-    const dto = await validateSchema(CreateCategoryDTO.schema, request.body);
+    const dto = (await validateSchema(CreateCategoryDTO.schema, request.body)) as any;
     const category = await this.categoryService.createCategory(dto);
 
     reply.code(201).send({
       message: 'Category created successfully',
-      data: category
+      data: category,
     });
   }
 
@@ -459,30 +400,24 @@ export class TicketController {
   /**
    * Create template (admin only)
    */
-  async createTemplate(
-    request: FastifyRequest<{ Body: CreateTemplateDTO }>,
-    reply: FastifyReply
-  ) {
+  async createTemplate(request: FastifyRequest<{ Body: CreateTemplateDTO }>, reply: FastifyReply) {
     if (!['ADMIN', 'SUPER_ADMIN'].includes(request.customUser!.role)) {
       return reply.code(403).send({ error: 'Admin access required' });
     }
 
-    const dto = await validateSchema(CreateTemplateDTO.schema, request.body);
+    const dto = (await validateSchema(CreateTemplateDTO.schema, request.body)) as any;
     const template = await this.templateService.createTemplate(dto);
 
     reply.code(201).send({
       message: 'Template created successfully',
-      data: template
+      data: template,
     });
   }
 
   /**
    * Apply template to new ticket
    */
-  async applyTemplate(
-    request: FastifyRequest<{ Params: { templateId: string } }>,
-    reply: FastifyReply
-  ) {
+  async applyTemplate(request: FastifyRequest<{ Params: { templateId: string } }>, reply: FastifyReply) {
     const { templateId } = request.params;
     const template = await this.templateService.getTemplate(templateId);
 
@@ -491,8 +426,8 @@ export class TicketController {
         subject: template.subject,
         content: template.content,
         category: template.category,
-        tags: template.tags
-      }
+        tags: template.tags,
+      },
     });
   }
 }

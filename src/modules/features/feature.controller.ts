@@ -9,14 +9,14 @@ import {
   UpdatePlanDTO,
   UpdateFeatureFlagDTO,
   CheckEntitlementDTO,
-  ConsumeEntitlementDTO
+  ConsumeEntitlementDTO,
 } from './feature.dto';
 
 @Service()
 export class FeatureController {
   constructor(
     private featureService: FeatureService,
-    private entitlementService: EntitlementService
+    private entitlementService: EntitlementService,
   ) {}
 
   /**
@@ -24,7 +24,7 @@ export class FeatureController {
    */
   async getFeatures(
     request: FastifyRequest<{ Querystring: { category?: string; includeUsage?: boolean } }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
     const { category, includeUsage } = request.query;
     const features = await this.featureService.getFeatures({ category, includeUsage });
@@ -35,30 +35,24 @@ export class FeatureController {
   /**
    * Create feature (admin only)
    */
-  async createFeature(
-    request: FastifyRequest<{ Body: CreateFeatureDTO }>,
-    reply: FastifyReply
-  ) {
-    const dto = await validateSchema(CreateFeatureDTO.schema, request.body);
+  async createFeature(request: FastifyRequest<{ Body: CreateFeatureDTO }>, reply: FastifyReply) {
+    const dto = (await validateSchema(CreateFeatureDTO.schema, request.body)) as any;
     const feature = await this.featureService.createFeature(dto);
 
     reply.code(201).send({
       message: 'Feature created successfully',
-      data: feature
+      data: feature,
     });
   }
 
   /**
    * Get all plans
    */
-  async getPlans(
-    request: FastifyRequest<{ Querystring: { active?: boolean } }>,
-    reply: FastifyReply
-  ) {
+  async getPlans(request: FastifyRequest<{ Querystring: { active?: boolean } }>, reply: FastifyReply) {
     const { active } = request.query;
     const plans = await this.featureService.getPlans({
       active,
-      includeFeatures: true
+      includeFeatures: true,
     });
 
     reply.send({ data: plans });
@@ -67,10 +61,7 @@ export class FeatureController {
   /**
    * Get plan by slug
    */
-  async getPlan(
-    request: FastifyRequest<{ Params: { slug: string } }>,
-    reply: FastifyReply
-  ) {
+  async getPlan(request: FastifyRequest<{ Params: { slug: string } }>, reply: FastifyReply) {
     const { slug } = request.params;
     const plan = await this.featureService.getPlanBySlug(slug);
 
@@ -80,16 +71,13 @@ export class FeatureController {
   /**
    * Create plan (admin only)
    */
-  async createPlan(
-    request: FastifyRequest<{ Body: CreatePlanDTO }>,
-    reply: FastifyReply
-  ) {
-    const dto = await validateSchema(CreatePlanDTO.schema, request.body);
+  async createPlan(request: FastifyRequest<{ Body: CreatePlanDTO }>, reply: FastifyReply) {
+    const dto = (await validateSchema(CreatePlanDTO.schema, request.body)) as any;
     const plan = await this.featureService.createPlan(dto);
 
     reply.code(201).send({
       message: 'Plan created successfully',
-      data: plan
+      data: plan,
     });
   }
 
@@ -101,25 +89,22 @@ export class FeatureController {
       Params: { planId: string };
       Body: UpdatePlanDTO;
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
     const { planId } = request.params;
-    const dto = await validateSchema(UpdatePlanDTO.schema, request.body);
+    const dto = (await validateSchema(UpdatePlanDTO.schema, request.body)) as any;
     const plan = await this.featureService.updatePlan(planId, dto);
 
     reply.send({
       message: 'Plan updated successfully',
-      data: plan
+      data: plan,
     });
   }
 
   /**
    * Compare plans
    */
-  async comparePlans(
-    request: FastifyRequest<{ Querystring: { ids: string } }>,
-    reply: FastifyReply
-  ) {
+  async comparePlans(request: FastifyRequest<{ Querystring: { ids: string } }>, reply: FastifyReply) {
     const planIds = request.query.ids.split(',');
     const comparison = await this.featureService.comparePlans(planIds);
 
@@ -139,10 +124,7 @@ export class FeatureController {
   /**
    * Check specific feature flag
    */
-  async checkFeatureFlag(
-    request: FastifyRequest<{ Params: { key: string } }>,
-    reply: FastifyReply
-  ) {
+  async checkFeatureFlag(request: FastifyRequest<{ Params: { key: string } }>, reply: FastifyReply) {
     const { key } = request.params;
     const userId = request.customUser?.id;
     const enabled = await this.featureService.isFeatureFlagEnabled(key, userId);
@@ -158,7 +140,7 @@ export class FeatureController {
       Params: { key: string };
       Body: UpdateFeatureFlagDTO;
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
     const { key } = request.params;
     const dto = await validateSchema(UpdateFeatureFlagDTO.schema, request.body);
@@ -180,10 +162,7 @@ export class FeatureController {
   /**
    * Check entitlement
    */
-  async checkEntitlement(
-    request: FastifyRequest<{ Body: CheckEntitlementDTO }>,
-    reply: FastifyReply
-  ) {
+  async checkEntitlement(request: FastifyRequest<{ Body: CheckEntitlementDTO }>, reply: FastifyReply) {
     const dto = await validateSchema(CheckEntitlementDTO.schema, request.body);
     const userId = request.customUser!.id;
     const entitlement = await this.entitlementService.getEntitlement(userId, dto.feature);
@@ -194,10 +173,7 @@ export class FeatureController {
   /**
    * Consume entitlement
    */
-  async consumeEntitlement(
-    request: FastifyRequest<{ Body: ConsumeEntitlementDTO }>,
-    reply: FastifyReply
-  ) {
+  async consumeEntitlement(request: FastifyRequest<{ Body: ConsumeEntitlementDTO }>, reply: FastifyReply) {
     const dto = await validateSchema(ConsumeEntitlementDTO.schema, request.body);
     const userId = request.customUser!.id;
     await this.entitlementService.consume(userId, dto.feature, dto.amount);
@@ -208,10 +184,7 @@ export class FeatureController {
   /**
    * Track feature usage
    */
-  async trackUsage(
-    request: FastifyRequest<{ Body: { feature: string } }>,
-    reply: FastifyReply
-  ) {
+  async trackUsage(request: FastifyRequest<{ Body: { feature: string } }>, reply: FastifyReply) {
     const { feature } = request.body;
     const userId = request.customUser!.id;
     const tenantId = (request as any).tenant?.id;
@@ -229,7 +202,7 @@ export class FeatureController {
       Params: { featureKey: string };
       Querystring: { startDate?: string; endDate?: string; tenantId?: string };
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
     const { featureKey } = request.params;
     const { startDate, endDate, tenantId } = request.query;
@@ -237,7 +210,7 @@ export class FeatureController {
     const stats = await this.featureService.getFeatureUsageStats(featureKey, {
       startDate: startDate ? new Date(startDate) : undefined,
       endDate: endDate ? new Date(endDate) : undefined,
-      tenantId
+      tenantId,
     });
 
     reply.send({ data: stats });

@@ -510,9 +510,9 @@ export class FeatureService {
         COUNT(DISTINCT user_id) as users
       FROM feature_usage
       WHERE feature_id = ${feature.id}
-        ${options?.tenantId ? prisma.Prisma.sql`AND tenant_id = ${options.tenantId}` : prisma.Prisma.empty}
-        ${options?.startDate ? prisma.Prisma.sql`AND created_at >= ${options.startDate}` : prisma.Prisma.empty}
-        ${options?.endDate ? prisma.Prisma.sql`AND created_at <= ${options.endDate}` : prisma.Prisma.empty}
+        ${options?.tenantId ? prisma.client.$queryRaw`AND tenant_id = ${options.tenantId}` : prisma.client.$queryRaw``}
+        ${options?.startDate ? prisma.client.$queryRaw`AND created_at >= ${options.startDate}` : prisma.client.$queryRaw``}
+        ${options?.endDate ? prisma.client.$queryRaw`AND created_at <= ${options.endDate}` : prisma.client.$queryRaw``}
       GROUP BY DATE(created_at)
       ORDER BY date DESC
       LIMIT 30

@@ -20,7 +20,7 @@ export class WebhookController {
     request: FastifyRequest<{ Body: CreateWebhookDTO }>,
     reply: FastifyReply
   ) {
-    const dto = await validateSchema(CreateWebhookDTO.schema, request.body);
+    const dto = await validateSchema(CreateWebhookDTO.schema, request.body) as any;
     const userId = request.customUser!.id;
     const tenantId = (request as any).tenant?.id;
 

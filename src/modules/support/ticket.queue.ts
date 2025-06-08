@@ -1,5 +1,5 @@
 import { Job } from 'bullmq';
-import { Service } from 'typedi';
+import Container, { Service } from 'typedi';
 import { queueService } from '@shared/queue/queue.service';
 import { EmailService } from '@shared/services/email.service';
 import { prisma } from '@infrastructure/database/prisma.service';

@@ -450,6 +450,16 @@ export class RedisService {
     return result;
   }
 
+  // Increment hash field by value
+  async hincrby(key: string, field: string, increment = 1): Promise<number> {
+    try {
+      return await this.redis.hincrby(key, field, increment);
+    } catch (error) {
+      logger.error('Cache hincrby error', error as Error, { key, field });
+      throw error;
+    }
+  }
+
   // Pub/Sub
   async publish(channel: string, message: any): Promise<number> {
     return await this.publisher.publish(channel, this.serialize(message));

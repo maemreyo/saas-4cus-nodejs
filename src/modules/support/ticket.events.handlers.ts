@@ -6,6 +6,7 @@ import { prisma } from '@infrastructure/database/prisma.service';
 import { queueService } from '@shared/queue/queue.service';
 import { AnalyticsService } from '@modules/analytics/analytics.service';
 import { WebhookService } from '@modules/webhooks/webhook.service';
+import { redis } from '@/infrastructure/cache/redis.service';
 
 @Service()
 export class TicketEventHandlers {

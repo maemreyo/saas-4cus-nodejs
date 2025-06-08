@@ -501,24 +501,28 @@ export class AnalyticsService {
   ): Promise<Array<{ plan: string; revenue: number; percentage: number }>> {
     const last30Days = subDays(new Date(), 30);
 
-    // First, get all invoices with their stripe price IDs
+    // First, get all invoices with their subscription's stripe price IDs
     const invoices = await prisma.client.invoice.findMany({
       where: {
         status: InvoiceStatus.PAID,
         paidAt: { gte: last30Days },
         ...(tenantId && { subscription: { tenantId } }),
       },
-      select: {
-        amount: true,
-        stripePriceId: true,
+      include: {
+        subscription: {
+          select: {
+            stripePriceId: true,
+          },
+        },
       },
     });
 
     // Group revenues by stripePriceId manually
     const revenueByPrice = new Map<string, number>();
     invoices.forEach(invoice => {
-      const current = revenueByPrice.get(invoice.stripePriceId) || 0;
-      revenueByPrice.set(invoice.stripePriceId, current + invoice.amount);
+      const stripePriceId = invoice.subscription.stripePriceId;
+      const current = revenueByPrice.get(stripePriceId) || 0;
+      revenueByPrice.set(stripePriceId, current + invoice.amount);
     });
 
     // Get plan names

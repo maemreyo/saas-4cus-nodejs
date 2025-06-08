@@ -5,11 +5,7 @@ import { redis } from '@infrastructure/cache/redis.service';
 import { logger } from '@shared/logger';
 import { queueService } from '@shared/queue/queue.service';
 import { EventBus } from '@shared/events/event-bus';
-import {
-  BadRequestException,
-  NotFoundException,
-  ConflictException
-} from '@shared/exceptions';
+import { BadRequestException, NotFoundException, ConflictException } from '@shared/exceptions';
 import { createHmac, randomBytes } from 'crypto';
 import { nanoid } from 'nanoid';
 import fetch from 'node-fetch';
@@ -56,9 +52,28 @@ export class WebhookService {
    * Setup event listeners for webhook triggers
    */
   private setupEventListeners() {
-    // Listen to all events and check if they have webhook subscriptions
-    this.eventBus.on('*', async (eventName: string, payload: any) => {
-      await this.handleEvent(eventName, payload);
+    // Get all available events and listen to them individually
+    // Since we can't use wildcard, we'll listen to specific events
+    const events = [
+      'user.created',
+      'user.updated',
+      'user.deleted',
+      'subscription.created',
+      'subscription.updated',
+      'subscription.cancelled',
+      'payment.succeeded',
+      'payment.failed',
+      'tenant.member.added',
+      'tenant.member.removed',
+      'ticket.created',
+      'ticket.resolved',
+      'ticket.closed',
+    ];
+
+    events.forEach(eventName => {
+      this.eventBus.on(eventName, async (payload: any) => {
+        await this.handleEvent(eventName, payload);
+      });
     });
   }
 
@@ -76,7 +91,7 @@ export class WebhookService {
   async createWebhook(
     userId: string,
     tenantId: string | undefined,
-    options: CreateWebhookOptions
+    options: CreateWebhookOptions,
   ): Promise<WebhookEndpoint> {
     // Validate URL
     try {
@@ -91,8 +106,8 @@ export class WebhookService {
         userId,
         tenantId,
         url: options.url,
-        deletedAt: null
-      }
+        deletedAt: null,
+      },
     });
 
     if (existing) {
@@ -112,14 +127,14 @@ export class WebhookService {
         secret,
         enabled: options.enabled !== false,
         headers: options.headers || {},
-        metadata: options.metadata || {}
-      }
+        metadata: options.metadata || {},
+      },
     });
 
     logger.info('Webhook endpoint created', {
       webhookId: webhook.id,
       userId,
-      url: options.url
+      url: options.url,
     });
 
     return webhook;
@@ -131,7 +146,7 @@ export class WebhookService {
   async updateWebhook(
     webhookId: string,
     userId: string,
-    updates: Partial<CreateWebhookOptions>
+    updates: Partial<CreateWebhookOptions>,
   ): Promise<WebhookEndpoint> {
     const webhook = await this.getWebhook(webhookId, userId);
 
@@ -152,8 +167,8 @@ export class WebhookService {
         description: updates.description,
         enabled: updates.enabled,
         headers: updates.headers,
-        metadata: updates.metadata
-      }
+        metadata: updates.metadata,
+      },
     });
 
     logger.info('Webhook endpoint updated', { webhookId });
@@ -169,7 +184,7 @@ export class WebhookService {
 
     await prisma.client.webhookEndpoint.update({
       where: { id: webhookId },
-      data: { deletedAt: new Date() }
+      data: { deletedAt: new Date() },
     });
 
     logger.info('Webhook endpoint deleted', { webhookId });
@@ -183,8 +198,8 @@ export class WebhookService {
       where: {
         id: webhookId,
         userId,
-        deletedAt: null
-      }
+        deletedAt: null,
+      },
     });
 
     if (!webhook) {
@@ -204,7 +219,7 @@ export class WebhookService {
       limit?: number;
       offset?: number;
       event?: string;
-    }
+    },
   ): Promise<{
     webhooks: WebhookEndpoint[];
     total: number;
@@ -213,7 +228,7 @@ export class WebhookService {
       userId,
       tenantId,
       deletedAt: null,
-      ...(options?.event && { events: { has: options.event } })
+      ...(options?.event && { events: { has: options.event } }),
     };
 
     const [webhooks, total] = await Promise.all([
@@ -221,9 +236,9 @@ export class WebhookService {
         where,
         take: options?.limit || 50,
         skip: options?.offset || 0,
-        orderBy: { createdAt: 'desc' }
+        orderBy: { createdAt: 'desc' },
       }),
-      prisma.client.webhookEndpoint.count({ where })
+      prisma.client.webhookEndpoint.count({ where }),
     ]);
 
     return { webhooks, total };
@@ -240,9 +255,9 @@ export class WebhookService {
       event: 'webhook.test',
       data: {
         message: 'This is a test webhook delivery',
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       },
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
 
     const result = await this.deliverWebhook(webhook, testPayload);
@@ -258,8 +273,8 @@ export class WebhookService {
         statusCode: result.statusCode,
         error: result.error,
         duration: result.duration,
-        response: result.response
-      }
+        response: result.response,
+      },
     });
 
     return result;
@@ -274,8 +289,8 @@ export class WebhookService {
       where: {
         events: { has: eventName },
         enabled: true,
-        deletedAt: null
-      }
+        deletedAt: null,
+      },
     });
 
     if (webhooks.length === 0) return;
@@ -284,21 +299,21 @@ export class WebhookService {
     const event = await prisma.client.webhookEvent.create({
       data: {
         eventType: eventName,
-        payload
-      }
+        payload,
+      },
     });
 
     // Queue delivery for each webhook
     for (const webhook of webhooks) {
       await queueService.addJob('webhook', 'deliver', {
         webhookId: webhook.id,
-        eventId: event.id
+        eventId: event.id,
       });
     }
 
     logger.info('Webhook deliveries queued', {
       event: eventName,
-      webhookCount: webhooks.length
+      webhookCount: webhooks.length,
     });
   }
 
@@ -310,11 +325,11 @@ export class WebhookService {
 
     const [webhook, event] = await Promise.all([
       prisma.client.webhookEndpoint.findUnique({
-        where: { id: webhookId }
+        where: { id: webhookId },
       }),
       prisma.client.webhookEvent.findUnique({
-        where: { id: eventId }
-      })
+        where: { id: eventId },
+      }),
     ]);
 
     if (!webhook || !event) {
@@ -327,7 +342,7 @@ export class WebhookService {
       event: event.eventType,
       data: event.payload,
       timestamp: event.createdAt.toISOString(),
-      webhookId: webhook.id
+      webhookId: webhook.id,
     };
 
     const result = await this.deliverWebhook(webhook, payload);
@@ -344,16 +359,21 @@ export class WebhookService {
         error: result.error,
         duration: result.duration,
         response: result.response,
-        attemptNumber: 1
-      }
+        attemptNumber: 1,
+      },
     });
 
     // Schedule retry if failed
     if (!result.success && delivery.attemptNumber < this.MAX_RETRIES) {
       const delay = this.RETRY_DELAYS[delivery.attemptNumber - 1];
-      await queueService.addJob('webhook', 'retry', {
-        deliveryId: delivery.id
-      }, { delay });
+      await queueService.addJob(
+        'webhook',
+        'retry',
+        {
+          deliveryId: delivery.id,
+        },
+        { delay },
+      );
     }
 
     // Update webhook stats
@@ -369,8 +389,8 @@ export class WebhookService {
     const delivery = await prisma.client.webhookDelivery.findUnique({
       where: { id: deliveryId },
       include: {
-        webhookEndpoint: true
-      }
+        webhookEndpoint: true,
+      },
     });
 
     if (!delivery) {
@@ -378,10 +398,7 @@ export class WebhookService {
       return;
     }
 
-    const result = await this.deliverWebhook(
-      delivery.webhookEndpoint,
-      delivery.payload as WebhookPayload
-    );
+    const result = await this.deliverWebhook(delivery.webhookEndpoint, delivery.payload as WebhookPayload);
 
     // Update delivery record
     await prisma.client.webhookDelivery.update({
@@ -393,16 +410,21 @@ export class WebhookService {
         duration: result.duration,
         response: result.response,
         attemptNumber: delivery.attemptNumber + 1,
-        retriedAt: new Date()
-      }
+        retriedAt: new Date(),
+      },
     });
 
     // Schedule another retry if failed and not max retries
     if (!result.success && delivery.attemptNumber + 1 < this.MAX_RETRIES) {
       const delay = this.RETRY_DELAYS[delivery.attemptNumber];
-      await queueService.addJob('webhook', 'retry', {
-        deliveryId: delivery.id
-      }, { delay });
+      await queueService.addJob(
+        'webhook',
+        'retry',
+        {
+          deliveryId: delivery.id,
+        },
+        { delay },
+      );
     }
 
     // Update webhook stats
@@ -412,10 +434,7 @@ export class WebhookService {
   /**
    * Deliver webhook
    */
-  private async deliverWebhook(
-    webhook: WebhookEndpoint,
-    payload: WebhookPayload
-  ): Promise<WebhookDeliveryResult> {
+  private async deliverWebhook(webhook: WebhookEndpoint, payload: WebhookPayload): Promise<WebhookDeliveryResult> {
     const startTime = Date.now();
 
     try {
@@ -427,7 +446,7 @@ export class WebhookService {
         'X-Webhook-Event': payload.event,
         'X-Webhook-Delivery': payload.id,
         'X-Webhook-Timestamp': payload.timestamp,
-        ...(webhook.headers as Record<string, string> || {})
+        ...((webhook.headers as Record<string, string>) || {}),
       };
 
       // Add signature
@@ -442,7 +461,7 @@ export class WebhookService {
         method: 'POST',
         headers,
         body: JSON.stringify(payload),
-        signal: controller.signal
+        signal: controller.signal,
       });
 
       clearTimeout(timeout);
@@ -462,7 +481,7 @@ export class WebhookService {
         success: response.status >= 200 && response.status < 300,
         statusCode: response.status,
         duration,
-        response: responseData
+        response: responseData,
       };
     } catch (error: any) {
       const duration = Date.now() - startTime;
@@ -470,7 +489,7 @@ export class WebhookService {
       return {
         success: false,
         error: error.message,
-        duration
+        duration,
       };
     }
   }
@@ -497,10 +516,10 @@ export class WebhookService {
    */
   private async updateWebhookStats(webhookId: string, success: boolean): Promise<void> {
     const key = `webhook:stats:${webhookId}`;
-    const stats = await redis.get(key) || {
+    const stats = (await redis.get(key)) || {
       totalDeliveries: 0,
       successfulDeliveries: 0,
-      failedDeliveries: 0
+      failedDeliveries: 0,
     };
 
     stats.totalDeliveries++;
@@ -525,27 +544,26 @@ export class WebhookService {
   }> {
     // Get cached stats
     const key = `webhook:stats:${webhookId}`;
-    const cachedStats = await redis.get(key) || {
+    const cachedStats = (await redis.get(key)) || {
       totalDeliveries: 0,
       successfulDeliveries: 0,
-      failedDeliveries: 0
+      failedDeliveries: 0,
     };
 
     // Get recent deliveries
     const recentDeliveries = await prisma.client.webhookDelivery.findMany({
       where: { webhookEndpointId: webhookId },
       orderBy: { createdAt: 'desc' },
-      take: 10
+      take: 10,
     });
 
-    const successRate = cachedStats.totalDeliveries > 0
-      ? (cachedStats.successfulDeliveries / cachedStats.totalDeliveries) * 100
-      : 0;
+    const successRate =
+      cachedStats.totalDeliveries > 0 ? (cachedStats.successfulDeliveries / cachedStats.totalDeliveries) * 100 : 0;
 
     return {
       ...cachedStats,
       successRate: Math.round(successRate * 100) / 100,
-      recentDeliveries
+      recentDeliveries,
     };
   }
 
@@ -558,7 +576,7 @@ export class WebhookService {
       limit?: number;
       offset?: number;
       status?: WebhookDeliveryStatus;
-    }
+    },
   ): Promise<{
     events: Array<WebhookEvent & { delivery?: WebhookDelivery }>;
     total: number;
@@ -566,26 +584,26 @@ export class WebhookService {
     const deliveries = await prisma.client.webhookDelivery.findMany({
       where: {
         webhookEndpointId: webhookId,
-        ...(options?.status && { status: options.status })
+        ...(options?.status && { status: options.status }),
       },
       include: {
-        event: true
+        event: true,
       },
       orderBy: { createdAt: 'desc' },
       take: options?.limit || 50,
-      skip: options?.offset || 0
+      skip: options?.offset || 0,
     });
 
     const total = await prisma.client.webhookDelivery.count({
       where: {
         webhookEndpointId: webhookId,
-        ...(options?.status && { status: options.status })
-      }
+        ...(options?.status && { status: options.status }),
+      },
     });
 
     const events = deliveries.map(d => ({
       ...d.event!,
-      delivery: d
+      delivery: d,
     }));
 
     return { events, total };
@@ -598,8 +616,8 @@ export class WebhookService {
     const delivery = await prisma.client.webhookDelivery.findUnique({
       where: { id: deliveryId },
       include: {
-        webhookEndpoint: true
-      }
+        webhookEndpoint: true,
+      },
     });
 
     if (!delivery) {
@@ -614,7 +632,7 @@ export class WebhookService {
     // Queue for immediate delivery
     await queueService.addJob('webhook', 'deliver', {
       webhookId: delivery.webhookEndpointId,
-      eventId: delivery.eventId
+      eventId: delivery.eventId,
     });
 
     logger.info('Webhook delivery replay queued', { deliveryId });
@@ -632,8 +650,8 @@ export class WebhookService {
       where: {
         events: { has: eventName },
         enabled: true,
-        deletedAt: null
-      }
+        deletedAt: null,
+      },
     });
 
     if (webhooks.length === 0) return;
@@ -642,21 +660,21 @@ export class WebhookService {
     const event = await prisma.client.webhookEvent.create({
       data: {
         eventType: eventName,
-        payload
-      }
+        payload,
+      },
     });
 
     // Queue delivery for each webhook
     for (const webhook of webhooks) {
       await queueService.addJob('webhook', 'deliver', {
         webhookId: webhook.id,
-        eventId: event.id
+        eventId: event.id,
       });
     }
 
     logger.info('Webhook deliveries manually triggered', {
       event: eventName,
-      webhookCount: webhooks.length
+      webhookCount: webhooks.length,
     });
   }
 }

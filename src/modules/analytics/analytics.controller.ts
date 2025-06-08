@@ -169,17 +169,17 @@ export class AnalyticsController {
 
     const jobId = await this.reportService.scheduleReport({
       name: dto.name,
-      type: dto.type, // Ensure type is always provided
+      type: dto.type,
       format: dto.format,
       recipients: dto.recipients,
-      schedule: dto.schedule,
+      schedule: {
+        frequency: dto.schedule.frequency,
+        dayOfWeek: dto.schedule.dayOfWeek,
+        dayOfMonth: dto.schedule.dayOfMonth,
+        hour: dto.schedule.hour,
+      },
       filters,
       customQuery: dto.customQuery,
-    });
-
-    reply.send({
-      message: 'Report scheduled successfully',
-      data: { jobId },
     });
   }
 }

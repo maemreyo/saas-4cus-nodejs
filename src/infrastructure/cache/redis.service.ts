@@ -21,6 +21,9 @@ export interface CacheStats {
 
 @Service()
 export class RedisService {
+  incr(windowKey: string) {
+    throw new Error('Method not implemented.');
+  }
   private redis: Redis;
   private subscriber: Redis;
   private publisher: Redis;

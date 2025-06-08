@@ -5,7 +5,7 @@ import { logger } from '@shared/logger';
 import { EventBus } from '@shared/events/event-bus';
 import { Cacheable } from '@infrastructure/cache/redis.service';
 import { subDays, startOfDay, endOfDay, format } from 'date-fns';
-import { InvoiceStatus, SubscriptionStatus } from '@prisma/client';
+import { InvoiceStatus, SubscriptionStatus, Prisma } from '@prisma/client';
 
 export interface AnalyticsEvent {
   userId?: string;
@@ -87,8 +87,8 @@ export class AnalyticsService {
           utmCampaign: event.utm?.campaign,
           utmTerm: event.utm?.term,
           utmContent: event.utm?.content,
-          timestamp: event.timestamp || new Date()
-        }
+          timestamp: event.timestamp || new Date(),
+        },
       });
 
       // Store in Redis for real-time analytics
@@ -104,18 +104,14 @@ export class AnalyticsService {
   /**
    * Track page view
    */
-  async trackPageView(
-    userId: string | undefined,
-    page: string,
-    properties?: Record<string, any>
-  ): Promise<void> {
+  async trackPageView(userId: string | undefined, page: string, properties?: Record<string, any>): Promise<void> {
     await this.track({
       userId,
       event: 'page_view',
       properties: {
         page,
-        ...properties
-      }
+        ...properties,
+      },
     });
   }
 
@@ -151,23 +147,20 @@ export class AnalyticsService {
    * Get dashboard metrics
    */
   @Cacheable({ ttl: 300, namespace: 'analytics:dashboard' })
-  async getDashboardMetrics(
-    tenantId?: string,
-    dateRange: number = 30
-  ): Promise<DashboardMetrics> {
+  async getDashboardMetrics(tenantId?: string, dateRange: number = 30): Promise<DashboardMetrics> {
     const endDate = new Date();
     const startDate = subDays(endDate, dateRange);
 
     const [overview, timeSeries, breakdown] = await Promise.all([
       this.getOverviewMetrics(tenantId, startDate, endDate),
       this.getTimeSeriesMetrics(tenantId, startDate, endDate),
-      this.getBreakdownMetrics(tenantId)
+      this.getBreakdownMetrics(tenantId),
     ]);
 
     return {
       overview,
       timeSeries,
-      breakdown
+      breakdown,
     };
   }
 
@@ -177,35 +170,25 @@ export class AnalyticsService {
   private async getOverviewMetrics(
     tenantId: string | undefined,
     startDate: Date,
-    endDate: Date
+    endDate: Date,
   ): Promise<DashboardMetrics['overview']> {
     const where = tenantId ? { tenantId } : {};
     const previousStartDate = subDays(startDate, 30);
 
     // Current period metrics
-    const [
-      totalUsers,
-      activeUsers,
-      revenue,
-      churned
-    ] = await Promise.all([
+    const [totalUsers, activeUsers, revenue, churned] = await Promise.all([
       prisma.client.user.count({ where: { ...where, createdAt: { lte: endDate } } }),
       this.getActiveUsersCount(tenantId, startDate, endDate),
       this.getRevenue(tenantId, startDate, endDate),
-      this.getChurnedUsers(tenantId, startDate, endDate)
+      this.getChurnedUsers(tenantId, startDate, endDate),
     ]);
 
     // Previous period metrics for comparison
-    const [
-      prevTotalUsers,
-      prevActiveUsers,
-      prevRevenue,
-      prevChurned
-    ] = await Promise.all([
+    const [prevTotalUsers, prevActiveUsers, prevRevenue, prevChurned] = await Promise.all([
       prisma.client.user.count({ where: { ...where, createdAt: { lte: startDate } } }),
       this.getActiveUsersCount(tenantId, previousStartDate, startDate),
       this.getRevenue(tenantId, previousStartDate, startDate),
-      this.getChurnedUsers(tenantId, previousStartDate, startDate)
+      this.getChurnedUsers(tenantId, previousStartDate, startDate),
     ]);
 
     const churnRate = totalUsers > 0 ? (churned / totalUsers) * 100 : 0;
@@ -215,7 +198,7 @@ export class AnalyticsService {
       totalUsers: this.calculateMetricData(totalUsers, prevTotalUsers),
       activeUsers: this.calculateMetricData(activeUsers, prevActiveUsers),
       revenue: this.calculateMetricData(revenue, prevRevenue),
-      churnRate: this.calculateMetricData(churnRate, prevChurnRate)
+      churnRate: this.calculateMetricData(churnRate, prevChurnRate),
     };
   }
 
@@ -225,7 +208,7 @@ export class AnalyticsService {
   private async getTimeSeriesMetrics(
     tenantId: string | undefined,
     startDate: Date,
-    endDate: Date
+    endDate: Date,
   ): Promise<DashboardMetrics['timeSeries']> {
     const days = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
     const dates: Date[] = [];
@@ -237,32 +220,30 @@ export class AnalyticsService {
     const [userGrowth, revenueGrowth, activeUsers] = await Promise.all([
       this.getUserGrowthTimeSeries(tenantId, dates),
       this.getRevenueTimeSeries(tenantId, dates),
-      this.getActiveUsersTimeSeries(tenantId, dates)
+      this.getActiveUsersTimeSeries(tenantId, dates),
     ]);
 
     return {
       userGrowth,
       revenueGrowth,
-      activeUsers
+      activeUsers,
     };
   }
 
   /**
    * Get breakdown metrics
    */
-  private async getBreakdownMetrics(
-    tenantId?: string
-  ): Promise<DashboardMetrics['breakdown']> {
+  private async getBreakdownMetrics(tenantId?: string): Promise<DashboardMetrics['breakdown']> {
     const [usersByPlan, revenueByPlan, topFeatures] = await Promise.all([
       this.getUsersByPlan(tenantId),
       this.getRevenueByPlan(tenantId),
-      this.getTopFeatures(tenantId)
+      this.getTopFeatures(tenantId),
     ]);
 
     return {
       usersByPlan,
       revenueByPlan,
-      topFeatures
+      topFeatures,
     };
   }
 
@@ -277,33 +258,32 @@ export class AnalyticsService {
       value: current,
       change,
       changePercent: Math.round(changePercent * 100) / 100,
-      trend: change > 0 ? 'up' : change < 0 ? 'down' : 'stable'
+      trend: change > 0 ? 'up' : change < 0 ? 'down' : 'stable',
     };
   }
 
   /**
    * Get active users count
    */
-  private async getActiveUsersCount(
-    tenantId: string | undefined,
-    startDate: Date,
-    endDate: Date
-  ): Promise<number> {
-    const where = {
-      ...(tenantId && { tenantId }),
+  private async getActiveUsersCount(tenantId: string | undefined, startDate: Date, endDate: Date): Promise<number> {
+    // Create a properly typed where condition
+    const whereCondition: Prisma.AnalyticsEventWhereInput = {
       timestamp: {
         gte: startDate,
-        lte: endDate
-      }
+        lte: endDate,
+      },
+      userId: { not: null },
     };
+
+    // Add tenant filter if tenantId is provided
+    if (tenantId) {
+      whereCondition.tenantId = tenantId;
+    }
 
     const activeUsers = await prisma.client.analyticsEvent.groupBy({
       by: ['userId'],
-      where: {
-        ...where,
-        userId: { not: null }
-      },
-      _count: { userId: true }
+      where: whereCondition,
+      _count: { userId: true },
     });
 
     return activeUsers.length;
@@ -312,23 +292,24 @@ export class AnalyticsService {
   /**
    * Get revenue
    */
-  private async getRevenue(
-    tenantId: string | undefined,
-    startDate: Date,
-    endDate: Date
-  ): Promise<number> {
-    const where = {
-      ...(tenantId && { subscription: { tenantId } }),
-      status: 'PAID',
+  private async getRevenue(tenantId: string | undefined, startDate: Date, endDate: Date): Promise<number> {
+    // Create a properly typed where condition
+    const whereCondition: Prisma.InvoiceWhereInput = {
+      status: 'PAID' as InvoiceStatus,
       paidAt: {
         gte: startDate,
-        lte: endDate
-      }
+        lte: endDate,
+      },
     };
 
+    // Add tenant filter if tenantId is provided
+    if (tenantId) {
+      whereCondition.subscription = { tenantId };
+    }
+
     const revenue = await prisma.client.invoice.aggregate({
-      where,
-      _sum: { amount: true }
+      where: whereCondition,
+      _sum: { amount: true },
     });
 
     return (revenue._sum.amount || 0) / 100; // Convert from cents
@@ -337,21 +318,23 @@ export class AnalyticsService {
   /**
    * Get churned users
    */
-  private async getChurnedUsers(
-    tenantId: string | undefined,
-    startDate: Date,
-    endDate: Date
-  ): Promise<number> {
-    const where = {
-      ...(tenantId && { userId: { in: await this.getTenantUserIds(tenantId) } }),
-      status: 'canceled',
+  private async getChurnedUsers(tenantId: string | undefined, startDate: Date, endDate: Date): Promise<number> {
+    // Create a properly typed where condition
+    const whereCondition: Prisma.SubscriptionWhereInput = {
+      status: 'canceled' as SubscriptionStatus,
       canceledAt: {
         gte: startDate,
-        lte: endDate
-      }
+        lte: endDate,
+      },
     };
 
-    return await prisma.client.subscription.count({ where });
+    // Add tenant user filter if tenantId is provided
+    if (tenantId) {
+      const tenantUserIds = await this.getTenantUserIds(tenantId);
+      whereCondition.userId = { in: tenantUserIds };
+    }
+
+    return await prisma.client.subscription.count({ where: whereCondition });
   }
 
   /**
@@ -360,7 +343,7 @@ export class AnalyticsService {
   private async getTenantUserIds(tenantId: string): Promise<string[]> {
     const members = await prisma.client.tenantMember.findMany({
       where: { tenantId },
-      select: { userId: true }
+      select: { userId: true },
     });
 
     return members.map(m => m.userId);
@@ -369,18 +352,22 @@ export class AnalyticsService {
   /**
    * Get user growth time series
    */
-  private async getUserGrowthTimeSeries(
-    tenantId: string | undefined,
-    dates: Date[]
-  ): Promise<TimeSeriesData[]> {
+  private async getUserGrowthTimeSeries(tenantId: string | undefined, dates: Date[]): Promise<TimeSeriesData[]> {
     const results: TimeSeriesData[] = [];
 
     for (const date of dates) {
+      // Create a properly typed where condition
+      const whereCondition: Prisma.UserWhereInput = {
+        createdAt: { lte: endOfDay(date) },
+      };
+
+      // Add tenant filter if tenantId is provided
+      if (tenantId) {
+        whereCondition.tenantMembers = { some: { tenantId } };
+      }
+
       const count = await prisma.client.user.count({
-        where: {
-          ...(tenantId && { tenantMembers: { some: { tenantId } } }),
-          createdAt: { lte: endOfDay(date) }
-        }
+        where: whereCondition,
       });
 
       results.push({ date, value: count });
@@ -392,28 +379,32 @@ export class AnalyticsService {
   /**
    * Get revenue time series
    */
-  private async getRevenueTimeSeries(
-    tenantId: string | undefined,
-    dates: Date[]
-  ): Promise<TimeSeriesData[]> {
+  private async getRevenueTimeSeries(tenantId: string | undefined, dates: Date[]): Promise<TimeSeriesData[]> {
     const results: TimeSeriesData[] = [];
 
     for (const date of dates) {
-      const revenue = await prisma.client.invoice.aggregate({
-        where: {
-          ...(tenantId && { subscription: { tenantId } }),
-          status: 'PAID',
-          paidAt: {
-            gte: startOfDay(date),
-            lte: endOfDay(date)
-          }
+      // Create a properly typed where condition
+      const whereCondition: Prisma.InvoiceWhereInput = {
+        status: 'PAID' as InvoiceStatus,
+        paidAt: {
+          gte: startOfDay(date),
+          lte: endOfDay(date),
         },
-        _sum: { amount: true }
+      };
+
+      // Add tenant filter if tenantId is provided
+      if (tenantId) {
+        whereCondition.subscription = { tenantId };
+      }
+
+      const revenue = await prisma.client.invoice.aggregate({
+        where: whereCondition,
+        _sum: { amount: true },
       });
 
       results.push({
         date,
-        value: (revenue._sum.amount || 0) / 100
+        value: (revenue._sum.amount || 0) / 100,
       });
     }
 
@@ -423,10 +414,7 @@ export class AnalyticsService {
   /**
    * Get active users time series
    */
-  private async getActiveUsersTimeSeries(
-    tenantId: string | undefined,
-    dates: Date[]
-  ): Promise<TimeSeriesData[]> {
+  private async getActiveUsersTimeSeries(tenantId: string | undefined, dates: Date[]): Promise<TimeSeriesData[]> {
     const results: TimeSeriesData[] = [];
 
     for (const date of dates) {
@@ -439,11 +427,7 @@ export class AnalyticsService {
         results.push({ date, value: cachedCount });
       } else {
         // Fallback to database
-        const count = await this.getActiveUsersCount(
-          tenantId,
-          startOfDay(date),
-          endOfDay(date)
-        );
+        const count = await this.getActiveUsersCount(tenantId, startOfDay(date), endOfDay(date));
         results.push({ date, value: count });
       }
     }
@@ -454,23 +438,28 @@ export class AnalyticsService {
   /**
    * Get users by plan
    */
-  private async getUsersByPlan(
-    tenantId?: string
-  ): Promise<Array<{ plan: string; count: number; percentage: number }>> {
+  private async getUsersByPlan(tenantId?: string): Promise<Array<{ plan: string; count: number; percentage: number }>> {
+    // Create the where condition separately to avoid circular reference
+    const whereCondition: Prisma.SubscriptionWhereInput = {
+      status: { in: ['active', 'trialing'] as unknown as SubscriptionStatus[] },
+    };
+
+    // Add tenantId condition if provided
+    if (tenantId) {
+      whereCondition.tenantId = tenantId;
+    }
+
     const subscriptions = await prisma.client.subscription.groupBy({
       by: ['stripePriceId'],
-      where: {
-        ...(tenantId && { tenantId }),
-        status: { in: ['active', 'trialing'] }
-      },
-      _count: { userId: true }
+      where: whereCondition,
+      _count: { userId: true },
     });
 
     // Get plan names
     const plans = await prisma.client.plan.findMany({
       where: {
-        stripePriceId: { in: subscriptions.map(s => s.stripePriceId) }
-      }
+        stripePriceId: { in: subscriptions.map(s => s.stripePriceId) },
+      },
     });
 
     const planMap = new Map(plans.map(p => [p.stripePriceId, p.name]));
@@ -480,16 +469,16 @@ export class AnalyticsService {
     const freeUsers = await prisma.client.user.count({
       where: {
         ...(tenantId && { tenantMembers: { some: { tenantId } } }),
-        subscriptions: { none: {} }
-      }
+        subscriptions: { none: {} },
+      },
     });
 
     const results = [
       {
         plan: 'Free',
         count: freeUsers,
-        percentage: total + freeUsers > 0 ? (freeUsers / (total + freeUsers)) * 100 : 0
-      }
+        percentage: total + freeUsers > 0 ? (freeUsers / (total + freeUsers)) * 100 : 0,
+      },
     ];
 
     subscriptions.forEach(sub => {
@@ -497,7 +486,7 @@ export class AnalyticsService {
       results.push({
         plan: planName,
         count: sub._count.userId,
-        percentage: total + freeUsers > 0 ? (sub._count.userId / (total + freeUsers)) * 100 : 0
+        percentage: total + freeUsers > 0 ? (sub._count.userId / (total + freeUsers)) * 100 : 0,
       });
     });
 
@@ -508,18 +497,25 @@ export class AnalyticsService {
    * Get revenue by plan
    */
   private async getRevenueByPlan(
-    tenantId?: string
+    tenantId?: string,
   ): Promise<Array<{ plan: string; revenue: number; percentage: number }>> {
     const last30Days = subDays(new Date(), 30);
 
+    // Create a properly typed where condition to avoid circular references
+    const whereCondition: Prisma.InvoiceWhereInput = {
+      status: 'PAID' as InvoiceStatus,
+      paidAt: { gte: last30Days },
+    };
+
+    // Add tenant filter if tenantId is provided
+    if (tenantId) {
+      whereCondition.subscription = { tenantId };
+    }
+
     const revenues = await prisma.client.invoice.groupBy({
       by: ['stripePriceId'],
-      where: {
-        ...(tenantId && { subscription: { tenantId } }),
-        status: 'PAID',
-        paidAt: { gte: last30Days }
-      },
-      _sum: { amount: true }
+      where: whereCondition,
+      _sum: { amount: true },
     });
 
     // Get plan names
@@ -531,7 +527,7 @@ export class AnalyticsService {
     return revenues.map(rev => ({
       plan: planMap.get(rev.stripePriceId) || 'Unknown',
       revenue: (rev._sum.amount || 0) / 100,
-      percentage: total > 0 ? ((rev._sum.amount || 0) / total) * 100 : 0
+      percentage: total > 0 ? ((rev._sum.amount || 0) / total) * 100 : 0,
     }));
   }
 
@@ -540,35 +536,42 @@ export class AnalyticsService {
    */
   private async getTopFeatures(
     tenantId?: string,
-    limit: number = 10
+    limit: number = 10,
   ): Promise<Array<{ feature: string; usage: number }>> {
     const last30Days = subDays(new Date(), 30);
 
+    // Create a properly typed where condition to avoid circular references
+    const whereCondition: Prisma.FeatureUsageWhereInput = {
+      createdAt: { gte: last30Days },
+    };
+
+    // Add tenant filter if tenantId is provided
+    if (tenantId) {
+      whereCondition.tenantId = tenantId;
+    }
+
     const usage = await prisma.client.featureUsage.groupBy({
       by: ['featureId'],
-      where: {
-        ...(tenantId && { tenantId }),
-        createdAt: { gte: last30Days }
-      },
+      where: whereCondition,
       _sum: { count: true },
       orderBy: {
-        _sum: { count: 'desc' }
+        _sum: { count: 'desc' },
       },
-      take: limit
+      take: limit,
     });
 
     // Get feature names
     const features = await prisma.client.feature.findMany({
       where: {
-        id: { in: usage.map(u => u.featureId) }
-      }
+        id: { in: usage.map(u => u.featureId) },
+      },
     });
 
     const featureMap = new Map(features.map(f => [f.id, f.name]));
 
     return usage.map(u => ({
       feature: featureMap.get(u.featureId) || 'Unknown',
-      usage: u._sum.count || 0
+      usage: u._sum.count || 0,
     }));
   }
 
@@ -582,7 +585,7 @@ export class AnalyticsService {
       startDate?: Date;
       endDate?: Date;
       groupBy?: string;
-    } = {}
+    } = {},
   ): Promise<{
     steps: Array<{
       name: string;
@@ -602,21 +605,27 @@ export class AnalyticsService {
 
     for (let i = 0; i < steps.length; i++) {
       const step = steps[i];
-      const where = {
+
+      // Create a properly typed where condition to avoid circular references
+      const whereCondition: Prisma.AnalyticsEventWhereInput = {
         event: step,
-        ...(tenantId && { tenantId }),
-        ...(startDate && endDate && {
-          timestamp: { gte: startDate, lte: endDate }
-        })
+        userId: { not: null },
       };
+
+      // Add tenant filter if tenantId is provided
+      if (tenantId) {
+        whereCondition.tenantId = tenantId;
+      }
+
+      // Add date range if provided
+      if (startDate && endDate) {
+        whereCondition.timestamp = { gte: startDate, lte: endDate };
+      }
 
       const users = await prisma.client.analyticsEvent.groupBy({
         by: ['userId'],
-        where: {
-          ...where,
-          userId: { not: null }
-        },
-        _count: { userId: true }
+        where: whereCondition,
+        _count: { userId: true },
       });
 
       const userCount = users.length;
@@ -627,7 +636,7 @@ export class AnalyticsService {
         name: step,
         users: userCount,
         conversionRate: Math.round(conversionRate * 100) / 100,
-        dropoffRate: Math.round(dropoffRate * 100) / 100
+        dropoffRate: Math.round(dropoffRate * 100) / 100,
       });
 
       previousStepUsers = userCount;
@@ -642,8 +651,8 @@ export class AnalyticsService {
       overall: {
         totalUsers,
         completedUsers,
-        conversionRate: Math.round(overallConversionRate * 100) / 100
-      }
+        conversionRate: Math.round(overallConversionRate * 100) / 100,
+      },
     };
   }
 
@@ -655,7 +664,7 @@ export class AnalyticsService {
       tenantId?: string;
       cohortSize?: 'day' | 'week' | 'month';
       periods?: number;
-    } = {}
+    } = {},
   ): Promise<{
     cohorts: Array<{
       date: Date;
@@ -671,32 +680,30 @@ export class AnalyticsService {
     const cohortDates: Date[] = [];
 
     for (let i = 0; i < periods; i++) {
-      const date = cohortSize === 'day'
-        ? subDays(now, i)
-        : cohortSize === 'week'
-        ? subDays(now, i * 7)
-        : subDays(now, i * 30);
+      const date =
+        cohortSize === 'day' ? subDays(now, i) : cohortSize === 'week' ? subDays(now, i * 7) : subDays(now, i * 30);
       cohortDates.unshift(date);
     }
 
     for (const cohortDate of cohortDates) {
       // Get users who joined in this cohort
       const cohortStart = startOfDay(cohortDate);
-      const cohortEnd = cohortSize === 'day'
-        ? endOfDay(cohortDate)
-        : cohortSize === 'week'
-        ? endOfDay(subDays(cohortDate, -6))
-        : endOfDay(subDays(cohortDate, -29));
+      const cohortEnd =
+        cohortSize === 'day'
+          ? endOfDay(cohortDate)
+          : cohortSize === 'week'
+            ? endOfDay(subDays(cohortDate, -6))
+            : endOfDay(subDays(cohortDate, -29));
 
       const cohortUsers = await prisma.client.user.findMany({
         where: {
           ...(tenantId && { tenantMembers: { some: { tenantId } } }),
           createdAt: {
             gte: cohortStart,
-            lte: cohortEnd
-          }
+            lte: cohortEnd,
+          },
         },
-        select: { id: true }
+        select: { id: true },
       });
 
       const cohortUserIds = cohortUsers.map(u => u.id);
@@ -708,17 +715,19 @@ export class AnalyticsService {
       const retention: number[] = [100]; // First period is always 100%
 
       for (let period = 1; period < periods; period++) {
-        const periodStart = cohortSize === 'day'
-          ? subDays(cohortStart, -period)
-          : cohortSize === 'week'
-          ? subDays(cohortStart, -(period * 7))
-          : subDays(cohortStart, -(period * 30));
+        const periodStart =
+          cohortSize === 'day'
+            ? subDays(cohortStart, -period)
+            : cohortSize === 'week'
+              ? subDays(cohortStart, -(period * 7))
+              : subDays(cohortStart, -(period * 30));
 
-        const periodEnd = cohortSize === 'day'
-          ? endOfDay(periodStart)
-          : cohortSize === 'week'
-          ? endOfDay(subDays(periodStart, -6))
-          : endOfDay(subDays(periodStart, -29));
+        const periodEnd =
+          cohortSize === 'day'
+            ? endOfDay(periodStart)
+            : cohortSize === 'week'
+              ? endOfDay(subDays(periodStart, -6))
+              : endOfDay(subDays(periodStart, -29));
 
         // Check if period is in the future
         if (periodStart > now) {
@@ -726,16 +735,19 @@ export class AnalyticsService {
           continue;
         }
 
+        // Create a properly typed where condition to avoid circular references
+        const whereCondition: Prisma.AnalyticsEventWhereInput = {
+          userId: { in: cohortUserIds },
+          timestamp: {
+            gte: periodStart,
+            lte: periodEnd,
+          },
+        };
+
         const activeUsers = await prisma.client.analyticsEvent.groupBy({
           by: ['userId'],
-          where: {
-            userId: { in: cohortUserIds },
-            timestamp: {
-              gte: periodStart,
-              lte: periodEnd
-            }
-          },
-          _count: { userId: true }
+          where: whereCondition,
+          _count: { userId: true },
         });
 
         const retentionRate = (activeUsers.length / cohortSizeCount) * 100;
@@ -745,7 +757,7 @@ export class AnalyticsService {
       cohorts.push({
         date: cohortDate,
         size: cohortSizeCount,
-        retention
+        retention,
       });
     }
 
@@ -761,7 +773,7 @@ export class AnalyticsService {
       limit?: number;
       startDate?: Date;
       endDate?: Date;
-    } = {}
+    } = {},
   ): Promise<{
     events: Array<{
       timestamp: Date;
@@ -781,9 +793,10 @@ export class AnalyticsService {
     const events = await prisma.client.analyticsEvent.findMany({
       where: {
         userId,
-        ...(startDate && endDate && {
-          timestamp: { gte: startDate, lte: endDate }
-        })
+        ...(startDate &&
+          endDate && {
+            timestamp: { gte: startDate, lte: endDate },
+          }),
       },
       orderBy: { timestamp: 'desc' },
       take: limit,
@@ -791,8 +804,8 @@ export class AnalyticsService {
         timestamp: true,
         event: true,
         properties: true,
-        sessionId: true
-      }
+        sessionId: true,
+      },
     });
 
     const uniqueEvents = new Set(events.map(e => e.event)).size;
@@ -804,8 +817,8 @@ export class AnalyticsService {
         totalEvents: events.length,
         uniqueEvents,
         sessions,
-        avgEventsPerSession: sessions > 0 ? events.length / sessions : 0
-      }
+        avgEventsPerSession: sessions > 0 ? events.length / sessions : 0,
+      },
     };
   }
 }

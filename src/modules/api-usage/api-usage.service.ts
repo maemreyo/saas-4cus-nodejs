@@ -50,7 +50,7 @@ export class ApiUsageService {
 
   constructor(
     private eventBus: EventBus,
-    private subscriptionService: SubscriptionService
+    private subscriptionService: SubscriptionService,
   ) {}
 
   /**
@@ -67,7 +67,7 @@ export class ApiUsageService {
       ipAddress?: string;
       userAgent?: string;
       metadata?: Record<string, any>;
-    }
+    },
   ): Promise<void> {
     try {
       // Store in database
@@ -81,8 +81,8 @@ export class ApiUsageService {
           responseTime,
           ipAddress: options?.ipAddress,
           userAgent: options?.userAgent,
-          metadata: options?.metadata || {}
-        }
+          metadata: options?.metadata || {},
+        },
       });
 
       // Track in Redis for real-time metrics
@@ -98,7 +98,7 @@ export class ApiUsageService {
         method,
         statusCode,
         responseTime,
-        timestamp: new Date()
+        timestamp: new Date(),
       });
     } catch (error) {
       logger.error('Failed to track API usage', error as Error);
@@ -113,7 +113,7 @@ export class ApiUsageService {
     endpoint: string,
     method: string,
     statusCode: number,
-    responseTime: number
+    responseTime: number,
   ): Promise<void> {
     const now = new Date();
     const minuteKey = format(now, 'yyyy-MM-dd:HH:mm');
@@ -156,58 +156,56 @@ export class ApiUsageService {
       startDate?: Date;
       endDate?: Date;
       groupBy?: 'hour' | 'day' | 'month';
-    }
+    },
   ): Promise<ApiUsageStats> {
     const where = {
       ...(userId && { userId }),
       ...(tenantId && { tenantId }),
-      ...(options?.startDate && options?.endDate && {
-        createdAt: {
-          gte: options.startDate,
-          lte: options.endDate
-        }
-      })
+      ...(options?.startDate &&
+        options?.endDate && {
+          createdAt: {
+            gte: options.startDate,
+            lte: options.endDate,
+          },
+        }),
     };
 
-    const [
-      totalRequests,
-      uniqueEndpoints,
-      avgResponseTime,
-      statusCodes,
-      topEndpoints
-    ] = await Promise.all([
+    const [totalRequests, uniqueEndpoints, avgResponseTime, statusCodes, topEndpoints] = await Promise.all([
       prisma.client.apiUsage.count({ where }),
 
-      prisma.client.apiUsage.groupBy({
-        by: ['endpoint'],
-        where,
-        _count: { endpoint: true }
-      }).then(results => results.length),
+      prisma.client.apiUsage
+        .groupBy({
+          by: ['endpoint'],
+          where,
+          _count: { endpoint: true },
+        })
+        .then(results => results.length),
 
-      prisma.client.apiUsage.aggregate({
-        where,
-        _avg: { responseTime: true }
-      }).then(result => result._avg.responseTime || 0),
+      prisma.client.apiUsage
+        .aggregate({
+          where,
+          _avg: { responseTime: true },
+        })
+        .then(result => result._avg.responseTime || 0),
 
       prisma.client.apiUsage.groupBy({
         by: ['statusCode'],
         where,
-        _count: { statusCode: true }
+        _count: { statusCode: true },
       }),
 
-      this.getTopEndpoints(where)
+      this.getTopEndpoints(where),
     ]);
 
     // Calculate error rate
-    const errorCount = statusCodes
-      .filter(s => s.statusCode >= 400)
-      .reduce((sum, s) => sum + s._count.statusCode, 0);
+    const errorCount = statusCodes.filter(s => s.statusCode >= 400).reduce((sum, s) => sum + s._count.statusCode, 0);
     const errorRate = totalRequests > 0 ? (errorCount / totalRequests) * 100 : 0;
 
     // Calculate requests per minute
-    const timeRange = options?.startDate && options?.endDate
-      ? (options.endDate.getTime() - options.startDate.getTime()) / 1000 / 60
-      : 1440; // Default to 24 hours
+    const timeRange =
+      options?.startDate && options?.endDate
+        ? (options.endDate.getTime() - options.startDate.getTime()) / 1000 / 60
+        : 1440; // Default to 24 hours
     const requestsPerMinute = totalRequests / timeRange;
 
     // Build status code distribution
@@ -223,7 +221,7 @@ export class ApiUsageService {
       errorRate: Math.round(errorRate * 100) / 100,
       requestsPerMinute: Math.round(requestsPerMinute * 100) / 100,
       topEndpoints,
-      statusCodeDistribution
+      statusCodeDistribution,
     };
   }
 
@@ -237,9 +235,9 @@ export class ApiUsageService {
       _count: { endpoint: true },
       _avg: { responseTime: true },
       orderBy: {
-        _count: { endpoint: 'desc' }
+        _count: { endpoint: 'desc' },
       },
-      take: limit
+      take: limit,
     });
 
     const metrics: ApiUsageMetrics[] = [];
@@ -251,15 +249,13 @@ export class ApiUsageService {
         where: {
           ...where,
           endpoint: endpoint.endpoint,
-          method: endpoint.method
+          method: endpoint.method,
         },
-        _count: { statusCode: true }
+        _count: { statusCode: true },
       });
 
       const total = statusCodes.reduce((sum, s) => sum + s._count.statusCode, 0);
-      const errors = statusCodes
-        .filter(s => s.statusCode >= 400)
-        .reduce((sum, s) => sum + s._count.statusCode, 0);
+      const errors = statusCodes.filter(s => s.statusCode >= 400).reduce((sum, s) => sum + s._count.statusCode, 0);
 
       metrics.push({
         endpoint: endpoint.endpoint,
@@ -267,7 +263,7 @@ export class ApiUsageService {
         count: endpoint._count.endpoint,
         averageResponseTime: Math.round(endpoint._avg.responseTime || 0),
         errorRate: total > 0 ? (errors / total) * 100 : 0,
-        successRate: total > 0 ? ((total - errors) / total) * 100 : 0
+        successRate: total > 0 ? ((total - errors) / total) * 100 : 0,
       });
     }
 
@@ -278,14 +274,14 @@ export class ApiUsageService {
    * Get usage time series
    */
   async getUsageTimeSeries(
-    userId?: string,
-    tenantId?: string,
     options: {
       startDate: Date;
       endDate: Date;
       groupBy: 'hour' | 'day' | 'month';
       endpoint?: string;
-    }
+    },
+    userId?: string,
+    tenantId?: string,
   ): Promise<Array<{ timestamp: Date; requests: number; errors: number; avgResponseTime: number }>> {
     const where = {
       ...(userId && { userId }),
@@ -293,8 +289,8 @@ export class ApiUsageService {
       ...(options.endpoint && { endpoint: options.endpoint }),
       createdAt: {
         gte: options.startDate,
-        lte: options.endDate
-      }
+        lte: options.endDate,
+      },
     };
 
     let dateFormat: string;
@@ -309,12 +305,14 @@ export class ApiUsageService {
         dateFormat = 'yyyy-MM-dd';
     }
 
-    const results = await prisma.client.$queryRaw<Array<{
-      timestamp: Date;
-      requests: bigint;
-      errors: bigint;
-      avg_response_time: number;
-    }>>`
+    const results = await prisma.client.$queryRaw<
+      Array<{
+        timestamp: Date;
+        requests: bigint;
+        errors: bigint;
+        avg_response_time: number;
+      }>
+    >`
       SELECT
         DATE_TRUNC(${options.groupBy}, created_at) as timestamp,
         COUNT(*) as requests,
@@ -323,9 +321,9 @@ export class ApiUsageService {
       FROM api_usage
       WHERE created_at >= ${options.startDate}
         AND created_at <= ${options.endDate}
-        ${userId ? prisma.Prisma.sql`AND user_id = ${userId}` : prisma.Prisma.empty}
-        ${tenantId ? prisma.Prisma.sql`AND tenant_id = ${tenantId}` : prisma.Prisma.empty}
-        ${options.endpoint ? prisma.Prisma.sql`AND endpoint = ${options.endpoint}` : prisma.Prisma.empty}
+        ${userId ? prisma.client.$queryRaw`AND user_id = ${userId}` : prisma.client.$queryRaw``}
+        ${tenantId ? prisma.client.$queryRaw`AND tenant_id = ${tenantId}` : prisma.client.$queryRaw``}
+        ${options.endpoint ? prisma.client.$queryRaw`AND endpoint = ${options.endpoint}` : prisma.client.$queryRaw``}
       GROUP BY DATE_TRUNC(${options.groupBy}, created_at)
       ORDER BY timestamp DESC
     `;
@@ -334,18 +332,14 @@ export class ApiUsageService {
       timestamp: row.timestamp,
       requests: Number(row.requests),
       errors: Number(row.errors),
-      avgResponseTime: Math.round(row.avg_response_time || 0)
+      avgResponseTime: Math.round(row.avg_response_time || 0),
     }));
   }
 
   /**
    * Check rate limit for user
    */
-  async checkRateLimit(
-    userId: string,
-    endpoint: string,
-    limit?: number
-  ): Promise<RateLimitInfo> {
+  async checkRateLimit(userId: string, endpoint: string, limit?: number): Promise<RateLimitInfo> {
     const { plan } = await this.subscriptionService.getUserSubscription(userId);
     const maxRequests = limit || plan?.limits.maxApiCalls || 1000;
 
@@ -354,7 +348,7 @@ export class ApiUsageService {
     const windowKey = `ratelimit:${userId}:${endpoint}:${Math.floor(now.getTime() / 1000 / this.METRICS_WINDOW)}`;
 
     // Get current usage in window
-    const currentUsage = await redis.get(windowKey) || 0;
+    const currentUsage = (await redis.get(windowKey)) || 0;
 
     if (currentUsage >= maxRequests) {
       const reset = new Date((Math.floor(now.getTime() / 1000 / this.METRICS_WINDOW) + 1) * this.METRICS_WINDOW * 1000);
@@ -364,7 +358,7 @@ export class ApiUsageService {
         limit: maxRequests,
         remaining: 0,
         reset: reset.toISOString(),
-        retryAfter
+        retryAfter,
       });
     }
 
@@ -378,7 +372,7 @@ export class ApiUsageService {
     return {
       limit: maxRequests,
       remaining,
-      reset
+      reset,
     };
   }
 
@@ -399,9 +393,9 @@ export class ApiUsageService {
         userId,
         createdAt: {
           gte: monthStart,
-          lte: monthEnd
-        }
-      }
+          lte: monthEnd,
+        },
+      },
     });
 
     if (usage >= plan.limits.maxApiCalls) {
@@ -410,13 +404,13 @@ export class ApiUsageService {
         limit: plan.limits.maxApiCalls,
         usage,
         endpoint,
-        timestamp: new Date()
+        timestamp: new Date(),
       });
 
       throw new ForbiddenException('Monthly API quota exceeded', {
         limit: plan.limits.maxApiCalls,
         used: usage,
-        resetAt: startOfMonth(new Date(new Date().setMonth(new Date().getMonth() + 1)))
+        resetAt: startOfMonth(new Date(new Date().setMonth(new Date().getMonth() + 1))),
       });
     }
 
@@ -427,7 +421,7 @@ export class ApiUsageService {
         limit: plan.limits.maxApiCalls,
         usage,
         percentage: (usage / plan.limits.maxApiCalls) * 100,
-        timestamp: new Date()
+        timestamp: new Date(),
       });
     }
   }
@@ -453,9 +447,9 @@ export class ApiUsageService {
           userId,
           createdAt: {
             gte: monthStart,
-            lte: monthEnd
-          }
-        }
+            lte: monthEnd,
+          },
+        },
       });
 
       quotas.push({
@@ -464,7 +458,7 @@ export class ApiUsageService {
         used: apiUsage,
         remaining: Math.max(0, plan.limits.maxApiCalls - apiUsage),
         percentage: (apiUsage / plan.limits.maxApiCalls) * 100,
-        resetAt: nextMonthStart
+        resetAt: nextMonthStart,
       });
     }
 
@@ -480,7 +474,7 @@ export class ApiUsageService {
           used: usage.used,
           remaining: usage.remaining,
           percentage: (usage.used / usage.limit) * 100,
-          resetAt: resource === 'maxApiCalls' ? nextMonthStart : new Date() // Most quotas don't reset
+          resetAt: resource === 'maxApiCalls' ? nextMonthStart : new Date(), // Most quotas don't reset
         });
       }
     }
@@ -497,7 +491,7 @@ export class ApiUsageService {
       startDate?: Date;
       endDate?: Date;
       tenantId?: string;
-    }
+    },
   ): Promise<{
     endpoint: string;
     totalRequests: number;
@@ -513,48 +507,43 @@ export class ApiUsageService {
     const where = {
       endpoint,
       ...(options?.tenantId && { tenantId: options.tenantId }),
-      ...(options?.startDate && options?.endDate && {
-        createdAt: {
-          gte: options.startDate,
-          lte: options.endDate
-        }
-      })
+      ...(options?.startDate &&
+        options?.endDate && {
+          createdAt: {
+            gte: options.startDate,
+            lte: options.endDate,
+          },
+        }),
     };
 
-    const [
-      totalRequests,
-      uniqueUsers,
-      methods,
-      statusCodes,
-      responseTimeStats
-    ] = await Promise.all([
+    const [totalRequests, uniqueUsers, methods, statusCodes, responseTimeStats] = await Promise.all([
       prisma.client.apiUsage.count({ where }),
 
-      prisma.client.apiUsage.groupBy({
-        by: ['userId'],
-        where,
-        _count: { userId: true }
-      }).then(results => results.length),
+      prisma.client.apiUsage
+        .groupBy({
+          by: ['userId'],
+          where,
+          _count: { userId: true },
+        })
+        .then(results => results.length),
 
       prisma.client.apiUsage.groupBy({
         by: ['method'],
         where,
-        _count: { method: true }
+        _count: { method: true },
       }),
 
       prisma.client.apiUsage.groupBy({
         by: ['statusCode'],
         where,
-        _count: { statusCode: true }
+        _count: { statusCode: true },
       }),
 
-      this.getResponseTimePercentiles(where)
+      this.getResponseTimePercentiles(where),
     ]);
 
     // Calculate error rate
-    const errorCount = statusCodes
-      .filter(s => s.statusCode >= 400)
-      .reduce((sum, s) => sum + s._count.statusCode, 0);
+    const errorCount = statusCodes.filter(s => s.statusCode >= 400).reduce((sum, s) => sum + s._count.statusCode, 0);
     const errorRate = totalRequests > 0 ? (errorCount / totalRequests) * 100 : 0;
 
     // Get top errors
@@ -564,17 +553,23 @@ export class ApiUsageService {
       endpoint,
       totalRequests,
       uniqueUsers,
-      methods: methods.reduce((acc, m) => {
-        acc[m.method] = m._count.method;
-        return acc;
-      }, {} as Record<string, number>),
-      statusCodes: statusCodes.reduce((acc, s) => {
-        acc[s.statusCode.toString()] = s._count.statusCode;
-        return acc;
-      }, {} as Record<string, number>),
+      methods: methods.reduce(
+        (acc, m) => {
+          acc[m.method] = m._count.method;
+          return acc;
+        },
+        {} as Record<string, number>,
+      ),
+      statusCodes: statusCodes.reduce(
+        (acc, s) => {
+          acc[s.statusCode.toString()] = s._count.statusCode;
+          return acc;
+        },
+        {} as Record<string, number>,
+      ),
       ...responseTimeStats,
       errorRate: Math.round(errorRate * 100) / 100,
-      topErrors
+      topErrors,
     };
   }
 
@@ -589,14 +584,14 @@ export class ApiUsageService {
     const responseTimes = await prisma.client.apiUsage.findMany({
       where,
       select: { responseTime: true },
-      orderBy: { responseTime: 'asc' }
+      orderBy: { responseTime: 'asc' },
     });
 
     if (responseTimes.length === 0) {
       return {
         averageResponseTime: 0,
         p95ResponseTime: 0,
-        p99ResponseTime: 0
+        p99ResponseTime: 0,
       };
     }
 
@@ -608,7 +603,7 @@ export class ApiUsageService {
     return {
       averageResponseTime: Math.round(average),
       p95ResponseTime: times[p95Index] || times[times.length - 1],
-      p99ResponseTime: times[p99Index] || times[times.length - 1]
+      p99ResponseTime: times[p99Index] || times[times.length - 1],
     };
   }
 
@@ -619,9 +614,9 @@ export class ApiUsageService {
     const errors = await prisma.client.apiUsage.findMany({
       where: {
         ...where,
-        statusCode: { gte: 400 }
+        statusCode: { gte: 400 },
       },
-      select: { metadata: true }
+      select: { metadata: true },
     });
 
     const errorCounts = new Map<string, number>();
@@ -646,17 +641,17 @@ export class ApiUsageService {
       startDate: Date;
       endDate: Date;
       format: 'csv' | 'json';
-    }
+    },
   ): Promise<Buffer> {
     const usage = await prisma.client.apiUsage.findMany({
       where: {
         userId,
         createdAt: {
           gte: options.startDate,
-          lte: options.endDate
-        }
+          lte: options.endDate,
+        },
       },
-      orderBy: { createdAt: 'desc' }
+      orderBy: { createdAt: 'desc' },
     });
 
     if (options.format === 'json') {
@@ -688,7 +683,7 @@ export class ApiUsageService {
 
     const recentStats = await this.getUsageStats(undefined, undefined, {
       startDate: fiveMinutesAgo,
-      endDate: now
+      endDate: now,
     });
 
     const issues: string[] = [];
@@ -724,9 +719,9 @@ export class ApiUsageService {
         requestsPerMinute: recentStats.requestsPerMinute,
         errorRate: recentStats.errorRate,
         averageResponseTime: recentStats.averageResponseTime,
-        activeEndpoints: recentStats.uniqueEndpoints
+        activeEndpoints: recentStats.uniqueEndpoints,
       },
-      issues
+      issues,
     };
   }
 }

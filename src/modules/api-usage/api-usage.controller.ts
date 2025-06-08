@@ -2,12 +2,7 @@ import { FastifyRequest, FastifyReply } from 'fastify';
 import { Service } from 'typedi';
 import { ApiUsageService } from './api-usage.service';
 import { validateSchema } from '@shared/validators';
-import {
-  GetUsageStatsDTO,
-  GetUsageTimeSeriesDTO,
-  GetEndpointAnalyticsDTO,
-  ExportUsageDataDTO
-} from './api-usage.dto';
+import { GetUsageStatsDTO, GetUsageTimeSeriesDTO, GetEndpointAnalyticsDTO, ExportUsageDataDTO } from './api-usage.dto';
 
 @Service()
 export class ApiUsageController {
@@ -16,10 +11,7 @@ export class ApiUsageController {
   /**
    * Get usage statistics
    */
-  async getUsageStats(
-    request: FastifyRequest<{ Querystring: GetUsageStatsDTO }>,
-    reply: FastifyReply
-  ) {
+  async getUsageStats(request: FastifyRequest<{ Querystring: GetUsageStatsDTO }>, reply: FastifyReply) {
     const { startDate, endDate, groupBy } = request.query;
     const userId = request.customUser?.id;
     const tenantId = (request as any).tenant?.id;
@@ -27,15 +19,11 @@ export class ApiUsageController {
     // Admin can view all stats, users can only view their own
     const targetUserId = request.customUser?.role === 'ADMIN' ? undefined : userId;
 
-    const stats = await this.apiUsageService.getUsageStats(
-      targetUserId,
-      tenantId,
-      {
-        startDate: startDate ? new Date(startDate) : undefined,
-        endDate: endDate ? new Date(endDate) : undefined,
-        groupBy
-      }
-    );
+    const stats = await this.apiUsageService.getUsageStats(targetUserId, tenantId, {
+      startDate: startDate ? new Date(startDate) : undefined,
+      endDate: endDate ? new Date(endDate) : undefined,
+      groupBy,
+    });
 
     reply.send({ data: stats });
   }
@@ -43,10 +31,7 @@ export class ApiUsageController {
   /**
    * Get usage time series
    */
-  async getUsageTimeSeries(
-    request: FastifyRequest<{ Body: GetUsageTimeSeriesDTO }>,
-    reply: FastifyReply
-  ) {
+  async getUsageTimeSeries(request: FastifyRequest<{ Body: GetUsageTimeSeriesDTO }>, reply: FastifyReply) {
     const dto = await validateSchema(GetUsageTimeSeriesDTO.schema, request.body);
     const userId = request.customUser?.id;
     const tenantId = (request as any).tenant?.id;
@@ -55,14 +40,14 @@ export class ApiUsageController {
     const targetUserId = request.customUser?.role === 'ADMIN' && dto.userId ? dto.userId : userId;
 
     const timeSeries = await this.apiUsageService.getUsageTimeSeries(
-      targetUserId,
-      tenantId,
       {
         startDate: new Date(dto.startDate),
         endDate: new Date(dto.endDate),
         groupBy: dto.groupBy,
-        endpoint: dto.endpoint
-      }
+        endpoint: dto.endpoint,
+      } as any,
+      targetUserId,
+      tenantId,
     );
 
     reply.send({ data: timeSeries });
@@ -71,17 +56,11 @@ export class ApiUsageController {
   /**
    * Get current rate limit info
    */
-  async getRateLimit(
-    request: FastifyRequest<{ Querystring: { endpoint?: string } }>,
-    reply: FastifyReply
-  ) {
+  async getRateLimit(request: FastifyRequest<{ Querystring: { endpoint?: string } }>, reply: FastifyReply) {
     const userId = request.customUser!.id;
     const { endpoint } = request.query;
 
-    const rateLimitInfo = await this.apiUsageService.checkRateLimit(
-      userId,
-      endpoint || '*'
-    );
+    const rateLimitInfo = await this.apiUsageService.checkRateLimit(userId, endpoint || '*');
 
     reply.send({ data: rateLimitInfo });
   }
@@ -102,7 +81,7 @@ export class ApiUsageController {
    */
   async getEndpointAnalytics(
     request: FastifyRequest<{ Params: { endpoint: string }; Querystring: GetEndpointAnalyticsDTO }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
     const { endpoint } = request.params;
     const { startDate, endDate } = request.query;
@@ -111,14 +90,11 @@ export class ApiUsageController {
     // Decode endpoint (it might be URL encoded)
     const decodedEndpoint = decodeURIComponent(endpoint);
 
-    const analytics = await this.apiUsageService.getEndpointAnalytics(
-      decodedEndpoint,
-      {
-        startDate: startDate ? new Date(startDate) : undefined,
-        endDate: endDate ? new Date(endDate) : undefined,
-        tenantId
-      }
-    );
+    const analytics = await this.apiUsageService.getEndpointAnalytics(decodedEndpoint, {
+      startDate: startDate ? new Date(startDate) : undefined,
+      endDate: endDate ? new Date(endDate) : undefined,
+      tenantId,
+    });
 
     reply.send({ data: analytics });
   }
@@ -126,17 +102,14 @@ export class ApiUsageController {
   /**
    * Export usage data
    */
-  async exportUsageData(
-    request: FastifyRequest<{ Body: ExportUsageDataDTO }>,
-    reply: FastifyReply
-  ) {
+  async exportUsageData(request: FastifyRequest<{ Body: ExportUsageDataDTO }>, reply: FastifyReply) {
     const dto = await validateSchema(ExportUsageDataDTO.schema, request.body);
     const userId = request.customUser!.id;
 
     const data = await this.apiUsageService.exportUsageData(userId, {
       startDate: new Date(dto.startDate),
       endDate: new Date(dto.endDate),
-      format: dto.format
+      format: dto.format,
     });
 
     const contentType = dto.format === 'csv' ? 'text/csv' : 'application/json';
@@ -166,13 +139,13 @@ export class ApiUsageController {
     request: FastifyRequest<{
       Querystring: { limit?: number; startDate?: string; endDate?: string };
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ) {
     const { limit = 10, startDate, endDate } = request.query;
 
     const topUsers = await this.apiUsageService.getUsageStats(undefined, undefined, {
       startDate: startDate ? new Date(startDate) : undefined,
-      endDate: endDate ? new Date(endDate) : undefined
+      endDate: endDate ? new Date(endDate) : undefined,
     });
 
     reply.send({ data: topUsers });
@@ -181,10 +154,7 @@ export class ApiUsageController {
   /**
    * Get system-wide API metrics (admin only)
    */
-  async getSystemMetrics(
-    request: FastifyRequest<{ Querystring: { period?: string } }>,
-    reply: FastifyReply
-  ) {
+  async getSystemMetrics(request: FastifyRequest<{ Querystring: { period?: string } }>, reply: FastifyReply) {
     const { period = '24h' } = request.query;
 
     let startDate: Date;
@@ -209,19 +179,23 @@ export class ApiUsageController {
 
     const [stats, timeSeries] = await Promise.all([
       this.apiUsageService.getUsageStats(undefined, undefined, { startDate, endDate }),
-      this.apiUsageService.getUsageTimeSeries(undefined, undefined, {
-        startDate,
-        endDate,
-        groupBy: period === '1h' ? 'hour' : period === '24h' ? 'hour' : 'day'
-      })
+      this.apiUsageService.getUsageTimeSeries(
+        {
+          startDate,
+          endDate,
+          groupBy: period === '1h' ? 'hour' : period === '24h' ? 'hour' : 'day',
+        } as any,
+        undefined,
+        undefined,
+      ),
     ]);
 
     reply.send({
       data: {
         period,
         stats,
-        timeSeries
-      }
+        timeSeries,
+      },
     });
   }
 }

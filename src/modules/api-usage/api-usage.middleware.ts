@@ -27,37 +27,44 @@ export async function trackApiUsage(request: FastifyRequest, reply: FastifyReply
   // Store start time on request context
   (request as any).apiUsageStartTime = startTime;
 
-  // Hook into the onSend to track after response is prepared
-  reply.addHook('onSend', async (request, reply, payload) => {
-    try {
-      const apiUsageService = Container.get(ApiUsageService);
-      const responseTime = Date.now() - ((request as any).apiUsageStartTime || startTime);
+  // Hook into the response to track after response is sent
+  const originalSend = reply.send.bind(reply);
 
-      // Only track for authenticated users
-      if (request.customUser) {
-        await apiUsageService.trackUsage(
-          request.customUser.id,
-          request.routerPath || request.url.split('?')[0], // Use route pattern if available
-          request.method,
-          reply.statusCode,
-          responseTime,
-          {
-            tenantId: (request as any).tenant?.id,
-            ipAddress: request.ip,
-            userAgent: request.headers['user-agent'],
-            metadata: {
-              query: request.query,
-              params: request.params,
-              error: reply.statusCode >= 400 ? payload : undefined,
+  reply.send = function (payload: any) {
+    // Track the usage asynchronously after sending response
+    setImmediate(async () => {
+      try {
+        const apiUsageService = Container.get(ApiUsageService);
+        const responseTime = Date.now() - ((request as any).apiUsageStartTime || startTime);
+
+        // Only track for authenticated users
+        if (request.customUser) {
+          await apiUsageService.trackUsage(
+            request.customUser.id,
+            request.routerPath || request.url.split('?')[0], // Use route pattern if available
+            request.method,
+            reply.statusCode,
+            responseTime,
+            {
+              tenantId: (request as any).tenant?.id,
+              ipAddress: request.ip,
+              userAgent: request.headers['user-agent'],
+              metadata: {
+                query: request.query,
+                params: request.params,
+                error: reply.statusCode >= 400 ? payload : undefined,
+              },
             },
-          },
-        );
+          );
+        }
+      } catch (error) {
+        // Don't fail the request if tracking fails
+        logger.error('Failed to track API usage', error as Error);
       }
-    } catch (error) {
-      // Don't fail the request if tracking fails
-      logger.error('Failed to track API usage', error as Error);
-    }
-  });
+    });
+
+    return originalSend(payload);
+  };
 }
 
 /**

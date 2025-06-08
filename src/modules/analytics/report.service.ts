@@ -155,10 +155,17 @@ export class ReportService {
       }
     }
 
-    await queueService.addJob('report', 'generate', options, {
-      repeat: repeatOptions,
-      jobId,
-    });
+    await queueService.addJob(
+      'report',
+      'generate',
+      {
+        ...options,
+        __jobId: jobId,
+      },
+      {
+        repeat: repeatOptions,
+      },
+    );
 
     logger.info('Report scheduled', { jobId, schedule: options.schedule });
 

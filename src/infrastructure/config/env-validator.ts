@@ -29,7 +29,7 @@ export class EnvironmentValidator {
       key: 'DATABASE_URL',
       required: true,
       description: 'PostgreSQL connection string',
-      example: 'postgresql://user:password@localhost:5432/mydb',
+      example: 'postgresql://user:password@localhost:5555/mydb',
       validator: (v) => v.startsWith('postgresql://') || v.startsWith('postgres://'),
     },
 

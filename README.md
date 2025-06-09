@@ -1,204 +1,257 @@
-# Modern Backend Template 2025
+# Modern Backend Template 2025 🚀
 
-A production-ready Node.js backend template with TypeScript, featuring modern architecture patterns, comprehensive security, and scalability features.
+A production-ready Node.js backend template with TypeScript, featuring 12 comprehensive modules for building scalable SaaS applications.
 
-## 🚀 Features
+## 🌟 Why Use This Template?
 
-### Core Technologies
-- **Node.js 20+** with TypeScript
-- **Fastify** - High-performance web framework
-- **Prisma** - Type-safe database ORM
-- **Redis** - Caching and session management
-- **BullMQ** - Robust job queue system
-- **Docker** - Containerization support
+- **Complete SaaS Foundation**: All essential features pre-built
+- **Modular Architecture**: Use only what you need
+- **Production Ready**: Security, monitoring, and scaling built-in
+- **Developer Friendly**: Great DX with TypeScript, hot reload, and comprehensive docs
+- **Battle Tested**: Based on real-world production applications
 
-### Security Features
-- 🔐 JWT authentication with refresh tokens
-- 🔑 OAuth2 integration (Google, GitHub)
-- 📱 Two-factor authentication (2FA)
-- 🛡️ Rate limiting and DDoS protection
-- 🔒 Security headers with Helmet
-- 🚨 CORS configuration
-- 🔏 Password hashing with Argon2
-- 🔐 API key authentication for B2B
+## 📦 Included Modules
 
-### Performance & Scalability
-- ⚡ Multi-layer caching (Memory + Redis)
-- 🔄 Database connection pooling
-- 📊 Query optimization with indexes
-- 🎯 Pagination helpers
-- 🔍 Full-text search support
-- 📈 Horizontal scaling ready
-- 🚀 Async job processing
-- 💾 Soft deletes
+### Core Modules
+- **🔐 [Auth](./src/modules/auth/README.md)** - JWT, OAuth (Google/GitHub), 2FA, sessions
+- **👤 [User](./src/modules/user/README.md)** - Profiles, preferences, activity tracking
+- **🏢 [Tenant](./src/modules/tenant/README.md)** - Multi-tenancy, teams, invitations
+- **💳 [Billing](./src/modules/billing/README.md)** - Stripe integration, subscriptions, invoices
 
-### Developer Experience
-- 📝 Swagger API documentation
-- 🧪 Comprehensive testing setup
-- 🔍 Structured logging with Pino
-- 📊 Health checks and metrics
-- 🐳 Docker Compose for local dev
-- 🔧 CLI tools for common tasks
-- 🎨 Code formatting with Prettier
-- 📋 ESLint configuration
+### Feature Modules
+- **🚩 [Features](./src/modules/features/README.md)** - Feature flags, entitlements, usage limits
+- **📧 [Notification](./src/modules/notification/README.md)** - Email, push, SMS, in-app notifications
+- **📊 [Analytics](./src/modules/analytics/README.md)** - Event tracking, metrics, reporting
+- **🔗 [Webhooks](./src/modules/webhooks/README.md)** - Real-time event delivery
 
-### Monitoring & Observability
-- 📊 OpenTelemetry integration
-- 🔍 Distributed tracing
-- 📈 Custom metrics
-- 🚨 Sentry error tracking
-- 📝 Audit logging
-- 🔔 Real-time monitoring
-- 📊 Performance profiling
+### Growth Modules
+- **🎯 [Onboarding](./src/modules/onboarding/README.md)** - User onboarding flows, checklists
+- **🎫 [Support](./src/modules/support/README.md)** - Ticket system, knowledge base, SLA
+- **📈 [API Usage](./src/modules/api-usage/README.md)** - Rate limiting, usage tracking, quotas
+- **🛠️ [Admin](./src/modules/admin/README.md)** - Admin dashboard, user management, system config
 
-## 📦 Quick Start
+## 🚀 Quick Start
 
-### Prerequisites
-- Node.js 20+
-- Docker & Docker Compose
-- PostgreSQL 15+ (or use Docker)
-- Redis 7+ (or use Docker)
-
-### Installation
+### Using the Interactive Setup (Recommended)
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/modern-backend-template.git
-cd modern-backend-template
+git clone https://github.com/maemreyo/saas-4cus-nodejs.git my-app
+cd my-app
 
-# Install dependencies
+# Run interactive setup
+pnpm setup
+
+# This will:
+# - Let you choose which modules to include
+# - Configure your database and services
+# - Generate .env file
+# - Remove unused code
+# - Install dependencies
+```
+
+### Manual Setup
+
+```bash
+# 1. Clone and install
+git clone https://github.com/maemreyo/saas-4cus-nodejs.git my-app
+cd my-app
 pnpm install
 
-# Copy environment variables
+# 2. Configure environment
 cp .env.example .env
+# Edit .env with your settings
 
-# Start development services (PostgreSQL, Redis, MailHog)
+# 3. Start services
 docker-compose -f docker-compose.dev.yml up -d
 
-# Run database migrations
+# 4. Setup database
 pnpm db:migrate
-
-# Seed the database
 pnpm db:seed
 
-# Start development server
+# 5. Start development
 pnpm dev
 ```
 
-### Using Docker
+## 🏗️ Architecture
 
-```bash
-# Build and start all services
-docker-compose up -d
+### Technology Stack
+- **Runtime**: Node.js 20+ with TypeScript
+- **Framework**: Fastify (high performance)
+- **Database**: PostgreSQL with Prisma ORM
+- **Cache**: Redis for caching and sessions
+- **Queue**: BullMQ for background jobs
+- **Search**: Elasticsearch (optional)
+- **Monitoring**: Sentry, OpenTelemetry
 
-# View logs
-docker-compose logs -f
-
-# Stop all services
-docker-compose down
-```
-
-## 🏗️ Project Structure
-
+### Project Structure
 ```
 src/
 ├── modules/              # Feature modules
 │   ├── auth/            # Authentication module
 │   ├── user/            # User management
-│   └── notification/    # Notification system
+│   ├── billing/         # Subscription & payments
+│   └── ...              # Other modules
+├── infrastructure/      # Core infrastructure
+│   ├── config/          # Configuration
+│   ├── database/        # Database setup
+│   ├── server/          # Server setup
+│   └── cache/           # Redis setup
 ├── shared/              # Shared utilities
-│   ├── cache/          # Caching layer
-│   ├── database/       # Database utilities
-│   ├── events/         # Event bus
-│   ├── exceptions/     # Custom exceptions
-│   ├── logger/         # Logging system
-│   ├── queue/          # Job queue
-│   ├── services/       # Shared services
-│   ├── utils/          # Helper functions
-│   └── validators/     # Validation schemas
-├── infrastructure/      # Infrastructure code
-│   ├── config/         # Configuration
-│   ├── database/       # Database setup
-│   ├── server/         # Server setup
-│   └── monitoring/     # Monitoring setup
+│   ├── exceptions/      # Custom exceptions
+│   ├── logger/          # Logging system
+│   ├── queue/           # Job queue
+│   └── events/          # Event bus
 └── app.ts              # Application entry
 ```
 
 ## 🔧 Configuration
 
+### Module Selection
+
+Enable/disable modules in your setup:
+
+```typescript
+// config/modules.config.ts
+export const ENABLED_MODULES = {
+  auth: true,           // Required
+  user: true,           // Required
+  tenant: true,         // Multi-tenancy
+  billing: true,        // Stripe payments
+  features: true,       // Feature flags
+  notification: true,   // Notifications
+  analytics: true,      // Analytics
+  webhooks: true,       // Webhooks
+  onboarding: true,     // User onboarding
+  support: true,        // Help desk
+  apiUsage: true,       // API metering
+  admin: true          // Admin panel
+};
+```
+
 ### Environment Variables
 
-Create a `.env` file based on `.env.example`:
+Key configurations:
 
 ```env
 # Application
 NODE_ENV=development
-APP_NAME="My App"
+APP_NAME="My SaaS App"
 PORT=3000
 
-# Security
-JWT_ACCESS_SECRET=your-access-secret
-JWT_REFRESH_SECRET=your-refresh-secret
-
 # Database
-DATABASE_URL=postgresql://user:pass@localhost:5555/mydb
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/myapp_dev"
 
 # Redis
 REDIS_HOST=localhost
 REDIS_PORT=6379
 
+# Authentication
+JWT_ACCESS_SECRET=your-secure-secret
+JWT_REFRESH_SECRET=your-secure-refresh-secret
+
+# Stripe (if using billing)
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+
 # Email
 SMTP_HOST=localhost
 SMTP_PORT=1025
-SMTP_USER=test
-SMTP_PASS=test
-
-# See .env.example for all options
+EMAIL_FROM="My App <noreply@myapp.com>"
 ```
 
-## 📚 API Documentation
+## 🚦 Module Usage Examples
 
-### Swagger UI
-When running in development, access Swagger documentation at:
-```
-http://localhost:3000/docs
-```
+### Authentication Flow
 
-### Authentication Endpoints
-
-#### Register
-```http
-POST /api/v1/auth/register
-Content-Type: application/json
-
+```typescript
+// Register
+POST /api/auth/register
 {
   "email": "user@example.com",
   "password": "SecurePass123!",
   "firstName": "John",
   "lastName": "Doe"
 }
-```
 
-#### Login
-```http
-POST /api/v1/auth/login
-Content-Type: application/json
-
+// Login
+POST /api/auth/login
 {
   "email": "user@example.com",
   "password": "SecurePass123!"
 }
+
+// Use token
+GET /api/users/me
+Authorization: Bearer <access_token>
 ```
 
-#### Refresh Token
-```http
-POST /api/v1/auth/refresh
-Content-Type: application/json
+### Multi-Tenancy
 
+```typescript
+// Create organization
+POST /api/tenants
 {
-  "refreshToken": "your-refresh-token"
+  "name": "Acme Corp",
+  "slug": "acme-corp"
+}
+
+// Invite team member
+POST /api/tenants/:tenantId/members/invite
+{
+  "email": "colleague@acme.com",
+  "role": "MEMBER"
 }
 ```
+
+### Subscription Management
+
+```typescript
+// Create checkout session
+POST /api/billing/checkout
+{
+  "priceId": "price_pro_monthly"
+}
+
+// Check feature access
+GET /api/features/entitlements/check?feature=api_calls
+```
+
+### Support Tickets
+
+```typescript
+// Create ticket
+POST /api/tickets
+{
+  "subject": "Need help with billing",
+  "description": "Cannot update payment method",
+  "type": "BILLING_ISSUE"
+}
+```
+
+## 📊 Monitoring & Observability
+
+### Health Checks
+```bash
+GET /health                 # Overall health
+GET /health/ready          # Readiness probe
+GET /health/live           # Liveness probe
+```
+
+### Metrics
+- Request rate and latency
+- Error rates by endpoint
+- Database query performance
+- Queue processing times
+- Cache hit rates
+
+### Logging
+Structured JSON logging with levels:
+- `fatal`: System failures
+- `error`: Errors requiring attention
+- `warn`: Warning conditions
+- `info`: General information
+- `debug`: Debug information
 
 ## 🧪 Testing
 
@@ -206,17 +259,13 @@ Content-Type: application/json
 # Run all tests
 pnpm test
 
-# Run unit tests
+# Run specific test suites
 pnpm test:unit
-
-# Run integration tests
 pnpm test:integration
+pnpm test:e2e
 
-# Run with coverage
+# Coverage report
 pnpm test:coverage
-
-# Run in watch mode
-pnpm test:watch
 ```
 
 ### Test Structure
@@ -230,94 +279,86 @@ tests/
 
 ## 🚀 Deployment
 
-### Production Build
-```bash
-# Build the application
-pnpm build
-
-# Start production server
-pnpm start:prod
-```
-
 ### Docker Deployment
-```bash
-# Build production image
-docker build -t myapp:latest .
 
-# Run container
-docker run -p 3000:3000 --env-file .env myapp:latest
+```bash
+# Build image
+docker build -t my-app .
+
+# Run with docker-compose
+docker-compose up -d
 ```
 
-### Environment-specific Configurations
-- **Development**: Hot reload, verbose logging
-- **Staging**: Production-like with debug features
-- **Production**: Optimized, minimal logging
+### Environment-Specific Configs
 
-## 📊 Monitoring
+```bash
+# Development
+pnpm dev
 
-### Health Checks
-- `/health` - Comprehensive health status
-- `/health/live` - Kubernetes liveness probe
-- `/health/ready` - Kubernetes readiness probe
-- `/health/metrics` - Application metrics
+# Staging
+NODE_ENV=staging pnpm start
 
-### Logging
-Structured JSON logging with different levels:
-- `fatal` - System is unusable
-- `error` - Error conditions
-- `warn` - Warning conditions
-- `info` - Informational messages
-- `debug` - Debug messages
-- `trace` - Trace messages
+# Production
+NODE_ENV=production pnpm start:prod
+```
 
-### Metrics
-Custom metrics exposed for Prometheus:
-- Request duration
-- Active users
-- Queue sizes
-- Cache hit rates
-- Database pool stats
+### Kubernetes
 
-## 🔒 Security Best Practices
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-api
+spec:
+  replicas: 3
+  template:
+    spec:
+      containers:
+      - name: api
+        image: my-app:latest
+        env:
+        - name: NODE_ENV
+          value: "production"
+```
 
-1. **Authentication**
-   - JWT with short-lived access tokens
-   - Refresh token rotation
-   - Session management
+## 🛡️ Security
 
-2. **Authorization**
-   - Role-based access control (RBAC)
-   - Resource-based permissions
-   - API key authentication for services
+Built-in security features:
+- 🔐 Secure authentication with JWT
+- 🔑 OAuth2 integration
+- 📱 Two-factor authentication
+- 🛡️ Rate limiting and DDoS protection
+- 🔒 CORS and security headers
+- 🚨 SQL injection prevention
+- 🔏 XSS protection
+- 🔐 Encryption at rest and in transit
 
-3. **Data Protection**
-   - Encryption at rest
-   - Encryption in transit (TLS)
-   - Field-level encryption for sensitive data
+## 📚 Documentation
 
-4. **Input Validation**
-   - Request validation with Zod
-   - SQL injection prevention
-   - XSS protection
-
-5. **Rate Limiting**
-   - Per-user rate limits
-   - Global rate limits
-   - Distributed rate limiting
+- [Module Integration Guide](./docs/MODULES.md)
+- [API Documentation](http://localhost:3000/docs) (Swagger)
+- Individual module READMEs in each module directory
+- [Contributing Guide](./CONTRIBUTING.md)
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md) for details.
 
-### Coding Standards
-- Follow TypeScript best practices
-- Write comprehensive tests
-- Document your code
-- Use conventional commits
+### Development Workflow
+
+```bash
+# Create feature branch
+git checkout -b feature/amazing-feature
+
+# Make changes and test
+pnpm test
+
+# Commit with conventional commits
+git commit -m "feat: add amazing feature"
+
+# Push and create PR
+git push origin feature/amazing-feature
+```
 
 ## 📝 License
 
@@ -325,16 +366,20 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- Inspired by bulletproof-nodejs
-- Built with modern Node.js ecosystem
-- Community best practices
+Built with ❤️ using:
+- [Fastify](https://www.fastify.io/) - Fast and low overhead web framework
+- [Prisma](https://www.prisma.io/) - Next-generation ORM
+- [TypeDI](https://github.com/typestack/typedi) - Dependency injection
+- [BullMQ](https://docs.bullmq.io/) - Premium queue system
+- And many other amazing open source projects
 
-## 📞 Support
+## 💬 Support
 
-- Documentation: [docs.example.com](https://docs.example.com)
-- Issues: [GitHub Issues](https://github.com/yourusername/modern-backend-template/issues)
-- Discord: [Join our community](https://discord.gg/example)
+- 📧 Email: support@example.com
+- 💬 Discord: [Join our community](https://discord.gg/example)
+- 📖 Documentation: [docs.example.com](https://docs.example.com)
+- 🐛 Issues: [GitHub Issues](https://github.com/maemreyo/saas-4cus-nodejs/issues)
 
 ---
 
-Built with ❤️ by the Modern Backend Template team
+**Ready to build your next SaaS?** Star ⭐ this repo and start coding!

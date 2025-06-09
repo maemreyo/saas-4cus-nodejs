@@ -1,3 +1,4 @@
+// Updated: Integrated with ModuleManager and EnvironmentValidator
 import 'reflect-metadata';
 import { Container } from 'typedi';
 import { config } from '@infrastructure/config';
@@ -8,50 +9,22 @@ import { FastifyServer } from '@infrastructure/server/fastify';
 import { queueService } from '@shared/queue/queue.service';
 import { EmailService } from '@shared/services/email.service';
 import { eventBus } from '@shared/events/event-bus';
+import { moduleManager } from '@infrastructure/modules/module-manager';
+import { EnvironmentValidator } from '@infrastructure/config/env-validator';
 import { elasticsearchClient } from '@infrastructure/search/elasticsearch.service';
 
 // Import processors to register them
 import '@shared/queue/processors/email.processor';
 import '@shared/queue/processors/cleanup.processor';
 
-// Import event handlers
-import './modules/user/user.events';
-import './modules/notification/notification.events';
-import './modules/support/ticket.events.handlers';
-
-// Import module initializers
-import { initializeAuthModule, shutdownAuthModule } from './modules/auth';
-import { initializeUserModule, shutdownUserModule } from './modules/user';
-import { initializeNotificationModule, shutdownNotificationModule } from './modules/notification';
-import { initializeBillingModule, shutdownBillingModule } from './modules/billing';
-import { initializeTenantModule, shutdownTenantModule } from './modules/tenant';
-import { initializeAnalyticsModule, shutdownAnalyticsModule } from './modules/analytics';
-import { initializeFeaturesModule, shutdownFeaturesModule } from './modules/features';
-import { initializeWebhooksModule, shutdownWebhooksModule } from './modules/webhooks';
-import { initializeOnboardingModule, shutdownOnboardingModule } from './modules/onboarding';
-import { initializeSupportModule, shutdownSupportModule } from './modules/support';
-import { initializeApiUsageModule, shutdownApiUsageModule } from './modules/api-usage';
-import { initializeAdminModule, shutdownAdminModule } from './modules/admin';
+// Import event handlers to register them
+import '@modules/user/user.events';
+import '@modules/notification/notification.events';
+import '@modules/support/ticket.events.handlers';
 
 // Sentry initialization
 import * as Sentry from '@sentry/node';
 import { ProfilingIntegration } from '@sentry/profiling-node';
-
-// Module initialization order (respecting dependencies)
-const MODULE_INIT_ORDER = [
-  { name: 'Auth', init: initializeAuthModule, shutdown: shutdownAuthModule },
-  { name: 'User', init: initializeUserModule, shutdown: shutdownUserModule },
-  { name: 'Tenant', init: initializeTenantModule, shutdown: shutdownTenantModule },
-  { name: 'Billing', init: initializeBillingModule, shutdown: shutdownBillingModule },
-  { name: 'Features', init: initializeFeaturesModule, shutdown: shutdownFeaturesModule },
-  { name: 'Notification', init: initializeNotificationModule, shutdown: shutdownNotificationModule },
-  { name: 'Analytics', init: initializeAnalyticsModule, shutdown: shutdownAnalyticsModule },
-  { name: 'Webhooks', init: initializeWebhooksModule, shutdown: shutdownWebhooksModule },
-  { name: 'Onboarding', init: initializeOnboardingModule, shutdown: shutdownOnboardingModule },
-  { name: 'Support', init: initializeSupportModule, shutdown: shutdownSupportModule },
-  { name: 'API Usage', init: initializeApiUsageModule, shutdown: shutdownApiUsageModule },
-  { name: 'Admin', init: initializeAdminModule, shutdown: shutdownAdminModule },
-];
 
 async function bootstrap() {
   try {
@@ -60,7 +33,18 @@ async function bootstrap() {
       version: config.app.version,
     });
 
-    // Initialize Sentry
+    // Step 1: Validate environment
+    logger.info('Validating environment...');
+    await EnvironmentValidator.checkAndCreateEnvFile();
+    const envValidation = EnvironmentValidator.validate();
+    EnvironmentValidator.printReport(envValidation);
+
+    if (!envValidation.valid) {
+      logger.fatal('Environment validation failed. Please check your .env file.');
+      process.exit(1);
+    }
+
+    // Step 2: Initialize Sentry (if enabled)
     if (config.monitoring.sentry.enabled) {
       Sentry.init({
         dsn: config.monitoring.sentry.dsn,
@@ -69,56 +53,57 @@ async function bootstrap() {
         tracesSampleRate: config.monitoring.sentry.tracesSampleRate,
         profilesSampleRate: config.monitoring.sentry.profilesSampleRate,
       });
-
       logger.info('Sentry initialized');
     }
 
-    // Connect to database
+    // Step 3: Connect to core services
+    logger.info('Connecting to core services...');
+
+    // Database
     await prisma.connect();
+    logger.info('Database connected');
 
-    // Connect to Redis
+    // Redis
     await redis.connect();
+    logger.info('Redis connected');
 
-    // Connect to Elasticsearch (optional - don't fail if not available)
+    // Elasticsearch (optional)
     try {
       await elasticsearchClient.connect();
+      logger.info('Elasticsearch connected');
     } catch (error) {
-      logger.warn('Elasticsearch connection failed - search features will be limited', error as Error);
+      logger.warn('Elasticsearch connection failed - search features may be limited', error as Error);
     }
 
-    // Initialize core services
+    // Step 4: Initialize core services
     Container.get(EmailService);
+    logger.info('Core services initialized');
 
-    // Initialize all modules in order
-    for (const module of MODULE_INIT_ORDER) {
-      try {
-        await module.init();
-        logger.info(`${module.name} module initialized`);
-      } catch (error) {
-        logger.error(`Failed to initialize ${module.name} module`, error as Error);
-        // Decide whether to continue or fail based on module criticality
-        if (['Auth', 'User', 'Tenant'].includes(module.name)) {
-          throw error; // Critical modules - fail startup
-        }
-        // Non-critical modules - continue with warning
-      }
-    }
+    // Step 5: Initialize all modules using ModuleManager
+    logger.info('Initializing application modules...');
+    await moduleManager.initializeAll();
 
-    // Initialize Fastify server
+    // Step 6: Initialize Fastify server
     const server = Container.get(FastifyServer);
     await server.initialize();
 
-    // Start server
-    await server.start();
-
-    // Schedule recurring jobs
+    // Step 7: Schedule recurring jobs
     await scheduleRecurringJobs();
 
+    // Step 8: Start server
+    await server.start();
+
+    // Step 9: Log startup success
+    const initializedModules = moduleManager.getInitializedModules();
     logger.info('Application started successfully', {
-      modules: MODULE_INIT_ORDER.map(m => m.name),
-      url: `http://${config.app.host}:${config.app.port}`,
-      docs: config.api.swagger.enabled ? `http://${config.app.host}:${config.app.port}${config.api.swagger.route}` : 'disabled',
+      modules: initializedModules,
+      environment: config.app.env,
+      port: config.app.port,
     });
+
+    // Step 10: Print startup summary
+    printStartupSummary();
+
   } catch (error) {
     logger.fatal('Failed to start application', error as Error);
     await gracefulShutdown();
@@ -127,31 +112,33 @@ async function bootstrap() {
 }
 
 async function scheduleRecurringJobs() {
-  // Core cleanup jobs
+  // Clean expired tokens every hour
   await queueService.addJob(
     'cleanup',
     'expiredTokens',
     {},
     {
-      repeat: { cron: '0 * * * *' }, // Every hour
+      repeat: { cron: '0 * * * *' },
     },
   );
 
+  // Clean old sessions every day at 3 AM
   await queueService.addJob(
     'cleanup',
     'oldSessions',
     {},
     {
-      repeat: { cron: '0 3 * * *' }, // Daily at 3 AM
+      repeat: { cron: '0 3 * * *' },
     },
   );
 
+  // Clean temporary files every 6 hours
   await queueService.addJob(
     'cleanup',
     'tempFiles',
     {},
     {
-      repeat: { cron: '0 */6 * * *' }, // Every 6 hours
+      repeat: { cron: '0 */6 * * *' },
     },
   );
 
@@ -166,15 +153,8 @@ async function gracefulShutdown() {
     const server = Container.get(FastifyServer);
     await server.stop();
 
-    // Shutdown modules in reverse order
-    for (const module of MODULE_INIT_ORDER.slice().reverse()) {
-      try {
-        await module.shutdown();
-        logger.info(`${module.name} module shut down`);
-      } catch (error) {
-        logger.error(`Error shutting down ${module.name} module`, error as Error);
-      }
-    }
+    // Shutdown all modules via ModuleManager
+    await moduleManager.shutdownAll();
 
     // Close queue connections
     await queueService.close();
@@ -182,10 +162,8 @@ async function gracefulShutdown() {
     // Clear event listeners
     eventBus.clear();
 
-    // Close Elasticsearch connection
-    if (elasticsearchClient.getConnectionStatus()) {
-      await elasticsearchClient.disconnect();
-    }
+    // Close search connections
+    await elasticsearchClient.disconnect();
 
     // Close Redis connections
     await redis.disconnect();
@@ -197,6 +175,41 @@ async function gracefulShutdown() {
   } catch (error) {
     logger.error('Error during shutdown', error as Error);
   }
+}
+
+function printStartupSummary() {
+  const modules = moduleManager.getInitializedModules();
+  const urls = {
+    api: `http://localhost:${config.app.port}`,
+    swagger: config.api.swagger.enabled ? `http://localhost:${config.app.port}${config.api.swagger.route}` : null,
+    health: `http://localhost:${config.app.port}/health`,
+  };
+
+  console.log('\n===========================================');
+  console.log('🚀 Modern Backend Template Started Successfully!');
+  console.log('===========================================\n');
+  console.log(`Environment: ${config.app.env}`);
+  console.log(`Version: ${config.app.version}\n`);
+
+  console.log('📡 URLs:');
+  console.log(`   API: ${urls.api}`);
+  if (urls.swagger) {
+    console.log(`   Swagger: ${urls.swagger}`);
+  }
+  console.log(`   Health: ${urls.health}\n`);
+
+  console.log('📦 Active Modules:');
+  modules.forEach(module => {
+    console.log(`   ✅ ${module}`);
+  });
+
+  console.log('\n🔧 Quick Commands:');
+  console.log('   pnpm dev          - Start development server');
+  console.log('   pnpm test         - Run tests');
+  console.log('   pnpm db:studio    - Open Prisma Studio');
+  console.log('   pnpm logs         - View logs');
+
+  console.log('\n===========================================\n');
 }
 
 // Handle shutdown signals

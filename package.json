@@ -74,6 +74,10 @@
     "validate:env": "tsx scripts/validate-env.ts"
   },
   "dependencies": {
+    "openai": "^4.28.0",
+    "@anthropic-ai/sdk": "^0.17.0",
+    "@google-ai/generativelanguage": "^2.1.0",
+    "ollama": "^0.5.0",
     "@elastic/elasticsearch": "^8.11.0",
     "@fastify/autoload": "^5.8.0",
     "@fastify/cookie": "^9.3.1",

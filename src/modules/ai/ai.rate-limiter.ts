@@ -1,4 +1,3 @@
-// src/modules/ai/ai.rate-limiter.ts
 // Updated: 2024-12-25 - AI module implementation
 
 import { Service } from 'typedi';

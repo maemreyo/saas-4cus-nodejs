@@ -1142,3 +1142,136 @@ model IncidentUpdate {
   @@index([incidentId])
   @@map("incident_updates")
 }
+
+// ========================= AI MODULE =========================
+
+model AiProvider {
+  id            String   @id @default(cuid())
+  name          String   @unique // openai, anthropic, google, ollama
+  displayName   String
+  enabled       Boolean  @default(true)
+  apiEndpoint   String?
+  settings      Json?    @db.JsonB // Provider-specific settings
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  apiKeys       AiApiKey[]
+  usageLogs     AiUsageLog[]
+
+  @@map("ai_providers")
+}
+
+model AiApiKey {
+  id            String   @id @default(cuid())
+  providerId    String
+  provider      AiProvider @relation(fields: [providerId], references: [id])
+
+  userId        String?
+  user          User?    @relation(fields: [userId], references: [id])
+  tenantId      String?
+  tenant        Tenant?  @relation(fields: [tenantId], references: [id])
+
+  name          String
+  keyHash       String   // Encrypted API key
+  lastUsedAt    DateTime?
+  expiresAt     DateTime?
+
+  usageLimit    Int?     // Monthly usage limit
+  currentUsage  Int      @default(0)
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId, tenantId])
+  @@index([providerId])
+  @@map("ai_api_keys")
+}
+
+model AiUsageLog {
+  id            String   @id @default(cuid())
+
+  providerId    String
+  provider      AiProvider @relation(fields: [providerId], references: [id])
+
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  tenantId      String?
+  tenant        Tenant?  @relation(fields: [tenantId], references: [id])
+
+  model         String   // gpt-4, claude-3, etc
+  operation     String   // completion, chat, embedding, image
+
+  // Request details
+  promptTokens  Int
+  completionTokens Int
+  totalTokens   Int
+
+  // Cost tracking
+  cost          Float    // In cents
+  currency      String   @default("USD")
+
+  // Performance
+  latency       Int      // in milliseconds
+  cached        Boolean  @default(false)
+
+  // Metadata
+  metadata      Json?    @db.JsonB
+  error         String?  @db.Text
+
+  createdAt     DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@index([tenantId, createdAt])
+  @@index([providerId, model])
+  @@map("ai_usage_logs")
+}
+
+model AiPromptTemplate {
+  id            String   @id @default(cuid())
+
+  name          String   @db.VarChar(255)
+  description   String?  @db.Text
+  category      String?  @db.VarChar(100)
+
+  prompt        String   @db.Text
+  variables     Json?    @db.JsonB // Expected variables
+
+  userId        String?
+  user          User?    @relation(fields: [userId], references: [id])
+  tenantId      String?
+  tenant        Tenant?  @relation(fields: [tenantId], references: [id])
+
+  isPublic      Boolean  @default(false)
+  usageCount    Int      @default(0)
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId, tenantId])
+  @@index([category])
+  @@index([isPublic])
+  @@map("ai_prompt_templates")
+}
+
+model AiConversation {
+  id            String   @id @default(cuid())
+
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  tenantId      String?
+  tenant        Tenant?  @relation(fields: [tenantId], references: [id])
+
+  title         String?  @db.VarChar(255)
+  model         String   @db.VarChar(100)
+  provider      String   @db.VarChar(50)
+
+  messages      Json     @db.JsonB // Array of messages
+  metadata      Json?    @db.JsonB
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId, createdAt])
+  @@index([tenantId])
+  @@map("ai_conversations")
+}

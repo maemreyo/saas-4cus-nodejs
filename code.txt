@@ -1,262 +1,4747 @@
-// src/modules/ai/ai.rate-limiter.ts
-// Updated: 2024-12-25 - AI module implementation
-
-import { Service } from 'typedi';
-import { FastifyRequest, FastifyReply } from 'fastify';
-import { redis } from '@infrastructure/cache/redis.service';
+// src/modules/email-marketing/index.ts
+import { Container } from 'typedi';
 import { logger } from '@shared/logger';
-import { TooManyRequestsException } from '@shared/exceptions';
-import { EntitlementService } from '@modules/features/entitlement.service';
+import { CampaignService } from './campaign.service';
+import { EmailListService } from './email-list.service';
+import { AutomationService } from './automation.service';
+import { SegmentationService } from './segmentation.service';
+import { TemplateService } from './template.service';
+import { TrackingService } from './tracking.service';
+import { CampaignController } from './campaign.controller';
+import { EmailListController } from './email-list.controller';
+import { AutomationController } from './automation.controller';
+import { TemplateController } from './template.controller';
+import { EmailMarketingQueueProcessor } from './email-marketing.queue';
+import { EmailMarketingScheduler } from './email-marketing.scheduler';
+import { EmailMarketingEventHandlers } from './email-marketing.events';
 
-interface RateLimitConfig {
-  windowMs: number;
-  max: number;
-  keyPrefix: string;
-  skipSuccessfulRequests?: boolean;
-  skipFailedRequests?: boolean;
+// Export all services
+export { CampaignService } from './campaign.service';
+export { EmailListService } from './email-list.service';
+export { AutomationService } from './automation.service';
+export { SegmentationService } from './segmentation.service';
+export { TemplateService } from './template.service';
+export { TrackingService } from './tracking.service';
+
+// Export controllers
+export { CampaignController } from './campaign.controller';
+export { EmailListController } from './email-list.controller';
+export { AutomationController } from './automation.controller';
+export { TemplateController } from './template.controller';
+
+// Export DTOs and types
+export * from './email-marketing.dto';
+export * from './email-marketing.events';
+
+// Export routes
+export { default as campaignRoutes } from './campaign.route';
+export { default as emailListRoutes } from './email-list.route';
+export { default as automationRoutes } from './automation.route';
+export { default as templateRoutes } from './template.route';
+
+/**
+ * Initialize Email Marketing module
+ */
+export async function initializeEmailMarketingModule(): Promise<void> {
+  try {
+    logger.info('Initializing email marketing module...');
+
+    // Initialize services
+    Container.get(CampaignService);
+    Container.get(EmailListService);
+    Container.get(AutomationService);
+    Container.get(SegmentationService);
+    Container.get(TemplateService);
+    Container.get(TrackingService);
+
+    // Initialize controllers
+    Container.get(CampaignController);
+    Container.get(EmailListController);
+    Container.get(AutomationController);
+    Container.get(TemplateController);
+
+    // Initialize background processors
+    Container.get(EmailMarketingQueueProcessor);
+    Container.get(EmailMarketingScheduler);
+    Container.get(EmailMarketingEventHandlers);
+
+    // Create default email templates
+    await createDefaultTemplates();
+
+    logger.info('Email marketing module initialized successfully');
+  } catch (error) {
+    logger.error('Failed to initialize email marketing module', error as Error);
+    throw error;
+  }
 }
 
-interface UserRateLimits {
-  completion: { windowMs: number; max: number };
-  chat: { windowMs: number; max: number };
-  embedding: { windowMs: number; max: number };
-  image: { windowMs: number; max: number };
-  audio: { windowMs: number; max: number };
+/**
+ * Shutdown Email Marketing module
+ */
+export async function shutdownEmailMarketingModule(): Promise<void> {
+  try {
+    logger.info('Shutting down email marketing module...');
+
+    const scheduler = Container.get(EmailMarketingScheduler);
+    await scheduler.shutdown();
+
+    logger.info('Email marketing module shut down successfully');
+  } catch (error) {
+    logger.error('Error shutting down email marketing module', error as Error);
+  }
+}
+
+/**
+ * Create default email templates
+ */
+async function createDefaultTemplates(): Promise<void> {
+  try {
+    const templateService = Container.get(TemplateService);
+
+    // Check if default templates exist
+    const existingTemplates = await templateService.findByCategory('system');
+
+    if (existingTemplates.length === 0) {
+      // Create welcome email template
+      await templateService.create({
+        name: 'Welcome Email',
+        category: 'system',
+        subject: 'Welcome to {{companyName}}!',
+        preheader: 'Thank you for joining us',
+        htmlContent: `
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="UTF-8">
+            <title>Welcome to {{companyName}}</title>
+          </head>
+          <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+            <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+              <h1 style="color: #007bff;">Welcome to {{companyName}}!</h1>
+              <p>Hi {{firstName}},</p>
+              <p>Thank you for subscribing to our email list. We're excited to have you on board!</p>
+              <p>You'll be the first to know about:</p>
+              <ul>
+                <li>New features and updates</li>
+                <li>Exclusive offers and promotions</li>
+                <li>Tips and best practices</li>
+              </ul>
+              <p>If you have any questions, feel free to reply to this email.</p>
+              <p>Best regards,<br>{{companyName}} Team</p>
+              <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
+              <p style="font-size: 12px; color: #666;">
+                You received this email because you subscribed to {{companyName}}.
+                <a href="{{unsubscribeUrl}}" style="color: #007bff;">Unsubscribe</a>
+              </p>
+            </div>
+          </body>
+          </html>
+        `,
+        textContent: `Welcome to {{companyName}}!
+
+Hi {{firstName}},
+
+Thank you for subscribing to our email list. We're excited to have you on board!
+
+You'll be the first to know about:
+- New features and updates
+- Exclusive offers and promotions
+- Tips and best practices
+
+If you have any questions, feel free to reply to this email.
+
+Best regards,
+{{companyName}} Team
+
+---
+You received this email because you subscribed to {{companyName}}.
+Unsubscribe: {{unsubscribeUrl}}
+        `,
+        variables: {
+          companyName: 'string',
+          firstName: 'string',
+          unsubscribeUrl: 'string'
+        },
+        isPublic: true,
+        tenantId: 'system' // System template
+      } as any);
+
+      // Create confirmation email template
+      await templateService.create({
+        name: 'Subscription Confirmation',
+        category: 'system',
+        subject: 'Please confirm your subscription',
+        preheader: 'One more step to complete your subscription',
+        htmlContent: `
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="UTF-8">
+            <title>Confirm Your Subscription</title>
+          </head>
+          <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+            <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+              <h1 style="color: #007bff;">Confirm Your Subscription</h1>
+              <p>Hi {{firstName}},</p>
+              <p>Please confirm your email address to complete your subscription to {{companyName}}.</p>
+              <p style="text-align: center; margin: 30px 0;">
+                <a href="{{confirmationUrl}}"
+                   style="background-color: #007bff; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">
+                  Confirm Subscription
+                </a>
+              </p>
+              <p>Or copy and paste this link into your browser:</p>
+              <p style="word-break: break-all;">{{confirmationUrl}}</p>
+              <p>This link will expire in 24 hours.</p>
+              <p>If you didn't request this subscription, you can safely ignore this email.</p>
+              <p>Thanks,<br>{{companyName}} Team</p>
+            </div>
+          </body>
+          </html>
+        `,
+        textContent: `Confirm Your Subscription
+
+Hi {{firstName}},
+
+Please confirm your email address to complete your subscription to {{companyName}}.
+
+Confirm here: {{confirmationUrl}}
+
+This link will expire in 24 hours.
+
+If you didn't request this subscription, you can safely ignore this email.
+
+Thanks,
+{{companyName}} Team
+        `,
+        variables: {
+          companyName: 'string',
+          firstName: 'string',
+          confirmationUrl: 'string'
+        },
+        isPublic: true,
+        tenantId: 'system'
+      } as any);
+
+      logger.info('Default email templates created');
+    }
+  } catch (error) {
+    logger.error('Failed to create default templates', error as Error);
+  }
+}
+
+
+
+// src/modules/email-marketing/campaign.service.ts
+import { Service } from 'typedi';
+import { prisma } from '@infrastructure/database/prisma.service';
+import { logger } from '@shared/logger';
+import { eventBus } from '@shared/events/event-bus';
+import { queueService } from '@shared/queue/queue.service';
+import { EmailService } from '@shared/services/email.service';
+import { TenantContextService } from '@modules/tenant/tenant.context';
+import {
+  BadRequestException,
+  NotFoundException,
+  ForbiddenException
+} from '@shared/exceptions';
+import {
+  CreateCampaignDto,
+  UpdateCampaignDto,
+  SendCampaignDto,
+  CampaignQueryDto,
+  CampaignStatsDto,
+  ABTestConfigDto
+} from './email-marketing.dto';
+import {
+  EmailCampaignStatus,
+  EmailCampaignType,
+  EmailDeliveryStatus,
+  Prisma
+} from '@prisma/client';
+import { EmailMarketingEvents } from './email-marketing.events';
+import { nanoid } from 'nanoid';
+
+@Service()
+export class CampaignService {
+  constructor(
+    private tenantContext: TenantContextService,
+    private emailService: EmailService
+  ) {}
+
+  /**
+   * Create a new campaign
+   */
+  async create(data: CreateCampaignDto): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    try {
+      // Validate list exists if provided
+      if (data.listId) {
+        const list = await prisma.client.emailList.findFirst({
+          where: {
+            id: data.listId,
+            tenantId,
+            deletedAt: null
+          }
+        });
+
+        if (!list) {
+          throw new NotFoundException('Email list not found');
+        }
+      }
+
+      // Create campaign
+      const campaign = await prisma.client.emailCampaign.create({
+        data: {
+          tenantId,
+          listId: data.listId,
+          name: data.name,
+          subject: data.subject,
+          preheader: data.preheader,
+          fromName: data.fromName,
+          fromEmail: data.fromEmail,
+          replyTo: data.replyTo,
+          type: data.type || EmailCampaignType.REGULAR,
+          templateId: data.templateId,
+          htmlContent: data.htmlContent || '',
+          textContent: data.textContent,
+          segmentIds: data.segmentIds || [],
+          excludeSegmentIds: data.excludeSegmentIds || [],
+          trackOpens: data.trackOpens ?? true,
+          trackClicks: data.trackClicks ?? true,
+          googleAnalytics: data.googleAnalytics ?? false,
+          utmParams: data.utmParams,
+          metadata: data.metadata
+        },
+        include: {
+          list: true,
+          template: true,
+          stats: true
+        }
+      });
+
+      // Create stats record
+      await prisma.client.emailCampaignStats.create({
+        data: {
+          id: nanoid(),
+          campaignId: campaign.id
+        }
+      });
+
+      // Create A/B test variants if needed
+      if (data.isABTest && data.abTestConfig) {
+        await this.createABTestVariants(campaign.id, data.abTestConfig);
+      }
+
+      await eventBus.emit(EmailMarketingEvents.CAMPAIGN_CREATED, {
+        campaignId: campaign.id,
+        tenantId,
+        type: campaign.type
+      });
+
+      logger.info('Campaign created', { campaignId: campaign.id, tenantId });
+
+      return campaign;
+    } catch (error) {
+      logger.error('Failed to create campaign', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Update campaign
+   */
+  async update(campaignId: string, data: UpdateCampaignDto): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const campaign = await this.findById(campaignId);
+
+    // Cannot update sent campaigns
+    if (campaign.status === EmailCampaignStatus.SENT) {
+      throw new BadRequestException('Cannot update sent campaign');
+    }
+
+    try {
+      const updated = await prisma.client.emailCampaign.update({
+        where: { id: campaignId },
+        data: {
+          name: data.name,
+          subject: data.subject,
+          preheader: data.preheader,
+          fromName: data.fromName,
+          fromEmail: data.fromEmail,
+          replyTo: data.replyTo,
+          htmlContent: data.htmlContent,
+          textContent: data.textContent,
+          segmentIds: data.segmentIds,
+          excludeSegmentIds: data.excludeSegmentIds,
+          trackOpens: data.trackOpens,
+          trackClicks: data.trackClicks,
+          googleAnalytics: data.googleAnalytics,
+          utmParams: data.utmParams,
+          metadata: data.metadata
+        },
+        include: {
+          list: true,
+          template: true,
+          stats: true
+        }
+      });
+
+      await eventBus.emit(EmailMarketingEvents.CAMPAIGN_UPDATED, {
+        campaignId: updated.id,
+        tenantId
+      });
+
+      return updated;
+    } catch (error) {
+      logger.error('Failed to update campaign', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Schedule campaign
+   */
+  async schedule(campaignId: string, scheduledAt: Date): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const campaign = await this.findById(campaignId);
+
+    if (campaign.status !== EmailCampaignStatus.DRAFT) {
+      throw new BadRequestException('Only draft campaigns can be scheduled');
+    }
+
+    if (scheduledAt <= new Date()) {
+      throw new BadRequestException('Scheduled time must be in the future');
+    }
+
+    try {
+      const updated = await prisma.client.emailCampaign.update({
+        where: { id: campaignId },
+        data: {
+          scheduledAt,
+          status: EmailCampaignStatus.SCHEDULED
+        }
+      });
+
+      // Queue job for scheduled send
+      await queueService.addJob(
+        'email-marketing',
+        'send-campaign',
+        { campaignId },
+        { delay: scheduledAt.getTime() - Date.now() }
+      );
+
+      await eventBus.emit(EmailMarketingEvents.CAMPAIGN_SCHEDULED, {
+        campaignId,
+        tenantId,
+        scheduledAt
+      });
+
+      logger.info('Campaign scheduled', { campaignId, scheduledAt });
+
+      return updated;
+    } catch (error) {
+      logger.error('Failed to schedule campaign', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Send campaign immediately
+   */
+  async send(campaignId: string, options?: SendCampaignDto): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const campaign = await this.findById(campaignId);
+
+    if (![EmailCampaignStatus.DRAFT, EmailCampaignStatus.SCHEDULED].includes(campaign.status)) {
+      throw new BadRequestException('Campaign cannot be sent in current status');
+    }
+
+    try {
+      // Update campaign status
+      await prisma.client.emailCampaign.update({
+        where: { id: campaignId },
+        data: {
+          status: EmailCampaignStatus.SENDING,
+          sentAt: new Date()
+        }
+      });
+
+      // Queue campaign send job
+      await queueService.addJob(
+        'email-marketing',
+        'send-campaign',
+        {
+          campaignId,
+          testMode: options?.testMode,
+          testEmails: options?.testEmails
+        },
+        { priority: 1 }
+      );
+
+      await eventBus.emit(EmailMarketingEvents.CAMPAIGN_SENDING, {
+        campaignId,
+        tenantId
+      });
+
+      logger.info('Campaign send initiated', { campaignId });
+
+      return { message: 'Campaign send initiated' };
+    } catch (error) {
+      logger.error('Failed to send campaign', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Pause campaign
+   */
+  async pause(campaignId: string): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const campaign = await this.findById(campaignId);
+
+    if (campaign.status !== EmailCampaignStatus.SENDING) {
+      throw new BadRequestException('Only sending campaigns can be paused');
+    }
+
+    try {
+      const updated = await prisma.client.emailCampaign.update({
+        where: { id: campaignId },
+        data: { status: EmailCampaignStatus.PAUSED }
+      });
+
+      await eventBus.emit(EmailMarketingEvents.CAMPAIGN_PAUSED, {
+        campaignId,
+        tenantId
+      });
+
+      return updated;
+    } catch (error) {
+      logger.error('Failed to pause campaign', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Resume campaign
+   */
+  async resume(campaignId: string): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const campaign = await this.findById(campaignId);
+
+    if (campaign.status !== EmailCampaignStatus.PAUSED) {
+      throw new BadRequestException('Only paused campaigns can be resumed');
+    }
+
+    try {
+      const updated = await prisma.client.emailCampaign.update({
+        where: { id: campaignId },
+        data: { status: EmailCampaignStatus.SENDING }
+      });
+
+      // Queue resume job
+      await queueService.addJob(
+        'email-marketing',
+        'resume-campaign',
+        { campaignId },
+        { priority: 1 }
+      );
+
+      await eventBus.emit(EmailMarketingEvents.CAMPAIGN_RESUMED, {
+        campaignId,
+        tenantId
+      });
+
+      return updated;
+    } catch (error) {
+      logger.error('Failed to resume campaign', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Cancel campaign
+   */
+  async cancel(campaignId: string): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const campaign = await this.findById(campaignId);
+
+    if (![EmailCampaignStatus.SCHEDULED, EmailCampaignStatus.SENDING, EmailCampaignStatus.PAUSED].includes(campaign.status)) {
+      throw new BadRequestException('Campaign cannot be cancelled in current status');
+    }
+
+    try {
+      const updated = await prisma.client.emailCampaign.update({
+        where: { id: campaignId },
+        data: { status: EmailCampaignStatus.CANCELLED }
+      });
+
+      await eventBus.emit(EmailMarketingEvents.CAMPAIGN_CANCELLED, {
+        campaignId,
+        tenantId
+      });
+
+      return updated;
+    } catch (error) {
+      logger.error('Failed to cancel campaign', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Delete campaign
+   */
+  async delete(campaignId: string): Promise<void> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const campaign = await this.findById(campaignId);
+
+    if (campaign.status === EmailCampaignStatus.SENDING) {
+      throw new BadRequestException('Cannot delete sending campaign');
+    }
+
+    try {
+      await prisma.client.emailCampaign.delete({
+        where: { id: campaignId }
+      });
+
+      await eventBus.emit(EmailMarketingEvents.CAMPAIGN_DELETED, {
+        campaignId,
+        tenantId
+      });
+
+      logger.info('Campaign deleted', { campaignId });
+    } catch (error) {
+      logger.error('Failed to delete campaign', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Find campaign by ID
+   */
+  async findById(campaignId: string): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const campaign = await prisma.client.emailCampaign.findFirst({
+      where: {
+        id: campaignId,
+        tenantId
+      },
+      include: {
+        list: true,
+        template: true,
+        stats: true,
+        abTestVariants: true
+      }
+    });
+
+    if (!campaign) {
+      throw new NotFoundException('Campaign not found');
+    }
+
+    return campaign;
+  }
+
+  /**
+   * Find campaigns with filtering
+   */
+  async find(query: CampaignQueryDto): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const where: Prisma.EmailCampaignWhereInput = {
+      tenantId,
+      ...(query.listId && { listId: query.listId }),
+      ...(query.status && { status: query.status }),
+      ...(query.type && { type: query.type }),
+      ...(query.search && {
+        OR: [
+          { name: { contains: query.search, mode: 'insensitive' } },
+          { subject: { contains: query.search, mode: 'insensitive' } }
+        ]
+      })
+    };
+
+    const [campaigns, total] = await Promise.all([
+      prisma.client.emailCampaign.findMany({
+        where,
+        include: {
+          list: true,
+          stats: true
+        },
+        orderBy: { createdAt: 'desc' },
+        skip: query.skip,
+        take: query.limit
+      }),
+      prisma.client.emailCampaign.count({ where })
+    ]);
+
+    return {
+      campaigns,
+      pagination: {
+        total,
+        page: Math.floor(query.skip / query.limit) + 1,
+        limit: query.limit,
+        pages: Math.ceil(total / query.limit)
+      }
+    };
+  }
+
+  /**
+   * Get campaign statistics
+   */
+  async getStats(campaignId: string): Promise<CampaignStatsDto> {
+    const campaign = await this.findById(campaignId);
+
+    const stats = await prisma.client.emailCampaignStats.findUnique({
+      where: { campaignId }
+    });
+
+    if (!stats) {
+      throw new NotFoundException('Campaign stats not found');
+    }
+
+    // Get detailed recipient stats
+    const recipientStats = await prisma.client.emailCampaignRecipient.groupBy({
+      by: ['status'],
+      where: { campaignId },
+      _count: true
+    });
+
+    // Get click map
+    const clickMap = await prisma.client.emailActivity.groupBy({
+      by: ['clickedUrl'],
+      where: {
+        campaignId,
+        type: 'clicked'
+      },
+      _count: true,
+      orderBy: {
+        _count: {
+          clickedUrl: 'desc'
+        }
+      },
+      take: 10
+    });
+
+    return {
+      ...stats,
+      recipientStats: recipientStats.reduce((acc, stat) => {
+        acc[stat.status] = stat._count;
+        return acc;
+      }, {} as Record<string, number>),
+      topClickedLinks: clickMap.map(item => ({
+        url: item.clickedUrl!,
+        clicks: item._count
+      }))
+    } as CampaignStatsDto;
+  }
+
+  /**
+   * Duplicate campaign
+   */
+  async duplicate(campaignId: string, name?: string): Promise<any> {
+    const campaign = await this.findById(campaignId);
+
+    const duplicated = await this.create({
+      ...campaign,
+      name: name || `${campaign.name} (Copy)`,
+      status: EmailCampaignStatus.DRAFT,
+      scheduledAt: null,
+      sentAt: null,
+      completedAt: null
+    });
+
+    logger.info('Campaign duplicated', {
+      originalId: campaignId,
+      duplicatedId: duplicated.id
+    });
+
+    return duplicated;
+  }
+
+  /**
+   * Create A/B test variants
+   */
+  private async createABTestVariants(
+    campaignId: string,
+    config: ABTestConfigDto
+  ): Promise<void> {
+    const variants = config.variants.map(variant => ({
+      campaignId,
+      name: variant.name,
+      weight: variant.weight,
+      subject: variant.subject,
+      fromName: variant.fromName
+    }));
+
+    await prisma.client.emailABTestVariant.createMany({
+      data: variants
+    });
+
+    // Update campaign as A/B test
+    await prisma.client.emailCampaign.update({
+      where: { id: campaignId },
+      data: {
+        isABTest: true,
+        abTestConfig: config as any
+      }
+    });
+  }
+
+  /**
+   * Get recipients for campaign
+   */
+  async getRecipients(campaignId: string, status?: EmailDeliveryStatus): Promise<any> {
+    const campaign = await this.findById(campaignId);
+
+    const where: Prisma.EmailCampaignRecipientWhereInput = {
+      campaignId,
+      ...(status && { status })
+    };
+
+    const recipients = await prisma.client.emailCampaignRecipient.findMany({
+      where,
+      include: {
+        subscriber: true
+      },
+      orderBy: { createdAt: 'desc' },
+      take: 100
+    });
+
+    return recipients;
+  }
+
+  /**
+   * Get campaign timeline
+   */
+  async getTimeline(campaignId: string): Promise<any> {
+    const campaign = await this.findById(campaignId);
+
+    const activities = await prisma.client.emailActivity.findMany({
+      where: { campaignId },
+      include: {
+        subscriber: true
+      },
+      orderBy: { createdAt: 'desc' },
+      take: 50
+    });
+
+    return activities.map(activity => ({
+      id: activity.id,
+      type: activity.type,
+      subscriber: {
+        email: activity.subscriber.email,
+        firstName: activity.subscriber.firstName,
+        lastName: activity.subscriber.lastName
+      },
+      clickedUrl: activity.clickedUrl,
+      device: activity.device,
+      location: activity.location,
+      createdAt: activity.createdAt
+    }));
+  }
+}
+
+
+
+// src/modules/email-marketing/email-list.service.ts
+import { Service } from 'typedi';
+import { prisma } from '@infrastructure/database/prisma.service';
+import { logger } from '@shared/logger';
+import { eventBus } from '@shared/events/event-bus';
+import { queueService } from '@shared/queue/queue.service';
+import { TenantContextService } from '@modules/tenant/tenant.context';
+import {
+  BadRequestException,
+  NotFoundException,
+  ForbiddenException,
+  ConflictException
+} from '@shared/exceptions';
+import {
+  CreateEmailListDto,
+  UpdateEmailListDto,
+  AddSubscriberDto,
+  ImportSubscribersDto,
+  UpdateSubscriberDto,
+  SubscriberQueryDto,
+  EmailListQueryDto,
+  SubscriberTagsDto,
+  BulkOperationDto
+} from './email-marketing.dto';
+import {
+  EmailListStatus,
+  Prisma
+} from '@prisma/client';
+import { EmailMarketingEvents } from './email-marketing.events';
+import { nanoid } from 'nanoid';
+import { createHash } from 'crypto';
+import Papa from 'papaparse';
+
+@Service()
+export class EmailListService {
+  constructor(
+    private tenantContext: TenantContextService
+  ) {}
+
+  /**
+   * Create a new email list
+   */
+  async create(data: CreateEmailListDto): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    try {
+      const list = await prisma.client.emailList.create({
+        data: {
+          tenantId,
+          name: data.name,
+          description: data.description,
+          doubleOptIn: data.doubleOptIn ?? true,
+          welcomeEmailId: data.welcomeEmailId,
+          confirmationPageUrl: data.confirmationPageUrl,
+          defaultFromName: data.defaultFromName,
+          defaultFromEmail: data.defaultFromEmail,
+          defaultReplyTo: data.defaultReplyTo,
+          customFields: data.customFields,
+          metadata: data.metadata
+        }
+      });
+
+      await eventBus.emit(EmailMarketingEvents.LIST_CREATED, {
+        listId: list.id,
+        tenantId
+      });
+
+      logger.info('Email list created', { listId: list.id, tenantId });
+
+      return list;
+    } catch (error) {
+      logger.error('Failed to create email list', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Update email list
+   */
+  async update(listId: string, data: UpdateEmailListDto): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    await this.findById(listId);
+
+    try {
+      const updated = await prisma.client.emailList.update({
+        where: { id: listId },
+        data: {
+          name: data.name,
+          description: data.description,
+          doubleOptIn: data.doubleOptIn,
+          welcomeEmailId: data.welcomeEmailId,
+          confirmationPageUrl: data.confirmationPageUrl,
+          defaultFromName: data.defaultFromName,
+          defaultFromEmail: data.defaultFromEmail,
+          defaultReplyTo: data.defaultReplyTo,
+          customFields: data.customFields,
+          metadata: data.metadata
+        }
+      });
+
+      await eventBus.emit(EmailMarketingEvents.LIST_UPDATED, {
+        listId: updated.id,
+        tenantId
+      });
+
+      return updated;
+    } catch (error) {
+      logger.error('Failed to update email list', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Archive/unarchive email list
+   */
+  async updateStatus(listId: string, status: EmailListStatus): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    await this.findById(listId);
+
+    try {
+      const updated = await prisma.client.emailList.update({
+        where: { id: listId },
+        data: { status }
+      });
+
+      await eventBus.emit(EmailMarketingEvents.LIST_STATUS_CHANGED, {
+        listId: updated.id,
+        tenantId,
+        status
+      });
+
+      return updated;
+    } catch (error) {
+      logger.error('Failed to update list status', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Delete email list
+   */
+  async delete(listId: string): Promise<void> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    await this.findById(listId);
+
+    // Check if list has active campaigns
+    const activeCampaigns = await prisma.client.emailCampaign.count({
+      where: {
+        listId,
+        status: {
+          in: ['SCHEDULED', 'SENDING']
+        }
+      }
+    });
+
+    if (activeCampaigns > 0) {
+      throw new BadRequestException('Cannot delete list with active campaigns');
+    }
+
+    try {
+      await prisma.client.emailList.update({
+        where: { id: listId },
+        data: { deletedAt: new Date() }
+      });
+
+      await eventBus.emit(EmailMarketingEvents.LIST_DELETED, {
+        listId,
+        tenantId
+      });
+
+      logger.info('Email list deleted', { listId });
+    } catch (error) {
+      logger.error('Failed to delete email list', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Find email list by ID
+   */
+  async findById(listId: string): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const list = await prisma.client.emailList.findFirst({
+      where: {
+        id: listId,
+        tenantId,
+        deletedAt: null
+      },
+      include: {
+        _count: {
+          select: {
+            subscribers: {
+              where: { subscribed: true }
+            },
+            campaigns: true,
+            segments: true
+          }
+        }
+      }
+    });
+
+    if (!list) {
+      throw new NotFoundException('Email list not found');
+    }
+
+    return list;
+  }
+
+  /**
+   * Find email lists
+   */
+  async find(query: EmailListQueryDto): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const where: Prisma.EmailListWhereInput = {
+      tenantId,
+      deletedAt: null,
+      ...(query.status && { status: query.status }),
+      ...(query.search && {
+        OR: [
+          { name: { contains: query.search, mode: 'insensitive' } },
+          { description: { contains: query.search, mode: 'insensitive' } }
+        ]
+      })
+    };
+
+    const [lists, total] = await Promise.all([
+      prisma.client.emailList.findMany({
+        where,
+        include: {
+          _count: {
+            select: {
+              subscribers: {
+                where: { subscribed: true }
+              },
+              campaigns: true,
+              segments: true
+            }
+          }
+        },
+        orderBy: { createdAt: 'desc' },
+        skip: query.skip,
+        take: query.limit
+      }),
+      prisma.client.emailList.count({ where })
+    ]);
+
+    return {
+      lists,
+      pagination: {
+        total,
+        page: Math.floor(query.skip / query.limit) + 1,
+        limit: query.limit,
+        pages: Math.ceil(total / query.limit)
+      }
+    };
+  }
+
+  /**
+   * Add subscriber to list
+   */
+  async addSubscriber(listId: string, data: AddSubscriberDto): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const list = await this.findById(listId);
+
+    // Check if subscriber already exists
+    const existing = await prisma.client.emailListSubscriber.findUnique({
+      where: {
+        listId_email: {
+          listId,
+          email: data.email.toLowerCase()
+        }
+      }
+    });
+
+    if (existing) {
+      if (existing.subscribed) {
+        throw new ConflictException('Subscriber already exists in this list');
+      } else {
+        // Resubscribe
+        const updated = await prisma.client.emailListSubscriber.update({
+          where: { id: existing.id },
+          data: {
+            subscribed: true,
+            subscribedAt: new Date(),
+            unsubscribedAt: null,
+            confirmed: !list.doubleOptIn,
+            confirmationToken: list.doubleOptIn ? nanoid() : null,
+            confirmedAt: !list.doubleOptIn ? new Date() : null,
+            firstName: data.firstName || existing.firstName,
+            lastName: data.lastName || existing.lastName,
+            customData: { ...existing.customData, ...data.customData },
+            tags: data.tags || existing.tags,
+            source: data.source || existing.source,
+            ipAddress: data.ipAddress || existing.ipAddress,
+            location: data.location || existing.location
+          }
+        });
+
+        await this.sendConfirmationEmail(list, updated);
+
+        await eventBus.emit(EmailMarketingEvents.SUBSCRIBER_RESUBSCRIBED, {
+          subscriberId: updated.id,
+          listId,
+          tenantId
+        });
+
+        return updated;
+      }
+    }
+
+    try {
+      const subscriber = await prisma.client.emailListSubscriber.create({
+        data: {
+          listId,
+          email: data.email.toLowerCase(),
+          firstName: data.firstName,
+          lastName: data.lastName,
+          confirmed: !list.doubleOptIn,
+          confirmationToken: list.doubleOptIn ? nanoid() : null,
+          confirmedAt: !list.doubleOptIn ? new Date() : null,
+          customData: data.customData,
+          tags: data.tags || [],
+          source: data.source,
+          ipAddress: data.ipAddress,
+          location: data.location,
+          metadata: data.metadata
+        }
+      });
+
+      // Send confirmation email if double opt-in
+      if (list.doubleOptIn) {
+        await this.sendConfirmationEmail(list, subscriber);
+      } else if (list.welcomeEmailId) {
+        // Send welcome email if configured
+        await this.sendWelcomeEmail(list, subscriber);
+      }
+
+      await eventBus.emit(EmailMarketingEvents.SUBSCRIBER_ADDED, {
+        subscriberId: subscriber.id,
+        listId,
+        tenantId
+      });
+
+      logger.info('Subscriber added', {
+        subscriberId: subscriber.id,
+        listId,
+        email: subscriber.email
+      });
+
+      return subscriber;
+    } catch (error) {
+      logger.error('Failed to add subscriber', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Import subscribers in bulk
+   */
+  async importSubscribers(listId: string, data: ImportSubscribersDto): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const list = await this.findById(listId);
+
+    // Parse CSV if provided
+    let subscribers = data.subscribers;
+
+    if (data.csv) {
+      const parsed = Papa.parse(data.csv, {
+        header: true,
+        skipEmptyLines: true
+      });
+
+      if (parsed.errors.length > 0) {
+        throw new BadRequestException('Invalid CSV format');
+      }
+
+      subscribers = parsed.data.map((row: any) => ({
+        email: row.email || row.Email,
+        firstName: row.firstName || row.first_name || row['First Name'],
+        lastName: row.lastName || row.last_name || row['Last Name'],
+        customData: row
+      }));
+    }
+
+    if (!subscribers || subscribers.length === 0) {
+      throw new BadRequestException('No subscribers to import');
+    }
+
+    // Queue import job
+    const job = await queueService.addJob(
+      'email-marketing',
+      'import-subscribers',
+      {
+        listId,
+        tenantId,
+        subscribers,
+        updateExisting: data.updateExisting,
+        skipConfirmation: data.skipConfirmation
+      }
+    );
+
+    logger.info('Subscriber import initiated', {
+      listId,
+      count: subscribers.length,
+      jobId: job.id
+    });
+
+    return {
+      message: 'Import initiated',
+      jobId: job.id,
+      count: subscribers.length
+    };
+  }
+
+  /**
+   * Update subscriber
+   */
+  async updateSubscriber(
+    listId: string,
+    subscriberId: string,
+    data: UpdateSubscriberDto
+  ): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    await this.findById(listId);
+
+    const subscriber = await prisma.client.emailListSubscriber.findFirst({
+      where: {
+        id: subscriberId,
+        listId
+      }
+    });
+
+    if (!subscriber) {
+      throw new NotFoundException('Subscriber not found');
+    }
+
+    try {
+      const updated = await prisma.client.emailListSubscriber.update({
+        where: { id: subscriberId },
+        data: {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          customData: data.customData ?
+            { ...subscriber.customData, ...data.customData } :
+            subscriber.customData,
+          metadata: data.metadata
+        }
+      });
+
+      await eventBus.emit(EmailMarketingEvents.SUBSCRIBER_UPDATED, {
+        subscriberId: updated.id,
+        listId,
+        tenantId
+      });
+
+      return updated;
+    } catch (error) {
+      logger.error('Failed to update subscriber', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Update subscriber tags
+   */
+  async updateSubscriberTags(
+    listId: string,
+    subscriberId: string,
+    data: SubscriberTagsDto
+  ): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    await this.findById(listId);
+
+    const subscriber = await prisma.client.emailListSubscriber.findFirst({
+      where: {
+        id: subscriberId,
+        listId
+      }
+    });
+
+    if (!subscriber) {
+      throw new NotFoundException('Subscriber not found');
+    }
+
+    try {
+      let tags = [...subscriber.tags];
+
+      if (data.add && data.add.length > 0) {
+        tags = [...new Set([...tags, ...data.add])];
+      }
+
+      if (data.remove && data.remove.length > 0) {
+        tags = tags.filter(tag => !data.remove!.includes(tag));
+      }
+
+      const updated = await prisma.client.emailListSubscriber.update({
+        where: { id: subscriberId },
+        data: { tags }
+      });
+
+      await eventBus.emit(EmailMarketingEvents.SUBSCRIBER_TAGS_UPDATED, {
+        subscriberId: updated.id,
+        listId,
+        tenantId,
+        tags
+      });
+
+      return updated;
+    } catch (error) {
+      logger.error('Failed to update subscriber tags', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Unsubscribe
+   */
+  async unsubscribe(
+    listId: string,
+    email: string,
+    reason?: string,
+    feedback?: string
+  ): Promise<void> {
+    const subscriber = await prisma.client.emailListSubscriber.findUnique({
+      where: {
+        listId_email: {
+          listId,
+          email: email.toLowerCase()
+        }
+      }
+    });
+
+    if (!subscriber || !subscriber.subscribed) {
+      throw new NotFoundException('Subscriber not found or already unsubscribed');
+    }
+
+    try {
+      await prisma.client.emailListSubscriber.update({
+        where: { id: subscriber.id },
+        data: {
+          subscribed: false,
+          unsubscribedAt: new Date()
+        }
+      });
+
+      // Record unsubscribe
+      await prisma.client.emailUnsubscribe.create({
+        data: {
+          email: email.toLowerCase(),
+          listId,
+          reason,
+          feedback
+        }
+      });
+
+      await eventBus.emit(EmailMarketingEvents.SUBSCRIBER_UNSUBSCRIBED, {
+        subscriberId: subscriber.id,
+        listId,
+        email,
+        reason
+      });
+
+      logger.info('Subscriber unsubscribed', {
+        subscriberId: subscriber.id,
+        listId,
+        email
+      });
+    } catch (error) {
+      logger.error('Failed to unsubscribe', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Confirm subscription
+   */
+  async confirmSubscription(token: string): Promise<any> {
+    const subscriber = await prisma.client.emailListSubscriber.findFirst({
+      where: {
+        confirmationToken: token,
+        confirmed: false
+      },
+      include: {
+        list: true
+      }
+    });
+
+    if (!subscriber) {
+      throw new NotFoundException('Invalid or expired confirmation token');
+    }
+
+    try {
+      const updated = await prisma.client.emailListSubscriber.update({
+        where: { id: subscriber.id },
+        data: {
+          confirmed: true,
+          confirmedAt: new Date(),
+          confirmationToken: null
+        }
+      });
+
+      // Send welcome email if configured
+      if (subscriber.list.welcomeEmailId) {
+        await this.sendWelcomeEmail(subscriber.list, updated);
+      }
+
+      await eventBus.emit(EmailMarketingEvents.SUBSCRIBER_CONFIRMED, {
+        subscriberId: updated.id,
+        listId: subscriber.listId
+      });
+
+      logger.info('Subscription confirmed', {
+        subscriberId: updated.id,
+        email: updated.email
+      });
+
+      return {
+        subscriber: updated,
+        confirmationPageUrl: subscriber.list.confirmationPageUrl
+      };
+    } catch (error) {
+      logger.error('Failed to confirm subscription', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get subscribers
+   */
+  async getSubscribers(listId: string, query: SubscriberQueryDto): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    await this.findById(listId);
+
+    const where: Prisma.EmailListSubscriberWhereInput = {
+      listId,
+      ...(query.subscribed !== undefined && { subscribed: query.subscribed }),
+      ...(query.confirmed !== undefined && { confirmed: query.confirmed }),
+      ...(query.tags && query.tags.length > 0 && {
+        tags: { hasSome: query.tags }
+      }),
+      ...(query.search && {
+        OR: [
+          { email: { contains: query.search, mode: 'insensitive' } },
+          { firstName: { contains: query.search, mode: 'insensitive' } },
+          { lastName: { contains: query.search, mode: 'insensitive' } }
+        ]
+      })
+    };
+
+    const [subscribers, total] = await Promise.all([
+      prisma.client.emailListSubscriber.findMany({
+        where,
+        orderBy: { subscribedAt: 'desc' },
+        skip: query.skip,
+        take: query.limit
+      }),
+      prisma.client.emailListSubscriber.count({ where })
+    ]);
+
+    return {
+      subscribers,
+      pagination: {
+        total,
+        page: Math.floor(query.skip / query.limit) + 1,
+        limit: query.limit,
+        pages: Math.ceil(total / query.limit)
+      }
+    };
+  }
+
+  /**
+   * Get list statistics
+   */
+  async getStats(listId: string): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    await this.findById(listId);
+
+    const [
+      total,
+      subscribed,
+      confirmed,
+      unsubscribed,
+      growthStats
+    ] = await Promise.all([
+      prisma.client.emailListSubscriber.count({
+        where: { listId }
+      }),
+      prisma.client.emailListSubscriber.count({
+        where: { listId, subscribed: true }
+      }),
+      prisma.client.emailListSubscriber.count({
+        where: { listId, subscribed: true, confirmed: true }
+      }),
+      prisma.client.emailListSubscriber.count({
+        where: { listId, subscribed: false }
+      }),
+      this.getGrowthStats(listId)
+    ]);
+
+    return {
+      total,
+      subscribed,
+      confirmed,
+      unsubscribed,
+      unsubscribeRate: total > 0 ? (unsubscribed / total) * 100 : 0,
+      growth: growthStats
+    };
+  }
+
+  /**
+   * Bulk operations
+   */
+  async bulkOperation(listId: string, operation: BulkOperationDto): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    await this.findById(listId);
+
+    const where: Prisma.EmailListSubscriberWhereInput = {
+      listId,
+      id: { in: operation.subscriberIds }
+    };
+
+    switch (operation.action) {
+      case 'delete':
+        const deleted = await prisma.client.emailListSubscriber.deleteMany({
+          where
+        });
+        return { deleted: deleted.count };
+
+      case 'unsubscribe':
+        const unsubscribed = await prisma.client.emailListSubscriber.updateMany({
+          where,
+          data: {
+            subscribed: false,
+            unsubscribedAt: new Date()
+          }
+        });
+        return { unsubscribed: unsubscribed.count };
+
+      case 'add_tags':
+        if (!operation.tags || operation.tags.length === 0) {
+          throw new BadRequestException('Tags required for add_tags operation');
+        }
+        // This is more complex - would need to update each subscriber individually
+        const subscribers = await prisma.client.emailListSubscriber.findMany({
+          where
+        });
+
+        for (const subscriber of subscribers) {
+          await prisma.client.emailListSubscriber.update({
+            where: { id: subscriber.id },
+            data: {
+              tags: [...new Set([...subscriber.tags, ...operation.tags!])]
+            }
+          });
+        }
+        return { updated: subscribers.length };
+
+      default:
+        throw new BadRequestException('Invalid bulk operation');
+    }
+  }
+
+  /**
+   * Get list growth statistics
+   */
+  private async getGrowthStats(listId: string): Promise<any> {
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+    const dailyStats = await prisma.client.emailListSubscriber.groupBy({
+      by: ['subscribedAt'],
+      where: {
+        listId,
+        subscribedAt: { gte: thirtyDaysAgo }
+      },
+      _count: true
+    });
+
+    return {
+      daily: dailyStats,
+      totalLast30Days: dailyStats.reduce((sum, day) => sum + day._count, 0)
+    };
+  }
+
+  /**
+   * Send confirmation email
+   */
+  private async sendConfirmationEmail(list: any, subscriber: any): Promise<void> {
+    const confirmationUrl = `${process.env.APP_URL}/confirm-subscription?token=${subscriber.confirmationToken}`;
+
+    await queueService.addJob(
+      'email-marketing',
+      'send-transactional',
+      {
+        to: subscriber.email,
+        subject: `Please confirm your subscription to ${list.name}`,
+        templateKey: 'subscription-confirmation',
+        variables: {
+          listName: list.name,
+          firstName: subscriber.firstName || 'Subscriber',
+          confirmationUrl
+        }
+      }
+    );
+  }
+
+  /**
+   * Send welcome email
+   */
+  private async sendWelcomeEmail(list: any, subscriber: any): Promise<void> {
+    await queueService.addJob(
+      'email-marketing',
+      'send-welcome-email',
+      {
+        listId: list.id,
+        subscriberId: subscriber.id,
+        welcomeEmailId: list.welcomeEmailId
+      }
+    );
+  }
+}
+
+
+
+
+
+// src/modules/email-marketing/automation.service.ts
+import { Service } from 'typedi';
+import { prisma } from '@infrastructure/database/prisma.service';
+import { logger } from '@shared/logger';
+import { eventBus } from '@shared/events/event-bus';
+import { queueService } from '@shared/queue/queue.service';
+import { TenantContextService } from '@modules/tenant/tenant.context';
+import {
+  BadRequestException,
+  NotFoundException,
+  ForbiddenException
+} from '@shared/exceptions';
+import {
+  CreateAutomationDto,
+  UpdateAutomationDto,
+  CreateAutomationStepDto,
+  UpdateAutomationStepDto,
+  AutomationQueryDto,
+  EnrollmentQueryDto,
+  TriggerAutomationDto
+} from './email-marketing.dto';
+import {
+  EmailAutomationTrigger,
+  Prisma
+} from '@prisma/client';
+import { EmailMarketingEvents } from './email-marketing.events';
+import { CronExpression } from '@shared/utils/cron';
+
+@Service()
+export class AutomationService {
+  constructor(
+    private tenantContext: TenantContextService
+  ) {}
+
+  /**
+   * Create automation workflow
+   */
+  async create(data: CreateAutomationDto): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    // Validate list if provided
+    if (data.listId) {
+      const list = await prisma.client.emailList.findFirst({
+        where: {
+          id: data.listId,
+          tenantId,
+          deletedAt: null
+        }
+      });
+
+      if (!list) {
+        throw new NotFoundException('Email list not found');
+      }
+    }
+
+    try {
+      const automation = await prisma.client.emailAutomation.create({
+        data: {
+          tenantId,
+          listId: data.listId,
+          name: data.name,
+          description: data.description,
+          trigger: data.trigger,
+          triggerConfig: data.triggerConfig as any,
+          active: false,
+          metadata: data.metadata
+        },
+        include: {
+          list: true,
+          steps: {
+            orderBy: { order: 'asc' }
+          }
+        }
+      });
+
+      // Create steps if provided
+      if (data.steps && data.steps.length > 0) {
+        await this.createSteps(automation.id, data.steps);
+      }
+
+      await eventBus.emit(EmailMarketingEvents.AUTOMATION_CREATED, {
+        automationId: automation.id,
+        tenantId
+      });
+
+      logger.info('Automation created', { automationId: automation.id, tenantId });
+
+      return automation;
+    } catch (error) {
+      logger.error('Failed to create automation', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Update automation
+   */
+  async update(automationId: string, data: UpdateAutomationDto): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const automation = await this.findById(automationId);
+
+    // Cannot update active automations
+    if (automation.active && (data.trigger || data.triggerConfig)) {
+      throw new BadRequestException('Cannot update trigger for active automation');
+    }
+
+    try {
+      const updated = await prisma.client.emailAutomation.update({
+        where: { id: automationId },
+        data: {
+          name: data.name,
+          description: data.description,
+          trigger: data.trigger,
+          triggerConfig: data.triggerConfig as any,
+          metadata: data.metadata
+        },
+        include: {
+          list: true,
+          steps: {
+            orderBy: { order: 'asc' }
+          }
+        }
+      });
+
+      await eventBus.emit(EmailMarketingEvents.AUTOMATION_UPDATED, {
+        automationId: updated.id,
+        tenantId
+      });
+
+      return updated;
+    } catch (error) {
+      logger.error('Failed to update automation', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Activate automation
+   */
+  async activate(automationId: string): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const automation = await this.findById(automationId);
+
+    if (automation.active) {
+      throw new BadRequestException('Automation is already active');
+    }
+
+    // Validate automation has steps
+    if (automation.steps.length === 0) {
+      throw new BadRequestException('Cannot activate automation without steps');
+    }
+
+    try {
+      const updated = await prisma.client.emailAutomation.update({
+        where: { id: automationId },
+        data: { active: true }
+      });
+
+      // Register automation triggers
+      await this.registerTriggers(automation);
+
+      await eventBus.emit(EmailMarketingEvents.AUTOMATION_ACTIVATED, {
+        automationId: updated.id,
+        tenantId
+      });
+
+      logger.info('Automation activated', { automationId });
+
+      return updated;
+    } catch (error) {
+      logger.error('Failed to activate automation', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Deactivate automation
+   */
+  async deactivate(automationId: string): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const automation = await this.findById(automationId);
+
+    if (!automation.active) {
+      throw new BadRequestException('Automation is already inactive');
+    }
+
+    try {
+      const updated = await prisma.client.emailAutomation.update({
+        where: { id: automationId },
+        data: { active: false }
+      });
+
+      // Unregister automation triggers
+      await this.unregisterTriggers(automation);
+
+      await eventBus.emit(EmailMarketingEvents.AUTOMATION_DEACTIVATED, {
+        automationId: updated.id,
+        tenantId
+      });
+
+      logger.info('Automation deactivated', { automationId });
+
+      return updated;
+    } catch (error) {
+      logger.error('Failed to deactivate automation', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Delete automation
+   */
+  async delete(automationId: string): Promise<void> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const automation = await this.findById(automationId);
+
+    if (automation.active) {
+      throw new BadRequestException('Cannot delete active automation');
+    }
+
+    try {
+      await prisma.client.emailAutomation.delete({
+        where: { id: automationId }
+      });
+
+      await eventBus.emit(EmailMarketingEvents.AUTOMATION_DELETED, {
+        automationId,
+        tenantId
+      });
+
+      logger.info('Automation deleted', { automationId });
+    } catch (error) {
+      logger.error('Failed to delete automation', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Find automation by ID
+   */
+  async findById(automationId: string): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const automation = await prisma.client.emailAutomation.findFirst({
+      where: {
+        id: automationId,
+        tenantId
+      },
+      include: {
+        list: true,
+        steps: {
+          orderBy: { order: 'asc' },
+          include: {
+            template: true
+          }
+        },
+        _count: {
+          select: {
+            enrollments: {
+              where: { status: 'active' }
+            }
+          }
+        }
+      }
+    });
+
+    if (!automation) {
+      throw new NotFoundException('Automation not found');
+    }
+
+    return automation;
+  }
+
+  /**
+   * Find automations
+   */
+  async find(query: AutomationQueryDto): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const where: Prisma.EmailAutomationWhereInput = {
+      tenantId,
+      ...(query.listId && { listId: query.listId }),
+      ...(query.active !== undefined && { active: query.active }),
+      ...(query.trigger && { trigger: query.trigger }),
+      ...(query.search && {
+        OR: [
+          { name: { contains: query.search, mode: 'insensitive' } },
+          { description: { contains: query.search, mode: 'insensitive' } }
+        ]
+      })
+    };
+
+    const [automations, total] = await Promise.all([
+      prisma.client.emailAutomation.findMany({
+        where,
+        include: {
+          list: true,
+          _count: {
+            select: {
+              steps: true,
+              enrollments: {
+                where: { status: 'active' }
+              }
+            }
+          }
+        },
+        orderBy: { createdAt: 'desc' },
+        skip: query.skip,
+        take: query.limit
+      }),
+      prisma.client.emailAutomation.count({ where })
+    ]);
+
+    return {
+      automations,
+      pagination: {
+        total,
+        page: Math.floor(query.skip / query.limit) + 1,
+        limit: query.limit,
+        pages: Math.ceil(total / query.limit)
+      }
+    };
+  }
+
+  /**
+   * Create automation steps
+   */
+  async createSteps(
+    automationId: string,
+    steps: CreateAutomationStepDto[]
+  ): Promise<any[]> {
+    const automation = await this.findById(automationId);
+
+    if (automation.active) {
+      throw new BadRequestException('Cannot add steps to active automation');
+    }
+
+    const createdSteps = [];
+
+    for (let i = 0; i < steps.length; i++) {
+      const step = steps[i];
+      const created = await prisma.client.emailAutomationStep.create({
+        data: {
+          automationId,
+          name: step.name,
+          order: i + 1,
+          delayAmount: step.delayAmount,
+          delayUnit: step.delayUnit,
+          templateId: step.templateId,
+          subject: step.subject,
+          htmlContent: step.htmlContent,
+          textContent: step.textContent,
+          conditions: step.conditions as any,
+          metadata: step.metadata
+        }
+      });
+      createdSteps.push(created);
+    }
+
+    await eventBus.emit(EmailMarketingEvents.AUTOMATION_STEPS_UPDATED, {
+      automationId,
+      steps: createdSteps.length
+    });
+
+    return createdSteps;
+  }
+
+  /**
+   * Update automation step
+   */
+  async updateStep(
+    automationId: string,
+    stepId: string,
+    data: UpdateAutomationStepDto
+  ): Promise<any> {
+    const automation = await this.findById(automationId);
+
+    if (automation.active) {
+      throw new BadRequestException('Cannot update steps in active automation');
+    }
+
+    const step = automation.steps.find(s => s.id === stepId);
+    if (!step) {
+      throw new NotFoundException('Step not found');
+    }
+
+    try {
+      const updated = await prisma.client.emailAutomationStep.update({
+        where: { id: stepId },
+        data: {
+          name: data.name,
+          delayAmount: data.delayAmount,
+          delayUnit: data.delayUnit,
+          templateId: data.templateId,
+          subject: data.subject,
+          htmlContent: data.htmlContent,
+          textContent: data.textContent,
+          conditions: data.conditions as any,
+          metadata: data.metadata
+        }
+      });
+
+      await eventBus.emit(EmailMarketingEvents.AUTOMATION_STEP_UPDATED, {
+        automationId,
+        stepId: updated.id
+      });
+
+      return updated;
+    } catch (error) {
+      logger.error('Failed to update automation step', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Delete automation step
+   */
+  async deleteStep(automationId: string, stepId: string): Promise<void> {
+    const automation = await this.findById(automationId);
+
+    if (automation.active) {
+      throw new BadRequestException('Cannot delete steps from active automation');
+    }
+
+    const step = automation.steps.find(s => s.id === stepId);
+    if (!step) {
+      throw new NotFoundException('Step not found');
+    }
+
+    try {
+      await prisma.client.emailAutomationStep.delete({
+        where: { id: stepId }
+      });
+
+      // Reorder remaining steps
+      const remainingSteps = automation.steps
+        .filter(s => s.id !== stepId)
+        .sort((a, b) => a.order - b.order);
+
+      for (let i = 0; i < remainingSteps.length; i++) {
+        await prisma.client.emailAutomationStep.update({
+          where: { id: remainingSteps[i].id },
+          data: { order: i + 1 }
+        });
+      }
+
+      await eventBus.emit(EmailMarketingEvents.AUTOMATION_STEP_DELETED, {
+        automationId,
+        stepId
+      });
+
+      logger.info('Automation step deleted', { automationId, stepId });
+    } catch (error) {
+      logger.error('Failed to delete automation step', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Manually enroll subscriber in automation
+   */
+  async enrollSubscriber(
+    automationId: string,
+    subscriberId: string
+  ): Promise<any> {
+    const automation = await this.findById(automationId);
+
+    if (!automation.active) {
+      throw new BadRequestException('Cannot enroll in inactive automation');
+    }
+
+    // Check if subscriber exists and is subscribed
+    const subscriber = await prisma.client.emailListSubscriber.findFirst({
+      where: {
+        id: subscriberId,
+        listId: automation.listId!,
+        subscribed: true,
+        confirmed: true
+      }
+    });
+
+    if (!subscriber) {
+      throw new NotFoundException('Subscriber not found or not active');
+    }
+
+    // Check if already enrolled
+    const existing = await prisma.client.emailAutomationEnrollment.findUnique({
+      where: {
+        automationId_subscriberId: {
+          automationId,
+          subscriberId
+        }
+      }
+    });
+
+    if (existing && existing.status === 'active') {
+      throw new BadRequestException('Subscriber already enrolled in this automation');
+    }
+
+    try {
+      const enrollment = await prisma.client.emailAutomationEnrollment.create({
+        data: {
+          automationId,
+          subscriberId,
+          status: 'active',
+          currentStepId: automation.steps[0]?.id
+        }
+      });
+
+      // Queue first step if exists
+      if (automation.steps.length > 0) {
+        const firstStep = automation.steps[0];
+        const delay = this.calculateDelay(firstStep.delayAmount, firstStep.delayUnit);
+
+        await queueService.addJob(
+          'email-marketing',
+          'process-automation-step',
+          {
+            enrollmentId: enrollment.id,
+            stepId: firstStep.id
+          },
+          { delay }
+        );
+      }
+
+      // Update automation stats
+      await prisma.client.emailAutomation.update({
+        where: { id: automationId },
+        data: {
+          totalEnrolled: { increment: 1 }
+        }
+      });
+
+      await eventBus.emit(EmailMarketingEvents.AUTOMATION_SUBSCRIBER_ENROLLED, {
+        automationId,
+        subscriberId,
+        enrollmentId: enrollment.id
+      });
+
+      logger.info('Subscriber enrolled in automation', {
+        automationId,
+        subscriberId,
+        enrollmentId: enrollment.id
+      });
+
+      return enrollment;
+    } catch (error) {
+      logger.error('Failed to enroll subscriber', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Unenroll subscriber from automation
+   */
+  async unenrollSubscriber(
+    automationId: string,
+    subscriberId: string
+  ): Promise<void> {
+    const enrollment = await prisma.client.emailAutomationEnrollment.findUnique({
+      where: {
+        automationId_subscriberId: {
+          automationId,
+          subscriberId
+        }
+      }
+    });
+
+    if (!enrollment || enrollment.status !== 'active') {
+      throw new NotFoundException('Active enrollment not found');
+    }
+
+    try {
+      await prisma.client.emailAutomationEnrollment.update({
+        where: { id: enrollment.id },
+        data: {
+          status: 'cancelled',
+          cancelledAt: new Date()
+        }
+      });
+
+      await eventBus.emit(EmailMarketingEvents.AUTOMATION_SUBSCRIBER_UNENROLLED, {
+        automationId,
+        subscriberId,
+        enrollmentId: enrollment.id
+      });
+
+      logger.info('Subscriber unenrolled from automation', {
+        automationId,
+        subscriberId
+      });
+    } catch (error) {
+      logger.error('Failed to unenroll subscriber', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get automation enrollments
+   */
+  async getEnrollments(
+    automationId: string,
+    query: EnrollmentQueryDto
+  ): Promise<any> {
+    await this.findById(automationId);
+
+    const where: Prisma.EmailAutomationEnrollmentWhereInput = {
+      automationId,
+      ...(query.status && { status: query.status })
+    };
+
+    const [enrollments, total] = await Promise.all([
+      prisma.client.emailAutomationEnrollment.findMany({
+        where,
+        orderBy: { enrolledAt: 'desc' },
+        skip: query.skip,
+        take: query.limit
+      }),
+      prisma.client.emailAutomationEnrollment.count({ where })
+    ]);
+
+    return {
+      enrollments,
+      pagination: {
+        total,
+        page: Math.floor(query.skip / query.limit) + 1,
+        limit: query.limit,
+        pages: Math.ceil(total / query.limit)
+      }
+    };
+  }
+
+  /**
+   * Get automation statistics
+   */
+  async getStats(automationId: string): Promise<any> {
+    const automation = await this.findById(automationId);
+
+    const [
+      activeEnrollments,
+      completedEnrollments,
+      cancelledEnrollments,
+      stepStats
+    ] = await Promise.all([
+      prisma.client.emailAutomationEnrollment.count({
+        where: { automationId, status: 'active' }
+      }),
+      prisma.client.emailAutomationEnrollment.count({
+        where: { automationId, status: 'completed' }
+      }),
+      prisma.client.emailAutomationEnrollment.count({
+        where: { automationId, status: 'cancelled' }
+      }),
+      this.getStepStats(automationId)
+    ]);
+
+    return {
+      totalEnrolled: automation.totalEnrolled,
+      activeEnrollments,
+      completedEnrollments,
+      cancelledEnrollments,
+      completionRate: automation.totalEnrolled > 0
+        ? (completedEnrollments / automation.totalEnrolled) * 100
+        : 0,
+      steps: stepStats
+    };
+  }
+
+  /**
+   * Trigger automation manually
+   */
+  async trigger(data: TriggerAutomationDto): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const automation = await prisma.client.emailAutomation.findFirst({
+      where: {
+        id: data.automationId,
+        tenantId,
+        active: true
+      }
+    });
+
+    if (!automation) {
+      throw new NotFoundException('Active automation not found');
+    }
+
+    // Queue trigger processing
+    const job = await queueService.addJob(
+      'email-marketing',
+      'trigger-automation',
+      {
+        automationId: automation.id,
+        triggerData: data.triggerData
+      }
+    );
+
+    logger.info('Automation triggered manually', {
+      automationId: automation.id,
+      jobId: job.id
+    });
+
+    return {
+      message: 'Automation triggered',
+      jobId: job.id
+    };
+  }
+
+  /**
+   * Register automation triggers
+   */
+  private async registerTriggers(automation: any): Promise<void> {
+    switch (automation.trigger) {
+      case EmailAutomationTrigger.USER_SIGNUP:
+        // Listen to user signup events
+        eventBus.on('user.registered', async (data) => {
+          await this.handleUserSignupTrigger(automation, data);
+        });
+        break;
+
+      case EmailAutomationTrigger.LIST_SUBSCRIBE:
+        // Listen to list subscribe events
+        eventBus.on(EmailMarketingEvents.SUBSCRIBER_ADDED, async (data) => {
+          if (data.listId === automation.listId) {
+            await this.handleListSubscribeTrigger(automation, data);
+          }
+        });
+        break;
+
+      case EmailAutomationTrigger.TAG_ADDED:
+        // Listen to tag update events
+        eventBus.on(EmailMarketingEvents.SUBSCRIBER_TAGS_UPDATED, async (data) => {
+          await this.handleTagAddedTrigger(automation, data);
+        });
+        break;
+
+      case EmailAutomationTrigger.DATE_BASED:
+        // Schedule cron job for date-based triggers
+        const cronExpression = automation.triggerConfig.cronExpression;
+        await queueService.addJob(
+          'email-marketing',
+          'check-date-triggers',
+          { automationId: automation.id },
+          {
+            repeat: { cron: cronExpression }
+          }
+        );
+        break;
+
+      case EmailAutomationTrigger.CUSTOM_EVENT:
+        // Listen to custom events
+        const eventName = automation.triggerConfig.eventName;
+        eventBus.on(eventName, async (data) => {
+          await this.handleCustomEventTrigger(automation, data);
+        });
+        break;
+    }
+  }
+
+  /**
+   * Unregister automation triggers
+   */
+  private async unregisterTriggers(automation: any): Promise<void> {
+    // This would need to store handler references to properly unregister
+    // For now, the handlers will check if automation is active
+  }
+
+  /**
+   * Handle user signup trigger
+   */
+  private async handleUserSignupTrigger(automation: any, data: any): Promise<void> {
+    // Check if user's email exists in the automation's list
+    if (automation.listId) {
+      const subscriber = await prisma.client.emailListSubscriber.findFirst({
+        where: {
+          listId: automation.listId,
+          email: data.email,
+          subscribed: true,
+          confirmed: true
+        }
+      });
+
+      if (subscriber) {
+        await this.enrollSubscriber(automation.id, subscriber.id);
+      }
+    }
+  }
+
+  /**
+   * Handle list subscribe trigger
+   */
+  private async handleListSubscribeTrigger(automation: any, data: any): Promise<void> {
+    if (data.listId === automation.listId) {
+      await this.enrollSubscriber(automation.id, data.subscriberId);
+    }
+  }
+
+  /**
+   * Handle tag added trigger
+   */
+  private async handleTagAddedTrigger(automation: any, data: any): Promise<void> {
+    const requiredTags = automation.triggerConfig.tags || [];
+    const hasAllTags = requiredTags.every(tag => data.tags.includes(tag));
+
+    if (hasAllTags) {
+      await this.enrollSubscriber(automation.id, data.subscriberId);
+    }
+  }
+
+  /**
+   * Handle custom event trigger
+   */
+  private async handleCustomEventTrigger(automation: any, data: any): Promise<void> {
+    // Match event data with automation criteria
+    const criteria = automation.triggerConfig.criteria || {};
+
+    // Simple matching logic - could be more sophisticated
+    const matches = Object.keys(criteria).every(key => {
+      return data[key] === criteria[key];
+    });
+
+    if (matches && data.subscriberId) {
+      await this.enrollSubscriber(automation.id, data.subscriberId);
+    }
+  }
+
+  /**
+   * Calculate delay in milliseconds
+   */
+  private calculateDelay(amount: number, unit: string): number {
+    switch (unit) {
+      case 'minutes':
+        return amount * 60 * 1000;
+      case 'hours':
+        return amount * 60 * 60 * 1000;
+      case 'days':
+        return amount * 24 * 60 * 60 * 1000;
+      default:
+        return 0;
+    }
+  }
+
+  /**
+   * Get step statistics
+   */
+  private async getStepStats(automationId: string): Promise<any[]> {
+    const steps = await prisma.client.emailAutomationStep.findMany({
+      where: { automationId },
+      orderBy: { order: 'asc' }
+    });
+
+    const stats = [];
+
+    for (const step of steps) {
+      // Get email campaign stats for this step
+      const sentCount = await prisma.client.emailActivity.count({
+        where: {
+          type: 'sent',
+          metadata: {
+            path: ['automationStepId'],
+            equals: step.id
+          }
+        }
+      });
+
+      const openCount = await prisma.client.emailActivity.count({
+        where: {
+          type: 'opened',
+          metadata: {
+            path: ['automationStepId'],
+            equals: step.id
+          }
+        }
+      });
+
+      const clickCount = await prisma.client.emailActivity.count({
+        where: {
+          type: 'clicked',
+          metadata: {
+            path: ['automationStepId'],
+            equals: step.id
+          }
+        }
+      });
+
+      stats.push({
+        stepId: step.id,
+        name: step.name,
+        order: step.order,
+        sent: sentCount,
+        opened: openCount,
+        clicked: clickCount,
+        openRate: sentCount > 0 ? (openCount / sentCount) * 100 : 0,
+        clickRate: sentCount > 0 ? (clickCount / sentCount) * 100 : 0
+      });
+    }
+
+    return stats;
+  }
+}
+
+
+
+
+
+// src/modules/email-marketing/segmentation.service.ts
+import { Service } from 'typedi';
+import { prisma } from '@infrastructure/database/prisma.service';
+import { logger } from '@shared/logger';
+import { eventBus } from '@shared/events/event-bus';
+import { TenantContextService } from '@modules/tenant/tenant.context';
+import {
+  BadRequestException,
+  NotFoundException,
+  ForbiddenException
+} from '@shared/exceptions';
+import {
+  CreateSegmentDto,
+  UpdateSegmentDto,
+  SegmentQueryDto,
+  SegmentCondition,
+  TestSegmentDto
+} from './email-marketing.dto';
+import {
+  EmailSegmentOperator,
+  Prisma
+} from '@prisma/client';
+import { EmailMarketingEvents } from './email-marketing.events';
+
+interface SegmentConditionEvaluator {
+  field: string;
+  operator: EmailSegmentOperator;
+  value: any;
 }
 
 @Service()
-export class AiRateLimiter {
-  private defaultLimits: UserRateLimits = {
-    completion: { windowMs: 60000, max: 100 }, // 100 per minute
-    chat: { windowMs: 60000, max: 100 }, // 100 per minute
-    embedding: { windowMs: 60000, max: 200 }, // 200 per minute
-    image: { windowMs: 60000, max: 20 }, // 20 per minute
-    audio: { windowMs: 60000, max: 50 }, // 50 per minute
-  };
-
+export class SegmentationService {
   constructor(
-    private entitlementService: EntitlementService
+    private tenantContext: TenantContextService
   ) {}
 
-  async createLimiter(operation: keyof UserRateLimits) {
-    return async (request: FastifyRequest, reply: FastifyReply) => {
-      const userId = request.customUser?.id;
-      if (!userId) {
-        throw new TooManyRequestsException('User not authenticated');
-      }
+  /**
+   * Create segment
+   */
+  async create(listId: string, data: CreateSegmentDto): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
 
-      const tenantId = (request as any).customTenant?.id;
-
-      // Get user's rate limits based on their plan
-      const limits = await this.getUserRateLimits(userId, operation);
-
-      const key = this.generateKey(operation, userId, tenantId);
-      const now = Date.now();
-      const windowStart = now - limits.windowMs;
-
-      try {
-        // Remove old entries
-        await redis.client.zremrangebyscore(key, '-inf', windowStart.toString());
-
-        // Count requests in current window
-        const currentCount = await redis.client.zcard(key);
-
-        if (currentCount >= limits.max) {
-          // Calculate retry after
-          const oldestEntry = await redis.client.zrange(key, 0, 0, 'WITHSCORES');
-          const retryAfter = oldestEntry.length > 1
-            ? Math.ceil((parseInt(oldestEntry[1]) + limits.windowMs - now) / 1000)
-            : Math.ceil(limits.windowMs / 1000);
-
-          reply.header('X-RateLimit-Limit', limits.max.toString());
-          reply.header('X-RateLimit-Remaining', '0');
-          reply.header('X-RateLimit-Reset', new Date(now + retryAfter * 1000).toISOString());
-          reply.header('Retry-After', retryAfter.toString());
-
-          throw new TooManyRequestsException(
-            `Rate limit exceeded. You can make ${limits.max} ${operation} requests per ${limits.windowMs / 1000} seconds.`
-          );
-        }
-
-        // Add current request
-        await redis.client.zadd(key, now.toString(), `${now}-${Math.random()}`);
-        await redis.client.expire(key, Math.ceil(limits.windowMs / 1000));
-
-        // Set rate limit headers
-        const remaining = limits.max - currentCount - 1;
-        const reset = new Date(now + limits.windowMs);
-
-        reply.header('X-RateLimit-Limit', limits.max.toString());
-        reply.header('X-RateLimit-Remaining', remaining.toString());
-        reply.header('X-RateLimit-Reset', reset.toISOString());
-
-        // Warn if approaching limit
-        if (remaining < limits.max * 0.2) {
-          reply.header('X-RateLimit-Warning', 'You are approaching your rate limit');
-        }
-      } catch (error) {
-        if (error instanceof TooManyRequestsException) {
-          throw error;
-        }
-
-        logger.error('Rate limiter error', error as Error);
-        // Allow request to proceed on rate limiter error
-      }
-    };
-  }
-
-  private async getUserRateLimits(
-    userId: string,
-    operation: keyof UserRateLimits
-  ): Promise<{ windowMs: number; max: number }> {
-    try {
-      // Check user's plan entitlements
-      const entitlement = await this.entitlementService.getEntitlement(
-        userId,
-        `ai_rate_limit_${operation}`
-      );
-
-      if (entitlement && entitlement.limit > 0) {
-        return {
-          windowMs: 60000, // Always 1 minute window
-          max: entitlement.limit,
-        };
-      }
-
-      // Check for premium tier
-      const isPremium = await this.entitlementService.check(userId, 'premium_ai_access');
-      if (isPremium) {
-        // Premium users get 2x rate limits
-        return {
-          windowMs: this.defaultLimits[operation].windowMs,
-          max: this.defaultLimits[operation].max * 2,
-        };
-      }
-
-      return this.defaultLimits[operation];
-    } catch (error) {
-      logger.error('Failed to get user rate limits', error as Error);
-      return this.defaultLimits[operation];
-    }
-  }
-
-  private generateKey(
-    operation: string,
-    userId: string,
-    tenantId?: string
-  ): string {
-    if (tenantId) {
-      return `ai:ratelimit:${operation}:tenant:${tenantId}:user:${userId}`;
-    }
-    return `ai:ratelimit:${operation}:user:${userId}`;
-  }
-
-  // Get current usage for a user
-  async getCurrentUsage(
-    userId: string,
-    operation: keyof UserRateLimits,
-    tenantId?: string
-  ): Promise<{ current: number; limit: number; resetAt: Date }> {
-    const limits = await this.getUserRateLimits(userId, operation);
-    const key = this.generateKey(operation, userId, tenantId);
-    const now = Date.now();
-    const windowStart = now - limits.windowMs;
-
-    // Remove old entries
-    await redis.client.zremrangebyscore(key, '-inf', windowStart.toString());
-
-    // Count current requests
-    const current = await redis.client.zcard(key);
-
-    return {
-      current,
-      limit: limits.max,
-      resetAt: new Date(now + limits.windowMs),
-    };
-  }
-
-  // Reset rate limit for a user (admin function)
-  async resetLimit(
-    userId: string,
-    operation?: keyof UserRateLimits,
-    tenantId?: string
-  ): Promise<void> {
-    if (operation) {
-      const key = this.generateKey(operation, userId, tenantId);
-      await redis.client.del(key);
-    } else {
-      // Reset all operations
-      const operations: (keyof UserRateLimits)[] = ['completion', 'chat', 'embedding', 'image', 'audio'];
-      for (const op of operations) {
-        const key = this.generateKey(op, userId, tenantId);
-        await redis.client.del(key);
-      }
-    }
-
-    logger.info('Rate limit reset', { userId, operation, tenantId });
-  }
-
-  // Get all current rate limit statuses for a user
-  async getAllLimits(
-    userId: string,
-    tenantId?: string
-  ): Promise<Record<keyof UserRateLimits, { current: number; limit: number; resetAt: Date }>> {
-    const operations: (keyof UserRateLimits)[] = ['completion', 'chat', 'embedding', 'image', 'audio'];
-    const result: any = {};
-
-    for (const operation of operations) {
-      result[operation] = await this.getCurrentUsage(userId, operation, tenantId);
-    }
-
-    return result;
-  }
-
-  // Middleware for cost-based rate limiting
-  async costBasedLimiter(costPerRequest: number) {
-    return async (request: FastifyRequest, reply: FastifyReply) => {
-      const userId = request.customUser?.id;
-      if (!userId) {
-        throw new TooManyRequestsException('User not authenticated');
-      }
-
-      // Check user's remaining budget
-      const budget = await this.entitlementService.getEntitlement(userId, 'ai_monthly_budget');
-
-      if (budget && budget.limit > 0) {
-        const currentUsage = await this.getCurrentMonthCost(userId);
-
-        if (currentUsage + costPerRequest > budget.limit) {
-          throw new TooManyRequestsException(
-            `Monthly AI budget exceeded. Current usage: $${(currentUsage / 100).toFixed(2)}, Budget: $${(budget.limit / 100).toFixed(2)}`
-          );
-        }
-
-        // Set budget headers
-        reply.header('X-AI-Budget-Limit', (budget.limit / 100).toFixed(2));
-        reply.header('X-AI-Budget-Remaining', ((budget.limit - currentUsage) / 100).toFixed(2));
-      }
-    };
-  }
-
-  private async getCurrentMonthCost(userId: string): Promise<number> {
-    // This would query the AI usage logs for the current month
-    // Simplified for this example
-    const startOfMonth = new Date();
-    startOfMonth.setDate(1);
-    startOfMonth.setHours(0, 0, 0, 0);
-
-    const { prisma } = await import('@infrastructure/database/prisma.service');
-
-    const result = await prisma.client.aiUsageLog.aggregate({
+    // Validate list exists
+    const list = await prisma.client.emailList.findFirst({
       where: {
-        userId,
-        createdAt: { gte: startOfMonth },
-      },
-      _sum: {
-        cost: true,
-      },
+        id: listId,
+        tenantId,
+        deletedAt: null
+      }
     });
 
-    return result._sum.cost || 0;
+    if (!list) {
+      throw new NotFoundException('Email list not found');
+    }
+
+    // Validate conditions
+    this.validateConditions(data.conditions);
+
+    try {
+      const segment = await prisma.client.emailSegment.create({
+        data: {
+          listId,
+          name: data.name,
+          description: data.description,
+          conditions: data.conditions as any,
+          metadata: data.metadata
+        }
+      });
+
+      // Calculate initial subscriber count
+      await this.updateSubscriberCount(segment.id);
+
+      await eventBus.emit(EmailMarketingEvents.SEGMENT_CREATED, {
+        segmentId: segment.id,
+        listId,
+        tenantId
+      });
+
+      logger.info('Segment created', { segmentId: segment.id, listId });
+
+      return segment;
+    } catch (error) {
+      logger.error('Failed to create segment', error as Error);
+      throw error;
+    }
   }
+
+  /**
+   * Update segment
+   */
+  async update(segmentId: string, data: UpdateSegmentDto): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const segment = await this.findById(segmentId);
+
+    // Validate conditions if provided
+    if (data.conditions) {
+      this.validateConditions(data.conditions);
+    }
+
+    try {
+      const updated = await prisma.client.emailSegment.update({
+        where: { id: segmentId },
+        data: {
+          name: data.name,
+          description: data.description,
+          conditions: data.conditions as any,
+          metadata: data.metadata
+        }
+      });
+
+      // Recalculate subscriber count if conditions changed
+      if (data.conditions) {
+        await this.updateSubscriberCount(segmentId);
+      }
+
+      await eventBus.emit(EmailMarketingEvents.SEGMENT_UPDATED, {
+        segmentId: updated.id,
+        tenantId
+      });
+
+      return updated;
+    } catch (error) {
+      logger.error('Failed to update segment', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Delete segment
+   */
+  async delete(segmentId: string): Promise<void> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    await this.findById(segmentId);
+
+    // Check if segment is used in any campaigns
+    const campaignsUsingSegment = await prisma.client.emailCampaign.count({
+      where: {
+        OR: [
+          { segmentIds: { has: segmentId } },
+          { excludeSegmentIds: { has: segmentId } }
+        ],
+        status: { in: ['SCHEDULED', 'SENDING'] }
+      }
+    });
+
+    if (campaignsUsingSegment > 0) {
+      throw new BadRequestException('Cannot delete segment used in active campaigns');
+    }
+
+    try {
+      await prisma.client.emailSegment.delete({
+        where: { id: segmentId }
+      });
+
+      await eventBus.emit(EmailMarketingEvents.SEGMENT_DELETED, {
+        segmentId,
+        tenantId
+      });
+
+      logger.info('Segment deleted', { segmentId });
+    } catch (error) {
+      logger.error('Failed to delete segment', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Find segment by ID
+   */
+  async findById(segmentId: string): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const segment = await prisma.client.emailSegment.findFirst({
+      where: {
+        id: segmentId,
+        list: {
+          tenantId,
+          deletedAt: null
+        }
+      },
+      include: {
+        list: true
+      }
+    });
+
+    if (!segment) {
+      throw new NotFoundException('Segment not found');
+    }
+
+    return segment;
+  }
+
+  /**
+   * Find segments
+   */
+  async find(listId: string, query: SegmentQueryDto): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    // Validate list
+    const list = await prisma.client.emailList.findFirst({
+      where: {
+        id: listId,
+        tenantId,
+        deletedAt: null
+      }
+    });
+
+    if (!list) {
+      throw new NotFoundException('Email list not found');
+    }
+
+    const where: Prisma.EmailSegmentWhereInput = {
+      listId,
+      ...(query.search && {
+        OR: [
+          { name: { contains: query.search, mode: 'insensitive' } },
+          { description: { contains: query.search, mode: 'insensitive' } }
+        ]
+      })
+    };
+
+    const [segments, total] = await Promise.all([
+      prisma.client.emailSegment.findMany({
+        where,
+        orderBy: { createdAt: 'desc' },
+        skip: query.skip,
+        take: query.limit
+      }),
+      prisma.client.emailSegment.count({ where })
+    ]);
+
+    return {
+      segments,
+      pagination: {
+        total,
+        page: Math.floor(query.skip / query.limit) + 1,
+        limit: query.limit,
+        pages: Math.ceil(total / query.limit)
+      }
+    };
+  }
+
+  /**
+   * Get subscribers in segment
+   */
+  async getSubscribers(segmentId: string, limit: number = 100): Promise<any[]> {
+    const segment = await this.findById(segmentId);
+
+    const whereClause = this.buildWhereClause(segment.conditions);
+
+    const subscribers = await prisma.client.emailListSubscriber.findMany({
+      where: {
+        listId: segment.listId,
+        subscribed: true,
+        confirmed: true,
+        ...whereClause
+      },
+      take: limit,
+      orderBy: { subscribedAt: 'desc' }
+    });
+
+    return subscribers;
+  }
+
+  /**
+   * Test segment conditions
+   */
+  async test(segmentId: string, data: TestSegmentDto): Promise<any> {
+    const segment = await this.findById(segmentId);
+
+    const conditions = data.conditions || segment.conditions;
+    const whereClause = this.buildWhereClause(conditions);
+
+    const [subscribers, count] = await Promise.all([
+      prisma.client.emailListSubscriber.findMany({
+        where: {
+          listId: segment.listId,
+          subscribed: true,
+          confirmed: true,
+          ...whereClause
+        },
+        take: data.limit || 10,
+        orderBy: { subscribedAt: 'desc' }
+      }),
+      prisma.client.emailListSubscriber.count({
+        where: {
+          listId: segment.listId,
+          subscribed: true,
+          confirmed: true,
+          ...whereClause
+        }
+      })
+    ]);
+
+    return {
+      totalCount: count,
+      sampleSubscribers: subscribers
+    };
+  }
+
+  /**
+   * Update subscriber count for segment
+   */
+  async updateSubscriberCount(segmentId: string): Promise<void> {
+    const segment = await prisma.client.emailSegment.findUnique({
+      where: { id: segmentId }
+    });
+
+    if (!segment) return;
+
+    const whereClause = this.buildWhereClause(segment.conditions);
+
+    const count = await prisma.client.emailListSubscriber.count({
+      where: {
+        listId: segment.listId,
+        subscribed: true,
+        confirmed: true,
+        ...whereClause
+      }
+    });
+
+    await prisma.client.emailSegment.update({
+      where: { id: segmentId },
+      data: {
+        subscriberCount: count,
+        lastCalculatedAt: new Date()
+      }
+    });
+  }
+
+  /**
+   * Update all segments for a list
+   */
+  async updateAllSegmentCounts(listId: string): Promise<void> {
+    const segments = await prisma.client.emailSegment.findMany({
+      where: { listId }
+    });
+
+    for (const segment of segments) {
+      await this.updateSubscriberCount(segment.id);
+    }
+  }
+
+  /**
+   * Duplicate segment
+   */
+  async duplicate(segmentId: string, name?: string): Promise<any> {
+    const segment = await this.findById(segmentId);
+
+    const duplicated = await this.create(segment.listId, {
+      name: name || `${segment.name} (Copy)`,
+      description: segment.description,
+      conditions: segment.conditions as SegmentCondition[],
+      metadata: segment.metadata
+    });
+
+    logger.info('Segment duplicated', {
+      originalId: segmentId,
+      duplicatedId: duplicated.id
+    });
+
+    return duplicated;
+  }
+
+  /**
+   * Validate segment conditions
+   */
+  private validateConditions(conditions: SegmentCondition[]): void {
+    if (!conditions || conditions.length === 0) {
+      throw new BadRequestException('At least one condition is required');
+    }
+
+    for (const condition of conditions) {
+      if (!condition.field || !condition.operator) {
+        throw new BadRequestException('Invalid condition: field and operator are required');
+      }
+
+      // Validate operator-value combinations
+      switch (condition.operator) {
+        case EmailSegmentOperator.IN:
+        case EmailSegmentOperator.NOT_IN:
+          if (!Array.isArray(condition.value)) {
+            throw new BadRequestException(`Operator ${condition.operator} requires array value`);
+          }
+          break;
+
+        case EmailSegmentOperator.GREATER_THAN:
+        case EmailSegmentOperator.LESS_THAN:
+          if (typeof condition.value !== 'number' && !Date.parse(condition.value)) {
+            throw new BadRequestException(`Operator ${condition.operator} requires numeric or date value`);
+          }
+          break;
+      }
+    }
+  }
+
+  /**
+   * Build Prisma where clause from segment conditions
+   */
+  private buildWhereClause(conditions: any): Prisma.EmailListSubscriberWhereInput {
+    const where: any = {};
+
+    if (!conditions || conditions.length === 0) {
+      return where;
+    }
+
+    // Group conditions by logic operator (AND/OR)
+    const andConditions: any[] = [];
+    const orConditions: any[] = [];
+
+    for (const condition of conditions) {
+      const clause = this.buildConditionClause(condition);
+
+      if (condition.logic === 'OR') {
+        orConditions.push(clause);
+      } else {
+        andConditions.push(clause);
+      }
+    }
+
+    if (andConditions.length > 0) {
+      where.AND = andConditions;
+    }
+
+    if (orConditions.length > 0) {
+      where.OR = orConditions;
+    }
+
+    return where;
+  }
+
+  /**
+   * Build individual condition clause
+   */
+  private buildConditionClause(condition: SegmentConditionEvaluator): any {
+    const { field, operator, value } = condition;
+
+    // Handle standard fields
+    switch (field) {
+      case 'email':
+        return this.buildStringCondition('email', operator, value);
+
+      case 'firstName':
+        return this.buildStringCondition('firstName', operator, value);
+
+      case 'lastName':
+        return this.buildStringCondition('lastName', operator, value);
+
+      case 'tags':
+        return this.buildArrayCondition('tags', operator, value);
+
+      case 'subscribedAt':
+        return this.buildDateCondition('subscribedAt', operator, value);
+
+      case 'lastEngagedAt':
+        return this.buildDateCondition('lastEngagedAt', operator, value);
+
+      case 'engagementScore':
+        return this.buildNumberCondition('engagementScore', operator, value);
+
+      case 'source':
+        return this.buildStringCondition('source', operator, value);
+
+      case 'location':
+        return this.buildStringCondition('location', operator, value);
+
+      default:
+        // Handle custom fields
+        if (field.startsWith('custom.')) {
+          const customField = field.replace('custom.', '');
+          return this.buildJsonFieldCondition('customData', customField, operator, value);
+        }
+        return {};
+    }
+  }
+
+  /**
+   * Build string field condition
+   */
+  private buildStringCondition(field: string, operator: EmailSegmentOperator, value: any): any {
+    switch (operator) {
+      case EmailSegmentOperator.EQUALS:
+        return { [field]: value };
+
+      case EmailSegmentOperator.NOT_EQUALS:
+        return { [field]: { not: value } };
+
+      case EmailSegmentOperator.CONTAINS:
+        return { [field]: { contains: value, mode: 'insensitive' } };
+
+      case EmailSegmentOperator.NOT_CONTAINS:
+        return { [field]: { not: { contains: value, mode: 'insensitive' } } };
+
+      case EmailSegmentOperator.IN:
+        return { [field]: { in: value } };
+
+      case EmailSegmentOperator.NOT_IN:
+        return { [field]: { notIn: value } };
+
+      default:
+        return {};
+    }
+  }
+
+  /**
+   * Build number field condition
+   */
+  private buildNumberCondition(field: string, operator: EmailSegmentOperator, value: any): any {
+    switch (operator) {
+      case EmailSegmentOperator.EQUALS:
+        return { [field]: value };
+
+      case EmailSegmentOperator.NOT_EQUALS:
+        return { [field]: { not: value } };
+
+      case EmailSegmentOperator.GREATER_THAN:
+        return { [field]: { gt: value } };
+
+      case EmailSegmentOperator.LESS_THAN:
+        return { [field]: { lt: value } };
+
+      default:
+        return {};
+    }
+  }
+
+  /**
+   * Build date field condition
+   */
+  private buildDateCondition(field: string, operator: EmailSegmentOperator, value: any): any {
+    const date = new Date(value);
+
+    switch (operator) {
+      case EmailSegmentOperator.EQUALS:
+        // For date equality, we need to check within the same day
+        const startOfDay = new Date(date);
+        startOfDay.setHours(0, 0, 0, 0);
+        const endOfDay = new Date(date);
+        endOfDay.setHours(23, 59, 59, 999);
+        return { [field]: { gte: startOfDay, lte: endOfDay } };
+
+      case EmailSegmentOperator.GREATER_THAN:
+        return { [field]: { gt: date } };
+
+      case EmailSegmentOperator.LESS_THAN:
+        return { [field]: { lt: date } };
+
+      default:
+        return {};
+    }
+  }
+
+  /**
+   * Build array field condition
+   */
+  private buildArrayCondition(field: string, operator: EmailSegmentOperator, value: any): any {
+    switch (operator) {
+      case EmailSegmentOperator.CONTAINS:
+        return { [field]: { has: value } };
+
+      case EmailSegmentOperator.NOT_CONTAINS:
+        return { NOT: { [field]: { has: value } } };
+
+      case EmailSegmentOperator.IN:
+        return { [field]: { hasSome: value } };
+
+      case EmailSegmentOperator.NOT_IN:
+        return { NOT: { [field]: { hasSome: value } } };
+
+      default:
+        return {};
+    }
+  }
+
+  /**
+   * Build JSON field condition
+   */
+  private buildJsonFieldCondition(
+    field: string,
+    path: string,
+    operator: EmailSegmentOperator,
+    value: any
+  ): any {
+    // This is a simplified version - Prisma's JSON filtering is limited
+    // In production, you might need to use raw queries for complex JSON filtering
+    switch (operator) {
+      case EmailSegmentOperator.EQUALS:
+        return {
+          [field]: {
+            path: [path],
+            equals: value
+          }
+        };
+
+      default:
+        return {};
+    }
+  }
+}
+
+
+
+
+// src/modules/email-marketing/template.service.ts
+import { Service } from 'typedi';
+import { prisma } from '@infrastructure/database/prisma.service';
+import { logger } from '@shared/logger';
+import { eventBus } from '@shared/events/event-bus';
+import { TenantContextService } from '@modules/tenant/tenant.context';
+import { StorageService } from '@shared/services/storage.service';
+import {
+  BadRequestException,
+  NotFoundException,
+  ForbiddenException
+} from '@shared/exceptions';
+import {
+  CreateTemplateDto,
+  UpdateTemplateDto,
+  TemplateQueryDto,
+  PreviewTemplateDto,
+  TemplateVariables
+} from './email-marketing.dto';
+import { Prisma } from '@prisma/client';
+import { EmailMarketingEvents } from './email-marketing.events';
+import Handlebars from 'handlebars';
+import juice from 'juice';
+import { minify } from 'html-minifier-terser';
+
+@Service()
+export class TemplateService {
+  private handlebars: typeof Handlebars;
+
+  constructor(
+    private tenantContext: TenantContextService,
+    private storageService: StorageService
+  ) {
+    this.handlebars = Handlebars.create();
+    this.registerHelpers();
+  }
+
+  /**
+   * Create template
+   */
+  async create(data: CreateTemplateDto): Promise<any> {
+    const tenantId = data.tenantId || this.tenantContext.getTenantId();
+    if (!tenantId && !data.isPublic) {
+      throw new ForbiddenException('Tenant context required for private templates');
+    }
+
+    // Validate template syntax
+    this.validateTemplate(data.htmlContent);
+    if (data.textContent) {
+      this.validateTemplate(data.textContent);
+    }
+
+    try {
+      // Process and optimize HTML
+      const processedHtml = await this.processHtmlContent(data.htmlContent);
+
+      const template = await prisma.client.emailTemplate.create({
+        data: {
+          tenantId: tenantId!,
+          name: data.name,
+          description: data.description,
+          category: data.category,
+          subject: data.subject,
+          preheader: data.preheader,
+          htmlContent: processedHtml,
+          textContent: data.textContent || this.generateTextFromHtml(processedHtml),
+          variables: data.variables as any,
+          thumbnail: data.thumbnail,
+          isPublic: data.isPublic || false,
+          metadata: data.metadata
+        }
+      });
+
+      // Generate thumbnail if not provided
+      if (!template.thumbnail) {
+        await this.generateTemplateThumbnail(template.id);
+      }
+
+      await eventBus.emit(EmailMarketingEvents.TEMPLATE_CREATED, {
+        templateId: template.id,
+        tenantId
+      });
+
+      logger.info('Template created', { templateId: template.id, tenantId });
+
+      return template;
+    } catch (error) {
+      logger.error('Failed to create template', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Update template
+   */
+  async update(templateId: string, data: UpdateTemplateDto): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+
+    const template = await this.findById(templateId);
+
+    // Check ownership for private templates
+    if (!template.isPublic && template.tenantId !== tenantId) {
+      throw new ForbiddenException('Cannot update template from another tenant');
+    }
+
+    // Validate template syntax if content is being updated
+    if (data.htmlContent) {
+      this.validateTemplate(data.htmlContent);
+    }
+    if (data.textContent) {
+      this.validateTemplate(data.textContent);
+    }
+
+    try {
+      const updateData: any = {
+        name: data.name,
+        description: data.description,
+        category: data.category,
+        subject: data.subject,
+        preheader: data.preheader,
+        variables: data.variables as any,
+        thumbnail: data.thumbnail,
+        metadata: data.metadata
+      };
+
+      if (data.htmlContent) {
+        updateData.htmlContent = await this.processHtmlContent(data.htmlContent);
+        if (!data.textContent) {
+          updateData.textContent = this.generateTextFromHtml(updateData.htmlContent);
+        }
+      }
+
+      if (data.textContent) {
+        updateData.textContent = data.textContent;
+      }
+
+      const updated = await prisma.client.emailTemplate.update({
+        where: { id: templateId },
+        data: updateData
+      });
+
+      // Regenerate thumbnail if content changed
+      if (data.htmlContent && !data.thumbnail) {
+        await this.generateTemplateThumbnail(templateId);
+      }
+
+      await eventBus.emit(EmailMarketingEvents.TEMPLATE_UPDATED, {
+        templateId: updated.id,
+        tenantId: updated.tenantId
+      });
+
+      return updated;
+    } catch (error) {
+      logger.error('Failed to update template', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Archive/unarchive template
+   */
+  async toggleArchive(templateId: string): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+
+    const template = await this.findById(templateId);
+
+    if (!template.isPublic && template.tenantId !== tenantId) {
+      throw new ForbiddenException('Cannot modify template from another tenant');
+    }
+
+    try {
+      const updated = await prisma.client.emailTemplate.update({
+        where: { id: templateId },
+        data: { isArchived: !template.isArchived }
+      });
+
+      return updated;
+    } catch (error) {
+      logger.error('Failed to toggle template archive', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Delete template
+   */
+  async delete(templateId: string): Promise<void> {
+    const tenantId = this.tenantContext.getTenantId();
+
+    const template = await this.findById(templateId);
+
+    if (!template.isPublic && template.tenantId !== tenantId) {
+      throw new ForbiddenException('Cannot delete template from another tenant');
+    }
+
+    // Check if template is used in any active campaigns or automations
+    const [campaignsCount, automationsCount] = await Promise.all([
+      prisma.client.emailCampaign.count({
+        where: {
+          templateId,
+          status: { in: ['SCHEDULED', 'SENDING'] }
+        }
+      }),
+      prisma.client.emailAutomationStep.count({
+        where: {
+          templateId,
+          automation: { active: true }
+        }
+      })
+    ]);
+
+    if (campaignsCount > 0 || automationsCount > 0) {
+      throw new BadRequestException('Cannot delete template in use');
+    }
+
+    try {
+      await prisma.client.emailTemplate.delete({
+        where: { id: templateId }
+      });
+
+      await eventBus.emit(EmailMarketingEvents.TEMPLATE_DELETED, {
+        templateId,
+        tenantId: template.tenantId
+      });
+
+      logger.info('Template deleted', { templateId });
+    } catch (error) {
+      logger.error('Failed to delete template', error as Error);
+      throw error;
+    }
+  }
+
+  /**
+   * Find template by ID
+   */
+  async findById(templateId: string): Promise<any> {
+    const template = await prisma.client.emailTemplate.findUnique({
+      where: { id: templateId }
+    });
+
+    if (!template) {
+      throw new NotFoundException('Template not found');
+    }
+
+    return template;
+  }
+
+  /**
+   * Find templates
+   */
+  async find(query: TemplateQueryDto): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+
+    const where: Prisma.EmailTemplateWhereInput = {
+      OR: [
+        { tenantId, isArchived: query.includeArchived ? undefined : false },
+        { isPublic: true, isArchived: false }
+      ],
+      ...(query.category && { category: query.category }),
+      ...(query.search && {
+        OR: [
+          { name: { contains: query.search, mode: 'insensitive' } },
+          { description: { contains: query.search, mode: 'insensitive' } }
+        ]
+      })
+    };
+
+    const [templates, total] = await Promise.all([
+      prisma.client.emailTemplate.findMany({
+        where,
+        orderBy: { createdAt: 'desc' },
+        skip: query.skip,
+        take: query.limit
+      }),
+      prisma.client.emailTemplate.count({ where })
+    ]);
+
+    return {
+      templates,
+      pagination: {
+        total,
+        page: Math.floor(query.skip / query.limit) + 1,
+        limit: query.limit,
+        pages: Math.ceil(total / query.limit)
+      }
+    };
+  }
+
+  /**
+   * Find templates by category
+   */
+  async findByCategory(category: string): Promise<any[]> {
+    const tenantId = this.tenantContext.getTenantId();
+
+    return prisma.client.emailTemplate.findMany({
+      where: {
+        OR: [
+          { tenantId, category, isArchived: false },
+          { isPublic: true, category, isArchived: false }
+        ]
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+  }
+
+  /**
+   * Get template categories
+   */
+  async getCategories(): Promise<string[]> {
+    const tenantId = this.tenantContext.getTenantId();
+
+    const categories = await prisma.client.emailTemplate.findMany({
+      where: {
+        OR: [
+          { tenantId },
+          { isPublic: true }
+        ],
+        isArchived: false,
+        category: { not: null }
+      },
+      select: { category: true },
+      distinct: ['category']
+    });
+
+    return categories
+      .map(c => c.category)
+      .filter(Boolean) as string[];
+  }
+
+  /**
+   * Preview template with data
+   */
+  async preview(templateId: string, data: PreviewTemplateDto): Promise<any> {
+    const template = await this.findById(templateId);
+
+    const tenantId = this.tenantContext.getTenantId();
+    if (!template.isPublic && template.tenantId !== tenantId) {
+      throw new ForbiddenException('Cannot preview template from another tenant');
+    }
+
+    try {
+      // Merge provided variables with defaults
+      const variables = {
+        ...this.getDefaultVariables(),
+        ...data.variables
+      };
+
+      // Render subject
+      const subject = this.renderTemplate(template.subject, variables);
+
+      // Render HTML content
+      const htmlContent = this.renderTemplate(template.htmlContent, variables);
+
+      // Render text content
+      const textContent = template.textContent
+        ? this.renderTemplate(template.textContent, variables)
+        : this.generateTextFromHtml(htmlContent);
+
+      return {
+        subject,
+        htmlContent,
+        textContent,
+        preheader: template.preheader
+      };
+    } catch (error) {
+      logger.error('Failed to preview template', error as Error);
+      throw new BadRequestException('Failed to render template: ' + (error as Error).message);
+    }
+  }
+
+  /**
+   * Duplicate template
+   */
+  async duplicate(templateId: string, name?: string): Promise<any> {
+    const template = await this.findById(templateId);
+    const tenantId = this.tenantContext.getTenantId();
+
+    if (!template.isPublic && template.tenantId !== tenantId) {
+      throw new ForbiddenException('Cannot duplicate template from another tenant');
+    }
+
+    const duplicated = await this.create({
+      tenantId: tenantId!,
+      name: name || `${template.name} (Copy)`,
+      description: template.description,
+      category: template.category,
+      subject: template.subject,
+      preheader: template.preheader,
+      htmlContent: template.htmlContent,
+      textContent: template.textContent,
+      variables: template.variables as TemplateVariables,
+      isPublic: false
+    });
+
+    logger.info('Template duplicated', {
+      originalId: templateId,
+      duplicatedId: duplicated.id
+    });
+
+    return duplicated;
+  }
+
+  /**
+   * Render template with variables
+   */
+  renderTemplate(content: string, variables: Record<string, any>): string {
+    try {
+      const template = this.handlebars.compile(content);
+      return template(variables);
+    } catch (error) {
+      throw new BadRequestException('Template rendering failed: ' + (error as Error).message);
+    }
+  }
+
+  /**
+   * Validate template syntax
+   */
+  private validateTemplate(content: string): void {
+    try {
+      this.handlebars.compile(content);
+    } catch (error) {
+      throw new BadRequestException('Invalid template syntax: ' + (error as Error).message);
+    }
+  }
+
+  /**
+   * Process HTML content
+   */
+  private async processHtmlContent(html: string): Promise<string> {
+    try {
+      // Inline CSS
+      const inlined = juice(html);
+
+      // Minify HTML for smaller size
+      const minified = await minify(inlined, {
+        collapseWhitespace: true,
+        removeComments: true,
+        minifyCSS: true
+      });
+
+      return minified;
+    } catch (error) {
+      logger.error('Failed to process HTML content', error as Error);
+      return html; // Return original if processing fails
+    }
+  }
+
+  /**
+   * Generate text version from HTML
+   */
+  private generateTextFromHtml(html: string): string {
+    // Simple HTML to text conversion
+    return html
+      .replace(/<style[^>]*>.*?<\/style>/gi, '')
+      .replace(/<script[^>]*>.*?<\/script>/gi, '')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/\s+/g, ' ')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .trim();
+  }
+
+  /**
+   * Generate template thumbnail
+   */
+  private async generateTemplateThumbnail(templateId: string): Promise<void> {
+    // This would use a service like Puppeteer to generate a screenshot
+    // For now, we'll skip the implementation
+    logger.info('Template thumbnail generation skipped', { templateId });
+  }
+
+  /**
+   * Register Handlebars helpers
+   */
+  private registerHelpers(): void {
+    // Date formatting helper
+    this.handlebars.registerHelper('formatDate', (date: Date | string, format: string) => {
+      if (!date) return '';
+      const dateObj = typeof date === 'string' ? new Date(date) : date;
+      // Simple date formatting - in production use date-fns or similar
+      return dateObj.toLocaleDateString();
+    });
+
+    // Conditional helper
+    this.handlebars.registerHelper('ifEquals', function(arg1: any, arg2: any, options: any) {
+      return arg1 === arg2 ? options.fn(this) : options.inverse(this);
+    });
+
+    // URL encoding helper
+    this.handlebars.registerHelper('urlEncode', (str: string) => {
+      return encodeURIComponent(str || '');
+    });
+
+    // Default value helper
+    this.handlebars.registerHelper('default', (value: any, defaultValue: any) => {
+      return value || defaultValue;
+    });
+
+    // Capitalize helper
+    this.handlebars.registerHelper('capitalize', (str: string) => {
+      if (!str) return '';
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    });
+
+    // Truncate helper
+    this.handlebars.registerHelper('truncate', (str: string, length: number) => {
+      if (!str || str.length <= length) return str;
+      return str.substring(0, length) + '...';
+    });
+  }
+
+  /**
+   * Get default template variables
+   */
+  private getDefaultVariables(): Record<string, any> {
+    return {
+      companyName: process.env.APP_NAME || 'Your Company',
+      currentYear: new Date().getFullYear(),
+      unsubscribeUrl: '{{unsubscribeUrl}}',
+      browserUrl: '{{browserUrl}}',
+      profileUrl: '{{profileUrl}}'
+    };
+  }
+}
+
+
+
+
+
+
+// src/modules/email-marketing/tracking.service.ts
+import { Service } from 'typedi';
+import { prisma } from '@infrastructure/database/prisma.service';
+import { logger } from '@shared/logger';
+import { eventBus } from '@shared/events/event-bus';
+import { redis } from '@infrastructure/cache/redis.service';
+import {
+  EmailDeliveryStatus,
+  Prisma
+} from '@prisma/client';
+import { EmailMarketingEvents } from './email-marketing.events';
+import { createHash } from 'crypto';
+import UAParser from 'ua-parser-js';
+import geoip from 'geoip-lite';
+
+interface TrackingData {
+  campaignId?: string;
+  subscriberId: string;
+  messageId: string;
+  timestamp: Date;
+  ipAddress?: string;
+  userAgent?: string;
+}
+
+interface ClickData extends TrackingData {
+  url: string;
+  linkId: string;
+}
+
+@Service()
+export class TrackingService {
+  private readonly TRACKING_PIXEL = Buffer.from(
+    'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+    'base64'
+  );
+
+  /**
+   * Track email sent
+   */
+  async trackSent(data: TrackingData): Promise<void> {
+    try {
+      if (data.campaignId) {
+        // Update recipient status
+        await prisma.client.emailCampaignRecipient.updateMany({
+          where: {
+            campaignId: data.campaignId,
+            subscriberId: data.subscriberId
+          },
+          data: {
+            status: EmailDeliveryStatus.SENT,
+            sentAt: data.timestamp
+          }
+        });
+
+        // Update campaign stats
+        await this.incrementCampaignStat(data.campaignId, 'sentCount');
+      }
+
+      // Record activity
+      await this.recordActivity('sent', data);
+
+      await eventBus.emit(EmailMarketingEvents.EMAIL_SENT, {
+        ...data,
+        type: 'sent'
+      });
+    } catch (error) {
+      logger.error('Failed to track email sent', error as Error, data);
+    }
+  }
+
+  /**
+   * Track email delivered
+   */
+  async trackDelivered(data: TrackingData): Promise<void> {
+    try {
+      if (data.campaignId) {
+        // Update recipient status
+        await prisma.client.emailCampaignRecipient.updateMany({
+          where: {
+            campaignId: data.campaignId,
+            subscriberId: data.subscriberId
+          },
+          data: {
+            status: EmailDeliveryStatus.DELIVERED,
+            deliveredAt: data.timestamp
+          }
+        });
+
+        // Update campaign stats
+        await this.incrementCampaignStat(data.campaignId, 'deliveredCount');
+      }
+
+      // Record activity
+      await this.recordActivity('delivered', data);
+
+      await eventBus.emit(EmailMarketingEvents.EMAIL_DELIVERED, {
+        ...data,
+        type: 'delivered'
+      });
+    } catch (error) {
+      logger.error('Failed to track email delivered', error as Error, data);
+    }
+  }
+
+  /**
+   * Track email opened
+   */
+  async trackOpen(data: TrackingData): Promise<void> {
+    try {
+      // Check if already opened (for unique opens)
+      const isFirstOpen = data.campaignId ?
+        await this.isFirstOpen(data.campaignId, data.subscriberId) :
+        false;
+
+      if (data.campaignId) {
+        // Update recipient
+        const updateData: any = {
+          status: EmailDeliveryStatus.OPENED,
+          openCount: { increment: 1 }
+        };
+
+        if (isFirstOpen) {
+          updateData.openedAt = data.timestamp;
+        }
+
+        await prisma.client.emailCampaignRecipient.updateMany({
+          where: {
+            campaignId: data.campaignId,
+            subscriberId: data.subscriberId
+          },
+          data: updateData
+        });
+
+        // Update campaign stats
+        await this.incrementCampaignStat(data.campaignId, 'openCount');
+        if (isFirstOpen) {
+          await this.incrementCampaignStat(data.campaignId, 'uniqueOpenCount');
+        }
+      }
+
+      // Parse user agent and location
+      const deviceInfo = this.parseUserAgent(data.userAgent);
+      const location = this.getLocation(data.ipAddress);
+
+      // Record activity with device info
+      await this.recordActivity('opened', {
+        ...data,
+        device: deviceInfo.device,
+        os: deviceInfo.os,
+        browser: deviceInfo.browser,
+        location
+      });
+
+      // Update subscriber engagement
+      await this.updateSubscriberEngagement(data.subscriberId, 'open');
+
+      await eventBus.emit(EmailMarketingEvents.EMAIL_OPENED, {
+        ...data,
+        type: 'opened',
+        isFirstOpen
+      });
+    } catch (error) {
+      logger.error('Failed to track email open', error as Error, data);
+    }
+  }
+
+  /**
+   * Track email click
+   */
+  async trackClick(data: ClickData): Promise<void> {
+    try {
+      // Check if already clicked (for unique clicks)
+      const isFirstClick = data.campaignId ?
+        await this.isFirstClick(data.campaignId, data.subscriberId) :
+        false;
+
+      if (data.campaignId) {
+        // Update recipient
+        const updateData: any = {
+          status: EmailDeliveryStatus.CLICKED,
+          clickCount: { increment: 1 }
+        };
+
+        if (isFirstClick) {
+          updateData.clickedAt = data.timestamp;
+        }
+
+        await prisma.client.emailCampaignRecipient.updateMany({
+          where: {
+            campaignId: data.campaignId,
+            subscriberId: data.subscriberId
+          },
+          data: updateData
+        });
+
+        // Update campaign stats
+        await this.incrementCampaignStat(data.campaignId, 'clickCount');
+        if (isFirstClick) {
+          await this.incrementCampaignStat(data.campaignId, 'uniqueClickCount');
+        }
+      }
+
+      // Parse user agent and location
+      const deviceInfo = this.parseUserAgent(data.userAgent);
+      const location = this.getLocation(data.ipAddress);
+
+      // Record activity with click details
+      await this.recordActivity('clicked', {
+        ...data,
+        clickedUrl: data.url,
+        device: deviceInfo.device,
+        os: deviceInfo.os,
+        browser: deviceInfo.browser,
+        location
+      });
+
+      // Update subscriber engagement
+      await this.updateSubscriberEngagement(data.subscriberId, 'click');
+
+      // Track link clicks
+      await this.trackLinkClick(data.campaignId, data.url);
+
+      await eventBus.emit(EmailMarketingEvents.EMAIL_CLICKED, {
+        ...data,
+        type: 'clicked',
+        isFirstClick
+      });
+    } catch (error) {
+      logger.error('Failed to track email click', error as Error, data);
+    }
+  }
+
+  /**
+   * Track email bounce
+   */
+  async trackBounce(data: TrackingData & { bounceType: 'hard' | 'soft' }): Promise<void> {
+    try {
+      if (data.campaignId) {
+        // Update recipient status
+        await prisma.client.emailCampaignRecipient.updateMany({
+          where: {
+            campaignId: data.campaignId,
+            subscriberId: data.subscriberId
+          },
+          data: {
+            status: EmailDeliveryStatus.BOUNCED,
+            bouncedAt: data.timestamp,
+            error: data.bounceType
+          }
+        });
+
+        // Update campaign stats
+        await this.incrementCampaignStat(data.campaignId, 'bouncedCount');
+      }
+
+      // Record activity
+      await this.recordActivity('bounced', {
+        ...data,
+        bounceType: data.bounceType
+      });
+
+      // Handle hard bounces
+      if (data.bounceType === 'hard') {
+        await this.handleHardBounce(data.subscriberId);
+      }
+
+      await eventBus.emit(EmailMarketingEvents.EMAIL_BOUNCED, {
+        ...data,
+        type: 'bounced'
+      });
+    } catch (error) {
+      logger.error('Failed to track email bounce', error as Error, data);
+    }
+  }
+
+  /**
+   * Track unsubscribe
+   */
+  async trackUnsubscribe(data: TrackingData & { reason?: string }): Promise<void> {
+    try {
+      if (data.campaignId) {
+        // Update recipient status
+        await prisma.client.emailCampaignRecipient.updateMany({
+          where: {
+            campaignId: data.campaignId,
+            subscriberId: data.subscriberId
+          },
+          data: {
+            status: EmailDeliveryStatus.UNSUBSCRIBED,
+            unsubscribedAt: data.timestamp
+          }
+        });
+
+        // Update campaign stats
+        await this.incrementCampaignStat(data.campaignId, 'unsubscribeCount');
+      }
+
+      // Record activity
+      await this.recordActivity('unsubscribed', {
+        ...data,
+        reason: data.reason
+      });
+
+      await eventBus.emit(EmailMarketingEvents.EMAIL_UNSUBSCRIBED, {
+        ...data,
+        type: 'unsubscribed'
+      });
+    } catch (error) {
+      logger.error('Failed to track unsubscribe', error as Error, data);
+    }
+  }
+
+  /**
+   * Track spam complaint
+   */
+  async trackComplaint(data: TrackingData): Promise<void> {
+    try {
+      if (data.campaignId) {
+        // Update recipient status
+        await prisma.client.emailCampaignRecipient.updateMany({
+          where: {
+            campaignId: data.campaignId,
+            subscriberId: data.subscriberId
+          },
+          data: {
+            status: EmailDeliveryStatus.COMPLAINED,
+            complainedAt: data.timestamp
+          }
+        });
+
+        // Update campaign stats
+        await this.incrementCampaignStat(data.campaignId, 'complaintCount');
+      }
+
+      // Record activity
+      await this.recordActivity('complained', data);
+
+      // Handle complaint
+      await this.handleComplaint(data.subscriberId);
+
+      await eventBus.emit(EmailMarketingEvents.EMAIL_COMPLAINED, {
+        ...data,
+        type: 'complained'
+      });
+    } catch (error) {
+      logger.error('Failed to track complaint', error as Error, data);
+    }
+  }
+
+  /**
+   * Generate tracking pixel
+   */
+  generateTrackingPixel(campaignId: string, subscriberId: string): string {
+    const trackingId = this.generateTrackingId(campaignId, subscriberId);
+    return `${process.env.APP_URL}/api/email-marketing/track/open/${trackingId}`;
+  }
+
+  /**
+   * Generate click tracking URL
+   */
+  generateClickTrackingUrl(
+    campaignId: string,
+    subscriberId: string,
+    originalUrl: string,
+    linkId?: string
+  ): string {
+    const trackingId = this.generateTrackingId(campaignId, subscriberId);
+    const encodedUrl = Buffer.from(originalUrl).toString('base64url');
+    const link = linkId || this.generateLinkId(originalUrl);
+
+    return `${process.env.APP_URL}/api/email-marketing/track/click/${trackingId}/${link}?url=${encodedUrl}`;
+  }
+
+  /**
+   * Decode tracking ID
+   */
+  decodeTrackingId(trackingId: string): { campaignId: string; subscriberId: string } | null {
+    try {
+      const decoded = Buffer.from(trackingId, 'base64url').toString();
+      const [campaignId, subscriberId] = decoded.split(':');
+
+      if (!campaignId || !subscriberId) {
+        return null;
+      }
+
+      return { campaignId, subscriberId };
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * Get tracking pixel image
+   */
+  getTrackingPixel(): Buffer {
+    return this.TRACKING_PIXEL;
+  }
+
+  /**
+   * Update campaign statistics in real-time
+   */
+  async updateCampaignStats(campaignId: string): Promise<void> {
+    try {
+      const stats = await prisma.client.emailCampaignRecipient.groupBy({
+        by: ['status'],
+        where: { campaignId },
+        _count: true
+      });
+
+      const totals = await prisma.client.emailCampaignRecipient.aggregate({
+        where: { campaignId },
+        _sum: {
+          openCount: true,
+          clickCount: true
+        }
+      });
+
+      const totalRecipients = stats.reduce((sum, stat) => sum + stat._count, 0);
+      const delivered = stats.find(s => s.status === EmailDeliveryStatus.DELIVERED)?._count || 0;
+      const uniqueOpens = stats.find(s => s.status === EmailDeliveryStatus.OPENED)?._count || 0;
+      const uniqueClicks = stats.find(s => s.status === EmailDeliveryStatus.CLICKED)?._count || 0;
+
+      const updateData = {
+        totalRecipients,
+        deliveredCount: delivered,
+        uniqueOpenCount: uniqueOpens,
+        uniqueClickCount: uniqueClicks,
+        openCount: totals._sum.openCount || 0,
+        clickCount: totals._sum.clickCount || 0,
+        deliveryRate: totalRecipients > 0 ? (delivered / totalRecipients) * 100 : 0,
+        openRate: delivered > 0 ? (uniqueOpens / delivered) * 100 : 0,
+        clickRate: delivered > 0 ? (uniqueClicks / delivered) * 100 : 0,
+        clickToOpenRate: uniqueOpens > 0 ? (uniqueClicks / uniqueOpens) * 100 : 0
+      };
+
+      await prisma.client.emailCampaignStats.update({
+        where: { campaignId },
+        data: updateData
+      });
+    } catch (error) {
+      logger.error('Failed to update campaign stats', error as Error, { campaignId });
+    }
+  }
+
+  /**
+   * Record email activity
+   */
+  private async recordActivity(type: string, data: any): Promise<void> {
+    await prisma.client.emailActivity.create({
+      data: {
+        campaignId: data.campaignId,
+        subscriberId: data.subscriberId,
+        type,
+        clickedUrl: data.clickedUrl,
+        userAgent: data.userAgent,
+        ipAddress: data.ipAddress,
+        location: data.location,
+        device: data.device,
+        os: data.os,
+        browser: data.browser,
+        metadata: {
+          messageId: data.messageId,
+          ...data.metadata
+        }
+      }
+    });
+  }
+
+  /**
+   * Update subscriber engagement score
+   */
+  private async updateSubscriberEngagement(
+    subscriberId: string,
+    action: 'open' | 'click'
+  ): Promise<void> {
+    const score = action === 'click' ? 2 : 1;
+
+    await prisma.client.emailListSubscriber.update({
+      where: { id: subscriberId },
+      data: {
+        lastEngagedAt: new Date(),
+        engagementScore: { increment: score }
+      }
+    });
+  }
+
+  /**
+   * Increment campaign statistic
+   */
+  private async incrementCampaignStat(
+    campaignId: string,
+    field: string
+  ): Promise<void> {
+    await prisma.client.emailCampaignStats.update({
+      where: { campaignId },
+      data: {
+        [field]: { increment: 1 }
+      }
+    });
+
+    // Cache bust
+    await redis.delete(`campaign:stats:${campaignId}`);
+  }
+
+  /**
+   * Check if first open
+   */
+  private async isFirstOpen(
+    campaignId: string,
+    subscriberId: string
+  ): Promise<boolean> {
+    const recipient = await prisma.client.emailCampaignRecipient.findFirst({
+      where: { campaignId, subscriberId },
+      select: { openedAt: true }
+    });
+
+    return !recipient?.openedAt;
+  }
+
+  /**
+   * Check if first click
+   */
+  private async isFirstClick(
+    campaignId: string,
+    subscriberId: string
+  ): Promise<boolean> {
+    const recipient = await prisma.client.emailCampaignRecipient.findFirst({
+      where: { campaignId, subscriberId },
+      select: { clickedAt: true }
+    });
+
+    return !recipient?.clickedAt;
+  }
+
+  /**
+   * Track link clicks
+   */
+  private async trackLinkClick(
+    campaignId: string | undefined,
+    url: string
+  ): Promise<void> {
+    if (!campaignId) return;
+
+    const key = `campaign:links:${campaignId}`;
+    await redis.hincrby(key, url, 1);
+  }
+
+  /**
+   * Handle hard bounce
+   */
+  private async handleHardBounce(subscriberId: string): Promise<void> {
+    // Mark subscriber as invalid
+    await prisma.client.emailListSubscriber.update({
+      where: { id: subscriberId },
+      data: {
+        subscribed: false,
+        metadata: {
+          bounced: true,
+          bouncedAt: new Date()
+        }
+      }
+    });
+  }
+
+  /**
+   * Handle spam complaint
+   */
+  private async handleComplaint(subscriberId: string): Promise<void> {
+    // Unsubscribe and mark as complained
+    await prisma.client.emailListSubscriber.update({
+      where: { id: subscriberId },
+      data: {
+        subscribed: false,
+        unsubscribedAt: new Date(),
+        metadata: {
+          complained: true,
+          complainedAt: new Date()
+        }
+      }
+    });
+  }
+
+  /**
+   * Parse user agent
+   */
+  private parseUserAgent(userAgent?: string): any {
+    if (!userAgent) {
+      return { device: 'Unknown', os: 'Unknown', browser: 'Unknown' };
+    }
+
+    const parser = new UAParser(userAgent);
+    const result = parser.getResult();
+
+    return {
+      device: result.device.type || 'Desktop',
+      os: result.os.name || 'Unknown',
+      browser: result.browser.name || 'Unknown'
+    };
+  }
+
+  /**
+   * Get location from IP
+   */
+  private getLocation(ipAddress?: string): string | null {
+    if (!ipAddress) return null;
+
+    const geo = geoip.lookup(ipAddress);
+    if (!geo) return null;
+
+    return `${geo.city || 'Unknown'}, ${geo.country}`;
+  }
+
+  /**
+   * Generate tracking ID
+   */
+  private generateTrackingId(campaignId: string, subscriberId: string): string {
+    return Buffer.from(`${campaignId}:${subscriberId}`).toString('base64url');
+  }
+
+  /**
+   * Generate link ID
+   */
+  private generateLinkId(url: string): string {
+    return createHash('sha256').update(url).digest('hex').substring(0, 8);
+  }
+}
+
+
+
+
+// src/modules/email-marketing/email-marketing.dto.ts
+import { z } from 'zod';
+import {
+  EmailListStatus,
+  EmailCampaignStatus,
+  EmailCampaignType,
+  EmailAutomationTrigger,
+  EmailSegmentOperator,
+  EmailDeliveryStatus
+} from '@prisma/client';
+
+// Common schemas
+const paginationSchema = z.object({
+  page: z.coerce.number().int().positive().default(1),
+  limit: z.coerce.number().int().positive().max(100).default(20),
+  skip: z.number().optional()
+}).transform(data => ({
+  ...data,
+  skip: data.skip ?? (data.page - 1) * data.limit
+}));
+
+// ========================= EMAIL LIST DTOs =========================
+
+export const createEmailListSchema = z.object({
+  name: z.string().min(1).max(255),
+  description: z.string().optional(),
+  doubleOptIn: z.boolean().optional(),
+  welcomeEmailId: z.string().optional(),
+  confirmationPageUrl: z.string().url().optional(),
+  defaultFromName: z.string().optional(),
+  defaultFromEmail: z.string().email().optional(),
+  defaultReplyTo: z.string().email().optional(),
+  customFields: z.record(z.any()).optional(),
+  metadata: z.record(z.any()).optional()
+});
+
+export const updateEmailListSchema = createEmailListSchema.partial();
+
+export const emailListQuerySchema = paginationSchema.extend({
+  status: z.nativeEnum(EmailListStatus).optional(),
+  search: z.string().optional()
+});
+
+export const addSubscriberSchema = z.object({
+  email: z.string().email(),
+  firstName: z.string().optional(),
+  lastName: z.string().optional(),
+  customData: z.record(z.any()).optional(),
+  tags: z.array(z.string()).optional(),
+  source: z.string().optional(),
+  ipAddress: z.string().optional(),
+  location: z.string().optional(),
+  metadata: z.record(z.any()).optional()
+});
+
+export const importSubscribersSchema = z.object({
+  subscribers: z.array(addSubscriberSchema).optional(),
+  csv: z.string().optional(),
+  updateExisting: z.boolean().default(false),
+  skipConfirmation: z.boolean().default(false)
+}).refine(data => data.subscribers || data.csv, {
+  message: 'Either subscribers array or CSV data is required'
+});
+
+export const updateSubscriberSchema = z.object({
+  firstName: z.string().optional(),
+  lastName: z.string().optional(),
+  customData: z.record(z.any()).optional(),
+  metadata: z.record(z.any()).optional()
+});
+
+export const subscriberTagsSchema = z.object({
+  add: z.array(z.string()).optional(),
+  remove: z.array(z.string()).optional()
+}).refine(data => data.add || data.remove, {
+  message: 'Either add or remove tags must be specified'
+});
+
+export const subscriberQuerySchema = paginationSchema.extend({
+  subscribed: z.coerce.boolean().optional(),
+  confirmed: z.coerce.boolean().optional(),
+  tags: z.array(z.string()).optional(),
+  search: z.string().optional()
+});
+
+export const bulkOperationSchema = z.object({
+  subscriberIds: z.array(z.string()),
+  action: z.enum(['delete', 'unsubscribe', 'add_tags', 'remove_tags']),
+  tags: z.array(z.string()).optional()
+});
+
+// ========================= CAMPAIGN DTOs =========================
+
+export const createCampaignSchema = z.object({
+  listId: z.string().optional(),
+  name: z.string().min(1).max(255),
+  subject: z.string().min(1).max(500),
+  preheader: z.string().max(255).optional(),
+  fromName: z.string().min(1).max(255),
+  fromEmail: z.string().email(),
+  replyTo: z.string().email().optional(),
+  type: z.nativeEnum(EmailCampaignType).optional(),
+  templateId: z.string().optional(),
+  htmlContent: z.string().optional(),
+  textContent: z.string().optional(),
+  segmentIds: z.array(z.string()).optional(),
+  excludeSegmentIds: z.array(z.string()).optional(),
+  trackOpens: z.boolean().optional(),
+  trackClicks: z.boolean().optional(),
+  googleAnalytics: z.boolean().optional(),
+  utmParams: z.object({
+    source: z.string().optional(),
+    medium: z.string().optional(),
+    campaign: z.string().optional(),
+    term: z.string().optional(),
+    content: z.string().optional()
+  }).optional(),
+  isABTest: z.boolean().optional(),
+  abTestConfig: z.object({
+    testSize: z.number().min(10).max(50),
+    winnerCriteria: z.enum(['open_rate', 'click_rate', 'conversion_rate']),
+    testDuration: z.number().min(1).max(24), // hours
+    variants: z.array(z.object({
+      name: z.string(),
+      weight: z.number().min(1).max(100),
+      subject: z.string().optional(),
+      fromName: z.string().optional()
+    }))
+  }).optional(),
+  metadata: z.record(z.any()).optional()
+});
+
+export const updateCampaignSchema = createCampaignSchema.partial().omit({
+  type: true,
+  isABTest: true
+});
+
+export const sendCampaignSchema = z.object({
+  testMode: z.boolean().optional(),
+  testEmails: z.array(z.string().email()).optional()
+});
+
+export const campaignQuerySchema = paginationSchema.extend({
+  listId: z.string().optional(),
+  status: z.nativeEnum(EmailCampaignStatus).optional(),
+  type: z.nativeEnum(EmailCampaignType).optional(),
+  search: z.string().optional()
+});
+
+// ========================= SEGMENT DTOs =========================
+
+export const segmentConditionSchema = z.object({
+  field: z.string(),
+  operator: z.nativeEnum(EmailSegmentOperator),
+  value: z.any(),
+  logic: z.enum(['AND', 'OR']).optional()
+});
+
+export const createSegmentSchema = z.object({
+  name: z.string().min(1).max(255),
+  description: z.string().optional(),
+  conditions: z.array(segmentConditionSchema).min(1),
+  metadata: z.record(z.any()).optional()
+});
+
+export const updateSegmentSchema = createSegmentSchema.partial();
+
+export const segmentQuerySchema = paginationSchema.extend({
+  search: z.string().optional()
+});
+
+export const testSegmentSchema = z.object({
+  conditions: z.array(segmentConditionSchema).optional(),
+  limit: z.number().max(100).optional()
+});
+
+// ========================= TEMPLATE DTOs =========================
+
+export const templateVariablesSchema = z.record(z.enum(['string', 'number', 'boolean', 'array', 'object']));
+
+export const createTemplateSchema = z.object({
+  tenantId: z.string().optional(),
+  name: z.string().min(1).max(255),
+  description: z.string().optional(),
+  category: z.string().optional(),
+  subject: z.string().min(1).max(500),
+  preheader: z.string().max(255).optional(),
+  htmlContent: z.string().min(1),
+  textContent: z.string().optional(),
+  variables: templateVariablesSchema.optional(),
+  thumbnail: z.string().optional(),
+  isPublic: z.boolean().optional(),
+  metadata: z.record(z.any()).optional()
+});
+
+export const updateTemplateSchema = createTemplateSchema.partial();
+
+export const templateQuerySchema = paginationSchema.extend({
+  category: z.string().optional(),
+  search: z.string().optional(),
+  includeArchived: z.coerce.boolean().optional()
+});
+
+export const previewTemplateSchema = z.object({
+  variables: z.record(z.any()).optional()
+});
+
+// ========================= AUTOMATION DTOs =========================
+
+export const createAutomationStepSchema = z.object({
+  name: z.string().min(1).max(255),
+  delayAmount: z.number().min(0),
+  delayUnit: z.enum(['minutes', 'hours', 'days']),
+  templateId: z.string().optional(),
+  subject: z.string().min(1).max(500),
+  htmlContent: z.string().min(1),
+  textContent: z.string().optional(),
+  conditions: z.array(segmentConditionSchema).optional(),
+  metadata: z.record(z.any()).optional()
+});
+
+export const updateAutomationStepSchema = createAutomationStepSchema.partial();
+
+export const createAutomationSchema = z.object({
+  listId: z.string().optional(),
+  name: z.string().min(1).max(255),
+  description: z.string().optional(),
+  trigger: z.nativeEnum(EmailAutomationTrigger),
+  triggerConfig: z.record(z.any()),
+  steps: z.array(createAutomationStepSchema).optional(),
+  metadata: z.record(z.any()).optional()
+});
+
+export const updateAutomationSchema = createAutomationSchema.partial().omit({
+  steps: true
+});
+
+export const automationQuerySchema = paginationSchema.extend({
+  listId: z.string().optional(),
+  active: z.coerce.boolean().optional(),
+  trigger: z.nativeEnum(EmailAutomationTrigger).optional(),
+  search: z.string().optional()
+});
+
+export const enrollmentQuerySchema = paginationSchema.extend({
+  status: z.enum(['active', 'completed', 'cancelled']).optional()
+});
+
+export const triggerAutomationSchema = z.object({
+  automationId: z.string(),
+  triggerData: z.record(z.any()).optional()
+});
+
+// ========================= TRACKING DTOs =========================
+
+export const trackingEventSchema = z.object({
+  messageId: z.string(),
+  event: z.enum(['sent', 'delivered', 'opened', 'clicked', 'bounced', 'unsubscribed', 'complained']),
+  timestamp: z.string().datetime(),
+  ipAddress: z.string().optional(),
+  userAgent: z.string().optional(),
+  url: z.string().optional(),
+  bounceType: z.enum(['hard', 'soft']).optional(),
+  reason: z.string().optional()
+});
+
+// ========================= TYPE EXPORTS =========================
+
+export type CreateEmailListDto = z.infer<typeof createEmailListSchema>;
+export type UpdateEmailListDto = z.infer<typeof updateEmailListSchema>;
+export type EmailListQueryDto = z.infer<typeof emailListQuerySchema>;
+export type AddSubscriberDto = z.infer<typeof addSubscriberSchema>;
+export type ImportSubscribersDto = z.infer<typeof importSubscribersSchema>;
+export type UpdateSubscriberDto = z.infer<typeof updateSubscriberSchema>;
+export type SubscriberTagsDto = z.infer<typeof subscriberTagsSchema>;
+export type SubscriberQueryDto = z.infer<typeof subscriberQuerySchema>;
+export type BulkOperationDto = z.infer<typeof bulkOperationSchema>;
+
+export type CreateCampaignDto = z.infer<typeof createCampaignSchema>;
+export type UpdateCampaignDto = z.infer<typeof updateCampaignSchema>;
+export type SendCampaignDto = z.infer<typeof sendCampaignSchema>;
+export type CampaignQueryDto = z.infer<typeof campaignQuerySchema>;
+
+export type SegmentCondition = z.infer<typeof segmentConditionSchema>;
+export type CreateSegmentDto = z.infer<typeof createSegmentSchema>;
+export type UpdateSegmentDto = z.infer<typeof updateSegmentSchema>;
+export type SegmentQueryDto = z.infer<typeof segmentQuerySchema>;
+export type TestSegmentDto = z.infer<typeof testSegmentSchema>;
+
+export type TemplateVariables = z.infer<typeof templateVariablesSchema>;
+export type CreateTemplateDto = z.infer<typeof createTemplateSchema>;
+export type UpdateTemplateDto = z.infer<typeof updateTemplateSchema>;
+export type TemplateQueryDto = z.infer<typeof templateQuerySchema>;
+export type PreviewTemplateDto = z.infer<typeof previewTemplateSchema>;
+
+export type CreateAutomationStepDto = z.infer<typeof createAutomationStepSchema>;
+export type UpdateAutomationStepDto = z.infer<typeof updateAutomationStepSchema>;
+export type CreateAutomationDto = z.infer<typeof createAutomationSchema>;
+export type UpdateAutomationDto = z.infer<typeof updateAutomationSchema>;
+export type AutomationQueryDto = z.infer<typeof automationQuerySchema>;
+export type EnrollmentQueryDto = z.infer<typeof enrollmentQuerySchema>;
+export type TriggerAutomationDto = z.infer<typeof triggerAutomationSchema>;
+
+export type TrackingEventDto = z.infer<typeof trackingEventSchema>;
+
+// Campaign stats interface
+export interface CampaignStatsDto {
+  totalRecipients: number;
+  sentCount: number;
+  deliveredCount: number;
+  bouncedCount: number;
+  openCount: number;
+  uniqueOpenCount: number;
+  clickCount: number;
+  uniqueClickCount: number;
+  unsubscribeCount: number;
+  complaintCount: number;
+  deliveryRate: number;
+  openRate: number;
+  clickRate: number;
+  clickToOpenRate: number;
+  unsubscribeRate: number;
+  complaintRate: number;
+  revenue?: number;
+  orderCount?: number;
+  conversionRate?: number;
+  recipientStats?: Record<EmailDeliveryStatus, number>;
+  topClickedLinks?: Array<{ url: string; clicks: number }>;
+}
+
+// A/B test config
+export interface ABTestConfigDto {
+  testSize: number;
+  winnerCriteria: 'open_rate' | 'click_rate' | 'conversion_rate';
+  testDuration: number;
+  variants: Array<{
+    name: string;
+    weight: number;
+    subject?: string;
+    fromName?: string;
+  }>;
 }

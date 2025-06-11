@@ -140,8 +140,13 @@ model User {
   ticketActivities TicketActivity[]
   ticketWatchers   TicketWatcher[]
 
-  incidents       Incident[]       @relation("ResolvedIncidents")
-  incidentUpdates IncidentUpdate[]
+  incidents        Incident[]         @relation("ResolvedIncidents")
+  incidentUpdates  IncidentUpdate[]
+  Incident         Incident[]
+  AiApiKey         AiApiKey[]
+  AiUsageLog       AiUsageLog[]
+  AiPromptTemplate AiPromptTemplate[]
+  AiConversation   AiConversation[]
 
   // Indexes
   @@index([email])
@@ -149,7 +154,6 @@ model User {
   @@index([status])
   @@index([createdAt])
   @@map("users")
-  Incident Incident[]
 }
 
 model AuthProvider {
@@ -245,12 +249,20 @@ model Tenant {
   deletedAt DateTime?
 
   // Relations
-  owner        User               @relation(fields: [ownerId], references: [id])
-  members      TenantMember[]
-  subscription Subscription?      @relation(fields: [subscriptionId], references: [id])
-  projects     Project[]
-  invitations  TenantInvitation[]
-  tickets      Ticket[]
+  owner            User               @relation(fields: [ownerId], references: [id])
+  members          TenantMember[]
+  subscription     Subscription?      @relation(fields: [subscriptionId], references: [id])
+  projects         Project[]
+  invitations      TenantInvitation[]
+  tickets          Ticket[]
+  AiApiKey         AiApiKey[]
+  AiUsageLog       AiUsageLog[]
+  AiPromptTemplate AiPromptTemplate[]
+  AiConversation   AiConversation[]
+  EmailList        EmailList[]
+  EmailCampaign    EmailCampaign[]
+  EmailTemplate    EmailTemplate[]
+  EmailAutomation  EmailAutomation[]
 
   // Indexes
   @@index([slug])
@@ -1118,12 +1130,12 @@ model Incident {
   resolvedBy User?            @relation(fields: [resolvedById], references: [id])
   updates    IncidentUpdate[]
   userId     String?
+  User       User[]           @relation("ResolvedIncidents")
 
   @@index([status])
   @@index([severity])
   @@index([createdAt])
   @@map("incidents")
-  User User[] @relation("ResolvedIncidents")
 }
 
 model IncidentUpdate {
@@ -1146,41 +1158,41 @@ model IncidentUpdate {
 // ========================= AI MODULE =========================
 
 model AiProvider {
-  id            String   @id @default(cuid())
-  name          String   @unique // openai, anthropic, google, ollama
-  displayName   String
-  enabled       Boolean  @default(true)
-  apiEndpoint   String?
-  settings      Json?    @db.JsonB // Provider-specific settings
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id          String   @id @default(cuid())
+  name        String   @unique // openai, anthropic, google, ollama
+  displayName String
+  enabled     Boolean  @default(true)
+  apiEndpoint String?
+  settings    Json?    @db.JsonB // Provider-specific settings
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  apiKeys       AiApiKey[]
-  usageLogs     AiUsageLog[]
+  apiKeys   AiApiKey[]
+  usageLogs AiUsageLog[]
 
   @@map("ai_providers")
 }
 
 model AiApiKey {
-  id            String   @id @default(cuid())
-  providerId    String
-  provider      AiProvider @relation(fields: [providerId], references: [id])
+  id         String     @id @default(cuid())
+  providerId String
+  provider   AiProvider @relation(fields: [providerId], references: [id])
 
-  userId        String?
-  user          User?    @relation(fields: [userId], references: [id])
-  tenantId      String?
-  tenant        Tenant?  @relation(fields: [tenantId], references: [id])
+  userId   String?
+  user     User?   @relation(fields: [userId], references: [id])
+  tenantId String?
+  tenant   Tenant? @relation(fields: [tenantId], references: [id])
 
-  name          String
-  keyHash       String   // Encrypted API key
-  lastUsedAt    DateTime?
-  expiresAt     DateTime?
+  name       String
+  keyHash    String // Encrypted API key
+  lastUsedAt DateTime?
+  expiresAt  DateTime?
 
-  usageLimit    Int?     // Monthly usage limit
-  currentUsage  Int      @default(0)
+  usageLimit   Int? // Monthly usage limit
+  currentUsage Int  @default(0)
 
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId, tenantId])
   @@index([providerId])
@@ -1188,37 +1200,37 @@ model AiApiKey {
 }
 
 model AiUsageLog {
-  id            String   @id @default(cuid())
+  id String @id @default(cuid())
 
-  providerId    String
-  provider      AiProvider @relation(fields: [providerId], references: [id])
+  providerId String
+  provider   AiProvider @relation(fields: [providerId], references: [id])
 
-  userId        String
-  user          User     @relation(fields: [userId], references: [id])
-  tenantId      String?
-  tenant        Tenant?  @relation(fields: [tenantId], references: [id])
+  userId   String
+  user     User    @relation(fields: [userId], references: [id])
+  tenantId String?
+  tenant   Tenant? @relation(fields: [tenantId], references: [id])
 
-  model         String   // gpt-4, claude-3, etc
-  operation     String   // completion, chat, embedding, image
+  model     String // gpt-4, claude-3, etc
+  operation String // completion, chat, embedding, image
 
   // Request details
-  promptTokens  Int
+  promptTokens     Int
   completionTokens Int
-  totalTokens   Int
+  totalTokens      Int
 
   // Cost tracking
-  cost          Float    // In cents
-  currency      String   @default("USD")
+  cost     Float // In cents
+  currency String @default("USD")
 
   // Performance
-  latency       Int      // in milliseconds
-  cached        Boolean  @default(false)
+  latency Int // in milliseconds
+  cached  Boolean @default(false)
 
   // Metadata
-  metadata      Json?    @db.JsonB
-  error         String?  @db.Text
+  metadata Json?   @db.JsonB
+  error    String? @db.Text
 
-  createdAt     DateTime @default(now())
+  createdAt DateTime @default(now())
 
   @@index([userId, createdAt])
   @@index([tenantId, createdAt])
@@ -1227,25 +1239,25 @@ model AiUsageLog {
 }
 
 model AiPromptTemplate {
-  id            String   @id @default(cuid())
+  id String @id @default(cuid())
 
-  name          String   @db.VarChar(255)
-  description   String?  @db.Text
-  category      String?  @db.VarChar(100)
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+  category    String? @db.VarChar(100)
 
-  prompt        String   @db.Text
-  variables     Json?    @db.JsonB // Expected variables
+  prompt    String @db.Text
+  variables Json?  @db.JsonB // Expected variables
 
-  userId        String?
-  user          User?    @relation(fields: [userId], references: [id])
-  tenantId      String?
-  tenant        Tenant?  @relation(fields: [tenantId], references: [id])
+  userId   String?
+  user     User?   @relation(fields: [userId], references: [id])
+  tenantId String?
+  tenant   Tenant? @relation(fields: [tenantId], references: [id])
 
-  isPublic      Boolean  @default(false)
-  usageCount    Int      @default(0)
+  isPublic   Boolean @default(false)
+  usageCount Int     @default(0)
 
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId, tenantId])
   @@index([category])
@@ -1254,24 +1266,575 @@ model AiPromptTemplate {
 }
 
 model AiConversation {
-  id            String   @id @default(cuid())
+  id String @id @default(cuid())
 
-  userId        String
-  user          User     @relation(fields: [userId], references: [id])
-  tenantId      String?
-  tenant        Tenant?  @relation(fields: [tenantId], references: [id])
+  userId   String
+  user     User    @relation(fields: [userId], references: [id])
+  tenantId String?
+  tenant   Tenant? @relation(fields: [tenantId], references: [id])
 
-  title         String?  @db.VarChar(255)
-  model         String   @db.VarChar(100)
-  provider      String   @db.VarChar(50)
+  title    String? @db.VarChar(255)
+  model    String  @db.VarChar(100)
+  provider String  @db.VarChar(50)
 
-  messages      Json     @db.JsonB // Array of messages
-  metadata      Json?    @db.JsonB
+  messages Json  @db.JsonB // Array of messages
+  metadata Json? @db.JsonB
 
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId, createdAt])
   @@index([tenantId])
   @@map("ai_conversations")
+}
+
+// ========================= EMAIL MARKETING =========================
+
+enum EmailListStatus {
+  ACTIVE
+  INACTIVE
+  ARCHIVED
+}
+
+enum EmailCampaignStatus {
+  DRAFT
+  SCHEDULED
+  SENDING
+  SENT
+  PAUSED
+  CANCELLED
+  FAILED
+}
+
+enum EmailCampaignType {
+  REGULAR
+  AUTOMATED
+  DRIP
+  TRANSACTIONAL
+  AB_TEST
+}
+
+enum EmailSegmentOperator {
+  EQUALS
+  NOT_EQUALS
+  CONTAINS
+  NOT_CONTAINS
+  GREATER_THAN
+  LESS_THAN
+  IN
+  NOT_IN
+}
+
+enum EmailAutomationTrigger {
+  USER_SIGNUP
+  LIST_SUBSCRIBE
+  TAG_ADDED
+  DATE_BASED
+  CUSTOM_EVENT
+  WEBHOOK
+}
+
+enum EmailDeliveryStatus {
+  PENDING
+  SENT
+  DELIVERED
+  BOUNCED
+  OPENED
+  CLICKED
+  UNSUBSCRIBED
+  COMPLAINED
+  FAILED
+}
+
+model EmailList {
+  id          String          @id @default(cuid())
+  tenantId    String
+  name        String          @db.VarChar(255)
+  description String?         @db.Text
+  status      EmailListStatus @default(ACTIVE)
+
+  // List settings
+  doubleOptIn         Boolean @default(true)
+  welcomeEmailId      String?
+  confirmationPageUrl String? @db.Text
+
+  // Default sender info
+  defaultFromName  String? @db.VarChar(255)
+  defaultFromEmail String? @db.VarChar(255)
+  defaultReplyTo   String? @db.VarChar(255)
+
+  // Custom fields schema
+  customFields Json? @db.JsonB
+
+  metadata Json? @db.JsonB
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  // Relations
+  tenant      Tenant                @relation(fields: [tenantId], references: [id])
+  subscribers EmailListSubscriber[]
+  campaigns   EmailCampaign[]
+  segments    EmailSegment[]
+  automations EmailAutomation[]
+
+  // Indexes
+  @@index([tenantId])
+  @@index([status])
+  @@map("email_lists")
+}
+
+model EmailListSubscriber {
+  id     String @id @default(cuid())
+  listId String
+  email  String @db.VarChar(255)
+
+  // Subscriber info
+  firstName String? @db.VarChar(100)
+  lastName  String? @db.VarChar(100)
+
+  // Status
+  subscribed        Boolean   @default(true)
+  confirmed         Boolean   @default(false)
+  confirmationToken String?   @unique
+  confirmedAt       DateTime?
+
+  // Tracking
+  source    String? @db.VarChar(100)
+  ipAddress String? @db.VarChar(45)
+  location  String? @db.VarChar(255)
+
+  // Custom fields
+  customData Json?    @db.JsonB
+  tags       String[]
+
+  // Engagement metrics
+  lastEngagedAt   DateTime?
+  engagementScore Float     @default(0)
+
+  metadata Json? @db.JsonB
+
+  subscribedAt   DateTime  @default(now())
+  unsubscribedAt DateTime?
+  updatedAt      DateTime  @updatedAt
+
+  // Relations
+  list       EmailList                @relation(fields: [listId], references: [id], onDelete: Cascade)
+  recipients EmailCampaignRecipient[]
+  activities EmailActivity[]
+
+  // Constraints
+  @@unique([listId, email])
+  @@index([email])
+  @@index([confirmed])
+  @@index([subscribedAt])
+  @@map("email_list_subscribers")
+}
+
+model EmailCampaign {
+  id       String  @id @default(cuid())
+  tenantId String
+  listId   String?
+
+  name      String  @db.VarChar(255)
+  subject   String  @db.VarChar(500)
+  preheader String? @db.VarChar(255)
+
+  fromName  String  @db.VarChar(255)
+  fromEmail String  @db.VarChar(255)
+  replyTo   String? @db.VarChar(255)
+
+  type   EmailCampaignType   @default(REGULAR)
+  status EmailCampaignStatus @default(DRAFT)
+
+  // Content
+  templateId  String?
+  htmlContent String  @db.Text
+  textContent String? @db.Text
+
+  // Targeting
+  segmentIds        String[]
+  excludeSegmentIds String[]
+
+  // Schedule
+  scheduledAt DateTime?
+  sentAt      DateTime?
+  completedAt DateTime?
+
+  // A/B Testing
+  isABTest         Boolean @default(false)
+  abTestConfig     Json?   @db.JsonB
+  winningVariantId String?
+
+  // Settings
+  trackOpens      Boolean @default(true)
+  trackClicks     Boolean @default(true)
+  googleAnalytics Boolean @default(false)
+  utmParams       Json?   @db.JsonB
+
+  metadata Json? @db.JsonB
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  tenant         Tenant                   @relation(fields: [tenantId], references: [id])
+  list           EmailList?               @relation(fields: [listId], references: [id])
+  template       EmailTemplate?           @relation(fields: [templateId], references: [id])
+  recipients     EmailCampaignRecipient[]
+  messages       EmailCampaignMessage[]
+  stats          EmailCampaignStats?
+  activities     EmailActivity[]
+  abTestVariants EmailABTestVariant[]
+
+  // Indexes
+  @@index([tenantId])
+  @@index([listId])
+  @@index([status])
+  @@index([scheduledAt])
+  @@map("email_campaigns")
+}
+
+model EmailCampaignMessage {
+  id         String  @id @default(cuid())
+  campaignId String
+  variantId  String?
+
+  subject     String  @db.VarChar(500)
+  preheader   String? @db.VarChar(255)
+  htmlContent String  @db.Text
+  textContent String? @db.Text
+
+  // A/B test weight (percentage)
+  weight Int @default(100)
+
+  createdAt DateTime @default(now())
+
+  // Relations
+  campaign EmailCampaign       @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  variant  EmailABTestVariant? @relation(fields: [variantId], references: [id])
+
+  @@index([campaignId])
+  @@map("email_campaign_messages")
+}
+
+model EmailCampaignRecipient {
+  id           String @id @default(cuid())
+  campaignId   String
+  subscriberId String
+
+  status EmailDeliveryStatus @default(PENDING)
+
+  sentAt         DateTime?
+  deliveredAt    DateTime?
+  openedAt       DateTime?
+  clickedAt      DateTime?
+  bouncedAt      DateTime?
+  unsubscribedAt DateTime?
+  complainedAt   DateTime?
+
+  openCount  Int @default(0)
+  clickCount Int @default(0)
+
+  error    String? @db.Text
+  metadata Json?   @db.JsonB
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  campaign   EmailCampaign       @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  subscriber EmailListSubscriber @relation(fields: [subscriberId], references: [id])
+
+  // Constraints
+  @@unique([campaignId, subscriberId])
+  @@index([status])
+  @@index([sentAt])
+  @@map("email_campaign_recipients")
+}
+
+model EmailCampaignStats {
+  id         String @id
+  campaignId String @unique
+
+  // Send stats
+  totalRecipients Int @default(0)
+  sentCount       Int @default(0)
+  deliveredCount  Int @default(0)
+  bouncedCount    Int @default(0)
+
+  // Engagement stats
+  openCount        Int @default(0)
+  uniqueOpenCount  Int @default(0)
+  clickCount       Int @default(0)
+  uniqueClickCount Int @default(0)
+
+  // Negative stats
+  unsubscribeCount Int @default(0)
+  complaintCount   Int @default(0)
+
+  // Rates (percentages)
+  deliveryRate    Float @default(0)
+  openRate        Float @default(0)
+  clickRate       Float @default(0)
+  clickToOpenRate Float @default(0)
+  unsubscribeRate Float @default(0)
+  complaintRate   Float @default(0)
+
+  // Revenue tracking
+  revenue        Float @default(0)
+  orderCount     Int   @default(0)
+  conversionRate Float @default(0)
+
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  campaign EmailCampaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@map("email_campaign_stats")
+}
+
+model EmailTemplate {
+  id       String @id @default(cuid())
+  tenantId String
+
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+  category    String? @db.VarChar(100)
+
+  subject     String  @db.VarChar(500)
+  preheader   String? @db.VarChar(255)
+  htmlContent String  @db.Text
+  textContent String? @db.Text
+
+  // Template variables
+  variables Json? @db.JsonB
+
+  // Thumbnail
+  thumbnail String? @db.Text
+
+  isPublic   Boolean @default(false)
+  isArchived Boolean @default(false)
+
+  metadata Json? @db.JsonB
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  tenant          Tenant                @relation(fields: [tenantId], references: [id])
+  campaigns       EmailCampaign[]
+  automationSteps EmailAutomationStep[]
+
+  // Indexes
+  @@index([tenantId])
+  @@index([category])
+  @@index([isPublic])
+  @@map("email_templates")
+}
+
+model EmailSegment {
+  id     String @id @default(cuid())
+  listId String
+
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+
+  // Dynamic conditions
+  conditions Json @db.JsonB
+
+  // Cached count
+  subscriberCount  Int       @default(0)
+  lastCalculatedAt DateTime?
+
+  metadata Json? @db.JsonB
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  list EmailList @relation(fields: [listId], references: [id], onDelete: Cascade)
+
+  // Indexes
+  @@index([listId])
+  @@map("email_segments")
+}
+
+model EmailAutomation {
+  id       String  @id @default(cuid())
+  tenantId String
+  listId   String?
+
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+
+  trigger       EmailAutomationTrigger
+  triggerConfig Json                   @db.JsonB
+
+  active Boolean @default(false)
+
+  // Stats
+  totalEnrolled  Int @default(0)
+  totalCompleted Int @default(0)
+
+  metadata Json? @db.JsonB
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  tenant      Tenant                      @relation(fields: [tenantId], references: [id])
+  list        EmailList?                  @relation(fields: [listId], references: [id])
+  steps       EmailAutomationStep[]
+  enrollments EmailAutomationEnrollment[]
+
+  // Indexes
+  @@index([tenantId])
+  @@index([listId])
+  @@index([active])
+  @@map("email_automations")
+}
+
+model EmailAutomationStep {
+  id           String @id @default(cuid())
+  automationId String
+
+  name  String @db.VarChar(255)
+  order Int
+
+  // Timing
+  delayAmount Int    @default(0)
+  delayUnit   String @default("hours") // minutes, hours, days
+
+  // Content
+  templateId  String?
+  subject     String  @db.VarChar(500)
+  htmlContent String  @db.Text
+  textContent String? @db.Text
+
+  // Conditions
+  conditions Json? @db.JsonB
+
+  metadata Json? @db.JsonB
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  automation EmailAutomation @relation(fields: [automationId], references: [id], onDelete: Cascade)
+  template   EmailTemplate?  @relation(fields: [templateId], references: [id])
+
+  // Indexes
+  @@index([automationId])
+  @@index([order])
+  @@map("email_automation_steps")
+}
+
+model EmailAutomationEnrollment {
+  id           String @id @default(cuid())
+  automationId String
+  subscriberId String
+
+  status        String  @default("active") // active, completed, cancelled
+  currentStepId String?
+
+  enrolledAt  DateTime  @default(now())
+  completedAt DateTime?
+  cancelledAt DateTime?
+
+  metadata Json? @db.JsonB
+
+  // Relations
+  automation EmailAutomation @relation(fields: [automationId], references: [id], onDelete: Cascade)
+
+  // Constraints
+  @@unique([automationId, subscriberId])
+  @@index([status])
+  @@map("email_automation_enrollments")
+}
+
+model EmailActivity {
+  id           String  @id @default(cuid())
+  campaignId   String?
+  subscriberId String
+
+  type String @db.VarChar(50) // sent, delivered, opened, clicked, etc
+
+  // Click tracking
+  clickedUrl String? @db.Text
+
+  // Device/Client info
+  userAgent String? @db.Text
+  ipAddress String? @db.VarChar(45)
+  location  String? @db.VarChar(255)
+  device    String? @db.VarChar(100)
+  os        String? @db.VarChar(100)
+  browser   String? @db.VarChar(100)
+
+  metadata Json? @db.JsonB
+
+  createdAt DateTime @default(now())
+
+  // Relations
+  campaign   EmailCampaign?      @relation(fields: [campaignId], references: [id])
+  subscriber EmailListSubscriber @relation(fields: [subscriberId], references: [id])
+
+  // Indexes
+  @@index([campaignId])
+  @@index([subscriberId])
+  @@index([type])
+  @@index([createdAt])
+  @@map("email_activities")
+}
+
+model EmailUnsubscribe {
+  id     String  @id @default(cuid())
+  email  String  @db.VarChar(255)
+  listId String?
+
+  reason   String? @db.Text
+  feedback String? @db.Text
+
+  // Global unsubscribe
+  globalUnsubscribe Boolean @default(false)
+
+  metadata Json? @db.JsonB
+
+  createdAt DateTime @default(now())
+
+  // Indexes
+  @@unique([email, listId])
+  @@index([email])
+  @@index([globalUnsubscribe])
+  @@map("email_unsubscribes")
+}
+
+model EmailABTestVariant {
+  id         String @id @default(cuid())
+  campaignId String
+
+  name   String @db.VarChar(100)
+  weight Int    @default(50) // Percentage
+
+  // Variable content
+  subject  String? @db.VarChar(500)
+  fromName String? @db.VarChar(255)
+
+  // Stats
+  sentCount      Int   @default(0)
+  openRate       Float @default(0)
+  clickRate      Float @default(0)
+  conversionRate Float @default(0)
+
+  isWinner Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
+  // Relations
+  campaign EmailCampaign          @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  messages EmailCampaignMessage[]
+
+  @@index([campaignId])
+  @@map("email_ab_test_variants")
 }

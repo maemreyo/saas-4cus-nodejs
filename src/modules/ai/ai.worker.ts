@@ -1,5 +1,3 @@
-// Updated: 2024-12-25 - AI module implementation
-
 import { Service } from 'typedi';
 import { CronJob } from 'cron';
 import { prisma } from '@infrastructure/database/prisma.service';
@@ -7,7 +5,7 @@ import { eventBus } from '@shared/events/event-bus';
 import { logger } from '@shared/logger';
 import { AiEvents } from './ai.events';
 import { AiCacheService } from './ai.cache';
-import { NotificationService } from '@modules/notifications/notification.service';
+import { NotificationService } from '../notification';
 
 @Service()
 export class AiWorker {

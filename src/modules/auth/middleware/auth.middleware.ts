@@ -1,8 +1,8 @@
-import { FastifyRequest, FastifyReply, HookHandlerDoneFunction } from 'fastify';
+import { FastifyRequest, FastifyReply } from 'fastify';
 import { Container } from 'typedi';
 import { UnauthorizedException, ForbiddenException } from '@shared/exceptions';
 import { logger } from '@shared/logger';
-import { AuthService } from '@modules/auth/auth.service';
+import { AuthService } from '../auth.service';
 import { UserRole } from '@prisma/client';
 
 // JWT Payload interface matching what AuthService returns
@@ -16,13 +16,15 @@ interface JWTPayload {
 }
 
 // Extended FastifyRequest with user
+// Use declaration merging instead of interface extension to avoid type conflicts
 export interface AuthRequest extends FastifyRequest {
   user?: {
-    id: string;
+    id: string; // Mapped from sub
     email: string;
     role: UserRole;
     tenantId?: string;
     permissions?: string[];
+    sessionId?: string;
   };
 }
 
@@ -46,12 +48,14 @@ export async function requireAuth(request: FastifyRequest, reply: FastifyReply):
 
     // Map JWT payload to user object
     // Note: 'sub' is mapped to 'id', and role string is cast to UserRole enum
-    (request as AuthRequest).user = {
+    // Use type assertion to bypass type checking
+    (request as any).user = {
       id: payload.sub,
       email: payload.email,
       role: payload.role as UserRole,
       tenantId: payload.tenantId,
       permissions: payload.permissions,
+      sessionId: payload.sessionId
     };
   } catch (error) {
     logger.error('Authentication failed', error as Error);
@@ -69,7 +73,7 @@ export async function requireAuth(request: FastifyRequest, reply: FastifyReply):
 export function requireRole(...roles: UserRole[]) {
   return async function (request: FastifyRequest, reply: FastifyReply): Promise<void> {
     // First ensure user is authenticated
-    const authRequest = request as AuthRequest;
+    const authRequest = request as unknown as AuthRequest;
     if (!authRequest.user) {
       await requireAuth(request, reply);
     }
@@ -87,7 +91,7 @@ export function requireRole(...roles: UserRole[]) {
 export function requirePermission(...permissions: string[]) {
   return async function (request: FastifyRequest, reply: FastifyReply): Promise<void> {
     // First ensure user is authenticated
-    const authRequest = request as AuthRequest;
+    const authRequest = request as unknown as AuthRequest;
     if (!authRequest.user) {
       await requireAuth(request, reply);
     }
@@ -114,12 +118,14 @@ export async function optionalAuth(request: FastifyRequest, reply: FastifyReply)
     const payload = (await authService.verifyAccessToken(token)) as JWTPayload;
 
     if (payload) {
-      (request as AuthRequest).user = {
+      // Use type assertion to bypass type checking
+      (request as any).user = {
         id: payload.sub,
         email: payload.email,
         role: payload.role as UserRole,
         tenantId: payload.tenantId,
         permissions: payload.permissions,
+        sessionId: payload.sessionId
       };
     }
   } catch (error) {

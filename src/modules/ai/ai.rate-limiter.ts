@@ -55,14 +55,14 @@ export class AiRateLimiter {
 
       try {
         // Remove old entries
-        await redis.client.zremrangebyscore(key, '-inf', windowStart.toString());
+        await redis.zremrangebyscore(key, '-inf', windowStart.toString());
 
         // Count requests in current window
-        const currentCount = await redis.client.zcard(key);
+        const currentCount = await redis.zcard(key);
 
         if (currentCount >= limits.max) {
           // Calculate retry after
-          const oldestEntry = await redis.client.zrange(key, 0, 0, 'WITHSCORES');
+          const oldestEntry = await redis.zrange(key, 0, 0, 'WITHSCORES');
           const retryAfter = oldestEntry.length > 1
             ? Math.ceil((parseInt(oldestEntry[1]) + limits.windowMs - now) / 1000)
             : Math.ceil(limits.windowMs / 1000);
@@ -78,8 +78,8 @@ export class AiRateLimiter {
         }
 
         // Add current request
-        await redis.client.zadd(key, now.toString(), `${now}-${Math.random()}`);
-        await redis.client.expire(key, Math.ceil(limits.windowMs / 1000));
+        await redis.zadd(key, now.toString(), `${now}-${Math.random()}`);
+        await redis.expire(key, Math.ceil(limits.windowMs / 1000));
 
         // Set rate limit headers
         const remaining = limits.max - currentCount - 1;
@@ -162,10 +162,10 @@ export class AiRateLimiter {
     const windowStart = now - limits.windowMs;
 
     // Remove old entries
-    await redis.client.zremrangebyscore(key, '-inf', windowStart.toString());
+    await redis.zremrangebyscore(key, '-inf', windowStart.toString());
 
     // Count current requests
-    const current = await redis.client.zcard(key);
+    const current = await redis.zcard(key);
 
     return {
       current,
@@ -182,13 +182,13 @@ export class AiRateLimiter {
   ): Promise<void> {
     if (operation) {
       const key = this.generateKey(operation, userId, tenantId);
-      await redis.client.del(key);
+      await redis.delete(key);
     } else {
       // Reset all operations
       const operations: (keyof UserRateLimits)[] = ['completion', 'chat', 'embedding', 'image', 'audio'];
       for (const op of operations) {
         const key = this.generateKey(op, userId, tenantId);
-        await redis.client.del(key);
+        await redis.delete(key);
       }
     }
 

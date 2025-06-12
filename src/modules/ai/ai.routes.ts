@@ -1,19 +1,15 @@
-// Updated: 2024-12-25 - AI module implementation
-
 import { FastifyInstance } from 'fastify';
 import { Container } from 'typedi';
 import { AiController } from './ai.controller';
-import { authenticate } from '@shared/middleware/auth.middleware';
-import { checkSubscription } from '@shared/middleware/subscription.middleware';
-import { checkTenant } from '@shared/middleware/tenant.middleware';
-import { rateLimiter } from '@shared/middleware/rate-limiter.middleware';
-import { hasPermission } from '@shared/middleware/permission.middleware';
+import { requireAuth, hasPermission } from '@modules/auth/middleware';
+import { checkSubscription, rateLimiter } from '@shared/middleware';
+import { checkTenant } from '@modules/tenant/middleware';
 
 export async function aiRoutes(fastify: FastifyInstance) {
   const controller = Container.get(AiController);
 
   // Apply common middleware
-  fastify.addHook('preHandler', authenticate);
+  fastify.addHook('preHandler', requireAuth);
   fastify.addHook('preHandler', checkSubscription);
 
   // Basic AI operations

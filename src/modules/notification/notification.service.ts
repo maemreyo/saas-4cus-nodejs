@@ -12,12 +12,15 @@ import { Cacheable, CacheInvalidate } from '@infrastructure/cache/redis.service'
 
 export interface CreateNotificationOptions {
   userId: string;
-  type: 'INFO' | 'WARNING' | 'ERROR' | 'SUCCESS' | 'ALERT' | 'CRITICAL';
+  type: 'INFO' | 'WARNING' | 'ERROR' | 'SUCCESS' | 'ALERT' | 'CRITICAL' |
+        'ai_api_key_expired' | 'ai_usage_warning' | 'ai_usage_exceeded' | 'ai_cost_threshold';
   title: string;
-  content: string;
+  message?: string; // Alias for content
+  content?: string;
   metadata?: Record<string, any>;
-  priority?: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+  priority?: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL' | 'low' | 'medium' | 'high' | 'critical';
   expiresAt?: Date;
+  actionUrl?: string; // Simple action URL
   actions?: Array<{
     label: string;
     url?: string;
@@ -48,7 +51,32 @@ export class NotificationService {
    * Create a notification
    */
   async create(options: CreateNotificationOptions): Promise<Notification> {
-    const { userId, title, content, metadata, priority = 'MEDIUM', expiresAt, actions } = options;
+    // Normalize options
+    const {
+      userId,
+      title,
+      content = options.message || '',
+      metadata = {},
+      expiresAt,
+      actionUrl
+    } = options;
+
+    // Normalize priority (convert lowercase to uppercase)
+    let priority = options.priority || 'MEDIUM';
+    if (typeof priority === 'string' && priority.toUpperCase() !== priority) {
+      priority = priority.toUpperCase() as any;
+    }
+
+    // Normalize actions
+    let actions = options.actions || [];
+
+    // Add actionUrl to actions if provided
+    if (actionUrl && !actions.some(a => a.url === actionUrl)) {
+      actions = [
+        ...actions,
+        { label: 'View', url: actionUrl }
+      ];
+    }
 
     // Map type to NotificationType enum
     const typeMap: Record<string, NotificationType> = {
@@ -57,7 +85,12 @@ export class NotificationService {
       'ERROR': NotificationType.EMAIL,
       'SUCCESS': NotificationType.IN_APP,
       'ALERT': NotificationType.EMAIL,
-      'CRITICAL': NotificationType.EMAIL
+      'CRITICAL': NotificationType.EMAIL,
+      // Custom AI notification types
+      'ai_api_key_expired': NotificationType.IN_APP,
+      'ai_usage_warning': NotificationType.IN_APP,
+      'ai_usage_exceeded': NotificationType.EMAIL,
+      'ai_cost_threshold': NotificationType.EMAIL
     };
 
     const notification = await prisma.client.notification.create({
@@ -82,12 +115,13 @@ export class NotificationService {
     const preferences = await this.getUserPreferences(userId);
 
     // Queue delivery based on preferences and priority
-    if (priority === 'CRITICAL' || (preferences.email && ['ERROR', 'ALERT', 'CRITICAL'].includes(options.type))) {
+    const criticalTypes = ['ERROR', 'ALERT', 'CRITICAL', 'ai_usage_exceeded', 'ai_cost_threshold'];
+    if (priority === 'CRITICAL' || (preferences.email && criticalTypes.includes(options.type))) {
       await this.queueEmailNotification(notification);
     }
 
     // Send push notification for high priority
-    if (preferences.push && ['HIGH', 'CRITICAL'].includes(priority)) {
+    if (preferences.push && (['HIGH', 'CRITICAL'].includes(priority as string))) {
       await this.queuePushNotification(notification);
     }
 

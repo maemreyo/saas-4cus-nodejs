@@ -47,6 +47,9 @@ importers:
       '@google-ai/generativelanguage':
         specifier: ^2.1.0
         version: 2.9.1(encoding@0.1.13)
+      '@google/generative-ai':
+        specifier: 0.24.1
+        version: 0.24.1
       '@prisma/client':
         specifier: ^5.11.0
         version: 5.22.0(prisma@5.22.0)
@@ -789,6 +792,10 @@ packages:
   '@google-ai/generativelanguage@2.9.1':
     resolution: {integrity: sha512-BtnLEMiTnf+WNu2jYOFQgI2r/PjiyqC1v48xjfn2FKsENhjAWUrKpMjGw9aMC5UYpivXsURpVga50ltJ+oKVEA==}
     engines: {node: '>=14.0.0'}
+
+  '@google/generative-ai@0.24.1':
+    resolution: {integrity: sha512-MqO+MLfM6kjxcKoy0p1wRzG3b4ZZXtPI+z2IE26UogS2Cm/XHO+7gGRBh6gcJsOiIVoH93UwKvW4HdgiOZCy9Q==}
+    engines: {node: '>=18.0.0'}
 
   '@grpc/grpc-js@1.13.4':
     resolution: {integrity: sha512-GsFaMXCkMqkKIvwCQjCrwH+GHbPKBjhwo/8ZuUkWHqbI73Kky9I+pQltrlT0+MWpedCoosda53lgjYfyEPgxBg==}
@@ -4702,6 +4709,8 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
+
+  '@google/generative-ai@0.24.1': {}
 
   '@grpc/grpc-js@1.13.4':
     dependencies:

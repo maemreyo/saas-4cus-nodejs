@@ -28,7 +28,7 @@ import {
   CreateApiKeyDto,
 } from './ai.dto';
 import { logger } from '@shared/logger';
-import { ModelCategory } from './models/model.types';
+import { ModelCategory, ChatMessage } from './models/model.types';
 
 @Service()
 export class AiController {
@@ -82,11 +82,14 @@ export class AiController {
     const tenantId = (request as any).customTenant?.id;
 
     try {
-      const result = await this.aiService.chat(body.messages, {
+      // Ensure functions property is properly typed if present
+      const options: any = {
         ...body,
         userId,
         tenantId,
-      });
+      };
+
+      const result = await this.aiService.chat(body.messages as ChatMessage[], options);
 
       // Calculate cost for response
       const modelInfo = ModelRegistry.get(result.model);
@@ -173,6 +176,7 @@ export class AiController {
         ...body,
         userId,
         tenantId,
+        prompt: body.prompt, // Ensure prompt is explicitly passed
       });
 
       // Calculate cost
@@ -215,7 +219,12 @@ export class AiController {
       } else if (part.type === 'field') {
         // Parse other fields as options
         const key = part.fieldname as keyof AudioTranscriptionRequestDto;
-        options[key] = part.value as any;
+        // Type-safe assignment with explicit type checking
+        if (key === 'model' || key === 'provider' || key === 'language' ||
+            key === 'prompt' || key === 'responseFormat' || key === 'temperature' ||
+            key === 'track') {
+          (options as any)[key] = part.value;
+        }
       }
     }
 
@@ -335,7 +344,14 @@ export class AiController {
     const userId = request.customUser!.id;
     const tenantId = (request as any).customTenant?.id;
 
-    const template = await this.aiService.createTemplate(userId, body, tenantId);
+    const template = await this.aiService.createTemplate(userId, {
+      name: body.name!,
+      prompt: body.prompt!,
+      description: body.description,
+      category: body.category,
+      variables: body.variables,
+      isPublic: body.isPublic
+    }, tenantId);
 
     reply.send({
       message: 'Template created successfully',
@@ -401,7 +417,13 @@ export class AiController {
     const userId = request.customUser!.id;
     const tenantId = (request as any).customTenant?.id;
 
-    const conversation = await this.aiService.createConversation(userId, body, tenantId);
+    const conversation = await this.aiService.createConversation(userId, {
+      model: body.model,
+      provider: body.provider,
+      messages: body.messages as ChatMessage[],
+      title: body.title,
+      metadata: body.metadata
+    }, tenantId);
 
     reply.send({
       message: 'Conversation created successfully',

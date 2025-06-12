@@ -131,7 +131,7 @@ export class AnthropicProvider extends BaseAiProvider {
       if (error instanceof Anthropic.APIError) {
         throw this.createError(
           error.message,
-          error.type || 'ANTHROPIC_ERROR',
+          (error as any).type || 'ANTHROPIC_ERROR',
           error.status,
           error
         );
@@ -220,13 +220,17 @@ export class AnthropicProvider extends BaseAiProvider {
             fullContent += text;
             options.onToken(text);
           }
-        } else if (chunk.type === 'message_stop' && chunk.message) {
-          // Get final usage info
-          usage = {
-            promptTokens: chunk.message.usage.input_tokens,
-            completionTokens: chunk.message.usage.output_tokens,
-            totalTokens: chunk.message.usage.input_tokens + chunk.message.usage.output_tokens,
-          };
+        } else if (chunk.type === 'message_stop') {
+          // Get final usage info from message_stop event
+          // Handle potential structure changes in the Anthropic SDK
+          const messageData = (chunk as any).message;
+          if (messageData && messageData.usage) {
+            usage = {
+              promptTokens: messageData.usage.input_tokens,
+              completionTokens: messageData.usage.output_tokens,
+              totalTokens: messageData.usage.input_tokens + messageData.usage.output_tokens,
+            };
+          }
         }
       }
 
@@ -246,7 +250,7 @@ export class AnthropicProvider extends BaseAiProvider {
           options.onError(
             this.createError(
               error.message,
-              error.type || 'ANTHROPIC_ERROR',
+              (error as any).type || 'ANTHROPIC_ERROR',
               error.status,
               error
             )

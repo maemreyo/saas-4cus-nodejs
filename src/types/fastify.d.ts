@@ -25,13 +25,18 @@ declare module '@fastify/jwt' {
       sub: string;
       email: string;
       role: string;
-      sessionId: string;
+      sessionId?: string;
+      tenantId?: string;
+      permissions?: string[];
+      type?: 'access' | 'refresh';
     };
     user: {
-      sub: string;
+      id: string; // Mapped from sub
       email: string;
       role: string;
-      sessionId: string;
+      sessionId?: string;
+      tenantId?: string;
+      permissions?: string[];
     };
   }
 }

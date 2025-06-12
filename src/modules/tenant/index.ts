@@ -10,7 +10,7 @@ export { TenantContextService } from './tenant.context';
 export { TenantController } from './tenant.controller';
 export { TenantEvents } from './tenant.events';
 export * from './tenant.dto';
-export * from './tenant.middleware';
+export * from './middleware';
 
 // Export routes
 export { default as tenantRoutes } from './tenant.route';

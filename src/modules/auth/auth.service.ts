@@ -49,7 +49,9 @@ export interface JwtPayload {
   sub: string // user id
   email: string
   role: string
-  sessionId: string
+  sessionId?: string
+  tenantId?: string
+  permissions?: string[]
   type: 'access' | 'refresh'
   iat?: number
   exp?: number
@@ -629,6 +631,64 @@ export class AuthService {
       userId: tokenRecord.userId,
       timestamp: new Date()
     })
+  }
+
+  // Verify access token
+  async verifyAccessToken(token: string): Promise<JwtPayload> {
+    try {
+      // Verify token
+      const payload = jwt.verify(
+        token,
+        config.security.jwt.accessSecret
+      ) as JwtPayload;
+
+      // Check token type
+      if (payload.type !== 'access') {
+        throw new UnauthorizedException('Invalid token type');
+      }
+
+      // Check if session exists and is valid
+      if (payload.sessionId) {
+        const sessionExists = await redis.get(`session:${payload.sessionId}`);
+
+        if (!sessionExists) {
+          // Check database if not in cache
+          const session = await prisma.client.session.findUnique({
+            where: {
+              id: payload.sessionId,
+              expiresAt: { gt: new Date() }
+            }
+          });
+
+          if (!session) {
+            throw new UnauthorizedException('Session expired or invalid');
+          }
+
+          // Refresh cache
+          await redis.set(
+            `session:${payload.sessionId}`,
+            { userId: payload.sub, role: payload.role },
+            { ttl: 900 } // 15 minutes
+          );
+        }
+      }
+
+      return payload;
+    } catch (error) {
+      if (error instanceof UnauthorizedException) {
+        throw error;
+      }
+
+      if (error instanceof jwt.JsonWebTokenError) {
+        throw new UnauthorizedException('Invalid token');
+      }
+
+      if (error instanceof jwt.TokenExpiredError) {
+        throw new UnauthorizedException('Token expired');
+      }
+
+      throw new UnauthorizedException('Authentication failed');
+    }
   }
 
   // Helper Methods

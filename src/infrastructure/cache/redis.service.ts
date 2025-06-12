@@ -21,8 +21,25 @@ export interface CacheStats {
 
 @Service()
 export class RedisService {
-  incr(windowKey: string) {
-    throw new Error('Method not implemented.');
+  // Redis sorted set operations for rate limiting
+  async zremrangebyscore(key: string, min: string, max: string): Promise<number> {
+    return await this.redis.zremrangebyscore(key, min, max);
+  }
+
+  async zcard(key: string): Promise<number> {
+    return await this.redis.zcard(key);
+  }
+
+  async zrange(key: string, start: number, stop: number, withScores?: 'WITHSCORES'): Promise<string[]> {
+    return await this.redis.zrange(key, start, stop, withScores);
+  }
+
+  async zadd(key: string, score: string, member: string): Promise<number> {
+    return await this.redis.zadd(key, score, member);
+  }
+
+  async incr(key: string): Promise<number> {
+    return await this.redis.incr(key);
   }
   private redis: Redis;
   private subscriber: Redis;

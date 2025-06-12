@@ -6,7 +6,8 @@ import { logger } from '@shared/logger';
 import { queueService } from '@shared/queue/queue.service';
 import { eventBus } from '@shared/events/event-bus';
 import { prisma } from '@infrastructure/database/prisma.service';
-import { UserRole } from '@prisma/client';
+import { NotificationType, UserRole } from '@prisma/client';
+import { NotFoundException } from '../exceptions';
 
 export interface NotificationData {
   userId?: string;
@@ -96,7 +97,7 @@ export class SharedNotificationService {
       const admins = await prisma.client.user.findMany({
         where: {
           role: { in: roles },
-          isActive: true
+          status: 'ACTIVE' // Use status field instead of isActive
         },
         select: { id: true }
       });
@@ -168,15 +169,25 @@ export class SharedNotificationService {
     if (!data.userId) return;
 
     try {
+      // Map notification type to Prisma enum
+      const typeMap: Record<string, NotificationType> = {
+        'email': NotificationType.EMAIL,
+        'push': NotificationType.PUSH,
+        'in-app': NotificationType.IN_APP,
+        'all': NotificationType.IN_APP // Default to IN_APP for 'all'
+      };
+
       await prisma.client.notification.create({
         data: {
           userId: data.userId,
-          type: data.type,
+          type: typeMap[data.channel || 'in-app'] || NotificationType.IN_APP,
           title: data.title,
-          message: data.message,
-          data: data.data,
-          priority: data.priority || 'medium',
-          isRead: false
+          content: data.message, // Use content field instead of message
+          metadata: {
+            priority: data.priority || 'medium',
+            data: data.data,
+            readStatus: false // Store read status in metadata
+          }
         }
       });
     } catch (error) {
@@ -189,14 +200,28 @@ export class SharedNotificationService {
    * Mark notification as read
    */
   async markAsRead(notificationId: string, userId: string): Promise<void> {
+    // Get the current notification
+    const notification = await prisma.client.notification.findUnique({
+      where: {
+        id: notificationId
+      }
+    });
+
+    if (!notification || notification.userId !== userId) {
+      throw new NotFoundException('Notification not found');
+    }
+
+    // Update the notification with readAt timestamp
     await prisma.client.notification.update({
       where: {
-        id: notificationId,
-        userId // Ensure user owns the notification
+        id: notificationId
       },
       data: {
-        isRead: true,
-        readAt: new Date()
+        readAt: new Date(),
+        metadata: {
+          ...notification.metadata as any,
+          readStatus: true
+        }
       }
     });
   }
@@ -205,16 +230,29 @@ export class SharedNotificationService {
    * Mark all notifications as read for a user
    */
   async markAllAsRead(userId: string): Promise<void> {
-    await prisma.client.notification.updateMany({
+    // Get all unread notifications for the user
+    const notifications = await prisma.client.notification.findMany({
       where: {
         userId,
-        isRead: false
-      },
-      data: {
-        isRead: true,
-        readAt: new Date()
+        readAt: null
       }
     });
+
+    // Update each notification individually to handle metadata
+    const updatePromises = notifications.map(notification =>
+      prisma.client.notification.update({
+        where: { id: notification.id },
+        data: {
+          readAt: new Date(),
+          metadata: {
+            ...notification.metadata as any,
+            readStatus: true
+          }
+        }
+      })
+    );
+
+    await Promise.all(updatePromises);
   }
 
   /**
@@ -224,7 +262,7 @@ export class SharedNotificationService {
     return prisma.client.notification.count({
       where: {
         userId,
-        isRead: false
+        readAt: null
       }
     });
   }

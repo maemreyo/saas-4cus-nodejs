@@ -76,7 +76,8 @@ export async function validatePartialDto<T>(
   schema: z.ZodSchema<T>,
   data: unknown
 ): Promise<Partial<T>> {
-  const partialSchema = schema.partial();
+  // Use type assertion since partial() is available on ZodObject but not on ZodSchema
+  const partialSchema = (schema as any).partial();
   return validateDto(partialSchema, data);
 }
 
@@ -105,7 +106,8 @@ export function sanitizeDto<T>(
   data: unknown
 ): unknown {
   try {
-    const strictSchema = schema.strict();
+    // Use type assertion since strict() is available on ZodObject but not on ZodSchema
+    const strictSchema = (schema as any).strict();
     return strictSchema.parse(data);
   } catch (error) {
     if (error instanceof z.ZodError) {

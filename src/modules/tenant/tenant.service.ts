@@ -133,6 +133,20 @@ export class TenantService {
   }
 
   /**
+   * Get tenant member
+   */
+  async getMember(tenantId: string, userId: string): Promise<TenantMember | null> {
+    return prisma.client.tenantMember.findUnique({
+      where: {
+        tenantId_userId: {
+          tenantId,
+          userId
+        }
+      }
+    });
+  }
+
+  /**
    * Update tenant
    */
   async updateTenant(tenantId: string, userId: string, options: UpdateTenantOptions): Promise<Tenant> {

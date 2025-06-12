@@ -1,92 +1,76 @@
+// Queue processor for email marketing background jobs
+
 import { Service } from 'typedi';
-import { Job } from 'bull';
+import { Job } from 'bullmq';
 import { prisma } from '@infrastructure/database/prisma.service';
+import { redis } from '@infrastructure/cache/redis.service';
 import { logger } from '@shared/logger';
-import { queueService } from '@shared/queue/queue.service';
 import { EmailService } from '@shared/services/email.service';
-import { eventBus } from '@shared/events/event-bus';
-import { CampaignService } from './campaign.service';
-import { EmailListService } from './email-list.service';
-import { AutomationService } from './automation.service';
-import { TemplateService } from './template.service';
-import { TrackingService } from './tracking.service';
+import { EventBus } from '@shared/events/event-bus';
+import { queueService } from '@shared/queue/queue.service';
 import { EmailMarketingEvents } from './email-marketing.events';
 import {
-  EmailCampaignStatus,
-  EmailDeliveryStatus,
-  EmailAutomationTrigger
+  CampaignStatus,
+  SubscriberStatus,
+  AutomationStepType,
+  EmailActivityType
 } from '@prisma/client';
-import { nanoid } from 'nanoid';
 
-interface EmailJob {
+// Import notification service for sending notifications
+import { NotificationService } from '@modules/notification/notification.service';
+
+interface SendCampaignJob {
+  campaignId: string;
+  tenantId: string;
+}
+
+interface SendConfirmationJob {
+  subscriberId: string;
+  email: string;
+  confirmToken: string;
+  tenantId: string;
+}
+
+interface SendEmailJob {
   recipientId: string;
   campaignId?: string;
-  automationId?: string;
-  stepId?: string;
+  automationStepId?: string;
+  to: string;
   subject: string;
   htmlContent: string;
   textContent?: string;
-  fromName: string;
-  fromEmail: string;
-  replyTo?: string;
-  to: string;
-  messageId: string;
+  trackingId: string;
+}
+
+interface ProcessAutomationStepJob {
+  enrollmentId: string;
+  stepId: string;
+  subscriberId: string;
 }
 
 @Service()
 export class EmailMarketingQueueProcessor {
   constructor(
     private emailService: EmailService,
-    private campaignService: CampaignService,
-    private templateService: TemplateService,
-    private trackingService: TrackingService
-  ) {
-    this.registerHandlers();
-  }
+    private eventBus: EventBus,
+    private notificationService: NotificationService
+  ) {}
 
   /**
-   * Register queue handlers
+   * Process send campaign job
    */
-  private registerHandlers(): void {
-    // Campaign processing
-    queueService.process('email-marketing', 'send-campaign', this.processCampaignSend.bind(this));
-    queueService.process('email-marketing', 'process-campaign-send', this.processCampaignBatch.bind(this));
-    queueService.process('email-marketing', 'resume-campaign-send', this.resumeCampaignSend.bind(this));
-
-    // Individual email sending
-    queueService.process('email-marketing', 'send-email', this.sendEmail.bind(this));
-    queueService.process('email-marketing', 'send-transactional', this.sendTransactionalEmail.bind(this));
-
-    // Subscriber import
-    queueService.process('email-marketing', 'import-subscribers', this.importSubscribers.bind(this));
-
-    // Automation processing
-    queueService.process('email-marketing', 'process-automation-trigger', this.processAutomationTrigger.bind(this));
-    queueService.process('email-marketing', 'process-automation-step', this.processAutomationStep.bind(this));
-    queueService.process('email-marketing', 'check-date-triggers', this.checkDateTriggers.bind(this));
-
-    // Welcome emails
-    queueService.process('email-marketing', 'send-welcome-email', this.sendWelcomeEmail.bind(this));
-
-    // Stats calculation
-    queueService.process('email-marketing', 'calculate-campaign-stats', this.calculateCampaignStats.bind(this));
-    queueService.process('email-marketing', 'update-segment-counts', this.updateSegmentCounts.bind(this));
-
-    logger.info('Email marketing queue handlers registered');
-  }
-
-  /**
-   * Process campaign send
-   */
-  private async processCampaignSend(job: Job): Promise<void> {
-    const { campaignId, testMode = false, testEmails = [] } = job.data;
+  async processSendCampaign(job: Job<SendCampaignJob>): Promise<void> {
+    const { campaignId, tenantId } = job.data;
+    logger.info('Processing campaign send', { campaignId, jobId: job.id });
 
     try {
-      const campaign = await prisma.client.emailCampaign.findUnique({
-        where: { id: campaignId },
+      // Get campaign details
+      const campaign = await prisma.client.emailCampaign.findFirst({
+        where: { id: campaignId, tenantId },
         include: {
           list: true,
-          template: true
+          template: true,
+          segment: true
         }
       });
 
@@ -97,163 +81,119 @@ export class EmailMarketingQueueProcessor {
       // Update campaign status
       await prisma.client.emailCampaign.update({
         where: { id: campaignId },
-        data: { status: EmailCampaignStatus.SENDING }
+        data: {
+          status: CampaignStatus.SENDING,
+          sentAt: new Date()
+        }
       });
 
-      if (testMode) {
-        // Send test emails
-        await this.sendTestEmails(campaign, testEmails);
-      } else {
-        // Get recipients
-        const recipients = await this.getCampaignRecipients(campaign);
+      // Get recipients based on segment or entire list
+      const recipients = await this.getCampaignRecipients(campaign);
+      logger.info(`Found ${recipients.length} recipients for campaign`, { campaignId });
 
-        // Create recipient records
-        const recipientRecords = await this.createRecipientRecords(campaignId, recipients);
+      // Process in batches
+      const batchSize = 50;
+      let sentCount = 0;
+      let errorCount = 0;
 
-        // Queue emails in batches
-        await this.queueCampaignEmails(campaign, recipientRecords);
+      for (let i = 0; i < recipients.length; i += batchSize) {
+        const batch = recipients.slice(i, i + batchSize);
+
+        // Queue individual email jobs
+        await Promise.all(
+          batch.map(async (recipient) => {
+            try {
+              const trackingId = await this.generateTrackingId(campaignId, recipient.id);
+              const personalizedContent = await this.personalizeContent(
+                campaign.htmlContent!,
+                recipient
+              );
+
+              await queueService.addJob('email-marketing', 'send-email', {
+                recipientId: recipient.id,
+                campaignId,
+                to: recipient.email,
+                subject: campaign.subject,
+                htmlContent: personalizedContent.html,
+                textContent: personalizedContent.text,
+                trackingId
+              });
+
+              sentCount++;
+            } catch (error) {
+              logger.error('Failed to queue email', {
+                error,
+                recipientId: recipient.id,
+                campaignId
+              });
+              errorCount++;
+            }
+          })
+        );
+
+        // Update progress
+        await job.updateProgress((i + batch.length) / recipients.length * 100);
       }
 
-      logger.info('Campaign send processing started', {
+      // Update campaign status
+      await prisma.client.emailCampaign.update({
+        where: { id: campaignId },
+        data: {
+          status: CampaignStatus.SENT,
+          completedAt: new Date(),
+          statistics: {
+            totalSent: sentCount,
+            totalFailed: errorCount
+          }
+        }
+      });
+
+      // Emit event
+      await this.eventBus.emit(EmailMarketingEvents.CAMPAIGN_COMPLETED, {
         campaignId,
-        testMode,
-        recipientCount: testMode ? testEmails.length : undefined
+        tenantId,
+        sentCount,
+        errorCount,
+        timestamp: new Date()
+      });
+
+      // Send notification to campaign creator
+      if (campaign.createdById) {
+        await this.notificationService.create({
+          userId: campaign.createdById,
+          type: errorCount > 0 ? 'WARNING' : 'SUCCESS',
+          title: 'Campaign Sent',
+          content: `Campaign "${campaign.name}" has been sent to ${sentCount} recipients.${errorCount > 0 ? ` ${errorCount} failed.` : ''}`,
+          metadata: {
+            campaignId,
+            tenantId,
+            sentCount,
+            errorCount
+          },
+          actions: [
+            {
+              label: 'View Report',
+              url: `/campaigns/${campaignId}/report`
+            }
+          ]
+        });
+      }
+
+      logger.info('Campaign send completed', {
+        campaignId,
+        sentCount,
+        errorCount
       });
     } catch (error) {
-      logger.error('Failed to process campaign send', error as Error);
+      logger.error('Failed to send campaign', { error, campaignId });
 
       // Update campaign status to failed
       await prisma.client.emailCampaign.update({
         where: { id: campaignId },
-        data: { status: EmailCampaignStatus.FAILED }
-      });
-
-      throw error;
-    }
-  }
-
-  /**
-   * Process campaign batch
-   */
-  private async processCampaignBatch(job: Job): Promise<void> {
-    const { campaignId, recipientIds } = job.data;
-
-    try {
-      const campaign = await prisma.client.emailCampaign.findUnique({
-        where: { id: campaignId },
-        include: { template: true }
-      });
-
-      if (!campaign || campaign.status !== EmailCampaignStatus.SENDING) {
-        return;
-      }
-
-      // Process each recipient
-      for (const recipientId of recipientIds) {
-        const recipient = await prisma.client.emailCampaignRecipient.findUnique({
-          where: { id: recipientId },
-          include: { subscriber: true }
-        });
-
-        if (!recipient || recipient.status !== EmailDeliveryStatus.PENDING) {
-          continue;
-        }
-
-        // Prepare email content
-        const messageId = `${campaignId}-${recipientId}-${nanoid(8)}`;
-        const variables = {
-          firstName: recipient.subscriber.firstName,
-          lastName: recipient.subscriber.lastName,
-          email: recipient.subscriber.email,
-          ...recipient.subscriber.customData
-        };
-
-        let htmlContent = campaign.htmlContent;
-        let textContent = campaign.textContent;
-
-        // Apply template if used
-        if (campaign.template) {
-          const rendered = this.templateService.renderTemplate(
-            campaign.template.htmlContent,
-            variables
-          );
-          htmlContent = rendered;
-
-          if (campaign.template.textContent) {
-            textContent = this.templateService.renderTemplate(
-              campaign.template.textContent,
-              variables
-            );
-          }
-        }
-
-        // Add tracking
-        if (campaign.trackOpens || campaign.trackClicks) {
-          htmlContent = this.trackingService.addTrackingToHtml(htmlContent, messageId);
-        }
-
-        // Queue individual email
-        await queueService.addJob('email-marketing', 'send-email', {
-          recipientId: recipient.id,
-          campaignId,
-          subject: campaign.subject,
-          htmlContent,
-          textContent,
-          fromName: campaign.fromName,
-          fromEmail: campaign.fromEmail,
-          replyTo: campaign.replyTo,
-          to: recipient.subscriber.email,
-          messageId
-        } as EmailJob);
-      }
-
-      // Check if all emails are processed
-      await this.checkCampaignCompletion(campaignId);
-    } catch (error) {
-      logger.error('Failed to process campaign batch', error as Error);
-      throw error;
-    }
-  }
-
-  /**
-   * Send individual email
-   */
-  private async sendEmail(job: Job<EmailJob>): Promise<void> {
-    const data = job.data;
-
-    try {
-      // Send email via email service
-      await this.emailService.send({
-        to: data.to,
-        subject: data.subject,
-        html: data.htmlContent,
-        text: data.textContent,
-        from: `${data.fromName} <${data.fromEmail}>`,
-        replyTo: data.replyTo,
-        headers: {
-          'X-Message-ID': data.messageId,
-          'X-Campaign-ID': data.campaignId,
-          'X-Automation-ID': data.automationId
-        }
-      });
-
-      // Track sent
-      await this.trackingService.trackSent(data.recipientId);
-
-      logger.info('Email sent', {
-        recipientId: data.recipientId,
-        campaignId: data.campaignId,
-        to: data.to
-      });
-    } catch (error) {
-      logger.error('Failed to send email', error as Error);
-
-      // Update recipient status
-      await prisma.client.emailCampaignRecipient.update({
-        where: { id: data.recipientId },
         data: {
-          status: EmailDeliveryStatus.FAILED,
-          error: (error as Error).message
+          status: CampaignStatus.FAILED,
+          failedAt: new Date(),
+          failureReason: error instanceof Error ? error.message : 'Unknown error'
         }
       });
 
@@ -262,166 +202,141 @@ export class EmailMarketingQueueProcessor {
   }
 
   /**
-   * Send transactional email
+   * Process send confirmation email job
    */
-  private async sendTransactionalEmail(job: Job): Promise<void> {
-    const { to, subject, templateKey, variables } = job.data;
+  async processSendConfirmation(job: Job<SendConfirmationJob>): Promise<void> {
+    const { subscriberId, email, confirmToken, tenantId } = job.data;
+    logger.info('Processing confirmation email', { subscriberId, email });
 
     try {
-      // Load template
-      const template = await prisma.client.emailTemplate.findFirst({
-        where: {
-          category: 'transactional',
-          name: templateKey
-        }
+      // Get tenant details for branding
+      const tenant = await prisma.client.tenant.findUnique({
+        where: { id: tenantId }
       });
 
-      if (!template) {
-        throw new Error(`Transactional template not found: ${templateKey}`);
-      }
+      const confirmUrl = `${process.env.APP_URL}/confirm-subscription/${confirmToken}`;
 
-      // Render template
-      const htmlContent = this.templateService.renderTemplate(
-        template.htmlContent,
-        variables
-      );
+      await this.emailService.send({
+        to: email,
+        subject: `Please confirm your subscription${tenant ? ` to ${tenant.name}` : ''}`,
+        html: `
+          <h2>Confirm Your Subscription</h2>
+          <p>Thank you for subscribing! Please confirm your email address by clicking the link below:</p>
+          <p><a href="${confirmUrl}" style="background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Confirm Subscription</a></p>
+          <p>Or copy and paste this link into your browser:</p>
+          <p>${confirmUrl}</p>
+          <p>This link will expire in 48 hours.</p>
+        `,
+        text: `
+          Confirm Your Subscription
 
-      const textContent = template.textContent
-        ? this.templateService.renderTemplate(template.textContent, variables)
-        : undefined;
+          Thank you for subscribing! Please confirm your email address by visiting:
+          ${confirmUrl}
+
+          This link will expire in 48 hours.
+        `
+      });
+
+      logger.info('Confirmation email sent', { subscriberId, email });
+    } catch (error) {
+      logger.error('Failed to send confirmation email', { error, subscriberId });
+      throw error;
+    }
+  }
+
+  /**
+   * Process send individual email job
+   */
+  async processSendEmail(job: Job<SendEmailJob>): Promise<void> {
+    const {
+      recipientId,
+      campaignId,
+      automationStepId,
+      to,
+      subject,
+      htmlContent,
+      textContent,
+      trackingId
+    } = job.data;
+
+    logger.info('Processing email send', {
+      recipientId,
+      campaignId,
+      automationStepId,
+      to
+    });
+
+    try {
+      // Add tracking pixel and click tracking
+      const trackedHtml = this.addEmailTracking(htmlContent, trackingId);
 
       // Send email
-      await this.emailService.send({
+      const result = await this.emailService.send({
         to,
-        subject: this.templateService.renderTemplate(template.subject, variables),
-        html: htmlContent,
-        text: textContent
-      });
-
-      logger.info('Transactional email sent', { to, templateKey });
-    } catch (error) {
-      logger.error('Failed to send transactional email', error as Error);
-      throw error;
-    }
-  }
-
-  /**
-   * Import subscribers
-   */
-  private async importSubscribers(job: Job): Promise<void> {
-    const { listId, tenantId, subscribers, updateExisting, skipConfirmation } = job.data;
-
-    try {
-      let imported = 0;
-      let updated = 0;
-      let failed = 0;
-
-      for (const subscriberData of subscribers) {
-        try {
-          const existing = await prisma.client.emailListSubscriber.findUnique({
-            where: {
-              listId_email: {
-                listId,
-                email: subscriberData.email.toLowerCase()
-              }
-            }
-          });
-
-          if (existing && !updateExisting) {
-            failed++;
-            continue;
-          }
-
-          if (existing) {
-            await prisma.client.emailListSubscriber.update({
-              where: { id: existing.id },
-              data: {
-                firstName: subscriberData.firstName || existing.firstName,
-                lastName: subscriberData.lastName || existing.lastName,
-                customData: { ...existing.customData, ...subscriberData.customData },
-                tags: [...new Set([...existing.tags, ...(subscriberData.tags || [])])]
-              }
-            });
-            updated++;
-          } else {
-            const list = await prisma.client.emailList.findUnique({
-              where: { id: listId }
-            });
-
-            await prisma.client.emailListSubscriber.create({
-              data: {
-                listId,
-                email: subscriberData.email.toLowerCase(),
-                firstName: subscriberData.firstName,
-                lastName: subscriberData.lastName,
-                confirmed: skipConfirmation || !list?.doubleOptIn,
-                confirmationToken: !skipConfirmation && list?.doubleOptIn ? nanoid() : null,
-                customData: subscriberData.customData,
-                tags: subscriberData.tags || [],
-                source: 'import'
-              }
-            });
-            imported++;
-          }
-        } catch (error) {
-          logger.error('Failed to import subscriber', error as Error);
-          failed++;
+        subject,
+        html: trackedHtml,
+        text: textContent,
+        headers: {
+          'X-Campaign-ID': campaignId || '',
+          'X-Tracking-ID': trackingId,
+          'List-Unsubscribe': `<${process.env.APP_URL}/unsubscribe/${trackingId}>`
         }
-      }
-
-      await eventBus.emit(EmailMarketingEvents.SUBSCRIBERS_IMPORTED, {
-        listId,
-        tenantId,
-        imported,
-        updated,
-        failed,
-        total: subscribers.length
       });
 
-      logger.info('Subscriber import completed', {
-        listId,
-        imported,
-        updated,
-        failed
+      // Record email sent
+      if (campaignId) {
+        await prisma.client.campaignRecipient.create({
+          data: {
+            campaignId,
+            subscriberId: recipientId,
+            sentAt: new Date(),
+            messageId: result.messageId
+          }
+        });
+      }
+
+      // Record automation email
+      if (automationStepId) {
+        await prisma.client.automationEmail.create({
+          data: {
+            stepId: automationStepId,
+            subscriberId: recipientId,
+            sentAt: new Date(),
+            messageId: result.messageId
+          }
+        });
+      }
+
+      // Emit event
+      await this.eventBus.emit(EmailMarketingEvents.EMAIL_SENT, {
+        recipientId,
+        campaignId,
+        automationStepId,
+        to,
+        trackingId,
+        messageId: result.messageId,
+        timestamp: new Date()
+      });
+
+      logger.info('Email sent successfully', {
+        recipientId,
+        messageId: result.messageId
       });
     } catch (error) {
-      logger.error('Failed to import subscribers', error as Error);
-      throw error;
-    }
-  }
+      logger.error('Failed to send email', { error, recipientId, to });
 
-  /**
-   * Process automation trigger
-   */
-  private async processAutomationTrigger(job: Job): Promise<void> {
-    const { automationId, triggerData } = job.data;
-
-    try {
-      const automation = await prisma.client.emailAutomation.findUnique({
-        where: { id: automationId },
-        include: { steps: { orderBy: { order: 'asc' } } }
-      });
-
-      if (!automation || !automation.active) {
-        return;
+      // Record failure
+      if (campaignId) {
+        await prisma.client.campaignRecipient.create({
+          data: {
+            campaignId,
+            subscriberId: recipientId,
+            failedAt: new Date(),
+            failureReason: error instanceof Error ? error.message : 'Unknown error'
+          }
+        });
       }
 
-      // Process trigger based on type
-      switch (automation.trigger) {
-        case EmailAutomationTrigger.DATE_BASED:
-          await this.processDateBasedTrigger(automation);
-          break;
-        case EmailAutomationTrigger.WEBHOOK:
-          await this.processWebhookTrigger(automation, triggerData);
-          break;
-        default:
-          logger.warn('Unsupported automation trigger type', {
-            automationId,
-            trigger: automation.trigger
-          });
-      }
-    } catch (error) {
-      logger.error('Failed to process automation trigger', error as Error);
       throw error;
     }
   }
@@ -429,19 +344,13 @@ export class EmailMarketingQueueProcessor {
   /**
    * Process automation step
    */
-  private async processAutomationStep(job: Job): Promise<void> {
-    const { enrollmentId, stepId } = job.data;
+  async processAutomationStep(job: Job<ProcessAutomationStepJob>): Promise<void> {
+    const { enrollmentId, stepId, subscriberId } = job.data;
+    logger.info('Processing automation step', { enrollmentId, stepId });
 
     try {
-      const enrollment = await prisma.client.emailAutomationEnrollment.findUnique({
-        where: { id: enrollmentId }
-      });
-
-      if (!enrollment || enrollment.status !== 'active') {
-        return;
-      }
-
-      const step = await prisma.client.emailAutomationStep.findUnique({
+      // Get step details
+      const step = await prisma.client.automationStep.findUnique({
         where: { id: stepId },
         include: {
           automation: true,
@@ -449,455 +358,340 @@ export class EmailMarketingQueueProcessor {
         }
       });
 
-      if (!step) {
+      if (!step || !step.automation.isActive) {
+        logger.warn('Step not found or automation inactive', { stepId });
         return;
       }
 
-      // Check conditions
-      if (step.conditions) {
-        const conditionsMet = await this.evaluateStepConditions(
-          enrollment.subscriberId,
-          step.conditions
-        );
-
-        if (!conditionsMet) {
-          // Skip to next step
-          await this.queueNextStep(enrollment, step);
-          return;
-        }
-      }
-
-      // Get subscriber
-      const subscriber = await prisma.client.emailListSubscriber.findFirst({
-        where: {
-          id: enrollment.subscriberId,
-          subscribed: true
-        }
-      });
-
-      if (!subscriber) {
-        // Cancel enrollment
-        await prisma.client.emailAutomationEnrollment.update({
-          where: { id: enrollmentId },
-          data: {
-            status: 'cancelled',
-            cancelledAt: new Date()
-          }
-        });
-        return;
-      }
-
-      // Prepare email content
-      const variables = {
-        firstName: subscriber.firstName,
-        lastName: subscriber.lastName,
-        email: subscriber.email,
-        ...subscriber.customData
-      };
-
-      let htmlContent = step.htmlContent;
-      let textContent = step.textContent;
-      let subject = step.subject;
-
-      // Apply template if used
-      if (step.template) {
-        htmlContent = this.templateService.renderTemplate(
-          step.template.htmlContent,
-          variables
-        );
-        subject = this.templateService.renderTemplate(
-          step.template.subject,
-          variables
-        );
-        if (step.template.textContent) {
-          textContent = this.templateService.renderTemplate(
-            step.template.textContent,
-            variables
-          );
-        }
-      } else {
-        htmlContent = this.templateService.renderTemplate(htmlContent, variables);
-        subject = this.templateService.renderTemplate(subject, variables);
-        if (textContent) {
-          textContent = this.templateService.renderTemplate(textContent, variables);
-        }
-      }
-
-      // Send email
-      const messageId = `automation-${step.automationId}-${enrollmentId}-${stepId}`;
-      await this.emailService.send({
-        to: subscriber.email,
-        subject,
-        html: htmlContent,
-        text: textContent,
-        headers: {
-          'X-Message-ID': messageId,
-          'X-Automation-ID': step.automationId,
-          'X-Step-ID': stepId
-        }
-      });
-
-      // Update enrollment
-      await prisma.client.emailAutomationEnrollment.update({
-        where: { id: enrollmentId },
-        data: { currentStepId: stepId }
-      });
-
-      // Queue next step
-      await this.queueNextStep(enrollment, step);
-
-      await eventBus.emit(EmailMarketingEvents.AUTOMATION_STEP_SENT, {
-        automationId: step.automationId,
-        stepId,
-        enrollmentId,
-        subscriberId: subscriber.id
-      });
-
-      logger.info('Automation step sent', {
-        automationId: step.automationId,
-        stepId,
-        enrollmentId
-      });
-    } catch (error) {
-      logger.error('Failed to process automation step', error as Error);
-      throw error;
-    }
-  }
-
-  /**
-   * Check date-based triggers
-   */
-  private async checkDateTriggers(job: Job): Promise<void> {
-    const { automationId } = job.data;
-
-    try {
-      const automation = await prisma.client.emailAutomation.findUnique({
-        where: { id: automationId }
-      });
-
-      if (!automation || !automation.active) {
-        return;
-      }
-
-      // Implementation depends on specific date trigger logic
-      logger.info('Checking date triggers', { automationId });
-    } catch (error) {
-      logger.error('Failed to check date triggers', error as Error);
-      throw error;
-    }
-  }
-
-  /**
-   * Send welcome email
-   */
-  private async sendWelcomeEmail(job: Job): Promise<void> {
-    const { listId, subscriberId, welcomeEmailId } = job.data;
-
-    try {
-      const subscriber = await prisma.client.emailListSubscriber.findUnique({
+      // Get subscriber details
+      const subscriber = await prisma.client.emailSubscriber.findUnique({
         where: { id: subscriberId }
       });
 
-      if (!subscriber || !subscriber.subscribed) {
+      if (!subscriber || subscriber.status !== SubscriberStatus.ACTIVE) {
+        logger.warn('Subscriber not active', { subscriberId });
         return;
       }
 
-      // Get welcome email campaign
-      const welcomeCampaign = await prisma.client.emailCampaign.findUnique({
-        where: { id: welcomeEmailId },
-        include: { template: true }
-      });
+      // Process based on step type
+      switch (step.type) {
+        case AutomationStepType.SEND_EMAIL:
+          await this.processEmailStep(step, subscriber, enrollmentId);
+          break;
 
-      if (!welcomeCampaign) {
-        return;
+        case AutomationStepType.WAIT:
+          await this.processWaitStep(step, enrollmentId);
+          break;
+
+        case AutomationStepType.CONDITION:
+          await this.processConditionStep(step, subscriber, enrollmentId);
+          break;
+
+        default:
+          logger.warn('Unknown step type', { stepType: step.type });
       }
 
-      // Prepare content
-      const variables = {
-        firstName: subscriber.firstName,
-        lastName: subscriber.lastName,
-        email: subscriber.email,
-        ...subscriber.customData
-      };
-
-      const subject = this.templateService.renderTemplate(
-        welcomeCampaign.subject,
-        variables
-      );
-
-      let htmlContent = welcomeCampaign.htmlContent;
-      let textContent = welcomeCampaign.textContent;
-
-      if (welcomeCampaign.template) {
-        htmlContent = this.templateService.renderTemplate(
-          welcomeCampaign.template.htmlContent,
-          variables
-        );
-        if (welcomeCampaign.template.textContent) {
-          textContent = this.templateService.renderTemplate(
-            welcomeCampaign.template.textContent,
-            variables
-          );
-        }
-      }
-
-      // Send email
-      await this.emailService.send({
-        to: subscriber.email,
-        subject,
-        html: htmlContent,
-        text: textContent,
-        from: `${welcomeCampaign.fromName} <${welcomeCampaign.fromEmail}>`,
-        replyTo: welcomeCampaign.replyTo
-      });
-
-      logger.info('Welcome email sent', {
-        listId,
+      // Emit event
+      await this.eventBus.emit(EmailMarketingEvents.AUTOMATION_STEP_SENT, {
+        automationId: step.automationId,
+        stepId,
         subscriberId,
-        welcomeEmailId
+        enrollmentId,
+        timestamp: new Date()
       });
+
     } catch (error) {
-      logger.error('Failed to send welcome email', error as Error);
+      logger.error('Failed to process automation step', {
+        error,
+        enrollmentId,
+        stepId
+      });
       throw error;
     }
   }
 
   /**
-   * Calculate campaign statistics
+   * Process daily statistics
    */
-  private async calculateCampaignStats(job: Job): Promise<void> {
-    const { campaignId } = job.data;
+  async processDailyStats(job: Job): Promise<void> {
+    logger.info('Processing daily email marketing statistics');
 
     try {
-      await this.trackingService['recalculateRates'](campaignId);
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      yesterday.setHours(0, 0, 0, 0);
 
-      logger.info('Campaign stats calculated', { campaignId });
-    } catch (error) {
-      logger.error('Failed to calculate campaign stats', error as Error);
-      throw error;
-    }
-  }
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
 
-  /**
-   * Update segment counts
-   */
-  private async updateSegmentCounts(job: Job): Promise<void> {
-    const { segmentId } = job.data;
-
-    try {
-      const segment = await prisma.client.emailSegment.findUnique({
-        where: { id: segmentId }
+      // Get all tenants
+      const tenants = await prisma.client.tenant.findMany({
+        where: { deletedAt: null }
       });
 
-      if (!segment) {
-        return;
+      for (const tenant of tenants) {
+        // Calculate daily stats
+        const stats = await this.calculateDailyStats(tenant.id, yesterday, today);
+
+        // Store daily report
+        await prisma.client.emailMarketingReport.create({
+          data: {
+            tenantId: tenant.id,
+            date: yesterday,
+            ...stats
+          }
+        });
+
+        // Emit event
+        await this.eventBus.emit(EmailMarketingEvents.DAILY_REPORT_GENERATED, {
+          tenantId: tenant.id,
+          date: yesterday,
+          stats,
+          timestamp: new Date()
+        });
       }
 
-      // Implementation would call segmentation service
-      logger.info('Segment counts updated', { segmentId });
+      logger.info('Daily statistics processing completed');
     } catch (error) {
-      logger.error('Failed to update segment counts', error as Error);
+      logger.error('Failed to process daily statistics', { error });
       throw error;
     }
   }
 
-  // ==================== Helper Methods ====================
+  /**
+   * Cleanup old tracking data
+   */
+  async processCleanupTracking(job: Job): Promise<void> {
+    logger.info('Processing tracking data cleanup');
+
+    try {
+      const cutoffDate = new Date();
+      cutoffDate.setDate(cutoffDate.getDate() - 90); // 90 days retention
+
+      // Delete old tracking records
+      const deletedActivities = await prisma.client.emailActivity.deleteMany({
+        where: {
+          createdAt: { lt: cutoffDate }
+        }
+      });
+
+      // Delete old campaign recipients
+      const deletedRecipients = await prisma.client.campaignRecipient.deleteMany({
+        where: {
+          sentAt: { lt: cutoffDate }
+        }
+      });
+
+      logger.info('Tracking data cleanup completed', {
+        deletedActivities: deletedActivities.count,
+        deletedRecipients: deletedRecipients.count
+      });
+    } catch (error) {
+      logger.error('Failed to cleanup tracking data', { error });
+      throw error;
+    }
+  }
+
+  // ===== HELPER METHODS =====
 
   /**
    * Get campaign recipients
    */
   private async getCampaignRecipients(campaign: any): Promise<any[]> {
-    let where: any = {
+    const where: any = {
       listId: campaign.listId,
-      subscribed: true,
-      confirmed: true
+      status: SubscriberStatus.ACTIVE
     };
 
-    // Apply segments
-    if (campaign.segmentIds.length > 0) {
-      // Implementation would use segmentation service
+    // Apply segment filters if present
+    if (campaign.segment) {
+      // Apply segment conditions
+      // This would be more complex in real implementation
+      if (campaign.segment.conditions.tags) {
+        where.tags = {
+          hasSome: campaign.segment.conditions.tags
+        };
+      }
     }
 
-    return prisma.client.emailListSubscriber.findMany({
+    return await prisma.client.emailSubscriber.findMany({
       where,
       select: {
         id: true,
         email: true,
         firstName: true,
         lastName: true,
-        customData: true
+        customFields: true
       }
     });
   }
 
   /**
-   * Create recipient records
+   * Generate tracking ID
    */
-  private async createRecipientRecords(
+  private async generateTrackingId(
     campaignId: string,
-    subscribers: any[]
-  ): Promise<any[]> {
-    const recipients = subscribers.map(subscriber => ({
-      campaignId,
-      subscriberId: subscriber.id,
-      status: EmailDeliveryStatus.PENDING
-    }));
+    subscriberId: string
+  ): Promise<string> {
+    const trackingId = `${campaignId}-${subscriberId}-${Date.now()}`;
 
-    await prisma.client.emailCampaignRecipient.createMany({
-      data: recipients
-    });
+    // Store tracking data in Redis with 30 day expiry
+    await redis.setex(
+      `email:tracking:${trackingId}`,
+      30 * 24 * 3600,
+      JSON.stringify({ campaignId, subscriberId })
+    );
 
-    return prisma.client.emailCampaignRecipient.findMany({
-      where: { campaignId }
-    });
+    return trackingId;
   }
 
   /**
-   * Queue campaign emails
+   * Personalize content
    */
-  private async queueCampaignEmails(campaign: any, recipients: any[]): Promise<void> {
-    const batchSize = 100;
-    const batches = [];
+  private async personalizeContent(
+    content: string,
+    recipient: any
+  ): Promise<{ html: string; text: string }> {
+    // Simple variable replacement
+    let html = content;
+    let text = content;
 
-    for (let i = 0; i < recipients.length; i += batchSize) {
-      const batch = recipients.slice(i, i + batchSize);
-      batches.push(batch.map(r => r.id));
+    // Replace merge tags
+    const replacements: Record<string, string> = {
+      '{{firstName}}': recipient.firstName || '',
+      '{{lastName}}': recipient.lastName || '',
+      '{{email}}': recipient.email,
+      '{{fullName}}': `${recipient.firstName || ''} ${recipient.lastName || ''}`.trim()
+    };
+
+    for (const [tag, value] of Object.entries(replacements)) {
+      html = html.replace(new RegExp(tag, 'g'), value);
+      text = text.replace(new RegExp(tag, 'g'), value);
     }
 
-    // Queue batches
-    for (const recipientIds of batches) {
-      await queueService.addJob(
-        'email-marketing',
-        'process-campaign-batch',
-        {
-          campaignId: campaign.id,
-          recipientIds
-        },
-        {
-          attempts: 3,
-          backoff: {
-            type: 'exponential',
-            delay: 2000
-          }
-        }
-      );
+    // Add custom fields
+    if (recipient.customFields) {
+      for (const [key, value] of Object.entries(recipient.customFields)) {
+        const tag = `{{${key}}}`;
+        html = html.replace(new RegExp(tag, 'g'), String(value));
+        text = text.replace(new RegExp(tag, 'g'), String(value));
+      }
     }
 
-    // Update campaign stats
-    await prisma.client.emailCampaignStats.update({
-      where: { campaignId: campaign.id },
-      data: { totalRecipients: recipients.length }
+    // Convert HTML to text if needed
+    text = text.replace(/<[^>]*>/g, '');
+
+    return { html, text };
+  }
+
+  /**
+   * Add email tracking
+   */
+  private addEmailTracking(html: string, trackingId: string): string {
+    // Add tracking pixel
+    const trackingPixel = `<img src="${process.env.APP_URL}/api/email-marketing/track/open/${trackingId}" width="1" height="1" style="display:none;" />`;
+    html = html.replace('</body>', `${trackingPixel}</body>`);
+
+    // Add click tracking to links
+    const linkRegex = /<a\s+(?:[^>]*?\s+)?href="([^"]*)"([^>]*)>/gi;
+    html = html.replace(linkRegex, (match, url, rest) => {
+      // Skip unsubscribe and tracking links
+      if (url.includes('unsubscribe') || url.includes('/track/')) {
+        return match;
+      }
+
+      const trackedUrl = `${process.env.APP_URL}/api/email-marketing/track/click/${trackingId}?url=${encodeURIComponent(url)}`;
+      return `<a href="${trackedUrl}"${rest}>`;
     });
+
+    return html;
   }
 
   /**
-   * Send test emails
+   * Process email automation step
    */
-  private async sendTestEmails(campaign: any, testEmails: string[]): Promise<void> {
-    for (const email of testEmails) {
-      await this.emailService.send({
-        to: email,
-        subject: `[TEST] ${campaign.subject}`,
-        html: campaign.htmlContent,
-        text: campaign.textContent,
-        from: `${campaign.fromName} <${campaign.fromEmail}>`,
-        replyTo: campaign.replyTo
-      });
-    }
+  private async processEmailStep(
+    step: any,
+    subscriber: any,
+    enrollmentId: string
+  ): Promise<void> {
+    const trackingId = await this.generateTrackingId(
+      `automation-${step.automationId}`,
+      subscriber.id
+    );
+
+    const content = await this.personalizeContent(
+      step.template.htmlContent,
+      subscriber
+    );
+
+    await queueService.addJob('email-marketing', 'send-email', {
+      recipientId: subscriber.id,
+      automationStepId: step.id,
+      to: subscriber.email,
+      subject: step.template.subject,
+      htmlContent: content.html,
+      textContent: content.text,
+      trackingId
+    });
+
+    // Schedule next step if exists
+    await this.scheduleNextStep(enrollmentId, step);
   }
 
   /**
-   * Check campaign completion
+   * Process wait step
    */
-  private async checkCampaignCompletion(campaignId: string): Promise<void> {
-    const pendingCount = await prisma.client.emailCampaignRecipient.count({
-      where: {
-        campaignId,
-        status: EmailDeliveryStatus.PENDING
+  private async processWaitStep(
+    step: any,
+    enrollmentId: string
+  ): Promise<void> {
+    // Just schedule the next step after wait period
+    await this.scheduleNextStep(enrollmentId, step);
+  }
+
+  /**
+   * Process condition step
+   */
+  private async processConditionStep(
+    step: any,
+    subscriber: any,
+    enrollmentId: string
+  ): Promise<void> {
+    // Evaluate condition (simplified)
+    const conditionMet = await this.evaluateCondition(
+      step.settings.condition,
+      subscriber
+    );
+
+    // Update enrollment with path taken
+    await prisma.client.automationEnrollment.update({
+      where: { id: enrollmentId },
+      data: {
+        currentStepId: conditionMet ? step.settings.truePath : step.settings.falsePath
       }
     });
 
-    if (pendingCount === 0) {
-      await prisma.client.emailCampaign.update({
-        where: { id: campaignId },
-        data: {
-          status: EmailCampaignStatus.SENT,
-          completedAt: new Date()
-        }
-      });
-
-      await eventBus.emit(EmailMarketingEvents.CAMPAIGN_COMPLETED, {
-        campaignId
+    // Continue with appropriate path
+    const nextStepId = conditionMet ? step.settings.truePath : step.settings.falsePath;
+    if (nextStepId) {
+      await queueService.addJob('email-marketing', 'process-automation-step', {
+        enrollmentId,
+        stepId: nextStepId,
+        subscriberId: subscriber.id
       });
     }
   }
 
   /**
-   * Resume campaign send
+   * Schedule next automation step
    */
-  private async resumeCampaignSend(job: Job): Promise<void> {
-    const { campaignId } = job.data;
-
-    try {
-      // Get pending recipients
-      const pendingRecipients = await prisma.client.emailCampaignRecipient.findMany({
-        where: {
-          campaignId,
-          status: EmailDeliveryStatus.PENDING
-        }
-      });
-
-      // Queue remaining emails
-      await this.queueCampaignEmails(
-        { id: campaignId },
-        pendingRecipients
-      );
-
-      logger.info('Campaign send resumed', {
-        campaignId,
-        pendingCount: pendingRecipients.length
-      });
-    } catch (error) {
-      logger.error('Failed to resume campaign send', error as Error);
-      throw error;
-    }
-  }
-
-  /**
-   * Process date-based trigger
-   */
-  private async processDateBasedTrigger(automation: any): Promise<void> {
-    // Implementation depends on specific date trigger logic
-    logger.info('Processing date-based trigger', { automationId: automation.id });
-  }
-
-  /**
-   * Process webhook trigger
-   */
-  private async processWebhookTrigger(automation: any, data: any): Promise<void> {
-    // Implementation depends on webhook data
-    logger.info('Processing webhook trigger', {
-      automationId: automation.id,
-      data
-    });
-  }
-
-  /**
-   * Evaluate step conditions
-   */
-  private async evaluateStepConditions(
-    subscriberId: string,
-    conditions: any
-  ): Promise<boolean> {
-    // Implementation would evaluate conditions
-    return true;
-  }
-
-  /**
-   * Queue next automation step
-   */
-  private async queueNextStep(enrollment: any, currentStep: any): Promise<void> {
-    const nextStep = await prisma.client.emailAutomationStep.findFirst({
+  private async scheduleNextStep(
+    enrollmentId: string,
+    currentStep: any
+  ): Promise<void> {
+    // Get next step
+    const nextStep = await prisma.client.automationStep.findFirst({
       where: {
         automationId: currentStep.automationId,
         order: { gt: currentStep.order }
@@ -906,54 +700,168 @@ export class EmailMarketingQueueProcessor {
     });
 
     if (nextStep) {
-      const delayMs = this.calculateDelay(nextStep.delayAmount, nextStep.delayUnit);
+      // Calculate delay based on step settings
+      let delay = 0;
+      if (currentStep.type === AutomationStepType.WAIT) {
+        delay = this.parseDelay(currentStep.settings.delay);
+      }
 
+      // Update enrollment
+      await prisma.client.automationEnrollment.update({
+        where: { id: enrollmentId },
+        data: { currentStepId: nextStep.id }
+      });
+
+      // Schedule next step
       await queueService.addJob(
         'email-marketing',
         'process-automation-step',
         {
-          enrollmentId: enrollment.id,
-          stepId: nextStep.id
+          enrollmentId,
+          stepId: nextStep.id,
+          subscriberId: currentStep.subscriberId
         },
-        {
-          delay: delayMs
-        }
+        { delay }
       );
     } else {
-      // Mark enrollment as completed
-      await prisma.client.emailAutomationEnrollment.update({
-        where: { id: enrollment.id },
+      // No more steps - complete enrollment
+      await prisma.client.automationEnrollment.update({
+        where: { id: enrollmentId },
         data: {
-          status: 'completed',
+          status: 'COMPLETED',
           completedAt: new Date()
         }
       });
 
-      // Update automation stats
-      await prisma.client.emailAutomation.update({
-        where: { id: currentStep.automationId },
-        data: {
-          totalCompleted: { increment: 1 }
-        }
-      });
-
-      await eventBus.emit(EmailMarketingEvents.AUTOMATION_ENROLLMENT_COMPLETED, {
+      await this.eventBus.emit(EmailMarketingEvents.AUTOMATION_ENROLLMENT_COMPLETED, {
+        enrollmentId,
         automationId: currentStep.automationId,
-        enrollmentId: enrollment.id
+        timestamp: new Date()
       });
     }
   }
 
   /**
-   * Calculate delay in milliseconds
+   * Parse delay string to milliseconds
    */
-  private calculateDelay(amount: number, unit: string): number {
-    const multipliers: Record<string, number> = {
-      minutes: 60 * 1000,
-      hours: 60 * 60 * 1000,
-      days: 24 * 60 * 60 * 1000
-    };
+  private parseDelay(delay: string): number {
+    const match = delay.match(/(\d+)\s*(hour|day|week)/i);
+    if (!match) return 0;
 
-    return amount * (multipliers[unit] || multipliers.hours);
+    const value = parseInt(match[1]);
+    const unit = match[2].toLowerCase();
+
+    switch (unit) {
+      case 'hour':
+        return value * 60 * 60 * 1000;
+      case 'day':
+        return value * 24 * 60 * 60 * 1000;
+      case 'week':
+        return value * 7 * 24 * 60 * 60 * 1000;
+      default:
+        return 0;
+    }
+  }
+
+  /**
+   * Evaluate automation condition
+   */
+  private async evaluateCondition(
+    condition: any,
+    subscriber: any
+  ): Promise<boolean> {
+    // Simplified condition evaluation
+    // In real implementation, this would be more complex
+
+    if (condition.type === 'tag') {
+      return subscriber.tags.includes(condition.value);
+    }
+
+    if (condition.type === 'field') {
+      return subscriber.customFields[condition.field] === condition.value;
+    }
+
+    return false;
+  }
+
+  /**
+   * Calculate daily statistics
+   */
+  private async calculateDailyStats(
+    tenantId: string,
+    startDate: Date,
+    endDate: Date
+  ): Promise<any> {
+    const [
+      emailsSent,
+      emailsOpened,
+      emailsClicked,
+      emailsBounced,
+      newSubscribers,
+      unsubscribes
+    ] = await Promise.all([
+      // Emails sent
+      prisma.client.campaignRecipient.count({
+        where: {
+          campaign: { tenantId },
+          sentAt: { gte: startDate, lt: endDate }
+        }
+      }),
+
+      // Emails opened
+      prisma.client.emailActivity.count({
+        where: {
+          campaign: { tenantId },
+          type: EmailActivityType.OPEN,
+          createdAt: { gte: startDate, lt: endDate }
+        }
+      }),
+
+      // Emails clicked
+      prisma.client.emailActivity.count({
+        where: {
+          campaign: { tenantId },
+          type: EmailActivityType.CLICK,
+          createdAt: { gte: startDate, lt: endDate }
+        }
+      }),
+
+      // Emails bounced
+      prisma.client.emailActivity.count({
+        where: {
+          campaign: { tenantId },
+          type: EmailActivityType.BOUNCE,
+          createdAt: { gte: startDate, lt: endDate }
+        }
+      }),
+
+      // New subscribers
+      prisma.client.emailSubscriber.count({
+        where: {
+          list: { tenantId },
+          subscribedAt: { gte: startDate, lt: endDate }
+        }
+      }),
+
+      // Unsubscribes
+      prisma.client.emailSubscriber.count({
+        where: {
+          list: { tenantId },
+          unsubscribedAt: { gte: startDate, lt: endDate }
+        }
+      })
+    ]);
+
+    return {
+      emailsSent,
+      emailsOpened,
+      emailsClicked,
+      emailsBounced,
+      newSubscribers,
+      unsubscribes,
+      openRate: emailsSent > 0 ? (emailsOpened / emailsSent) * 100 : 0,
+      clickRate: emailsSent > 0 ? (emailsClicked / emailsSent) * 100 : 0,
+      bounceRate: emailsSent > 0 ? (emailsBounced / emailsSent) * 100 : 0
+    };
   }
 }

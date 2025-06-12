@@ -25,13 +25,17 @@ import {
   Prisma
 } from '@prisma/client';
 import { EmailMarketingEvents } from './email-marketing.events';
+import { TemplateService } from './template.service';
+import { SegmentationService } from './segmentation.service';
 import { nanoid } from 'nanoid';
 
 @Service()
 export class CampaignService {
   constructor(
     private tenantContext: TenantContextService,
-    private emailService: EmailService
+    private emailService: EmailService,
+    private templateService: TemplateService,
+    private segmentationService: SegmentationService
   ) {}
 
   /**
@@ -57,6 +61,11 @@ export class CampaignService {
         }
       }
 
+      // Validate template if provided
+      if (data.templateId) {
+        await this.templateService.findById(data.templateId);
+      }
+
       // Create campaign
       const campaign = await prisma.client.emailCampaign.create({
         data: {
@@ -78,16 +87,13 @@ export class CampaignService {
           trackClicks: data.trackClicks ?? true,
           googleAnalytics: data.googleAnalytics ?? false,
           utmParams: data.utmParams,
+          isABTest: data.isABTest ?? false,
+          abTestConfig: data.abTestConfig,
           metadata: data.metadata
-        },
-        include: {
-          list: true,
-          template: true,
-          stats: true
         }
       });
 
-      // Create stats record
+      // Create campaign stats
       await prisma.client.emailCampaignStats.create({
         data: {
           id: nanoid(),
@@ -95,15 +101,14 @@ export class CampaignService {
         }
       });
 
-      // Create A/B test variants if needed
+      // Create A/B test variants if configured
       if (data.isABTest && data.abTestConfig) {
         await this.createABTestVariants(campaign.id, data.abTestConfig);
       }
 
       await eventBus.emit(EmailMarketingEvents.CAMPAIGN_CREATED, {
         campaignId: campaign.id,
-        tenantId,
-        type: campaign.type
+        tenantId
       });
 
       logger.info('Campaign created', { campaignId: campaign.id, tenantId });
@@ -124,9 +129,8 @@ export class CampaignService {
 
     const campaign = await this.findById(campaignId);
 
-    // Cannot update sent campaigns
-    if (campaign.status === EmailCampaignStatus.SENT) {
-      throw new BadRequestException('Cannot update sent campaign');
+    if (campaign.status !== EmailCampaignStatus.DRAFT) {
+      throw new BadRequestException('Can only update draft campaigns');
     }
 
     try {
@@ -139,6 +143,7 @@ export class CampaignService {
           fromName: data.fromName,
           fromEmail: data.fromEmail,
           replyTo: data.replyTo,
+          templateId: data.templateId,
           htmlContent: data.htmlContent,
           textContent: data.textContent,
           segmentIds: data.segmentIds,
@@ -148,11 +153,6 @@ export class CampaignService {
           googleAnalytics: data.googleAnalytics,
           utmParams: data.utmParams,
           metadata: data.metadata
-        },
-        include: {
-          list: true,
-          template: true,
-          stats: true
         }
       });
 
@@ -178,32 +178,40 @@ export class CampaignService {
     const campaign = await this.findById(campaignId);
 
     if (campaign.status !== EmailCampaignStatus.DRAFT) {
-      throw new BadRequestException('Only draft campaigns can be scheduled');
+      throw new BadRequestException('Can only schedule draft campaigns');
     }
 
     if (scheduledAt <= new Date()) {
       throw new BadRequestException('Scheduled time must be in the future');
     }
 
+    // Validate campaign has recipients
+    const recipientCount = await this.calculateRecipients(campaign);
+    if (recipientCount === 0) {
+      throw new BadRequestException('Campaign has no recipients');
+    }
+
     try {
       const updated = await prisma.client.emailCampaign.update({
         where: { id: campaignId },
         data: {
-          scheduledAt,
-          status: EmailCampaignStatus.SCHEDULED
+          status: EmailCampaignStatus.SCHEDULED,
+          scheduledAt
         }
       });
 
-      // Queue job for scheduled send
+      // Schedule job
       await queueService.addJob(
         'email-marketing',
         'send-campaign',
         { campaignId },
-        { delay: scheduledAt.getTime() - Date.now() }
+        {
+          delay: scheduledAt.getTime() - Date.now()
+        }
       );
 
       await eventBus.emit(EmailMarketingEvents.CAMPAIGN_SCHEDULED, {
-        campaignId,
+        campaignId: updated.id,
         tenantId,
         scheduledAt
       });
@@ -218,7 +226,7 @@ export class CampaignService {
   }
 
   /**
-   * Send campaign immediately
+   * Send campaign
    */
   async send(campaignId: string, options?: SendCampaignDto): Promise<any> {
     const tenantId = this.tenantContext.getTenantId();
@@ -226,12 +234,12 @@ export class CampaignService {
 
     const campaign = await this.findById(campaignId);
 
-    if (![EmailCampaignStatus.DRAFT, EmailCampaignStatus.SCHEDULED].includes(campaign.status)) {
+    if (!['DRAFT', 'SCHEDULED'].includes(campaign.status)) {
       throw new BadRequestException('Campaign cannot be sent in current status');
     }
 
     try {
-      // Update campaign status
+      // Update status
       await prisma.client.emailCampaign.update({
         where: { id: campaignId },
         data: {
@@ -240,16 +248,18 @@ export class CampaignService {
         }
       });
 
-      // Queue campaign send job
+      // Queue sending job
       await queueService.addJob(
         'email-marketing',
-        'send-campaign',
+        'process-campaign-send',
         {
           campaignId,
           testMode: options?.testMode,
           testEmails: options?.testEmails
         },
-        { priority: 1 }
+        {
+          priority: 1
+        }
       );
 
       await eventBus.emit(EmailMarketingEvents.CAMPAIGN_SENDING, {
@@ -257,9 +267,9 @@ export class CampaignService {
         tenantId
       });
 
-      logger.info('Campaign send initiated', { campaignId });
+      logger.info('Campaign sending started', { campaignId });
 
-      return { message: 'Campaign send initiated' };
+      return { message: 'Campaign sending started' };
     } catch (error) {
       logger.error('Failed to send campaign', error as Error);
       throw error;
@@ -276,13 +286,15 @@ export class CampaignService {
     const campaign = await this.findById(campaignId);
 
     if (campaign.status !== EmailCampaignStatus.SENDING) {
-      throw new BadRequestException('Only sending campaigns can be paused');
+      throw new BadRequestException('Can only pause sending campaigns');
     }
 
     try {
       const updated = await prisma.client.emailCampaign.update({
         where: { id: campaignId },
-        data: { status: EmailCampaignStatus.PAUSED }
+        data: {
+          status: EmailCampaignStatus.PAUSED
+        }
       });
 
       await eventBus.emit(EmailMarketingEvents.CAMPAIGN_PAUSED, {
@@ -307,21 +319,22 @@ export class CampaignService {
     const campaign = await this.findById(campaignId);
 
     if (campaign.status !== EmailCampaignStatus.PAUSED) {
-      throw new BadRequestException('Only paused campaigns can be resumed');
+      throw new BadRequestException('Can only resume paused campaigns');
     }
 
     try {
       const updated = await prisma.client.emailCampaign.update({
         where: { id: campaignId },
-        data: { status: EmailCampaignStatus.SENDING }
+        data: {
+          status: EmailCampaignStatus.SENDING
+        }
       });
 
       // Queue resume job
       await queueService.addJob(
         'email-marketing',
-        'resume-campaign',
-        { campaignId },
-        { priority: 1 }
+        'resume-campaign-send',
+        { campaignId }
       );
 
       await eventBus.emit(EmailMarketingEvents.CAMPAIGN_RESUMED, {
@@ -345,14 +358,16 @@ export class CampaignService {
 
     const campaign = await this.findById(campaignId);
 
-    if (![EmailCampaignStatus.SCHEDULED, EmailCampaignStatus.SENDING, EmailCampaignStatus.PAUSED].includes(campaign.status)) {
+    if (!['SCHEDULED', 'SENDING', 'PAUSED'].includes(campaign.status)) {
       throw new BadRequestException('Campaign cannot be cancelled in current status');
     }
 
     try {
       const updated = await prisma.client.emailCampaign.update({
         where: { id: campaignId },
-        data: { status: EmailCampaignStatus.CANCELLED }
+        data: {
+          status: EmailCampaignStatus.CANCELLED
+        }
       });
 
       await eventBus.emit(EmailMarketingEvents.CAMPAIGN_CANCELLED, {
@@ -377,7 +392,7 @@ export class CampaignService {
     const campaign = await this.findById(campaignId);
 
     if (campaign.status === EmailCampaignStatus.SENDING) {
-      throw new BadRequestException('Cannot delete sending campaign');
+      throw new BadRequestException('Cannot delete sending campaigns');
     }
 
     try {
@@ -398,7 +413,7 @@ export class CampaignService {
   }
 
   /**
-   * Find campaign by ID
+   * Get campaign by ID
    */
   async findById(campaignId: string): Promise<any> {
     const tenantId = this.tenantContext.getTenantId();
@@ -473,8 +488,12 @@ export class CampaignService {
    * Get campaign statistics
    */
   async getStats(campaignId: string): Promise<CampaignStatsDto> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
     const campaign = await this.findById(campaignId);
 
+    // Get detailed stats
     const stats = await prisma.client.emailCampaignStats.findUnique({
       where: { campaignId }
     });
@@ -483,19 +502,20 @@ export class CampaignService {
       throw new NotFoundException('Campaign stats not found');
     }
 
-    // Get detailed recipient stats
+    // Get recipient status breakdown
     const recipientStats = await prisma.client.emailCampaignRecipient.groupBy({
       by: ['status'],
       where: { campaignId },
       _count: true
     });
 
-    // Get click map
-    const clickMap = await prisma.client.emailActivity.groupBy({
+    // Get top clicked links
+    const topLinks = await prisma.client.emailActivity.groupBy({
       by: ['clickedUrl'],
       where: {
         campaignId,
-        type: 'clicked'
+        type: 'clicked',
+        clickedUrl: { not: null }
       },
       _count: true,
       orderBy: {
@@ -511,35 +531,68 @@ export class CampaignService {
       recipientStats: recipientStats.reduce((acc, stat) => {
         acc[stat.status] = stat._count;
         return acc;
-      }, {} as Record<string, number>),
-      topClickedLinks: clickMap.map(item => ({
-        url: item.clickedUrl!,
-        clicks: item._count
+      }, {} as Record<EmailDeliveryStatus, number>),
+      topClickedLinks: topLinks.map(link => ({
+        url: link.clickedUrl!,
+        clicks: link._count
       }))
-    } as CampaignStatsDto;
+    };
   }
 
   /**
-   * Duplicate campaign
+   * Clone campaign
    */
-  async duplicate(campaignId: string, name?: string): Promise<any> {
+  async clone(campaignId: string): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
     const campaign = await this.findById(campaignId);
 
-    const duplicated = await this.create({
+    const clonedData = {
       ...campaign,
-      name: name || `${campaign.name} (Copy)`,
+      id: undefined,
+      name: `${campaign.name} (Copy)`,
       status: EmailCampaignStatus.DRAFT,
       scheduledAt: null,
       sentAt: null,
-      completedAt: null
-    });
+      completedAt: null,
+      createdAt: undefined,
+      updatedAt: undefined
+    };
 
-    logger.info('Campaign duplicated', {
-      originalId: campaignId,
-      duplicatedId: duplicated.id
-    });
+    return this.create(clonedData);
+  }
 
-    return duplicated;
+  /**
+   * Calculate campaign recipients
+   */
+  private async calculateRecipients(campaign: any): Promise<number> {
+    let where: Prisma.EmailListSubscriberWhereInput = {
+      listId: campaign.listId,
+      subscribed: true,
+      confirmed: true
+    };
+
+    // Apply segment filters
+    if (campaign.segmentIds.length > 0) {
+      const segmentConditions = await this.segmentationService.getSegmentConditions(
+        campaign.segmentIds
+      );
+      where = { ...where, ...segmentConditions };
+    }
+
+    // Apply exclusion segments
+    if (campaign.excludeSegmentIds.length > 0) {
+      const excludeConditions = await this.segmentationService.getSegmentConditions(
+        campaign.excludeSegmentIds
+      );
+      where = {
+        ...where,
+        NOT: excludeConditions
+      };
+    }
+
+    return prisma.client.emailListSubscriber.count({ where });
   }
 
   /**
@@ -549,78 +602,50 @@ export class CampaignService {
     campaignId: string,
     config: ABTestConfigDto
   ): Promise<void> {
-    const variants = config.variants.map(variant => ({
-      campaignId,
-      name: variant.name,
-      weight: variant.weight,
-      subject: variant.subject,
-      fromName: variant.fromName
-    }));
+    for (const variant of config.variants) {
+      await prisma.client.emailABTestVariant.create({
+        data: {
+          campaignId,
+          name: variant.name,
+          weight: variant.weight,
+          subject: variant.subject,
+          fromName: variant.fromName
+        }
+      });
+    }
+  }
 
-    await prisma.client.emailABTestVariant.createMany({
-      data: variants
+  /**
+   * Select A/B test winner
+   */
+  async selectABTestWinner(campaignId: string, variantId: string): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const campaign = await this.findById(campaignId);
+
+    if (!campaign.isABTest) {
+      throw new BadRequestException('Campaign is not an A/B test');
+    }
+
+    // Update winning variant
+    await prisma.client.emailABTestVariant.update({
+      where: { id: variantId },
+      data: { isWinner: true }
     });
 
-    // Update campaign as A/B test
-    await prisma.client.emailCampaign.update({
+    // Update campaign
+    const updated = await prisma.client.emailCampaign.update({
       where: { id: campaignId },
-      data: {
-        isABTest: true,
-        abTestConfig: config as any
-      }
+      data: { winningVariantId: variantId }
     });
-  }
 
-  /**
-   * Get recipients for campaign
-   */
-  async getRecipients(campaignId: string, status?: EmailDeliveryStatus): Promise<any> {
-    const campaign = await this.findById(campaignId);
-
-    const where: Prisma.EmailCampaignRecipientWhereInput = {
+    await eventBus.emit(EmailMarketingEvents.CAMPAIGN_AB_TEST_WINNER_SELECTED, {
       campaignId,
-      ...(status && { status })
-    };
-
-    const recipients = await prisma.client.emailCampaignRecipient.findMany({
-      where,
-      include: {
-        subscriber: true
-      },
-      orderBy: { createdAt: 'desc' },
-      take: 100
+      variantId,
+      tenantId
     });
 
-    return recipients;
-  }
-
-  /**
-   * Get campaign timeline
-   */
-  async getTimeline(campaignId: string): Promise<any> {
-    const campaign = await this.findById(campaignId);
-
-    const activities = await prisma.client.emailActivity.findMany({
-      where: { campaignId },
-      include: {
-        subscriber: true
-      },
-      orderBy: { createdAt: 'desc' },
-      take: 50
-    });
-
-    return activities.map(activity => ({
-      id: activity.id,
-      type: activity.type,
-      subscriber: {
-        email: activity.subscriber.email,
-        firstName: activity.subscriber.firstName,
-        lastName: activity.subscriber.lastName
-      },
-      clickedUrl: activity.clickedUrl,
-      device: activity.device,
-      location: activity.location,
-      createdAt: activity.createdAt
-    }));
+    return updated;
   }
 }

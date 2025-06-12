@@ -23,16 +23,19 @@ import {
   Prisma
 } from '@prisma/client';
 import { EmailMarketingEvents } from './email-marketing.events';
-import { CronExpression } from '@shared/utils/cron';
+import { TemplateService } from './template.service';
+import { SegmentationService } from './segmentation.service';
 
 @Service()
 export class AutomationService {
   constructor(
-    private tenantContext: TenantContextService
+    private tenantContext: TenantContextService,
+    private templateService: TemplateService,
+    private segmentationService: SegmentationService
   ) {}
 
   /**
-   * Create automation workflow
+   * Create a new automation
    */
   async create(data: CreateAutomationDto): Promise<any> {
     const tenantId = this.tenantContext.getTenantId();
@@ -61,21 +64,19 @@ export class AutomationService {
           name: data.name,
           description: data.description,
           trigger: data.trigger,
-          triggerConfig: data.triggerConfig as any,
-          active: false,
+          triggerConfig: data.triggerConfig,
           metadata: data.metadata
-        },
-        include: {
-          list: true,
-          steps: {
-            orderBy: { order: 'asc' }
-          }
         }
       });
 
       // Create steps if provided
       if (data.steps && data.steps.length > 0) {
-        await this.createSteps(automation.id, data.steps);
+        for (let i = 0; i < data.steps.length; i++) {
+          await this.addStep(automation.id, {
+            ...data.steps[i],
+            order: i + 1
+          });
+        }
       }
 
       await eventBus.emit(EmailMarketingEvents.AUTOMATION_CREATED, {
@@ -101,9 +102,8 @@ export class AutomationService {
 
     const automation = await this.findById(automationId);
 
-    // Cannot update active automations
-    if (automation.active && (data.trigger || data.triggerConfig)) {
-      throw new BadRequestException('Cannot update trigger for active automation');
+    if (automation.active) {
+      throw new BadRequestException('Cannot update active automation');
     }
 
     try {
@@ -113,14 +113,8 @@ export class AutomationService {
           name: data.name,
           description: data.description,
           trigger: data.trigger,
-          triggerConfig: data.triggerConfig as any,
+          triggerConfig: data.triggerConfig,
           metadata: data.metadata
-        },
-        include: {
-          list: true,
-          steps: {
-            orderBy: { order: 'asc' }
-          }
         }
       });
 
@@ -150,8 +144,12 @@ export class AutomationService {
     }
 
     // Validate automation has steps
-    if (automation.steps.length === 0) {
-      throw new BadRequestException('Cannot activate automation without steps');
+    const stepCount = await prisma.client.emailAutomationStep.count({
+      where: { automationId }
+    });
+
+    if (stepCount === 0) {
+      throw new BadRequestException('Automation must have at least one step');
     }
 
     try {
@@ -160,8 +158,8 @@ export class AutomationService {
         data: { active: true }
       });
 
-      // Register automation triggers
-      await this.registerTriggers(automation);
+      // Register triggers
+      await this.registerTriggers(updated);
 
       await eventBus.emit(EmailMarketingEvents.AUTOMATION_ACTIVATED, {
         automationId: updated.id,
@@ -196,8 +194,8 @@ export class AutomationService {
         data: { active: false }
       });
 
-      // Unregister automation triggers
-      await this.unregisterTriggers(automation);
+      // Unregister triggers
+      await this.unregisterTriggers(updated);
 
       await eventBus.emit(EmailMarketingEvents.AUTOMATION_DEACTIVATED, {
         automationId: updated.id,
@@ -244,7 +242,7 @@ export class AutomationService {
   }
 
   /**
-   * Find automation by ID
+   * Get automation by ID
    */
   async findById(automationId: string): Promise<any> {
     const tenantId = this.tenantContext.getTenantId();
@@ -258,17 +256,7 @@ export class AutomationService {
       include: {
         list: true,
         steps: {
-          orderBy: { order: 'asc' },
-          include: {
-            template: true
-          }
-        },
-        _count: {
-          select: {
-            enrollments: {
-              where: { status: 'active' }
-            }
-          }
+          orderBy: { order: 'asc' }
         }
       }
     });
@@ -281,7 +269,7 @@ export class AutomationService {
   }
 
   /**
-   * Find automations
+   * Find automations with filtering
    */
   async find(query: AutomationQueryDto): Promise<any> {
     const tenantId = this.tenantContext.getTenantId();
@@ -308,9 +296,7 @@ export class AutomationService {
           _count: {
             select: {
               steps: true,
-              enrollments: {
-                where: { status: 'active' }
-              }
+              enrollments: true
             }
           }
         },
@@ -333,65 +319,64 @@ export class AutomationService {
   }
 
   /**
-   * Create automation steps
+   * Add step to automation
    */
-  async createSteps(
-    automationId: string,
-    steps: CreateAutomationStepDto[]
-  ): Promise<any[]> {
+  async addStep(automationId: string, data: CreateAutomationStepDto): Promise<any> {
     const automation = await this.findById(automationId);
 
     if (automation.active) {
-      throw new BadRequestException('Cannot add steps to active automation');
+      throw new BadRequestException('Cannot modify active automation');
     }
 
-    const createdSteps = [];
+    // Validate template if provided
+    if (data.templateId) {
+      await this.templateService.findById(data.templateId);
+    }
 
-    for (let i = 0; i < steps.length; i++) {
-      const step = steps[i];
-      const created = await prisma.client.emailAutomationStep.create({
+    try {
+      const step = await prisma.client.emailAutomationStep.create({
         data: {
           automationId,
-          name: step.name,
-          order: i + 1,
-          delayAmount: step.delayAmount,
-          delayUnit: step.delayUnit,
-          templateId: step.templateId,
-          subject: step.subject,
-          htmlContent: step.htmlContent,
-          textContent: step.textContent,
-          conditions: step.conditions as any,
-          metadata: step.metadata
+          name: data.name,
+          order: data.order,
+          delayAmount: data.delayAmount,
+          delayUnit: data.delayUnit,
+          templateId: data.templateId,
+          subject: data.subject,
+          htmlContent: data.htmlContent || '',
+          textContent: data.textContent,
+          conditions: data.conditions,
+          metadata: data.metadata
         }
       });
-      createdSteps.push(created);
+
+      await eventBus.emit(EmailMarketingEvents.AUTOMATION_STEP_ADDED, {
+        automationId,
+        stepId: step.id
+      });
+
+      return step;
+    } catch (error) {
+      logger.error('Failed to add automation step', error as Error);
+      throw error;
     }
-
-    await eventBus.emit(EmailMarketingEvents.AUTOMATION_STEPS_UPDATED, {
-      automationId,
-      steps: createdSteps.length
-    });
-
-    return createdSteps;
   }
 
   /**
    * Update automation step
    */
-  async updateStep(
-    automationId: string,
-    stepId: string,
-    data: UpdateAutomationStepDto
-  ): Promise<any> {
-    const automation = await this.findById(automationId);
+  async updateStep(stepId: string, data: UpdateAutomationStepDto): Promise<any> {
+    const step = await prisma.client.emailAutomationStep.findUnique({
+      where: { id: stepId },
+      include: { automation: true }
+    });
 
-    if (automation.active) {
-      throw new BadRequestException('Cannot update steps in active automation');
+    if (!step) {
+      throw new NotFoundException('Automation step not found');
     }
 
-    const step = automation.steps.find(s => s.id === stepId);
-    if (!step) {
-      throw new NotFoundException('Step not found');
+    if (step.automation.active) {
+      throw new BadRequestException('Cannot modify active automation');
     }
 
     try {
@@ -399,19 +384,20 @@ export class AutomationService {
         where: { id: stepId },
         data: {
           name: data.name,
+          order: data.order,
           delayAmount: data.delayAmount,
           delayUnit: data.delayUnit,
           templateId: data.templateId,
           subject: data.subject,
           htmlContent: data.htmlContent,
           textContent: data.textContent,
-          conditions: data.conditions as any,
+          conditions: data.conditions,
           metadata: data.metadata
         }
       });
 
       await eventBus.emit(EmailMarketingEvents.AUTOMATION_STEP_UPDATED, {
-        automationId,
+        automationId: step.automationId,
         stepId: updated.id
       });
 
@@ -425,16 +411,18 @@ export class AutomationService {
   /**
    * Delete automation step
    */
-  async deleteStep(automationId: string, stepId: string): Promise<void> {
-    const automation = await this.findById(automationId);
+  async deleteStep(stepId: string): Promise<void> {
+    const step = await prisma.client.emailAutomationStep.findUnique({
+      where: { id: stepId },
+      include: { automation: true }
+    });
 
-    if (automation.active) {
-      throw new BadRequestException('Cannot delete steps from active automation');
+    if (!step) {
+      throw new NotFoundException('Automation step not found');
     }
 
-    const step = automation.steps.find(s => s.id === stepId);
-    if (!step) {
-      throw new NotFoundException('Step not found');
+    if (step.automation.active) {
+      throw new BadRequestException('Cannot modify active automation');
     }
 
     try {
@@ -443,23 +431,12 @@ export class AutomationService {
       });
 
       // Reorder remaining steps
-      const remainingSteps = automation.steps
-        .filter(s => s.id !== stepId)
-        .sort((a, b) => a.order - b.order);
-
-      for (let i = 0; i < remainingSteps.length; i++) {
-        await prisma.client.emailAutomationStep.update({
-          where: { id: remainingSteps[i].id },
-          data: { order: i + 1 }
-        });
-      }
+      await this.reorderSteps(step.automationId);
 
       await eventBus.emit(EmailMarketingEvents.AUTOMATION_STEP_DELETED, {
-        automationId,
+        automationId: step.automationId,
         stepId
       });
-
-      logger.info('Automation step deleted', { automationId, stepId });
     } catch (error) {
       logger.error('Failed to delete automation step', error as Error);
       throw error;
@@ -467,30 +444,13 @@ export class AutomationService {
   }
 
   /**
-   * Manually enroll subscriber in automation
+   * Enroll subscriber in automation
    */
-  async enrollSubscriber(
-    automationId: string,
-    subscriberId: string
-  ): Promise<any> {
+  async enrollSubscriber(automationId: string, subscriberId: string): Promise<any> {
     const automation = await this.findById(automationId);
 
     if (!automation.active) {
-      throw new BadRequestException('Cannot enroll in inactive automation');
-    }
-
-    // Check if subscriber exists and is subscribed
-    const subscriber = await prisma.client.emailListSubscriber.findFirst({
-      where: {
-        id: subscriberId,
-        listId: automation.listId!,
-        subscribed: true,
-        confirmed: true
-      }
-    });
-
-    if (!subscriber) {
-      throw new NotFoundException('Subscriber not found or not active');
+      throw new BadRequestException('Automation is not active');
     }
 
     // Check if already enrolled
@@ -504,33 +464,38 @@ export class AutomationService {
     });
 
     if (existing && existing.status === 'active') {
-      throw new BadRequestException('Subscriber already enrolled in this automation');
+      throw new BadRequestException('Subscriber already enrolled');
     }
 
     try {
-      const enrollment = await prisma.client.emailAutomationEnrollment.create({
-        data: {
+      const enrollment = await prisma.client.emailAutomationEnrollment.upsert({
+        where: {
+          automationId_subscriberId: {
+            automationId,
+            subscriberId
+          }
+        },
+        create: {
           automationId,
           subscriberId,
+          status: 'active'
+        },
+        update: {
           status: 'active',
-          currentStepId: automation.steps[0]?.id
+          enrolledAt: new Date(),
+          completedAt: null,
+          cancelledAt: null
         }
       });
 
-      // Queue first step if exists
-      if (automation.steps.length > 0) {
-        const firstStep = automation.steps[0];
-        const delay = this.calculateDelay(firstStep.delayAmount, firstStep.delayUnit);
+      // Queue first step
+      const firstStep = await prisma.client.emailAutomationStep.findFirst({
+        where: { automationId },
+        orderBy: { order: 'asc' }
+      });
 
-        await queueService.addJob(
-          'email-marketing',
-          'process-automation-step',
-          {
-            enrollmentId: enrollment.id,
-            stepId: firstStep.id
-          },
-          { delay }
-        );
+      if (firstStep) {
+        await this.queueStep(enrollment.id, firstStep.id);
       }
 
       // Update automation stats
@@ -541,13 +506,7 @@ export class AutomationService {
         }
       });
 
-      await eventBus.emit(EmailMarketingEvents.AUTOMATION_SUBSCRIBER_ENROLLED, {
-        automationId,
-        subscriberId,
-        enrollmentId: enrollment.id
-      });
-
-      logger.info('Subscriber enrolled in automation', {
+      await eventBus.emit(EmailMarketingEvents.AUTOMATION_ENROLLMENT_STARTED, {
         automationId,
         subscriberId,
         enrollmentId: enrollment.id
@@ -561,58 +520,51 @@ export class AutomationService {
   }
 
   /**
-   * Unenroll subscriber from automation
+   * Cancel enrollment
    */
-  async unenrollSubscriber(
-    automationId: string,
-    subscriberId: string
-  ): Promise<void> {
+  async cancelEnrollment(enrollmentId: string): Promise<any> {
     const enrollment = await prisma.client.emailAutomationEnrollment.findUnique({
-      where: {
-        automationId_subscriberId: {
-          automationId,
-          subscriberId
-        }
-      }
+      where: { id: enrollmentId },
+      include: { automation: true }
     });
 
-    if (!enrollment || enrollment.status !== 'active') {
-      throw new NotFoundException('Active enrollment not found');
+    if (!enrollment) {
+      throw new NotFoundException('Enrollment not found');
+    }
+
+    if (enrollment.status !== 'active') {
+      throw new BadRequestException('Enrollment is not active');
     }
 
     try {
-      await prisma.client.emailAutomationEnrollment.update({
-        where: { id: enrollment.id },
+      const updated = await prisma.client.emailAutomationEnrollment.update({
+        where: { id: enrollmentId },
         data: {
           status: 'cancelled',
           cancelledAt: new Date()
         }
       });
 
-      await eventBus.emit(EmailMarketingEvents.AUTOMATION_SUBSCRIBER_UNENROLLED, {
-        automationId,
-        subscriberId,
-        enrollmentId: enrollment.id
+      await eventBus.emit(EmailMarketingEvents.AUTOMATION_ENROLLMENT_CANCELLED, {
+        automationId: enrollment.automationId,
+        enrollmentId
       });
 
-      logger.info('Subscriber unenrolled from automation', {
-        automationId,
-        subscriberId
-      });
+      return updated;
     } catch (error) {
-      logger.error('Failed to unenroll subscriber', error as Error);
+      logger.error('Failed to cancel enrollment', error as Error);
       throw error;
     }
   }
 
   /**
-   * Get automation enrollments
+   * Get enrollments for automation
    */
   async getEnrollments(
     automationId: string,
     query: EnrollmentQueryDto
   ): Promise<any> {
-    await this.findById(automationId);
+    const automation = await this.findById(automationId);
 
     const where: Prisma.EmailAutomationEnrollmentWhereInput = {
       automationId,
@@ -641,79 +593,26 @@ export class AutomationService {
   }
 
   /**
-   * Get automation statistics
-   */
-  async getStats(automationId: string): Promise<any> {
-    const automation = await this.findById(automationId);
-
-    const [
-      activeEnrollments,
-      completedEnrollments,
-      cancelledEnrollments,
-      stepStats
-    ] = await Promise.all([
-      prisma.client.emailAutomationEnrollment.count({
-        where: { automationId, status: 'active' }
-      }),
-      prisma.client.emailAutomationEnrollment.count({
-        where: { automationId, status: 'completed' }
-      }),
-      prisma.client.emailAutomationEnrollment.count({
-        where: { automationId, status: 'cancelled' }
-      }),
-      this.getStepStats(automationId)
-    ]);
-
-    return {
-      totalEnrolled: automation.totalEnrolled,
-      activeEnrollments,
-      completedEnrollments,
-      cancelledEnrollments,
-      completionRate: automation.totalEnrolled > 0
-        ? (completedEnrollments / automation.totalEnrolled) * 100
-        : 0,
-      steps: stepStats
-    };
-  }
-
-  /**
    * Trigger automation manually
    */
   async trigger(data: TriggerAutomationDto): Promise<any> {
-    const tenantId = this.tenantContext.getTenantId();
-    if (!tenantId) throw new ForbiddenException('Tenant context required');
+    const automation = await this.findById(data.automationId);
 
-    const automation = await prisma.client.emailAutomation.findFirst({
-      where: {
-        id: data.automationId,
-        tenantId,
-        active: true
-      }
-    });
-
-    if (!automation) {
-      throw new NotFoundException('Active automation not found');
+    if (!automation.active) {
+      throw new BadRequestException('Automation is not active');
     }
 
     // Queue trigger processing
-    const job = await queueService.addJob(
+    await queueService.addJob(
       'email-marketing',
-      'trigger-automation',
+      'process-automation-trigger',
       {
-        automationId: automation.id,
+        automationId: data.automationId,
         triggerData: data.triggerData
       }
     );
 
-    logger.info('Automation triggered manually', {
-      automationId: automation.id,
-      jobId: job.id
-    });
-
-    return {
-      message: 'Automation triggered',
-      jobId: job.id
-    };
+    return { message: 'Automation triggered' };
   }
 
   /**
@@ -723,7 +622,7 @@ export class AutomationService {
     switch (automation.trigger) {
       case EmailAutomationTrigger.USER_SIGNUP:
         // Listen to user signup events
-        eventBus.on('user.registered', async (data) => {
+        eventBus.on('user.created', async (data) => {
           await this.handleUserSignupTrigger(automation, data);
         });
         break;
@@ -800,7 +699,7 @@ export class AutomationService {
    * Handle list subscribe trigger
    */
   private async handleListSubscribeTrigger(automation: any, data: any): Promise<void> {
-    if (data.listId === automation.listId) {
+    if (automation.active) {
       await this.enrollSubscriber(automation.id, data.subscriberId);
     }
   }
@@ -810,9 +709,13 @@ export class AutomationService {
    */
   private async handleTagAddedTrigger(automation: any, data: any): Promise<void> {
     const requiredTags = automation.triggerConfig.tags || [];
-    const hasAllTags = requiredTags.every(tag => data.tags.includes(tag));
+    const subscriberTags = data.tags || [];
 
-    if (hasAllTags) {
+    const hasAllTags = requiredTags.every((tag: string) =>
+      subscriberTags.includes(tag)
+    );
+
+    if (hasAllTags && automation.active) {
       await this.enrollSubscriber(automation.id, data.subscriberId);
     }
   }
@@ -821,90 +724,64 @@ export class AutomationService {
    * Handle custom event trigger
    */
   private async handleCustomEventTrigger(automation: any, data: any): Promise<void> {
-    // Match event data with automation criteria
-    const criteria = automation.triggerConfig.criteria || {};
-
-    // Simple matching logic - could be more sophisticated
-    const matches = Object.keys(criteria).every(key => {
-      return data[key] === criteria[key];
-    });
-
-    if (matches && data.subscriberId) {
+    if (automation.active && data.subscriberId) {
       await this.enrollSubscriber(automation.id, data.subscriberId);
     }
+  }
+
+  /**
+   * Queue automation step
+   */
+  private async queueStep(enrollmentId: string, stepId: string): Promise<void> {
+    const step = await prisma.client.emailAutomationStep.findUnique({
+      where: { id: stepId }
+    });
+
+    if (!step) return;
+
+    // Calculate delay in milliseconds
+    const delayMs = this.calculateDelay(step.delayAmount, step.delayUnit);
+
+    await queueService.addJob(
+      'email-marketing',
+      'process-automation-step',
+      {
+        enrollmentId,
+        stepId
+      },
+      {
+        delay: delayMs
+      }
+    );
   }
 
   /**
    * Calculate delay in milliseconds
    */
   private calculateDelay(amount: number, unit: string): number {
-    switch (unit) {
-      case 'minutes':
-        return amount * 60 * 1000;
-      case 'hours':
-        return amount * 60 * 60 * 1000;
-      case 'days':
-        return amount * 24 * 60 * 60 * 1000;
-      default:
-        return 0;
-    }
+    const multipliers: Record<string, number> = {
+      minutes: 60 * 1000,
+      hours: 60 * 60 * 1000,
+      days: 24 * 60 * 60 * 1000
+    };
+
+    return amount * (multipliers[unit] || multipliers.hours);
   }
 
   /**
-   * Get step statistics
+   * Reorder steps after deletion
    */
-  private async getStepStats(automationId: string): Promise<any[]> {
+  private async reorderSteps(automationId: string): Promise<void> {
     const steps = await prisma.client.emailAutomationStep.findMany({
       where: { automationId },
       orderBy: { order: 'asc' }
     });
 
-    const stats = [];
-
-    for (const step of steps) {
-      // Get email campaign stats for this step
-      const sentCount = await prisma.client.emailActivity.count({
-        where: {
-          type: 'sent',
-          metadata: {
-            path: ['automationStepId'],
-            equals: step.id
-          }
-        }
-      });
-
-      const openCount = await prisma.client.emailActivity.count({
-        where: {
-          type: 'opened',
-          metadata: {
-            path: ['automationStepId'],
-            equals: step.id
-          }
-        }
-      });
-
-      const clickCount = await prisma.client.emailActivity.count({
-        where: {
-          type: 'clicked',
-          metadata: {
-            path: ['automationStepId'],
-            equals: step.id
-          }
-        }
-      });
-
-      stats.push({
-        stepId: step.id,
-        name: step.name,
-        order: step.order,
-        sent: sentCount,
-        opened: openCount,
-        clicked: clickCount,
-        openRate: sentCount > 0 ? (openCount / sentCount) * 100 : 0,
-        clickRate: sentCount > 0 ? (clickCount / sentCount) * 100 : 0
+    for (let i = 0; i < steps.length; i++) {
+      await prisma.client.emailAutomationStep.update({
+        where: { id: steps[i].id },
+        data: { order: i + 1 }
       });
     }
-
-    return stats;
   }
 }

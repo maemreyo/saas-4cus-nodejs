@@ -1,4 +1,5 @@
 import { Container } from 'typedi';
+import { FastifyInstance } from 'fastify';
 import { logger } from '@shared/logger';
 import { CampaignService } from './campaign.service';
 import { EmailListService } from './email-list.service';
@@ -13,6 +14,7 @@ import { TemplateController } from './template.controller';
 import { EmailMarketingQueueProcessor } from './email-marketing.queue';
 import { EmailMarketingScheduler } from './email-marketing.scheduler';
 import { EmailMarketingEventHandlers } from './email-marketing.events';
+import { emailMarketingConfig } from './email-marketing.config';
 
 // Export all services
 export { CampaignService } from './campaign.service';
@@ -32,18 +34,50 @@ export { TemplateController } from './template.controller';
 export * from './email-marketing.dto';
 export * from './email-marketing.events';
 
+// Export configuration
+export { emailMarketingConfig } from './email-marketing.config';
+export type { EmailMarketingConfig } from './email-marketing.config';
+
 // Export routes
 export { default as campaignRoutes } from './campaign.route';
 export { default as emailListRoutes } from './email-list.route';
 export { default as automationRoutes } from './automation.route';
 export { default as templateRoutes } from './template.route';
+export { default as trackingRoutes } from './tracking.route';
+
+/**
+ * Register email marketing routes
+ */
+export async function registerEmailMarketingRoutes(fastify: FastifyInstance): Promise<void> {
+  // Import routes
+  const campaignRoutes = await import('./campaign.route');
+  const emailListRoutes = await import('./email-list.route');
+  const automationRoutes = await import('./automation.route');
+  const templateRoutes = await import('./template.route');
+  const trackingRoutes = await import('./tracking.route');
+
+  // Register routes with prefix
+  await fastify.register(campaignRoutes.default, { prefix: '/api/v1/email-marketing/campaigns' });
+  await fastify.register(emailListRoutes.default, { prefix: '/api/v1/email-marketing/lists' });
+  await fastify.register(automationRoutes.default, { prefix: '/api/v1/email-marketing/automations' });
+  await fastify.register(templateRoutes.default, { prefix: '/api/v1/email-marketing/templates' });
+  await fastify.register(trackingRoutes.default, { prefix: '/api/v1/email-marketing' });
+
+  logger.info('Email marketing routes registered');
+}
 
 /**
  * Initialize Email Marketing module
  */
 export async function initializeEmailMarketingModule(): Promise<void> {
   try {
-    logger.info('Initializing email marketing module...');
+    logger.info('Initializing email marketing module...', {
+      config: {
+        maxEmailsPerDay: emailMarketingConfig.sending.maxEmailsPerDay,
+        enableAutomations: emailMarketingConfig.features.enableAutomations,
+        enableABTesting: emailMarketingConfig.features.enableABTesting,
+      },
+    });
 
     // Initialize services
     Container.get(CampaignService);
@@ -159,10 +193,10 @@ Unsubscribe: {{unsubscribeUrl}}
         variables: {
           companyName: 'string',
           firstName: 'string',
-          unsubscribeUrl: 'string'
+          unsubscribeUrl: 'string',
         },
         isPublic: true,
-        tenantId: 'system' // System template
+        tenantId: 'system', // System template
       } as any);
 
       // Create confirmation email template
@@ -216,10 +250,10 @@ Thanks,
         variables: {
           companyName: 'string',
           firstName: 'string',
-          confirmationUrl: 'string'
+          confirmationUrl: 'string',
         },
         isPublic: true,
-        tenantId: 'system'
+        tenantId: 'system',
       } as any);
 
       logger.info('Default email templates created');

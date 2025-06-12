@@ -131,7 +131,7 @@ export class AiWorker {
 
         // Notify user
         if (key.user) {
-          await this.notificationService.send({
+          await this.notificationService.create({
             userId: key.user.id,
             type: 'ai_api_key_expired',
             title: 'AI API Key Expired',
@@ -356,7 +356,7 @@ export class AiWorker {
       });
 
       if (user) {
-        await this.notificationService.send({
+        await this.notificationService.create({
           userId: user.id,
           type: 'ai_usage_warning',
           title: 'AI Usage Warning',
@@ -376,7 +376,7 @@ export class AiWorker {
       });
 
       if (user) {
-        await this.notificationService.send({
+        await this.notificationService.create({
           userId: user.id,
           type: 'ai_usage_exceeded',
           title: 'AI Usage Limit Exceeded',
@@ -397,7 +397,7 @@ export class AiWorker {
       });
 
       if (user) {
-        await this.notificationService.send({
+        await this.notificationService.create({
           userId: user.id,
           type: 'ai_cost_threshold',
           title: 'AI Cost Threshold Alert',

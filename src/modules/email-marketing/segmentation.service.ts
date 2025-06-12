@@ -12,20 +12,11 @@ import {
   CreateSegmentDto,
   UpdateSegmentDto,
   SegmentQueryDto,
-  SegmentCondition,
-  TestSegmentDto
+  TestSegmentDto,
+  SegmentCondition
 } from './email-marketing.dto';
-import {
-  EmailSegmentOperator,
-  Prisma
-} from '@prisma/client';
+import { EmailSegmentOperator, Prisma } from '@prisma/client';
 import { EmailMarketingEvents } from './email-marketing.events';
-
-interface SegmentConditionEvaluator {
-  field: string;
-  operator: EmailSegmentOperator;
-  value: any;
-}
 
 @Service()
 export class SegmentationService {
@@ -34,7 +25,7 @@ export class SegmentationService {
   ) {}
 
   /**
-   * Create segment
+   * Create a new segment
    */
   async create(listId: string, data: CreateSegmentDto): Promise<any> {
     const tenantId = this.tenantContext.getTenantId();
@@ -53,22 +44,19 @@ export class SegmentationService {
       throw new NotFoundException('Email list not found');
     }
 
-    // Validate conditions
-    this.validateConditions(data.conditions);
-
     try {
       const segment = await prisma.client.emailSegment.create({
         data: {
           listId,
           name: data.name,
           description: data.description,
-          conditions: data.conditions as any,
+          conditions: data.conditions,
           metadata: data.metadata
         }
       });
 
-      // Calculate initial subscriber count
-      await this.updateSubscriberCount(segment.id);
+      // Calculate initial count
+      await this.recalculateSegment(segment.id);
 
       await eventBus.emit(EmailMarketingEvents.SEGMENT_CREATED, {
         segmentId: segment.id,
@@ -89,15 +77,7 @@ export class SegmentationService {
    * Update segment
    */
   async update(segmentId: string, data: UpdateSegmentDto): Promise<any> {
-    const tenantId = this.tenantContext.getTenantId();
-    if (!tenantId) throw new ForbiddenException('Tenant context required');
-
     const segment = await this.findById(segmentId);
-
-    // Validate conditions if provided
-    if (data.conditions) {
-      this.validateConditions(data.conditions);
-    }
 
     try {
       const updated = await prisma.client.emailSegment.update({
@@ -105,19 +85,18 @@ export class SegmentationService {
         data: {
           name: data.name,
           description: data.description,
-          conditions: data.conditions as any,
+          conditions: data.conditions,
           metadata: data.metadata
         }
       });
 
-      // Recalculate subscriber count if conditions changed
+      // Recalculate if conditions changed
       if (data.conditions) {
-        await this.updateSubscriberCount(segmentId);
+        await this.recalculateSegment(segmentId);
       }
 
       await eventBus.emit(EmailMarketingEvents.SEGMENT_UPDATED, {
-        segmentId: updated.id,
-        tenantId
+        segmentId: updated.id
       });
 
       return updated;
@@ -131,23 +110,22 @@ export class SegmentationService {
    * Delete segment
    */
   async delete(segmentId: string): Promise<void> {
-    const tenantId = this.tenantContext.getTenantId();
-    if (!tenantId) throw new ForbiddenException('Tenant context required');
+    const segment = await this.findById(segmentId);
 
-    await this.findById(segmentId);
-
-    // Check if segment is used in any campaigns
-    const campaignsUsingSegment = await prisma.client.emailCampaign.count({
+    // Check if segment is used in any active campaigns
+    const activeCampaigns = await prisma.client.emailCampaign.count({
       where: {
         OR: [
           { segmentIds: { has: segmentId } },
           { excludeSegmentIds: { has: segmentId } }
         ],
-        status: { in: ['SCHEDULED', 'SENDING'] }
+        status: {
+          in: ['SCHEDULED', 'SENDING']
+        }
       }
     });
 
-    if (campaignsUsingSegment > 0) {
+    if (activeCampaigns > 0) {
       throw new BadRequestException('Cannot delete segment used in active campaigns');
     }
 
@@ -157,8 +135,7 @@ export class SegmentationService {
       });
 
       await eventBus.emit(EmailMarketingEvents.SEGMENT_DELETED, {
-        segmentId,
-        tenantId
+        segmentId
       });
 
       logger.info('Segment deleted', { segmentId });
@@ -169,7 +146,7 @@ export class SegmentationService {
   }
 
   /**
-   * Find segment by ID
+   * Get segment by ID
    */
   async findById(segmentId: string): Promise<any> {
     const tenantId = this.tenantContext.getTenantId();
@@ -179,8 +156,7 @@ export class SegmentationService {
       where: {
         id: segmentId,
         list: {
-          tenantId,
-          deletedAt: null
+          tenantId
         }
       },
       include: {
@@ -196,18 +172,17 @@ export class SegmentationService {
   }
 
   /**
-   * Find segments
+   * Find segments with filtering
    */
   async find(listId: string, query: SegmentQueryDto): Promise<any> {
     const tenantId = this.tenantContext.getTenantId();
     if (!tenantId) throw new ForbiddenException('Tenant context required');
 
-    // Validate list
+    // Validate list belongs to tenant
     const list = await prisma.client.emailList.findFirst({
       where: {
         id: listId,
-        tenantId,
-        deletedAt: null
+        tenantId
       }
     });
 
@@ -247,81 +222,99 @@ export class SegmentationService {
   }
 
   /**
-   * Get subscribers in segment
-   */
-  async getSubscribers(segmentId: string, limit: number = 100): Promise<any[]> {
-    const segment = await this.findById(segmentId);
-
-    const whereClause = this.buildWhereClause(segment.conditions);
-
-    const subscribers = await prisma.client.emailListSubscriber.findMany({
-      where: {
-        listId: segment.listId,
-        subscribed: true,
-        confirmed: true,
-        ...whereClause
-      },
-      take: limit,
-      orderBy: { subscribedAt: 'desc' }
-    });
-
-    return subscribers;
-  }
-
-  /**
    * Test segment conditions
    */
   async test(segmentId: string, data: TestSegmentDto): Promise<any> {
     const segment = await this.findById(segmentId);
 
     const conditions = data.conditions || segment.conditions;
-    const whereClause = this.buildWhereClause(conditions);
+    const where = this.buildWhereClause(conditions as SegmentCondition[]);
 
-    const [subscribers, count] = await Promise.all([
-      prisma.client.emailListSubscriber.findMany({
-        where: {
-          listId: segment.listId,
-          subscribed: true,
-          confirmed: true,
-          ...whereClause
-        },
-        take: data.limit || 10,
-        orderBy: { subscribedAt: 'desc' }
-      }),
-      prisma.client.emailListSubscriber.count({
-        where: {
-          listId: segment.listId,
-          subscribed: true,
-          confirmed: true,
-          ...whereClause
-        }
-      })
-    ]);
-
-    return {
-      totalCount: count,
-      sampleSubscribers: subscribers
-    };
-  }
-
-  /**
-   * Update subscriber count for segment
-   */
-  async updateSubscriberCount(segmentId: string): Promise<void> {
-    const segment = await prisma.client.emailSegment.findUnique({
-      where: { id: segmentId }
+    const subscribers = await prisma.client.emailListSubscriber.findMany({
+      where: {
+        listId: segment.listId,
+        subscribed: true,
+        confirmed: true,
+        ...where
+      },
+      take: data.limit || 10,
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        tags: true,
+        subscribedAt: true
+      }
     });
-
-    if (!segment) return;
-
-    const whereClause = this.buildWhereClause(segment.conditions);
 
     const count = await prisma.client.emailListSubscriber.count({
       where: {
         listId: segment.listId,
         subscribed: true,
         confirmed: true,
-        ...whereClause
+        ...where
+      }
+    });
+
+    return {
+      count,
+      sample: subscribers
+    };
+  }
+
+  /**
+   * Get subscribers in segment
+   */
+  async getSubscribers(segmentId: string, limit?: number, offset?: number): Promise<any> {
+    const segment = await this.findById(segmentId);
+    const where = this.buildWhereClause(segment.conditions as SegmentCondition[]);
+
+    const [subscribers, total] = await Promise.all([
+      prisma.client.emailListSubscriber.findMany({
+        where: {
+          listId: segment.listId,
+          subscribed: true,
+          confirmed: true,
+          ...where
+        },
+        skip: offset || 0,
+        take: limit || 100
+      }),
+      prisma.client.emailListSubscriber.count({
+        where: {
+          listId: segment.listId,
+          subscribed: true,
+          confirmed: true,
+          ...where
+        }
+      })
+    ]);
+
+    return {
+      subscribers,
+      total
+    };
+  }
+
+  /**
+   * Recalculate segment count
+   */
+  async recalculateSegment(segmentId: string): Promise<void> {
+    const segment = await prisma.client.emailSegment.findUnique({
+      where: { id: segmentId }
+    });
+
+    if (!segment) return;
+
+    const where = this.buildWhereClause(segment.conditions as SegmentCondition[]);
+
+    const count = await prisma.client.emailListSubscriber.count({
+      where: {
+        listId: segment.listId,
+        subscribed: true,
+        confirmed: true,
+        ...where
       }
     });
 
@@ -335,91 +328,33 @@ export class SegmentationService {
   }
 
   /**
-   * Update all segments for a list
+   * Get segment conditions for multiple segments
    */
-  async updateAllSegmentCounts(listId: string): Promise<void> {
+  async getSegmentConditions(segmentIds: string[]): Promise<any> {
     const segments = await prisma.client.emailSegment.findMany({
-      where: { listId }
+      where: { id: { in: segmentIds } }
     });
 
-    for (const segment of segments) {
-      await this.updateSubscriberCount(segment.id);
-    }
-  }
+    if (segments.length === 0) return {};
 
-  /**
-   * Duplicate segment
-   */
-  async duplicate(segmentId: string, name?: string): Promise<any> {
-    const segment = await this.findById(segmentId);
+    // Combine conditions with OR
+    const orConditions = segments.map(segment =>
+      this.buildWhereClause(segment.conditions as SegmentCondition[])
+    );
 
-    const duplicated = await this.create(segment.listId, {
-      name: name || `${segment.name} (Copy)`,
-      description: segment.description,
-      conditions: segment.conditions as SegmentCondition[],
-      metadata: segment.metadata
-    });
-
-    logger.info('Segment duplicated', {
-      originalId: segmentId,
-      duplicatedId: duplicated.id
-    });
-
-    return duplicated;
-  }
-
-  /**
-   * Validate segment conditions
-   */
-  private validateConditions(conditions: SegmentCondition[]): void {
-    if (!conditions || conditions.length === 0) {
-      throw new BadRequestException('At least one condition is required');
-    }
-
-    for (const condition of conditions) {
-      if (!condition.field || !condition.operator) {
-        throw new BadRequestException('Invalid condition: field and operator are required');
-      }
-
-      // Validate operator-value combinations
-      switch (condition.operator) {
-        case EmailSegmentOperator.IN:
-        case EmailSegmentOperator.NOT_IN:
-          if (!Array.isArray(condition.value)) {
-            throw new BadRequestException(`Operator ${condition.operator} requires array value`);
-          }
-          break;
-
-        case EmailSegmentOperator.GREATER_THAN:
-        case EmailSegmentOperator.LESS_THAN:
-          if (typeof condition.value !== 'number' && !Date.parse(condition.value)) {
-            throw new BadRequestException(`Operator ${condition.operator} requires numeric or date value`);
-          }
-          break;
-      }
-    }
+    return { OR: orConditions };
   }
 
   /**
    * Build Prisma where clause from segment conditions
    */
-  private buildWhereClause(conditions: any): Prisma.EmailListSubscriberWhereInput {
+  private buildWhereClause(conditions: SegmentCondition[]): any {
     const where: any = {};
-
-    if (!conditions || conditions.length === 0) {
-      return where;
-    }
-
-    // Group conditions by logic operator (AND/OR)
     const andConditions: any[] = [];
-    const orConditions: any[] = [];
 
     for (const condition of conditions) {
       const clause = this.buildConditionClause(condition);
-
-      if (condition.logic === 'OR') {
-        orConditions.push(clause);
-      } else {
+      if (clause) {
         andConditions.push(clause);
       }
     }
@@ -428,20 +363,15 @@ export class SegmentationService {
       where.AND = andConditions;
     }
 
-    if (orConditions.length > 0) {
-      where.OR = orConditions;
-    }
-
     return where;
   }
 
   /**
    * Build individual condition clause
    */
-  private buildConditionClause(condition: SegmentConditionEvaluator): any {
+  private buildConditionClause(condition: SegmentCondition): any {
     const { field, operator, value } = condition;
 
-    // Handle standard fields
     switch (field) {
       case 'email':
         return this.buildStringCondition('email', operator, value);
@@ -464,19 +394,11 @@ export class SegmentationService {
       case 'engagementScore':
         return this.buildNumberCondition('engagementScore', operator, value);
 
-      case 'source':
-        return this.buildStringCondition('source', operator, value);
-
-      case 'location':
-        return this.buildStringCondition('location', operator, value);
+      case 'customData':
+        return this.buildCustomDataCondition(condition);
 
       default:
-        // Handle custom fields
-        if (field.startsWith('custom.')) {
-          const customField = field.replace('custom.', '');
-          return this.buildJsonFieldCondition('customData', customField, operator, value);
-        }
-        return {};
+        return null;
     }
   }
 
@@ -497,36 +419,26 @@ export class SegmentationService {
       case EmailSegmentOperator.NOT_CONTAINS:
         return { [field]: { not: { contains: value, mode: 'insensitive' } } };
 
-      case EmailSegmentOperator.IN:
-        return { [field]: { in: value } };
-
-      case EmailSegmentOperator.NOT_IN:
-        return { [field]: { notIn: value } };
-
       default:
-        return {};
+        return null;
     }
   }
 
   /**
-   * Build number field condition
+   * Build array field condition
    */
-  private buildNumberCondition(field: string, operator: EmailSegmentOperator, value: any): any {
+  private buildArrayCondition(field: string, operator: EmailSegmentOperator, value: any): any {
+    const values = Array.isArray(value) ? value : [value];
+
     switch (operator) {
-      case EmailSegmentOperator.EQUALS:
-        return { [field]: value };
+      case EmailSegmentOperator.IN:
+        return { [field]: { hasSome: values } };
 
-      case EmailSegmentOperator.NOT_EQUALS:
-        return { [field]: { not: value } };
-
-      case EmailSegmentOperator.GREATER_THAN:
-        return { [field]: { gt: value } };
-
-      case EmailSegmentOperator.LESS_THAN:
-        return { [field]: { lt: value } };
+      case EmailSegmentOperator.NOT_IN:
+        return { NOT: { [field]: { hasSome: values } } };
 
       default:
-        return {};
+        return null;
     }
   }
 
@@ -538,7 +450,7 @@ export class SegmentationService {
 
     switch (operator) {
       case EmailSegmentOperator.EQUALS:
-        // For date equality, we need to check within the same day
+        // Same day
         const startOfDay = new Date(date);
         startOfDay.setHours(0, 0, 0, 0);
         const endOfDay = new Date(date);
@@ -552,54 +464,72 @@ export class SegmentationService {
         return { [field]: { lt: date } };
 
       default:
-        return {};
+        return null;
     }
   }
 
   /**
-   * Build array field condition
+   * Build number field condition
    */
-  private buildArrayCondition(field: string, operator: EmailSegmentOperator, value: any): any {
+  private buildNumberCondition(field: string, operator: EmailSegmentOperator, value: any): any {
+    const numValue = Number(value);
+
     switch (operator) {
-      case EmailSegmentOperator.CONTAINS:
-        return { [field]: { has: value } };
+      case EmailSegmentOperator.EQUALS:
+        return { [field]: numValue };
 
-      case EmailSegmentOperator.NOT_CONTAINS:
-        return { NOT: { [field]: { has: value } } };
+      case EmailSegmentOperator.NOT_EQUALS:
+        return { [field]: { not: numValue } };
 
-      case EmailSegmentOperator.IN:
-        return { [field]: { hasSome: value } };
+      case EmailSegmentOperator.GREATER_THAN:
+        return { [field]: { gt: numValue } };
 
-      case EmailSegmentOperator.NOT_IN:
-        return { NOT: { [field]: { hasSome: value } } };
+      case EmailSegmentOperator.LESS_THAN:
+        return { [field]: { lt: numValue } };
 
       default:
-        return {};
+        return null;
     }
   }
 
   /**
-   * Build JSON field condition
+   * Build custom data field condition
    */
-  private buildJsonFieldCondition(
-    field: string,
-    path: string,
-    operator: EmailSegmentOperator,
-    value: any
-  ): any {
-    // This is a simplified version - Prisma's JSON filtering is limited
-    // In production, you might need to use raw queries for complex JSON filtering
+  private buildCustomDataCondition(condition: SegmentCondition): any {
+    const { operator, value, customField } = condition;
+
+    if (!customField) return null;
+
+    // Use JSON path query for custom data
     switch (operator) {
       case EmailSegmentOperator.EQUALS:
         return {
-          [field]: {
-            path: [path],
+          customData: {
+            path: [customField],
             equals: value
           }
         };
 
+      case EmailSegmentOperator.NOT_EQUALS:
+        return {
+          NOT: {
+            customData: {
+              path: [customField],
+              equals: value
+            }
+          }
+        };
+
+      case EmailSegmentOperator.CONTAINS:
+        return {
+          customData: {
+            path: [customField],
+            string_contains: value
+          }
+        };
+
       default:
-        return {};
+        return null;
     }
   }
 }

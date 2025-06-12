@@ -1,9 +1,10 @@
+// New file - Template service for email templates
+
 import { Service } from 'typedi';
 import { prisma } from '@infrastructure/database/prisma.service';
 import { logger } from '@shared/logger';
 import { eventBus } from '@shared/events/event-bus';
 import { TenantContextService } from '@modules/tenant/tenant.context';
-import { StorageService } from '@shared/services/storage.service';
 import {
   BadRequestException,
   NotFoundException,
@@ -20,60 +21,53 @@ import { Prisma } from '@prisma/client';
 import { EmailMarketingEvents } from './email-marketing.events';
 import Handlebars from 'handlebars';
 import juice from 'juice';
-import { minify } from 'html-minifier-terser';
+import { JSDOM } from 'jsdom';
+import DOMPurify from 'isomorphic-dompurify';
 
 @Service()
 export class TemplateService {
   private handlebars: typeof Handlebars;
 
   constructor(
-    private tenantContext: TenantContextService,
-    private storageService: StorageService
+    private tenantContext: TenantContextService
   ) {
     this.handlebars = Handlebars.create();
     this.registerHelpers();
   }
 
   /**
-   * Create template
+   * Create a new template
    */
   async create(data: CreateTemplateDto): Promise<any> {
-    const tenantId = data.tenantId || this.tenantContext.getTenantId();
-    if (!tenantId && !data.isPublic) {
-      throw new ForbiddenException('Tenant context required for private templates');
-    }
-
-    // Validate template syntax
-    this.validateTemplate(data.htmlContent);
-    if (data.textContent) {
-      this.validateTemplate(data.textContent);
-    }
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
 
     try {
-      // Process and optimize HTML
-      const processedHtml = await this.processHtmlContent(data.htmlContent);
+      // Validate and sanitize HTML
+      const sanitizedHtml = this.sanitizeHtml(data.htmlContent);
+
+      // Generate text version if not provided
+      const textContent = data.textContent || this.htmlToText(sanitizedHtml);
+
+      // Generate thumbnail
+      const thumbnail = await this.generateThumbnail(sanitizedHtml);
 
       const template = await prisma.client.emailTemplate.create({
         data: {
-          tenantId: tenantId!,
+          tenantId,
           name: data.name,
           description: data.description,
           category: data.category,
           subject: data.subject,
           preheader: data.preheader,
-          htmlContent: processedHtml,
-          textContent: data.textContent || this.generateTextFromHtml(processedHtml),
-          variables: data.variables as any,
-          thumbnail: data.thumbnail,
-          isPublic: data.isPublic || false,
+          htmlContent: sanitizedHtml,
+          textContent,
+          variables: data.variables,
+          thumbnail,
+          isPublic: data.isPublic ?? false,
           metadata: data.metadata
         }
       });
-
-      // Generate thumbnail if not provided
-      if (!template.thumbnail) {
-        await this.generateTemplateThumbnail(template.id);
-      }
 
       await eventBus.emit(EmailMarketingEvents.TEMPLATE_CREATED, {
         templateId: template.id,
@@ -94,21 +88,9 @@ export class TemplateService {
    */
   async update(templateId: string, data: UpdateTemplateDto): Promise<any> {
     const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
 
-    const template = await this.findById(templateId);
-
-    // Check ownership for private templates
-    if (!template.isPublic && template.tenantId !== tenantId) {
-      throw new ForbiddenException('Cannot update template from another tenant');
-    }
-
-    // Validate template syntax if content is being updated
-    if (data.htmlContent) {
-      this.validateTemplate(data.htmlContent);
-    }
-    if (data.textContent) {
-      this.validateTemplate(data.textContent);
-    }
+    await this.findById(templateId);
 
     try {
       const updateData: any = {
@@ -117,19 +99,17 @@ export class TemplateService {
         category: data.category,
         subject: data.subject,
         preheader: data.preheader,
-        variables: data.variables as any,
-        thumbnail: data.thumbnail,
+        variables: data.variables,
+        isPublic: data.isPublic,
         metadata: data.metadata
       };
 
+      // Update HTML if provided
       if (data.htmlContent) {
-        updateData.htmlContent = await this.processHtmlContent(data.htmlContent);
-        if (!data.textContent) {
-          updateData.textContent = this.generateTextFromHtml(updateData.htmlContent);
-        }
-      }
-
-      if (data.textContent) {
+        updateData.htmlContent = this.sanitizeHtml(data.htmlContent);
+        updateData.textContent = data.textContent || this.htmlToText(updateData.htmlContent);
+        updateData.thumbnail = await this.generateThumbnail(updateData.htmlContent);
+      } else if (data.textContent) {
         updateData.textContent = data.textContent;
       }
 
@@ -138,14 +118,9 @@ export class TemplateService {
         data: updateData
       });
 
-      // Regenerate thumbnail if content changed
-      if (data.htmlContent && !data.thumbnail) {
-        await this.generateTemplateThumbnail(templateId);
-      }
-
       await eventBus.emit(EmailMarketingEvents.TEMPLATE_UPDATED, {
         templateId: updated.id,
-        tenantId: updated.tenantId
+        tenantId
       });
 
       return updated;
@@ -156,73 +131,40 @@ export class TemplateService {
   }
 
   /**
-   * Archive/unarchive template
-   */
-  async toggleArchive(templateId: string): Promise<any> {
-    const tenantId = this.tenantContext.getTenantId();
-
-    const template = await this.findById(templateId);
-
-    if (!template.isPublic && template.tenantId !== tenantId) {
-      throw new ForbiddenException('Cannot modify template from another tenant');
-    }
-
-    try {
-      const updated = await prisma.client.emailTemplate.update({
-        where: { id: templateId },
-        data: { isArchived: !template.isArchived }
-      });
-
-      return updated;
-    } catch (error) {
-      logger.error('Failed to toggle template archive', error as Error);
-      throw error;
-    }
-  }
-
-  /**
    * Delete template
    */
   async delete(templateId: string): Promise<void> {
     const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
 
-    const template = await this.findById(templateId);
+    await this.findById(templateId);
 
-    if (!template.isPublic && template.tenantId !== tenantId) {
-      throw new ForbiddenException('Cannot delete template from another tenant');
-    }
-
-    // Check if template is used in any active campaigns or automations
-    const [campaignsCount, automationsCount] = await Promise.all([
-      prisma.client.emailCampaign.count({
-        where: {
-          templateId,
-          status: { in: ['SCHEDULED', 'SENDING'] }
+    // Check if template is used in any campaigns
+    const campaignsUsingTemplate = await prisma.client.emailCampaign.count({
+      where: {
+        templateId,
+        status: {
+          in: ['SCHEDULED', 'SENDING']
         }
-      }),
-      prisma.client.emailAutomationStep.count({
-        where: {
-          templateId,
-          automation: { active: true }
-        }
-      })
-    ]);
+      }
+    });
 
-    if (campaignsCount > 0 || automationsCount > 0) {
-      throw new BadRequestException('Cannot delete template in use');
+    if (campaignsUsingTemplate > 0) {
+      throw new BadRequestException('Cannot delete template used in active campaigns');
     }
 
     try {
-      await prisma.client.emailTemplate.delete({
-        where: { id: templateId }
+      await prisma.client.emailTemplate.update({
+        where: { id: templateId },
+        data: { isArchived: true }
       });
 
       await eventBus.emit(EmailMarketingEvents.TEMPLATE_DELETED, {
         templateId,
-        tenantId: template.tenantId
+        tenantId
       });
 
-      logger.info('Template deleted', { templateId });
+      logger.info('Template archived', { templateId });
     } catch (error) {
       logger.error('Failed to delete template', error as Error);
       throw error;
@@ -230,11 +172,21 @@ export class TemplateService {
   }
 
   /**
-   * Find template by ID
+   * Get template by ID
    */
   async findById(templateId: string): Promise<any> {
-    const template = await prisma.client.emailTemplate.findUnique({
-      where: { id: templateId }
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const template = await prisma.client.emailTemplate.findFirst({
+      where: {
+        id: templateId,
+        OR: [
+          { tenantId },
+          { isPublic: true }
+        ],
+        isArchived: false
+      }
     });
 
     if (!template) {
@@ -245,24 +197,34 @@ export class TemplateService {
   }
 
   /**
-   * Find templates
+   * Find templates with filtering
    */
   async find(query: TemplateQueryDto): Promise<any> {
     const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
 
     const where: Prisma.EmailTemplateWhereInput = {
-      OR: [
-        { tenantId, isArchived: query.includeArchived ? undefined : false },
-        { isPublic: true, isArchived: false }
-      ],
+      isArchived: query.includeArchived ? undefined : false,
       ...(query.category && { category: query.category }),
+      ...(query.isPublic !== undefined && { isPublic: query.isPublic }),
       ...(query.search && {
         OR: [
           { name: { contains: query.search, mode: 'insensitive' } },
-          { description: { contains: query.search, mode: 'insensitive' } }
+          { description: { contains: query.search, mode: 'insensitive' } },
+          { subject: { contains: query.search, mode: 'insensitive' } }
         ]
       })
     };
+
+    // Include tenant templates and public templates
+    if (!query.isPublic) {
+      where.OR = [
+        { tenantId },
+        { isPublic: true }
+      ];
+    } else {
+      where.isPublic = true;
+    }
 
     const [templates, total] = await Promise.all([
       prisma.client.emailTemplate.findMany({
@@ -286,20 +248,54 @@ export class TemplateService {
   }
 
   /**
-   * Find templates by category
+   * Preview template with variables
    */
-  async findByCategory(category: string): Promise<any[]> {
-    const tenantId = this.tenantContext.getTenantId();
+  async preview(templateId: string, data: PreviewTemplateDto): Promise<any> {
+    const template = await this.findById(templateId);
 
-    return prisma.client.emailTemplate.findMany({
-      where: {
-        OR: [
-          { tenantId, category, isArchived: false },
-          { isPublic: true, category, isArchived: false }
-        ]
-      },
-      orderBy: { createdAt: 'desc' }
-    });
+    try {
+      // Merge provided variables with template defaults
+      const variables = {
+        ...template.variables,
+        ...data.variables
+      };
+
+      // Compile and render
+      const subject = this.compile(template.subject, variables);
+      const htmlContent = this.compile(template.htmlContent, variables);
+      const textContent = this.compile(template.textContent, variables);
+
+      return {
+        subject,
+        htmlContent,
+        textContent,
+        variables
+      };
+    } catch (error) {
+      logger.error('Failed to preview template', error as Error);
+      throw new BadRequestException('Failed to render template');
+    }
+  }
+
+  /**
+   * Duplicate template
+   */
+  async duplicate(templateId: string): Promise<any> {
+    const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
+
+    const template = await this.findById(templateId);
+
+    const duplicatedData = {
+      ...template,
+      id: undefined,
+      name: `${template.name} (Copy)`,
+      isPublic: false,
+      createdAt: undefined,
+      updatedAt: undefined
+    };
+
+    return this.create(duplicatedData);
   }
 
   /**
@@ -307,6 +303,7 @@ export class TemplateService {
    */
   async getCategories(): Promise<string[]> {
     const tenantId = this.tenantContext.getTenantId();
+    if (!tenantId) throw new ForbiddenException('Tenant context required');
 
     const categories = await prisma.client.emailTemplate.findMany({
       where: {
@@ -327,149 +324,80 @@ export class TemplateService {
   }
 
   /**
-   * Preview template with data
+   * Compile template with variables
    */
-  async preview(templateId: string, data: PreviewTemplateDto): Promise<any> {
-    const template = await this.findById(templateId);
-
-    const tenantId = this.tenantContext.getTenantId();
-    if (!template.isPublic && template.tenantId !== tenantId) {
-      throw new ForbiddenException('Cannot preview template from another tenant');
-    }
-
+  compile(template: string, variables: TemplateVariables): string {
     try {
-      // Merge provided variables with defaults
-      const variables = {
-        ...this.getDefaultVariables(),
-        ...data.variables
-      };
-
-      // Render subject
-      const subject = this.renderTemplate(template.subject, variables);
-
-      // Render HTML content
-      const htmlContent = this.renderTemplate(template.htmlContent, variables);
-
-      // Render text content
-      const textContent = template.textContent
-        ? this.renderTemplate(template.textContent, variables)
-        : this.generateTextFromHtml(htmlContent);
-
-      return {
-        subject,
-        htmlContent,
-        textContent,
-        preheader: template.preheader
-      };
+      const compiledTemplate = this.handlebars.compile(template);
+      return compiledTemplate(variables);
     } catch (error) {
-      logger.error('Failed to preview template', error as Error);
-      throw new BadRequestException('Failed to render template: ' + (error as Error).message);
+      logger.error('Failed to compile template', error as Error);
+      throw new BadRequestException('Invalid template syntax');
     }
   }
 
   /**
-   * Duplicate template
+   * Sanitize HTML content
    */
-  async duplicate(templateId: string, name?: string): Promise<any> {
-    const template = await this.findById(templateId);
-    const tenantId = this.tenantContext.getTenantId();
+  private sanitizeHtml(html: string): string {
+    const window = new JSDOM('').window;
+    const purify = DOMPurify(window);
 
-    if (!template.isPublic && template.tenantId !== tenantId) {
-      throw new ForbiddenException('Cannot duplicate template from another tenant');
-    }
-
-    const duplicated = await this.create({
-      tenantId: tenantId!,
-      name: name || `${template.name} (Copy)`,
-      description: template.description,
-      category: template.category,
-      subject: template.subject,
-      preheader: template.preheader,
-      htmlContent: template.htmlContent,
-      textContent: template.textContent,
-      variables: template.variables as TemplateVariables,
-      isPublic: false
+    // Allow email-specific attributes
+    purify.addHook('uponSanitizeAttribute', (node, data) => {
+      if (data.attrName === 'style' || data.attrName === 'bgcolor' || data.attrName === 'align') {
+        data.forceKeepAttr = true;
+      }
     });
 
-    logger.info('Template duplicated', {
-      originalId: templateId,
-      duplicatedId: duplicated.id
+    const clean = purify.sanitize(html, {
+      WHOLE_DOCUMENT: false,
+      ALLOWED_TAGS: [
+        'a', 'b', 'br', 'div', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+        'i', 'img', 'li', 'ol', 'p', 'span', 'strong', 'table', 'tbody',
+        'td', 'th', 'thead', 'tr', 'u', 'ul', 'center', 'font'
+      ],
+      ALLOWED_ATTR: [
+        'href', 'src', 'alt', 'style', 'class', 'id', 'width', 'height',
+        'align', 'valign', 'bgcolor', 'color', 'size', 'face', 'cellpadding',
+        'cellspacing', 'border'
+      ]
     });
 
-    return duplicated;
+    // Inline CSS for better email client support
+    return juice(clean);
   }
 
   /**
-   * Render template with variables
+   * Convert HTML to plain text
    */
-  renderTemplate(content: string, variables: Record<string, any>): string {
-    try {
-      const template = this.handlebars.compile(content);
-      return template(variables);
-    } catch (error) {
-      throw new BadRequestException('Template rendering failed: ' + (error as Error).message);
-    }
-  }
+  private htmlToText(html: string): string {
+    const dom = new JSDOM(html);
+    const document = dom.window.document;
 
-  /**
-   * Validate template syntax
-   */
-  private validateTemplate(content: string): void {
-    try {
-      this.handlebars.compile(content);
-    } catch (error) {
-      throw new BadRequestException('Invalid template syntax: ' + (error as Error).message);
-    }
-  }
+    // Remove script and style elements
+    const scripts = document.querySelectorAll('script, style');
+    scripts.forEach(el => el.remove());
 
-  /**
-   * Process HTML content
-   */
-  private async processHtmlContent(html: string): Promise<string> {
-    try {
-      // Inline CSS
-      const inlined = juice(html);
+    // Get text content
+    let text = document.body.textContent || '';
 
-      // Minify HTML for smaller size
-      const minified = await minify(inlined, {
-        collapseWhitespace: true,
-        removeComments: true,
-        minifyCSS: true
-      });
-
-      return minified;
-    } catch (error) {
-      logger.error('Failed to process HTML content', error as Error);
-      return html; // Return original if processing fails
-    }
-  }
-
-  /**
-   * Generate text version from HTML
-   */
-  private generateTextFromHtml(html: string): string {
-    // Simple HTML to text conversion
-    return html
-      .replace(/<style[^>]*>.*?<\/style>/gi, '')
-      .replace(/<script[^>]*>.*?<\/script>/gi, '')
-      .replace(/<[^>]+>/g, ' ')
+    // Clean up whitespace
+    text = text
       .replace(/\s+/g, ' ')
-      .replace(/&nbsp;/g, ' ')
-      .replace(/&amp;/g, '&')
-      .replace(/&lt;/g, '<')
-      .replace(/&gt;/g, '>')
-      .replace(/&quot;/g, '"')
-      .replace(/&#39;/g, "'")
+      .replace(/\n\s*\n/g, '\n\n')
       .trim();
+
+    return text;
   }
 
   /**
    * Generate template thumbnail
    */
-  private async generateTemplateThumbnail(templateId: string): Promise<void> {
-    // This would use a service like Puppeteer to generate a screenshot
-    // For now, we'll skip the implementation
-    logger.info('Template thumbnail generation skipped', { templateId });
+  private async generateThumbnail(html: string): Promise<string> {
+    // For now, return a placeholder
+    // In production, this could use a headless browser to generate actual thumbnails
+    return 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgZmlsbD0iI2Y0ZjRmNCIvPgogIDx0ZXh0IHg9IjUwJSIgeT0iNTAlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjYWFhIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiPkVtYWlsIFRlbXBsYXRlPC90ZXh0Pgo8L3N2Zz4=';
   }
 
   /**
@@ -478,10 +406,9 @@ export class TemplateService {
   private registerHelpers(): void {
     // Date formatting helper
     this.handlebars.registerHelper('formatDate', (date: Date | string, format: string) => {
-      if (!date) return '';
-      const dateObj = typeof date === 'string' ? new Date(date) : date;
-      // Simple date formatting - in production use date-fns or similar
-      return dateObj.toLocaleDateString();
+      const d = new Date(date);
+      // Simple date formatting - in production, use a proper date library
+      return d.toLocaleDateString();
     });
 
     // Conditional helper
@@ -490,8 +417,8 @@ export class TemplateService {
     });
 
     // URL encoding helper
-    this.handlebars.registerHelper('urlEncode', (str: string) => {
-      return encodeURIComponent(str || '');
+    this.handlebars.registerHelper('encodeUrl', (url: string) => {
+      return encodeURIComponent(url);
     });
 
     // Default value helper
@@ -505,23 +432,12 @@ export class TemplateService {
       return str.charAt(0).toUpperCase() + str.slice(1);
     });
 
-    // Truncate helper
-    this.handlebars.registerHelper('truncate', (str: string, length: number) => {
-      if (!str || str.length <= length) return str;
-      return str.substring(0, length) + '...';
+    // Currency helper
+    this.handlebars.registerHelper('currency', (amount: number, currency = 'USD') => {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency
+      }).format(amount);
     });
-  }
-
-  /**
-   * Get default template variables
-   */
-  private getDefaultVariables(): Record<string, any> {
-    return {
-      companyName: process.env.APP_NAME || 'Your Company',
-      currentYear: new Date().getFullYear(),
-      unsubscribeUrl: '{{unsubscribeUrl}}',
-      browserUrl: '{{browserUrl}}',
-      profileUrl: '{{profileUrl}}'
-    };
   }
 }

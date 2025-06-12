@@ -1,0 +1,52 @@
+{
+  "entryPoints": ["./src"],
+  "entryPointStrategy": "expand",
+  "out": "./docs/api",
+  "plugin": [
+    "typedoc-plugin-missing-exports",
+    "typedoc-plugin-markdown"
+  ],
+  "exclude": [
+    "**/node_modules/**",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/tests/**",
+    "**/dist/**"
+  ],
+  "includeVersion": true,
+  "categorizeByGroup": true,
+  "navigation": {
+    "includeCategories": true,
+    "includeGroups": true
+  },
+  "hideGenerator": true,
+  "readme": "./README.md",
+  "theme": "default",
+  "tsconfig": "./tsconfig.json",
+  "excludePrivate": false,
+  "excludeProtected": false,
+  "excludeInternal": true,
+  "excludeExternals": false,
+  "groupOrder": [
+    "Functions",
+    "Classes",
+    "Interfaces",
+    "Type Aliases",
+    "Variables",
+    "Enums",
+    "*"
+  ],
+  "categoryOrder": [
+    "Core",
+    "Utils",
+    "Components",
+    "Services",
+    "*"
+  ],
+  "sort": ["alphabetical"],
+  "visibilityFilters": {
+    "protected": false,
+    "private": false,
+    "inherited": true
+  }
+}

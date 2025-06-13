@@ -157,7 +157,7 @@ export class EmailMarketingController {
     const tenantId = getTenantId(request);
     const data = validateContentSchema.parse(request.body);
 
-    const validation = await this.emailMarketing.validateContent(tenantId, data.html, data.text);
+    const validation = await this.emailMarketing.validateEmailContent(data.html, data.text);
 
     reply.send({
       success: true,

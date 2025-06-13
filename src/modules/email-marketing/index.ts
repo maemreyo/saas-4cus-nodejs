@@ -9,13 +9,17 @@ import { EmailTemplateService } from './services/email-template.service';
 import { EmailSegmentService } from './services/email-segment.service';
 import { EmailAnalyticsService } from './services/email-analytics.service';
 import { EmailMarketingController } from './controllers/email-marketing.controller';
+import { EmailListController } from './controllers/email-list.controller';
+import { EmailCampaignController } from './controllers/email-campaign.controller';
+import { EmailAutomationController } from './controllers/email-automation.controller';
+import { EmailTemplateController } from './controllers/email-template.controller';
 import { EmailMarketingQueue } from './queues/email-marketing.queue';
 import { registerEmailMarketingRoutes } from './email-marketing.route';
 import { EmailTrackingService } from './services/email-tracking.service';
 import { EmailDeliveryService } from './services/email-delivery.service';
 import { ABTestingService } from './services/ab-testing.service';
-import { container } from '@/infrastructure/container';
-import { logger } from '@/shared/logger';
+import { Container } from 'typedi';
+import { logger } from '@shared/logger';
 
 // Export all services
 export * from './services/email-marketing.service';
@@ -54,23 +58,27 @@ export async function initializeEmailMarketingModule(app: FastifyInstance): Prom
   try {
     logger.info('Initializing Email Marketing module...');
 
-    // Register services
-    container.register('emailMarketingService', { useClass: EmailMarketingService });
-    container.register('emailListService', { useClass: EmailListService });
-    container.register('emailCampaignService', { useClass: EmailCampaignService });
-    container.register('emailAutomationService', { useClass: EmailAutomationService });
-    container.register('emailTemplateService', { useClass: EmailTemplateService });
-    container.register('emailSegmentService', { useClass: EmailSegmentService });
-    container.register('emailAnalyticsService', { useClass: EmailAnalyticsService });
-    container.register('emailTrackingService', { useClass: EmailTrackingService });
-    container.register('emailDeliveryService', { useClass: EmailDeliveryService });
-    container.register('abTestingService', { useClass: ABTestingService });
+    // Initialize services
+    Container.get(EmailMarketingService);
+    Container.get(EmailListService);
+    Container.get(EmailCampaignService);
+    Container.get(EmailAutomationService);
+    Container.get(EmailTemplateService);
+    Container.get(EmailSegmentService);
+    Container.get(EmailAnalyticsService);
+    Container.get(EmailTrackingService);
+    Container.get(EmailDeliveryService);
+    Container.get(ABTestingService);
 
-    // Register controllers
-    container.register('emailMarketingController', { useClass: EmailMarketingController });
+    // Initialize controllers
+    Container.get(EmailMarketingController);
+    Container.get(EmailListController);
+    Container.get(EmailCampaignController);
+    Container.get(EmailAutomationController);
+    Container.get(EmailTemplateController);
 
     // Initialize queue
-    const emailQueue = container.resolve(EmailMarketingQueue);
+    const emailQueue = Container.get(EmailMarketingQueue);
     await emailQueue.initialize();
 
     // Register routes

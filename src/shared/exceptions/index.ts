@@ -21,6 +21,17 @@ export class BaseException extends Error {
   }
 }
 
+/**
+ * General application error
+ * This is a convenience class that can be used for general application errors
+ * with a custom status code
+ */
+export class AppError extends BaseException {
+  constructor(message: string, statusCode: number = 500, details?: any) {
+    super(message, statusCode, 'APP_ERROR', details);
+  }
+}
+
 export class BadRequestException extends BaseException {
   constructor(message: string = 'Bad Request', details?: any) {
     super(message, 400, 'BAD_REQUEST', details);

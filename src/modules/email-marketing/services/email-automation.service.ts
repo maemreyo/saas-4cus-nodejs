@@ -1,5 +1,3 @@
-// Service for managing email automation workflows
-
 import { Injectable } from '@/shared/decorators';
 import { PrismaService } from '@/infrastructure/database/prisma.service';
 import { EventBus } from '@/shared/events/event-bus';

@@ -171,7 +171,7 @@ export class EmailListController {
     const { listId } = request.params;
     const data = subscribeSchema.parse(request.body);
 
-    const subscriber = await this.listService.subscribe(tenantId, listId, data);
+    const subscriber = await this.listService.subscribeWithTenant(tenantId, listId, data);
 
     reply.code(201).send({
       success: true,
@@ -193,7 +193,7 @@ export class EmailListController {
     const { listId } = request.params;
     const data = unsubscribeSchema.parse(request.body);
 
-    await this.listService.unsubscribe(tenantId, listId, data.email, data.reason);
+    await this.listService.unsubscribeWithTenant(tenantId, listId, data.email, data.reason);
 
     reply.send({
       success: true,
@@ -237,7 +237,7 @@ export class EmailListController {
     const { listId, subscriberId } = request.params;
     const data = updateSubscriberSchema.parse(request.body);
 
-    const subscriber = await this.listService.updateSubscriber(tenantId, listId, subscriberId, data);
+    const subscriber = await this.listService.updateSubscriberWithTenant(tenantId, listId, subscriberId, data);
 
     reply.send({
       success: true,

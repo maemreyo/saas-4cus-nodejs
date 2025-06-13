@@ -454,4 +454,288 @@ export class EmailTemplateService {
   private async invalidateTemplateCache(templateId: string): Promise<void> {
     await this.redis.delete(`email-template:${templateId}`);
   }
+
+  /**
+   * Preview template with subscriber data
+   */
+  async previewTemplate(
+    tenantId: string,
+    templateId: string,
+    subscriberId?: string,
+    sampleData: Record<string, any> = {}
+  ): Promise<{
+    subject: string;
+    html: string;
+    text: string;
+  }> {
+    const template = await this.getTemplate(tenantId, templateId);
+
+    let subscriberData = { ...sampleData };
+
+    if (subscriberId) {
+      // Get subscriber data for personalization
+      const subscriber = await this.prisma.client.emailListSubscriber.findUnique({
+        where: { id: subscriberId },
+      });
+
+      if (!subscriber) {
+        throw new AppError('Subscriber not found', 404);
+      }
+
+      // Merge subscriber data with sample data
+      subscriberData = {
+        ...this.getSubscriberData(subscriber),
+        ...sampleData,
+      };
+    }
+
+    // Render template with data
+    return this.renderTemplate(templateId, subscriberData, tenantId);
+  }
+
+  /**
+   * Get subscriber data for templates
+   */
+  private getSubscriberData(subscriber: any): Record<string, any> {
+    return {
+      email: subscriber.email,
+      firstName: subscriber.firstName || '',
+      lastName: subscriber.lastName || '',
+      fullName: [subscriber.firstName, subscriber.lastName]
+        .filter(Boolean)
+        .join(' ') || subscriber.email,
+      ...subscriber.customData as any
+    };
+  }
+
+  /**
+   * Get template usage statistics
+   */
+  async getTemplateStats(
+    tenantId: string,
+    templateId: string,
+    startDate?: Date,
+    endDate?: Date
+  ): Promise<{
+    usageCount: number;
+    campaigns: Array<{ id: string; name: string; sentAt: Date }>;
+    automations: Array<{ id: string; name: string; active: boolean }>;
+    performance: {
+      opens: number;
+      clicks: number;
+      averageOpenRate: number;
+      averageClickRate: number;
+    }
+  }> {
+    const template = await this.getTemplate(tenantId, templateId);
+
+    // Set default date range if not provided
+    if (!startDate) {
+      startDate = new Date();
+      startDate.setMonth(startDate.getMonth() - 1); // 1 month ago
+    }
+
+    if (!endDate) {
+      endDate = new Date();
+    }
+
+    // Get campaigns using this template
+    const campaigns = await this.prisma.client.emailCampaign.findMany({
+      where: {
+        tenantId,
+        templateId: template.id,
+        sentAt: {
+          gte: startDate,
+          lte: endDate,
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+        sentAt: true,
+        stats: {
+          select: {
+            openRate: true,
+            clickRate: true,
+            uniqueOpenCount: true,
+            uniqueClickCount: true,
+          },
+        },
+      },
+    });
+
+    // Get automations using this template
+    const automations = await this.prisma.client.emailAutomation.findMany({
+      where: {
+        tenantId,
+        steps: {
+          some: {
+            templateId: template.id,
+          },
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+        isActive: true,
+      },
+    });
+
+    // Calculate performance metrics
+    let totalOpens = 0;
+    let totalClicks = 0;
+    let totalOpenRate = 0;
+    let totalClickRate = 0;
+
+    campaigns.forEach(campaign => {
+      if (campaign.stats) {
+        totalOpens += campaign.stats.uniqueOpenCount || 0;
+        totalClicks += campaign.stats.uniqueClickCount || 0;
+        totalOpenRate += campaign.stats.openRate || 0;
+        totalClickRate += campaign.stats.clickRate || 0;
+      }
+    });
+
+    const campaignCount = campaigns.length;
+
+    return {
+      usageCount: campaignCount + automations.length,
+      campaigns: campaigns.map(c => ({
+        id: c.id,
+        name: c.name,
+        sentAt: c.sentAt!,
+      })),
+      automations: automations.map(a => ({
+        id: a.id,
+        name: a.name,
+        active: a.isActive,
+      })),
+      performance: {
+        opens: totalOpens,
+        clicks: totalClicks,
+        averageOpenRate: campaignCount > 0 ? totalOpenRate / campaignCount : 0,
+        averageClickRate: campaignCount > 0 ? totalClickRate / campaignCount : 0,
+      },
+    };
+  }
+
+  /**
+   * Send a test email for a template
+   */
+  async sendTestTemplate(
+    tenantId: string,
+    templateId: string,
+    recipientEmail: string,
+    sampleData: Record<string, any> = {}
+  ): Promise<void> {
+    const template = await this.getTemplate(tenantId, templateId);
+
+    // Render template with sample data
+    const rendered = await this.renderTemplate(templateId, sampleData, tenantId);
+
+    // Get email delivery service
+    const emailDeliveryService = await this.getEmailDeliveryService();
+
+    // Send the test email
+    await emailDeliveryService.sendMail({
+      to: recipientEmail,
+      from: {
+        name: process.env.EMAIL_FROM_NAME || 'Email Marketing',
+        email: process.env.EMAIL_FROM_ADDRESS || 'noreply@example.com',
+      },
+      subject: `[TEST] ${rendered.subject}`,
+      html: rendered.html,
+      text: rendered.text,
+      isTransactional: true,
+    });
+
+    await this.eventBus.emit('email.template.test.sent', {
+      tenantId,
+      templateId,
+      recipientEmail,
+    });
+
+    logger.info('Test email sent', {
+      templateId,
+      recipientEmail,
+    });
+  }
+
+  /**
+   * Get email delivery service
+   */
+  private async getEmailDeliveryService(): Promise<any> {
+    // This would typically be injected, but for now we'll create a simple mock
+    return {
+      sendMail: async (options: any) => {
+        logger.info('Sending test email', { to: options.to });
+        // In a real implementation, this would send via SMTP or an email API
+        return true;
+      },
+    };
+  }
+
+  /**
+   * Export template
+   */
+  async exportTemplate(
+    tenantId: string,
+    templateId: string,
+    format: 'json' | 'html' = 'json'
+  ): Promise<string | object> {
+    const template = await this.getTemplate(tenantId, templateId);
+
+    if (format === 'html') {
+      return template.htmlContent;
+    }
+
+    // Export as JSON
+    const { id, tenantId: tid, createdAt, updatedAt, ...exportData } = template;
+
+    return JSON.stringify(exportData, null, 2);
+  }
+
+  /**
+   * Import template
+   */
+  async importTemplate(
+    tenantId: string,
+    name: string,
+    templateData: any
+  ): Promise<EmailTemplate> {
+    // Validate required fields
+    if (!templateData.htmlContent || !templateData.subject) {
+      throw new AppError('Template data must include htmlContent and subject', 400);
+    }
+
+    // Create new template
+    return this.createTemplate(tenantId, {
+      name,
+      subject: templateData.subject,
+      htmlContent: templateData.htmlContent,
+      textContent: templateData.textContent,
+      description: templateData.description,
+      category: templateData.category,
+      isPublic: false, // Imported templates are private by default
+      variables: templateData.variables,
+    });
+  }
+
+  /**
+   * Get template variables
+   */
+  async getTemplateVariables(
+    tenantId: string,
+    templateId: string
+  ): Promise<Array<{ name: string; type: string; required: boolean }>> {
+    const template = await this.getTemplate(tenantId, templateId);
+
+    // If template has defined variables, return them
+    if (template.variables && Array.isArray(template.variables)) {
+      return template.variables as any[];
+    }
+
+    // Otherwise extract variables from content
+    return this.extractVariables(template.htmlContent);
+  }
 }

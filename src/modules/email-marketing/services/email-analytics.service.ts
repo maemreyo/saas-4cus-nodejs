@@ -813,4 +813,139 @@ export class EmailAnalyticsService {
     // For now, return undefined
     return undefined;
   }
+
+  /**
+   * Get campaign performance over time
+   */
+  async getCampaignPerformance(
+    tenantId: string,
+    campaignId: string,
+    interval: 'hourly' | 'daily' | 'weekly' = 'daily',
+    startDate?: Date,
+    endDate?: Date
+  ): Promise<Array<{
+    date: Date;
+    metrics: {
+      sent: number;
+      delivered: number;
+      opened: number;
+      clicked: number;
+      unsubscribed: number;
+    }
+  }>> {
+    // Verify campaign exists and belongs to tenant
+    const campaign = await this.prisma.client.emailCampaign.findFirst({
+      where: {
+        id: campaignId,
+        tenantId,
+      },
+    });
+
+    if (!campaign) {
+      throw new Error('Campaign not found');
+    }
+
+    // Set default date range if not provided
+    if (!startDate) {
+      startDate = campaign.sentAt || new Date(Date.now() - 30 * 24 * 60 * 60 * 1000); // 30 days ago
+    }
+
+    if (!endDate) {
+      endDate = new Date();
+    }
+
+    // Get all activities for the campaign
+    const activities = await this.prisma.client.emailActivity.findMany({
+      where: {
+        campaignId,
+        createdAt: {
+          gte: startDate,
+          lte: endDate,
+        },
+      },
+      select: {
+        type: true,
+        createdAt: true,
+      },
+      orderBy: {
+        createdAt: 'asc',
+      },
+    });
+
+    // Group activities by interval
+    const performanceData = new Map<string, {
+      date: Date;
+      metrics: {
+        sent: number;
+        delivered: number;
+        opened: number;
+        clicked: number;
+        unsubscribed: number;
+      }
+    }>();
+
+    for (const activity of activities) {
+      let dateKey: string;
+      let periodStart: Date;
+
+      if (interval === 'hourly') {
+        // Group by hour
+        const date = new Date(activity.createdAt);
+        date.setMinutes(0, 0, 0);
+        periodStart = date;
+        dateKey = date.toISOString();
+      } else if (interval === 'weekly') {
+        // Group by week (starting Monday)
+        const date = new Date(activity.createdAt);
+        const day = date.getDay();
+        const diff = date.getDate() - day + (day === 0 ? -6 : 1); // Adjust for Sunday
+        date.setDate(diff);
+        date.setHours(0, 0, 0, 0);
+        periodStart = date;
+        dateKey = date.toISOString();
+      } else {
+        // Group by day (default)
+        const date = new Date(activity.createdAt);
+        date.setHours(0, 0, 0, 0);
+        periodStart = date;
+        dateKey = date.toISOString();
+      }
+
+      if (!performanceData.has(dateKey)) {
+        performanceData.set(dateKey, {
+          date: periodStart,
+          metrics: {
+            sent: 0,
+            delivered: 0,
+            opened: 0,
+            clicked: 0,
+            unsubscribed: 0,
+          },
+        });
+      }
+
+      const data = performanceData.get(dateKey)!;
+
+      switch (activity.type) {
+        case 'sent' as EmailActivityType:
+          data.metrics.sent++;
+          break;
+        case 'delivered' as EmailActivityType:
+          data.metrics.delivered++;
+          break;
+        case 'opened' as EmailActivityType:
+          data.metrics.opened++;
+          break;
+        case 'clicked' as EmailActivityType:
+          data.metrics.clicked++;
+          break;
+        case 'unsubscribed' as EmailActivityType:
+          data.metrics.unsubscribed++;
+          break;
+      }
+    }
+
+    // Convert to array and sort by date
+    return Array.from(performanceData.values()).sort((a, b) => a.date.getTime() - b.date.getTime());
+  }
 }

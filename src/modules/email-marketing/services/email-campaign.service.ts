@@ -207,9 +207,25 @@ export class EmailCampaignService {
   }
 
   /**
-   * List campaigns with filters
+   * Get campaigns with pagination and filtering
    */
-  async listCampaigns(
+  async getCampaigns(
+    tenantId: string,
+    filters: CampaignFiltersDTO,
+  ): Promise<{
+    campaigns: CampaignWithStats[];
+    total: number;
+    page: number;
+    pages: number;
+  }> {
+    return this.listCampaigns(tenantId, filters);
+  }
+
+  /**
+   * List campaigns with filters
+   * @private
+   */
+  private async listCampaigns(
     tenantId: string,
     filters: CampaignFiltersDTO,
   ): Promise<{
@@ -320,7 +336,7 @@ export class EmailCampaignService {
   /**
    * Send a campaign
    */
-  async sendCampaign(tenantId: string, campaignId: string, options?: SendCampaignDTO): Promise<void> {
+  async sendCampaign(tenantId: string, campaignId: string, options?: SendCampaignDTO): Promise<{ success: boolean; recipientCount: number }> {
     const campaign = await this.getCampaign(tenantId, campaignId);
 
     if (campaign.status === EmailCampaignStatus.SENT) {
@@ -376,6 +392,11 @@ export class EmailCampaignService {
         campaignId,
         recipients: recipients.length,
       });
+
+      return {
+        success: true,
+        recipientCount: recipients.length
+      };
     } catch (error) {
       // Revert status on error
       await this.prisma.client.emailCampaign.update({
@@ -392,14 +413,14 @@ export class EmailCampaignService {
   /**
    * Pause a sending campaign
    */
-  async pauseCampaign(tenantId: string, campaignId: string): Promise<void> {
+  async pauseCampaign(tenantId: string, campaignId: string): Promise<EmailCampaign> {
     const campaign = await this.getCampaign(tenantId, campaignId);
 
     if (campaign.status !== EmailCampaignStatus.SENDING) {
       throw new AppError('Can only pause campaigns that are sending', 400);
     }
 
-    await this.prisma.client.emailCampaign.update({
+    const updatedCampaign = await this.prisma.client.emailCampaign.update({
       where: { id: campaignId },
       data: {
         status: EmailCampaignStatus.PAUSED,
@@ -415,19 +436,21 @@ export class EmailCampaignService {
       tenantId,
       campaignId,
     });
+
+    return updatedCampaign;
   }
 
   /**
    * Resume a paused campaign
    */
-  async resumeCampaign(tenantId: string, campaignId: string): Promise<void> {
+  async resumeCampaign(tenantId: string, campaignId: string): Promise<EmailCampaign> {
     const campaign = await this.getCampaign(tenantId, campaignId);
 
     if (campaign.status !== EmailCampaignStatus.PAUSED) {
       throw new AppError('Can only resume paused campaigns', 400);
     }
 
-    await this.prisma.client.emailCampaign.update({
+    const updatedCampaign = await this.prisma.client.emailCampaign.update({
       where: { id: campaignId },
       data: {
         status: EmailCampaignStatus.SENDING,
@@ -445,6 +468,8 @@ export class EmailCampaignService {
       tenantId,
       campaignId,
     });
+
+    return updatedCampaign;
   }
 
   /**
@@ -597,5 +622,69 @@ export class EmailCampaignService {
    */
   private async invalidateCampaignCache(campaignId: string): Promise<void> {
     await this.redis.delete(`email-campaign:${campaignId}`);
+  }
+
+  /**
+   * Preview campaign content with subscriber data
+   */
+  async previewCampaign(tenantId: string, campaignId: string, subscriberId?: string): Promise<{
+    subject: string;
+    htmlContent: string;
+    textContent: string;
+  }> {
+    const campaign = await this.getCampaign(tenantId, campaignId);
+
+    if (subscriberId) {
+      // Get subscriber data for personalization
+      const subscriber = await this.prisma.client.emailListSubscriber.findUnique({
+        where: { id: subscriberId },
+      });
+
+      if (!subscriber) {
+        throw new AppError('Subscriber not found', 404);
+      }
+
+      // Use the delivery service to render the email with subscriber data
+      const content = await this.deliveryService.renderEmail(campaign, subscriber);
+
+      return {
+        subject: content.subject,
+        htmlContent: content.html,
+        textContent: content.text || '',
+      };
+    }
+
+    // No subscriber, just return the raw content
+    return {
+      subject: campaign.subject,
+      htmlContent: campaign.htmlContent,
+      textContent: campaign.textContent || '',
+    };
+  }
+
+  /**
+   * Send a test email for a campaign
+   */
+  async sendTestEmail(
+    tenantId: string,
+    campaignId: string,
+    recipientEmail: string,
+    subscriberId?: string
+  ): Promise<void> {
+    const campaign = await this.getCampaign(tenantId, campaignId);
+
+    // Use the delivery service's sendTestEmail method
+    await this.deliveryService.sendTestEmail(campaign, recipientEmail);
+
+    await this.eventBus.emit('email.campaign.test.sent', {
+      tenantId,
+      campaignId,
+      recipientEmail,
+    });
+
+    logger.info('Test email sent', {
+      campaignId,
+      recipientEmail,
+    });
   }
 }

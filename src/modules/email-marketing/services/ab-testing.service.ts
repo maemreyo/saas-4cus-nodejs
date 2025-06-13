@@ -536,4 +536,142 @@ export class ABTestingService {
     }
     return shuffled;
   }
+
+  /**
+   * Create A/B test for a campaign
+   */
+  async createABTest(
+    tenantId: string,
+    campaignId: string,
+    data: {
+      variantB: {
+        subject?: string;
+        content?: string;
+        senderName?: string;
+      };
+      testPercentage: number;
+      winnerCriteria: 'open_rate' | 'click_rate' | 'conversion_rate';
+      testDuration: number; // hours
+    }
+  ): Promise<any> {
+    // Verify campaign exists and belongs to tenant
+    const campaign = await this.prisma.client.emailCampaign.findFirst({
+      where: {
+        id: campaignId,
+        tenantId,
+      },
+    });
+
+    if (!campaign) {
+      throw new AppError('Campaign not found', 404);
+    }
+
+    if (campaign.isABTest) {
+      throw new AppError('Campaign already has an A/B test', 400);
+    }
+
+    // Map winner criteria
+    const winningMetricMap = {
+      'open_rate': 'opens',
+      'click_rate': 'clicks',
+      'conversion_rate': 'conversions'
+    } as const;
+
+    const winningMetric = winningMetricMap[data.winnerCriteria];
+
+    // Create A/B test config
+    const abTestConfig: ABTestConfig = {
+      testPercentage: data.testPercentage,
+      winningMetric,
+      testDuration: data.testDuration,
+      variants: [
+        {
+          name: 'Variant A (Original)',
+          weight: 50,
+          subject: campaign.subject,
+          fromName: campaign.fromName,
+          htmlContent: campaign.htmlContent,
+          textContent: campaign.textContent,
+        },
+        {
+          name: 'Variant B',
+          weight: 50,
+          subject: data.variantB.subject || campaign.subject,
+          fromName: data.variantB.senderName || campaign.fromName,
+          htmlContent: data.variantB.content || campaign.htmlContent,
+          textContent: campaign.textContent,
+        }
+      ]
+    };
+
+    // Update campaign
+    await this.prisma.client.emailCampaign.update({
+      where: { id: campaignId },
+      data: {
+        isABTest: true,
+        abTestConfig: abTestConfig as any,
+      },
+    });
+
+    // Create variants
+    const variants = await this.createVariants(campaignId, abTestConfig.variants);
+
+    await this.eventBus.emit('email.abtest.setup', {
+      tenantId,
+      campaignId,
+      testPercentage: data.testPercentage,
+      testDuration: data.testDuration,
+      winnerCriteria: data.winnerCriteria,
+    });
+
+    logger.info('A/B test created', {
+      campaignId,
+      variants: variants.map(v => v.name),
+    });
+
+    return {
+      campaignId,
+      testPercentage: data.testPercentage,
+      testDuration: data.testDuration,
+      winnerCriteria: data.winnerCriteria,
+      variants: variants.map(v => ({
+        id: v.id,
+        name: v.name,
+        weight: v.weight,
+      })),
+    };
+  }
+
+  /**
+   * Get A/B test results for a campaign
+   */
+  async getABTestResults(tenantId: string, campaignId: string): Promise<{
+    status: 'pending' | 'running' | 'completed';
+    startedAt?: Date;
+    completedAt?: Date;
+    winningVariant?: string;
+    results: ABTestResults[];
+    improvement?: number;
+  }> {
+    // Verify campaign exists and belongs to tenant
+    const campaign = await this.prisma.client.emailCampaign.findFirst({
+      where: {
+        id: campaignId,
+        tenantId,
+      },
+      include: {
+        abTestVariants: true,
+      },
+    });
+
+    if (!campaign) {
+      throw new AppError('Campaign not found', 404);
+    }
+
+    if (!campaign.isABTest) {
+      throw new AppError('Campaign is not an A/B test', 400);
+    }
+
+    return this.getTestSummary(campaignId);
+  }
 }

@@ -218,7 +218,7 @@ export class EmailAutomationService {
   /**
    * Add a step to an automation
    */
-  async addStep(tenantId: string, automationId: string, data: CreateAutomationStepDTO): Promise<EmailAutomationStep> {
+  private async addStep(tenantId: string, automationId: string, data: CreateAutomationStepDTO): Promise<EmailAutomationStep> {
     const automation = await this.getAutomation(tenantId, automationId);
 
     // Reorder existing steps if necessary
@@ -256,7 +256,7 @@ export class EmailAutomationService {
   /**
    * Update an automation step
    */
-  async updateStep(
+  private async updateStep(
     tenantId: string,
     automationId: string,
     stepId: string,
@@ -280,7 +280,7 @@ export class EmailAutomationService {
   /**
    * Delete an automation step
    */
-  async deleteStep(tenantId: string, automationId: string, stepId: string): Promise<void> {
+  private async deleteStep(tenantId: string, automationId: string, stepId: string): Promise<void> {
     await this.getAutomation(tenantId, automationId);
 
     const step = await this.prisma.client.emailAutomationStep.delete({
@@ -307,14 +307,14 @@ export class EmailAutomationService {
   /**
    * Activate an automation
    */
-  async activateAutomation(tenantId: string, automationId: string): Promise<void> {
+  async activateAutomation(tenantId: string, automationId: string): Promise<EmailAutomation> {
     const automation = await this.getAutomation(tenantId, automationId);
 
     if (automation.steps.length === 0) {
       throw new AppError('Cannot activate automation without steps', 400);
     }
 
-    await this.prisma.client.emailAutomation.update({
+    const updatedAutomation = await this.prisma.client.emailAutomation.update({
       where: { id: automationId },
       data: { active: true },
     });
@@ -330,15 +330,17 @@ export class EmailAutomationService {
       tenantId,
       automationId,
     });
+
+    return updatedAutomation;
   }
 
   /**
    * Deactivate an automation
    */
-  async deactivateAutomation(tenantId: string, automationId: string): Promise<void> {
+  async deactivateAutomation(tenantId: string, automationId: string): Promise<EmailAutomation> {
     await this.getAutomation(tenantId, automationId);
 
-    await this.prisma.client.emailAutomation.update({
+    const updatedAutomation = await this.prisma.client.emailAutomation.update({
       where: { id: automationId },
       data: { active: false },
     });
@@ -354,6 +356,8 @@ export class EmailAutomationService {
       tenantId,
       automationId,
     });
+
+    return updatedAutomation;
   }
 
   /**
@@ -480,7 +484,7 @@ export class EmailAutomationService {
 
     // Check conditions
     if (nextStep.conditions) {
-      const meetsConditions = await this.evaluateConditions(enrollment.subscriberId, nextStep.conditions as any);
+      const meetsConditions = await this.evaluateConditionsForSubscriber(enrollment.subscriberId, nextStep.conditions as any);
 
       if (!meetsConditions) {
         // Skip to next step
@@ -579,78 +583,6 @@ export class EmailAutomationService {
   }
 
   /**
-   * Complete an enrollment
-   */
-  private async completeEnrollment(enrollmentId: string): Promise<void> {
-    const enrollment = await this.prisma.client.emailAutomationEnrollment.update({
-      where: { id: enrollmentId },
-      data: {
-        status: 'completed',
-        completedAt: new Date(),
-      },
-    });
-
-    // Update automation stats
-    await this.prisma.client.emailAutomation.update({
-      where: { id: enrollment.automationId },
-      data: {
-        totalCompleted: { increment: 1 },
-      },
-    });
-
-    await this.eventBus.emit('email.automation.completed', {
-      automationId: enrollment.automationId,
-      subscriberId: enrollment.subscriberId,
-      enrollmentId,
-    });
-  }
-
-  /**
-   * Handle automation triggers
-   */
-  private async handleTrigger(trigger: EmailAutomationTrigger, data: any): Promise<void> {
-    // Find active automations with this trigger
-    const automations = await this.prisma.client.emailAutomation.findMany({
-      where: {
-        trigger,
-        active: true,
-      },
-    });
-
-    for (const automation of automations) {
-      try {
-        // Check trigger config matches
-        if (this.matchesTriggerConfig(automation.triggerConfig as any, data)) {
-          // Find subscriber
-          let subscriberId: string | null = null;
-
-          if (trigger === EmailAutomationTrigger.LIST_SUBSCRIBE) {
-            subscriberId = data.subscriberId;
-          } else if (trigger === EmailAutomationTrigger.USER_SIGNUP && data.email) {
-            const subscriber = await this.prisma.client.emailListSubscriber.findFirst({
-              where: {
-                email: data.email,
-                listId: automation.listId!,
-              },
-            });
-            subscriberId = subscriber?.id || null;
-          }
-
-          if (subscriberId) {
-            await this.enrollSubscriber(automation.id, subscriberId, data);
-          }
-        }
-      } catch (error) {
-        logger.error('Failed to handle automation trigger', {
-          automationId: automation.id,
-          trigger,
-          error,
-        });
-      }
-    }
-  }
-
-  /**
    * Check if data matches trigger configuration
    */
   private matchesTriggerConfig(config: any, data: any): boolean {
@@ -668,12 +600,21 @@ export class EmailAutomationService {
   }
 
   /**
-   * Evaluate step conditions
+   * Evaluate step conditions for a specific subscriber
+   * @deprecated Use the more general evaluateConditions(data, conditions) instead
    */
-  private async evaluateConditions(subscriberId: string, conditions: any[]): Promise<boolean> {
-    // Implementation would evaluate conditions against subscriber data
-    // This is a simplified version
-    return true;
+  private async evaluateConditionsForSubscriber(subscriberId: string, conditions: any[]): Promise<boolean> {
+    // Get subscriber data
+    const subscriber = await this.prisma.client.emailListSubscriber.findUnique({
+      where: { id: subscriberId },
+    });
+
+    if (!subscriber) {
+      return false;
+    }
+
+    // Use the general condition evaluator with subscriber data
+    return this.evaluateConditions(subscriber, conditions);
   }
 
   /**
@@ -690,20 +631,457 @@ export class EmailAutomationService {
   }
 
   /**
-   * Schedule date-based automation
-   */
-  private async scheduleDateBasedAutomation(automation: EmailAutomation): Promise<void> {
-    // Implementation would schedule based on date trigger config
-    // For example, birthday emails, anniversary emails, etc.
-    logger.info('Date-based automation scheduling not yet implemented', {
-      automationId: automation.id,
-    });
-  }
-
-  /**
    * Invalidate automation cache
    */
   private async invalidateAutomationCache(automationId: string): Promise<void> {
     await this.redis.delete(`email-automation:${automationId}`);
+  }
+
+  /**
+   * Get automations with pagination and filtering
+   */
+  async getAutomations(
+    tenantId: string,
+    filters: AutomationFiltersDTO
+  ): Promise<{
+    automations: AutomationWithSteps[];
+    total: number;
+    page: number;
+    pages: number;
+  }> {
+    return this.listAutomations(tenantId, filters);
+  }
+
+  /**
+   * Delete an automation
+   */
+  async deleteAutomation(tenantId: string, automationId: string): Promise<void> {
+    const automation = await this.getAutomation(tenantId, automationId);
+
+    // First deactivate if active
+    if (automation.active) {
+      await this.deactivateAutomation(tenantId, automationId);
+    }
+
+    // Delete all steps
+    await this.prisma.client.emailAutomationStep.deleteMany({
+      where: { automationId },
+    });
+
+    // Delete all enrollments
+    await this.prisma.client.emailAutomationEnrollment.deleteMany({
+      where: { automationId },
+    });
+
+    // Delete the automation
+    await this.prisma.client.emailAutomation.delete({
+      where: { id: automationId },
+    });
+
+    await this.invalidateAutomationCache(automationId);
+
+    await this.eventBus.emit('email.automation.deleted', {
+      tenantId,
+      automationId,
+    });
+
+    logger.info('Email automation deleted', {
+      tenantId,
+      automationId,
+    });
+  }
+
+  /**
+   * Add a step to an automation
+   */
+  async addAutomationStep(
+    tenantId: string,
+    automationId: string,
+    data: CreateAutomationStepDTO
+  ): Promise<EmailAutomationStep> {
+    return this.addStep(tenantId, automationId, data);
+  }
+
+  /**
+   * Update an automation step
+   */
+  async updateAutomationStep(
+    tenantId: string,
+    automationId: string,
+    stepId: string,
+    data: CreateAutomationStepDTO
+  ): Promise<EmailAutomationStep> {
+    return this.updateStep(tenantId, automationId, stepId, data);
+  }
+
+  /**
+   * Delete an automation step
+   */
+  async deleteAutomationStep(
+    tenantId: string,
+    automationId: string,
+    stepId: string
+  ): Promise<void> {
+    return this.deleteStep(tenantId, automationId, stepId);
+  }
+
+  /**
+   * Enroll a subscriber in an automation with tenant context
+   */
+  async enrollSubscriberWithTenant(
+    tenantId: string,
+    automationId: string,
+    subscriberId: string,
+    metadata?: any
+  ): Promise<EmailAutomationEnrollment> {
+    // Verify automation belongs to tenant
+    await this.getAutomation(tenantId, automationId);
+
+    // Verify subscriber exists
+    const subscriber = await this.prisma.client.emailListSubscriber.findUnique({
+      where: { id: subscriberId },
+    });
+
+    if (!subscriber) {
+      throw new AppError('Subscriber not found', 404);
+    }
+
+    return this.enrollSubscriber(automationId, subscriberId, metadata);
+  }
+
+  /**
+   * Get automation analytics
+   */
+  async getAutomationAnalytics(
+    tenantId: string,
+    automationId: string,
+    startDate?: Date,
+    endDate?: Date
+  ): Promise<{
+    overview: {
+      totalEnrolled: number;
+      completed: number;
+      active: number;
+      cancelled: number;
+      completionRate: number;
+      averageTimeToComplete: number; // in hours
+    };
+    steps: {
+      stepId: string;
+      name: string;
+      order: number;
+      delivered: number;
+      opened: number;
+      clicked: number;
+      openRate: number;
+      clickRate: number;
+    }[];
+    timeline: {
+      date: string;
+      enrolled: number;
+      completed: number;
+      cancelled: number;
+    }[];
+    performance: {
+      averageOpenRate: number;
+      averageClickRate: number;
+      topPerformingStep: string;
+      bottomPerformingStep: string;
+    };
+  }> {
+    // Verify automation belongs to tenant
+    const automation = await this.getAutomation(tenantId, automationId);
+
+    // Default to last 30 days if no dates provided
+    const start = startDate || new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+    const end = endDate || new Date();
+
+    // Get enrollments
+    const enrollments = await this.prisma.client.emailAutomationEnrollment.findMany({
+      where: {
+        automationId,
+        enrolledAt: {
+          gte: start,
+          lte: end,
+        },
+      },
+      include: {
+        steps: true,
+      },
+    });
+
+    // Calculate overview metrics
+    const completed = enrollments.filter(e => e.status === EmailAutomationStatus.COMPLETED).length;
+    const active = enrollments.filter(e => e.status === EmailAutomationStatus.ACTIVE).length;
+    const cancelled = enrollments.filter(e => e.status === EmailAutomationStatus.CANCELLED).length;
+    const totalEnrolled = enrollments.length;
+
+    // Calculate average time to complete
+    const completedEnrollments = enrollments.filter(
+      e => e.status === EmailAutomationStatus.COMPLETED && e.completedAt
+    );
+
+    let averageTimeToComplete = 0;
+    if (completedEnrollments.length > 0) {
+      const totalTimeMs = completedEnrollments.reduce((sum, e) => {
+        return sum + (e.completedAt!.getTime() - e.enrolledAt.getTime());
+      }, 0);
+      averageTimeToComplete = totalTimeMs / completedEnrollments.length / (1000 * 60 * 60); // convert to hours
+    }
+
+    // Get step performance
+    const stepPerformance = await Promise.all(
+      automation.steps.map(async step => {
+        const stepStats = await this.prisma.client.emailAutomationStepExecution.aggregate({
+          where: {
+            stepId: step.id,
+            executedAt: {
+              gte: start,
+              lte: end,
+            },
+          },
+          _count: {
+            id: true,
+          },
+          _sum: {
+            delivered: true,
+            opened: true,
+            clicked: true,
+          },
+        });
+
+        const delivered = stepStats._sum.delivered || 0;
+        const opened = stepStats._sum.opened || 0;
+        const clicked = stepStats._sum.clicked || 0;
+
+        return {
+          stepId: step.id,
+          name: step.name,
+          order: step.order,
+          delivered,
+          opened,
+          clicked,
+          openRate: delivered > 0 ? opened / delivered : 0,
+          clickRate: delivered > 0 ? clicked / delivered : 0,
+        };
+      })
+    );
+
+    // Calculate timeline data
+    const enrollmentsByDay: { [date: string]: { enrolled: number; completed: number; cancelled: number } } = {};
+
+    // Initialize all dates in range
+    for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+      const dateStr = d.toISOString().split('T')[0];
+      enrollmentsByDay[dateStr] = { enrolled: 0, completed: 0, cancelled: 0 };
+    }
+
+    // Fill in enrollment data
+    enrollments.forEach(enrollment => {
+      const enrolledDateStr = enrollment.enrolledAt.toISOString().split('T')[0];
+      if (enrollmentsByDay[enrolledDateStr]) {
+        enrollmentsByDay[enrolledDateStr].enrolled++;
+      }
+
+      if (enrollment.completedAt) {
+        const completedDateStr = enrollment.completedAt.toISOString().split('T')[0];
+        if (enrollmentsByDay[completedDateStr]) {
+          enrollmentsByDay[completedDateStr].completed++;
+        }
+      }
+
+      if (enrollment.cancelledAt) {
+        const cancelledDateStr = enrollment.cancelledAt.toISOString().split('T')[0];
+        if (enrollmentsByDay[cancelledDateStr]) {
+          enrollmentsByDay[cancelledDateStr].cancelled++;
+        }
+      }
+    });
+
+    // Calculate performance metrics
+    const totalOpenRate = stepPerformance.reduce((sum, step) => sum + step.openRate, 0);
+    const totalClickRate = stepPerformance.reduce((sum, step) => sum + step.clickRate, 0);
+    const averageOpenRate = stepPerformance.length > 0 ? totalOpenRate / stepPerformance.length : 0;
+    const averageClickRate = stepPerformance.length > 0 ? totalClickRate / stepPerformance.length : 0;
+
+    // Find top and bottom performing steps
+    let topPerformingStep = '';
+    let bottomPerformingStep = '';
+
+    if (stepPerformance.length > 0) {
+      const sortedByEngagement = [...stepPerformance].sort(
+        (a, b) => (b.openRate * 0.5 + b.clickRate * 0.5) - (a.openRate * 0.5 + a.clickRate * 0.5)
+      );
+
+      topPerformingStep = sortedByEngagement[0].name;
+      bottomPerformingStep = sortedByEngagement[sortedByEngagement.length - 1].name;
+    }
+
+    return {
+      overview: {
+        totalEnrolled,
+        completed,
+        active,
+        cancelled,
+        completionRate: totalEnrolled > 0 ? completed / totalEnrolled : 0,
+        averageTimeToComplete,
+      },
+      steps: stepPerformance,
+      timeline: Object.entries(enrollmentsByDay).map(([date, data]) => ({
+        date,
+        ...data,
+      })),
+      performance: {
+        averageOpenRate,
+        averageClickRate,
+        topPerformingStep,
+        bottomPerformingStep,
+      },
+    };
+  }
+
+  /**
+   * Handle automation trigger
+   */
+  private async handleTrigger(trigger: EmailAutomationTrigger, data: any): Promise<void> {
+    // Find automations with this trigger
+    const automations = await this.prisma.client.emailAutomation.findMany({
+      where: {
+        trigger,
+        active: true,
+      },
+    });
+
+    if (automations.length === 0) {
+      return;
+    }
+
+    // Process each matching automation
+    await Promise.all(
+      automations.map(async automation => {
+        try {
+          // Check if there's a list filter
+          if (automation.listId && data.listId && automation.listId !== data.listId) {
+            return;
+          }
+
+          // Check if there are custom conditions
+          if (automation.conditions) {
+            const meetsConditions = await this.evaluateConditions(data, automation.conditions as any);
+            if (!meetsConditions) {
+              return;
+            }
+          }
+
+          // Find subscriber ID based on trigger type
+          let subscriberId: string | null = null;
+
+          if (trigger === EmailAutomationTrigger.LIST_SUBSCRIBE) {
+            subscriberId = data.subscriberId;
+          } else if (trigger === EmailAutomationTrigger.USER_SIGNUP && data.email) {
+            const subscriber = await this.prisma.client.emailListSubscriber.findFirst({
+              where: {
+                email: data.email,
+                listId: automation.listId!,
+              },
+            });
+            subscriberId = subscriber?.id || null;
+          } else {
+            subscriberId = data.subscriberId || data.userId;
+          }
+
+          // Enroll the subscriber if found
+          if (subscriberId) {
+            await this.enrollSubscriber(automation.id, subscriberId, data);
+          }
+
+        } catch (error) {
+          logger.error('Error processing automation trigger', {
+            automationId: automation.id,
+            trigger,
+            error,
+          });
+        }
+      })
+    );
+  }
+
+  /**
+   * Evaluate conditions for automation or step
+   */
+  private async evaluateConditions(data: any, conditions: any): Promise<boolean> {
+    // Simple condition evaluation
+    // In a real implementation, this would be more sophisticated
+    if (!conditions || Object.keys(conditions).length === 0) {
+      return true;
+    }
+
+    // Example: Check if user is in a segment
+    if (conditions.segment && data.segments) {
+      return data.segments.includes(conditions.segment);
+    }
+
+    // Example: Check if user has a specific tag
+    if (conditions.tag && data.tags) {
+      return data.tags.includes(conditions.tag);
+    }
+
+    // Example: Check custom field value
+    if (conditions.field && conditions.value && data.customData) {
+      return data.customData[conditions.field] === conditions.value;
+    }
+
+    return true;
+  }
+
+  /**
+   * Schedule date-based automation
+   */
+  private async scheduleDateBasedAutomation(automation: AutomationWithSteps): Promise<void> {
+    // Schedule job to process this automation daily
+    await this.queue.add(
+      'email:automation:process',
+      {
+        automationId: automation.id,
+        type: 'date-based',
+      },
+      {
+        repeat: {
+          cron: '0 0 * * *', // Run daily at midnight
+        },
+        jobId: `automation:${automation.id}:date-based`,
+      }
+    );
+  }
+
+  /**
+   * Complete an enrollment
+   */
+  private async completeEnrollment(enrollmentId: string): Promise<void> {
+    const enrollment = await this.prisma.client.emailAutomationEnrollment.update({
+      where: { id: enrollmentId },
+      data: {
+        status: EmailAutomationStatus.COMPLETED,
+        completedAt: new Date(),
+      },
+      include: {
+        automation: true,
+        subscriber: true,
+      },
+    });
+
+    await this.eventBus.emit('email.automation.completed', {
+      automationId: enrollment.automationId,
+      subscriberId: enrollment.subscriberId,
+      enrollmentId,
+    });
+
+    // Update automation stats
+    await this.prisma.client.emailAutomation.update({
+      where: { id: enrollment.automationId },
+      data: {
+        totalCompleted: { increment: 1 },
+      },
+    });
   }
 }

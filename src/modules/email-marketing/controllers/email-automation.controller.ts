@@ -233,7 +233,7 @@ export class EmailAutomationController {
     const { automationId } = request.params;
     const data = enrollSubscriberSchema.parse(request.body);
 
-    await this.automationService.enrollSubscriber(tenantId, automationId, data.subscriberId, data.metadata);
+    await this.automationService.enrollSubscriberWithTenant(tenantId, automationId, data.subscriberId, data.metadata);
 
     reply.send({
       success: true,

@@ -1295,6 +1295,7 @@ enum EmailListStatus {
   ACTIVE
   INACTIVE
   ARCHIVED
+  DELETED
 }
 
 enum EmailCampaignStatus {

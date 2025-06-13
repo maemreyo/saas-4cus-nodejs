@@ -618,4 +618,574 @@ export class EmailListService {
   private async invalidateListCache(listId: string): Promise<void> {
     await this.redis.delete(`email-list:${listId}`);
   }
+
+  /**
+   * Get email lists with pagination and filtering
+   */
+  async getLists(
+    tenantId: string,
+    filters: {
+      page?: number;
+      limit?: number;
+      status?: EmailListStatus;
+      search?: string;
+      sortBy?: string;
+      sortOrder?: 'asc' | 'desc';
+    }
+  ): Promise<{
+    items: EmailList[];
+    total: number;
+    page: number;
+    limit: number;
+    pages: number;
+  }> {
+    const {
+      page = 1,
+      limit = 50,
+      status,
+      search,
+      sortBy = 'createdAt',
+      sortOrder = 'desc'
+    } = filters;
+
+    const where: Prisma.EmailListWhereInput = {
+      tenantId,
+      deletedAt: null,
+    };
+
+    if (status) {
+      where.status = status;
+    }
+
+    if (search) {
+      where.OR = [
+        { name: { contains: search, mode: 'insensitive' } },
+        { description: { contains: search, mode: 'insensitive' } },
+      ];
+    }
+
+    const [items, total] = await Promise.all([
+      this.prisma.client.emailList.findMany({
+        where,
+        orderBy: { [sortBy]: sortOrder },
+        skip: (page - 1) * limit,
+        take: limit,
+      }),
+      this.prisma.client.emailList.count({ where }),
+    ]);
+
+    // Get stats for each list
+    const listsWithStats = await Promise.all(
+      items.map(async (list) => {
+        const stats = await this.getListStats(list.id);
+        return { ...list, stats };
+      })
+    );
+
+    return {
+      items: listsWithStats,
+      total,
+      page,
+      limit,
+      pages: Math.ceil(total / limit),
+    };
+  }
+
+  /**
+   * Delete an email list (soft delete)
+   */
+  async deleteList(tenantId: string, listId: string): Promise<void> {
+    // Check if list exists and belongs to tenant
+    const list = await this.prisma.client.emailList.findFirst({
+      where: {
+        id: listId,
+        tenantId,
+        deletedAt: null,
+      },
+    });
+
+    if (!list) {
+      throw new AppError('Email list not found', 404);
+    }
+
+    // Soft delete the list
+    await this.prisma.client.emailList.update({
+      where: { id: listId },
+      data: {
+        deletedAt: new Date(),
+        status: EmailListStatus.DELETED,
+      },
+    });
+
+    await this.invalidateListCache(listId);
+
+    await this.eventBus.emit('email.list.deleted', {
+      tenantId,
+      listId,
+      name: list.name,
+    });
+
+    logger.info('Email list deleted', { tenantId, listId });
+  }
+
+  /**
+   * Get list subscribers with pagination and filtering
+   */
+  async getListSubscribers(
+    tenantId: string,
+    listId: string,
+    options: {
+      page?: number;
+      limit?: number;
+      status?: 'subscribed' | 'unsubscribed' | 'pending';
+      search?: string;
+    }
+  ): Promise<{
+    items: EmailListSubscriber[];
+    total: number;
+    page: number;
+    limit: number;
+    pages: number;
+  }> {
+    const { page = 1, limit = 50, status, search } = options;
+
+    // Verify list belongs to tenant
+    const list = await this.prisma.client.emailList.findFirst({
+      where: {
+        id: listId,
+        tenantId,
+        deletedAt: null,
+      },
+    });
+
+    if (!list) {
+      throw new AppError('Email list not found', 404);
+    }
+
+    // Build query conditions
+    const where: Prisma.EmailListSubscriberWhereInput = { listId };
+
+    if (status === 'subscribed') {
+      where.subscribed = true;
+      where.confirmed = true;
+    } else if (status === 'unsubscribed') {
+      where.subscribed = false;
+    } else if (status === 'pending') {
+      where.confirmed = false;
+    }
+
+    if (search) {
+      where.OR = [
+        { email: { contains: search, mode: 'insensitive' } },
+        { firstName: { contains: search, mode: 'insensitive' } },
+        { lastName: { contains: search, mode: 'insensitive' } },
+      ];
+    }
+
+    // Execute query
+    const [items, total] = await Promise.all([
+      this.prisma.client.emailListSubscriber.findMany({
+        where,
+        orderBy: { subscribedAt: 'desc' },
+        skip: (page - 1) * limit,
+        take: limit,
+      }),
+      this.prisma.client.emailListSubscriber.count({ where }),
+    ]);
+
+    return {
+      items,
+      total,
+      page,
+      limit,
+      pages: Math.ceil(total / limit),
+    };
+  }
+
+  /**
+   * Remove a subscriber from a list
+   */
+  async removeSubscriber(tenantId: string, listId: string, subscriberId: string): Promise<void> {
+    // Verify list belongs to tenant
+    const list = await this.prisma.client.emailList.findFirst({
+      where: {
+        id: listId,
+        tenantId,
+        deletedAt: null,
+      },
+    });
+
+    if (!list) {
+      throw new AppError('Email list not found', 404);
+    }
+
+    // Find subscriber
+    const subscriber = await this.prisma.client.emailListSubscriber.findFirst({
+      where: {
+        id: subscriberId,
+        listId,
+      },
+    });
+
+    if (!subscriber) {
+      throw new AppError('Subscriber not found', 404);
+    }
+
+    // Delete subscriber
+    await this.prisma.client.emailListSubscriber.delete({
+      where: { id: subscriberId },
+    });
+
+    await this.eventBus.emit('email.subscriber.removed', {
+      tenantId,
+      listId,
+      subscriberId,
+      email: subscriber.email,
+    });
+
+    logger.info('Subscriber removed from list', {
+      tenantId,
+      listId,
+      subscriberId,
+      email: subscriber.email,
+    });
+  }
+
+  /**
+   * Get list analytics
+   */
+  async getListAnalytics(
+    tenantId: string,
+    listId: string,
+    startDate?: Date,
+    endDate?: Date
+  ): Promise<{
+    growth: {
+      date: string;
+      subscribers: number;
+      unsubscribes: number;
+      net: number;
+    }[];
+    engagement: {
+      opens: number;
+      clicks: number;
+      averageOpenRate: number;
+      averageClickRate: number;
+    };
+    demographics?: {
+      topDomains: { domain: string; count: number }[];
+      locations?: { country: string; count: number }[];
+    };
+    sources: {
+      source: string;
+      count: number;
+      percentage: number;
+    }[];
+  }> {
+    // Verify list belongs to tenant
+    const list = await this.prisma.client.emailList.findFirst({
+      where: {
+        id: listId,
+        tenantId,
+        deletedAt: null,
+      },
+    });
+
+    if (!list) {
+      throw new AppError('Email list not found', 404);
+    }
+
+    // Default to last 30 days if no dates provided
+    const start = startDate || new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+    const end = endDate || new Date();
+
+    // Get subscriber growth over time
+    const subscribersByDay = await this.prisma.client.emailListSubscriber.groupBy({
+      by: ['subscribedAt'],
+      where: {
+        listId,
+        subscribedAt: {
+          gte: start,
+          lte: end,
+        },
+      },
+      _count: {
+        id: true,
+      },
+    });
+
+    const unsubscribesByDay = await this.prisma.client.emailListSubscriber.groupBy({
+      by: ['unsubscribedAt'],
+      where: {
+        listId,
+        unsubscribedAt: {
+          gte: start,
+          lte: end,
+          not: null,
+        },
+      },
+      _count: {
+        id: true,
+      },
+    });
+
+    // Process data into daily format
+    const growthData: { [date: string]: { subscribers: number; unsubscribes: number } } = {};
+
+    // Initialize all dates in range
+    for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+      const dateStr = d.toISOString().split('T')[0];
+      growthData[dateStr] = { subscribers: 0, unsubscribes: 0 };
+    }
+
+    // Fill in subscriber data
+    subscribersByDay.forEach(day => {
+      const dateStr = new Date(day.subscribedAt).toISOString().split('T')[0];
+      if (growthData[dateStr]) {
+        growthData[dateStr].subscribers = day._count.id;
+      }
+    });
+
+    // Fill in unsubscribe data
+    unsubscribesByDay.forEach(day => {
+      const dateStr = new Date(day.unsubscribedAt!).toISOString().split('T')[0];
+      if (growthData[dateStr]) {
+        growthData[dateStr].unsubscribes = day._count.id;
+      }
+    });
+
+    // Calculate engagement metrics
+    const campaignStats = await this.prisma.client.emailCampaignStats.findMany({
+      where: {
+        campaign: {
+          listId,
+          sentAt: {
+            gte: start,
+            lte: end,
+          },
+        },
+      },
+    });
+
+    const totalOpens = campaignStats.reduce((sum, stat) => sum + stat.opens, 0);
+    const totalClicks = campaignStats.reduce((sum, stat) => sum + stat.clicks, 0);
+    const totalSent = campaignStats.reduce((sum, stat) => sum + stat.sent, 0);
+
+    // Get subscriber sources
+    const sources = await this.prisma.client.emailListSubscriber.groupBy({
+      by: ['source'],
+      where: {
+        listId,
+        subscribedAt: {
+          gte: start,
+          lte: end,
+        },
+      },
+      _count: {
+        id: true,
+      },
+    });
+
+    const totalSubscribers = sources.reduce((sum, source) => sum + source._count.id, 0);
+
+    // Get email domains
+    const subscribers = await this.prisma.client.emailListSubscriber.findMany({
+      where: {
+        listId,
+        subscribedAt: {
+          gte: start,
+          lte: end,
+        },
+      },
+      select: {
+        email: true,
+      },
+    });
+
+    const domains: { [domain: string]: number } = {};
+    subscribers.forEach(sub => {
+      const domain = sub.email.split('@')[1];
+      domains[domain] = (domains[domain] || 0) + 1;
+    });
+
+    const topDomains = Object.entries(domains)
+      .map(([domain, count]) => ({ domain, count }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 10);
+
+    return {
+      growth: Object.entries(growthData).map(([date, data]) => ({
+        date,
+        subscribers: data.subscribers,
+        unsubscribes: data.unsubscribes,
+        net: data.subscribers - data.unsubscribes,
+      })),
+      engagement: {
+        opens: totalOpens,
+        clicks: totalClicks,
+        averageOpenRate: totalSent > 0 ? totalOpens / totalSent : 0,
+        averageClickRate: totalSent > 0 ? totalClicks / totalSent : 0,
+      },
+      demographics: {
+        topDomains,
+      },
+      sources: sources.map(source => ({
+        source: source.source || 'direct',
+        count: source._count.id,
+        percentage: totalSubscribers > 0 ? (source._count.id / totalSubscribers) * 100 : 0,
+      })),
+    };
+  }
+
+  /**
+   * Export list subscribers
+   */
+  async exportSubscribers(
+    tenantId: string,
+    listId: string,
+    options: {
+      format?: 'csv' | 'json';
+      status?: 'subscribed' | 'unsubscribed' | 'all';
+    }
+  ): Promise<Buffer> {
+    const { format = 'csv', status = 'subscribed' } = options;
+
+    // Verify list belongs to tenant
+    const list = await this.prisma.client.emailList.findFirst({
+      where: {
+        id: listId,
+        tenantId,
+        deletedAt: null,
+      },
+    });
+
+    if (!list) {
+      throw new AppError('Email list not found', 404);
+    }
+
+    // Build query conditions
+    const where: Prisma.EmailListSubscriberWhereInput = { listId };
+
+    if (status === 'subscribed') {
+      where.subscribed = true;
+      where.confirmed = true;
+    } else if (status === 'unsubscribed') {
+      where.subscribed = false;
+    }
+
+    // Get subscribers
+    const subscribers = await this.prisma.client.emailListSubscriber.findMany({
+      where,
+      orderBy: { email: 'asc' },
+    });
+
+    // Format data for export
+    const exportData = subscribers.map(sub => ({
+      email: sub.email,
+      firstName: sub.firstName || '',
+      lastName: sub.lastName || '',
+      status: sub.subscribed ? (sub.confirmed ? 'subscribed' : 'pending') : 'unsubscribed',
+      subscribedAt: sub.subscribedAt.toISOString(),
+      unsubscribedAt: sub.unsubscribedAt ? sub.unsubscribedAt.toISOString() : '',
+      source: sub.source || '',
+      tags: sub.tags.join(', '),
+      customData: JSON.stringify(sub.customData),
+    }));
+
+    // Convert to requested format
+    if (format === 'csv') {
+      // Simple CSV generation
+      const headers = Object.keys(exportData[0] || {}).join(',');
+      const rows = exportData.map(row =>
+        Object.values(row).map(val => `"${String(val).replace(/"/g, '""')}"`).join(',')
+      );
+      const csv = [headers, ...rows].join('\n');
+      return Buffer.from(csv);
+    } else {
+      // JSON format
+      return Buffer.from(JSON.stringify(exportData, null, 2));
+    }
+  }
+
+  /**
+   * Subscribe to a list with tenant context
+   */
+  async subscribeWithTenant(tenantId: string, listId: string, data: SubscribeDTO): Promise<EmailListSubscriber> {
+    // Verify list belongs to tenant
+    const list = await this.prisma.client.emailList.findFirst({
+      where: {
+        id: listId,
+        tenantId,
+        deletedAt: null,
+      },
+    });
+
+    if (!list) {
+      throw new AppError('Email list not found', 404);
+    }
+
+    return this.subscribe(listId, data, 'api');
+  }
+
+  /**
+   * Unsubscribe from a list with tenant context
+   */
+  async unsubscribeWithTenant(tenantId: string, listId: string, email: string, reason?: string): Promise<void> {
+    // Verify list belongs to tenant
+    const list = await this.prisma.client.emailList.findFirst({
+      where: {
+        id: listId,
+        tenantId,
+        deletedAt: null,
+      },
+    });
+
+    if (!list) {
+      throw new AppError('Email list not found', 404);
+    }
+
+    await this.unsubscribe({
+      listId,
+      email,
+      reason,
+      globalUnsubscribe: false,
+    });
+  }
+
+  /**
+   * Update subscriber with tenant context
+   */
+  async updateSubscriberWithTenant(
+    tenantId: string,
+    listId: string,
+    subscriberId: string,
+    data: UpdateSubscriberDTO
+  ): Promise<EmailListSubscriber> {
+    // Verify list belongs to tenant
+    const list = await this.prisma.client.emailList.findFirst({
+      where: {
+        id: listId,
+        tenantId,
+        deletedAt: null,
+      },
+    });
+
+    if (!list) {
+      throw new AppError('Email list not found', 404);
+    }
+
+    // Verify subscriber belongs to list
+    const subscriber = await this.prisma.client.emailListSubscriber.findFirst({
+      where: {
+        id: subscriberId,
+        listId,
+      },
+    });
+
+    if (!subscriber) {
+      throw new AppError('Subscriber not found', 404);
+    }
+
+    return this.updateSubscriber(subscriberId, data);
+  }
 }

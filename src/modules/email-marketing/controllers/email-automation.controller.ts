@@ -1,41 +1,32 @@
-// Controller for email automation workflows
-
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { Controller, GET, POST, PUT, DELETE, PATCH } from '@/shared/decorators';
+import { Injectable } from '@/shared/decorators';
 import { EmailAutomationService } from '../services/email-automation.service';
-import { authenticate } from '@/shared/middleware/auth.middleware';
-import { requireTenant } from '@/modules/tenant/middleware/tenant.middleware';
-import { getTenantId } from '@/modules/tenant/tenant.context';
+import { getTenantId } from '@/modules/tenant/tenant.utils';
 import {
   createAutomationSchema,
   updateAutomationSchema,
   createAutomationStepSchema,
-  automationFiltersSchema
+  automationFiltersSchema,
 } from '../dto/email-automation.dto';
 import { z } from 'zod';
 
 const enrollSubscriberSchema = z.object({
   subscriberId: z.string(),
-  metadata: z.record(z.any()).optional()
+  metadata: z.record(z.any()).optional(),
 });
 
-@Controller('/api/email-marketing/automations')
+@Injectable()
 export class EmailAutomationController {
-  constructor(
-    private readonly automationService: EmailAutomationService
-  ) {}
+  constructor(private readonly automationService: EmailAutomationService) {}
 
   /**
    * Create automation
    */
-  @POST('/', {
-    preHandler: [authenticate, requireTenant]
-  })
   async createAutomation(
     request: FastifyRequest<{
-      Body: z.infer<typeof createAutomationSchema>
+      Body: z.infer<typeof createAutomationSchema>;
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ): Promise<void> {
     const tenantId = getTenantId(request);
     const data = createAutomationSchema.parse(request.body);
@@ -44,44 +35,38 @@ export class EmailAutomationController {
 
     reply.code(201).send({
       success: true,
-      data: automation
+      data: automation,
     });
   }
 
   /**
    * Get automations
    */
-  @GET('/', {
-    preHandler: [authenticate, requireTenant]
-  })
   async getAutomations(
     request: FastifyRequest<{
-      Querystring: z.infer<typeof automationFiltersSchema>
+      Querystring: z.infer<typeof automationFiltersSchema>;
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ): Promise<void> {
     const tenantId = getTenantId(request);
     const filters = automationFiltersSchema.parse(request.query);
 
-    const result = await this.automationService.listAutomations(tenantId, filters);
+    const result = await this.automationService.getAutomations(tenantId, filters);
 
     reply.send({
       success: true,
-      data: result
+      data: result,
     });
   }
 
   /**
    * Get single automation
    */
-  @GET('/:automationId', {
-    preHandler: [authenticate, requireTenant]
-  })
   async getAutomation(
     request: FastifyRequest<{
-      Params: { automationId: string }
+      Params: { automationId: string };
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ): Promise<void> {
     const tenantId = getTenantId(request);
     const { automationId } = request.params;
@@ -90,214 +75,199 @@ export class EmailAutomationController {
 
     reply.send({
       success: true,
-      data: automation
+      data: automation,
     });
   }
 
   /**
    * Update automation
    */
-  @PUT('/:automationId', {
-    preHandler: [authenticate, requireTenant]
-  })
   async updateAutomation(
     request: FastifyRequest<{
-      Params: { automationId: string },
-      Body: z.infer<typeof updateAutomationSchema>
+      Params: { automationId: string };
+      Body: z.infer<typeof updateAutomationSchema>;
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ): Promise<void> {
     const tenantId = getTenantId(request);
     const { automationId } = request.params;
     const data = updateAutomationSchema.parse(request.body);
 
-    const automation = await this.automationService.updateAutomation(
-      tenantId,
-      automationId,
-      data
-    );
+    const automation = await this.automationService.updateAutomation(tenantId, automationId, data);
 
     reply.send({
       success: true,
-      data: automation
+      data: automation,
     });
+  }
+
+  /**
+   * Delete automation
+   */
+  async deleteAutomation(
+    request: FastifyRequest<{
+      Params: { automationId: string };
+    }>,
+    reply: FastifyReply,
+  ): Promise<void> {
+    const tenantId = getTenantId(request);
+    const { automationId } = request.params;
+
+    await this.automationService.deleteAutomation(tenantId, automationId);
+
+    reply.code(204).send();
   }
 
   /**
    * Activate automation
    */
-  @PATCH('/:automationId/activate', {
-    preHandler: [authenticate, requireTenant]
-  })
   async activateAutomation(
     request: FastifyRequest<{
-      Params: { automationId: string }
+      Params: { automationId: string };
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ): Promise<void> {
     const tenantId = getTenantId(request);
     const { automationId } = request.params;
 
-    await this.automationService.activateAutomation(tenantId, automationId);
+    const automation = await this.automationService.activateAutomation(tenantId, automationId);
 
     reply.send({
       success: true,
-      message: 'Automation activated successfully'
+      data: automation,
     });
   }
 
   /**
    * Deactivate automation
    */
-  @PATCH('/:automationId/deactivate', {
-    preHandler: [authenticate, requireTenant]
-  })
   async deactivateAutomation(
     request: FastifyRequest<{
-      Params: { automationId: string }
+      Params: { automationId: string };
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ): Promise<void> {
     const tenantId = getTenantId(request);
     const { automationId } = request.params;
 
-    await this.automationService.deactivateAutomation(tenantId, automationId);
+    const automation = await this.automationService.deactivateAutomation(tenantId, automationId);
 
     reply.send({
       success: true,
-      message: 'Automation deactivated successfully'
+      data: automation,
     });
   }
 
   /**
    * Add automation step
    */
-  @POST('/:automationId/steps', {
-    preHandler: [authenticate, requireTenant]
-  })
-  async addStep(
+  async addAutomationStep(
     request: FastifyRequest<{
-      Params: { automationId: string },
-      Body: z.infer<typeof createAutomationStepSchema>
+      Params: { automationId: string };
+      Body: z.infer<typeof createAutomationStepSchema>;
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ): Promise<void> {
     const tenantId = getTenantId(request);
     const { automationId } = request.params;
     const data = createAutomationStepSchema.parse(request.body);
 
-    const step = await this.automationService.addStep(
-      tenantId,
-      automationId,
-      data
-    );
+    const step = await this.automationService.addAutomationStep(tenantId, automationId, data);
 
-    reply.send({
+    reply.code(201).send({
       success: true,
-      data: step
+      data: step,
     });
   }
 
   /**
    * Update automation step
    */
-  @PUT('/:automationId/steps/:stepId', {
-    preHandler: [authenticate, requireTenant]
-  })
-  async updateStep(
+  async updateAutomationStep(
     request: FastifyRequest<{
-      Params: { automationId: string, stepId: string },
-      Body: Partial<z.infer<typeof createAutomationStepSchema>>
+      Params: { automationId: string; stepId: string };
+      Body: z.infer<typeof createAutomationStepSchema>;
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ): Promise<void> {
     const tenantId = getTenantId(request);
     const { automationId, stepId } = request.params;
-    const data = request.body;
+    const data = createAutomationStepSchema.parse(request.body);
 
-    const step = await this.automationService.updateStep(
-      tenantId,
-      automationId,
-      stepId,
-      data
-    );
+    const step = await this.automationService.updateAutomationStep(tenantId, automationId, stepId, data);
 
     reply.send({
       success: true,
-      data: step
+      data: step,
     });
   }
 
   /**
    * Delete automation step
    */
-  @DELETE('/:automationId/steps/:stepId', {
-    preHandler: [authenticate, requireTenant]
-  })
-  async deleteStep(
+  async deleteAutomationStep(
     request: FastifyRequest<{
-      Params: { automationId: string, stepId: string }
+      Params: { automationId: string; stepId: string };
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ): Promise<void> {
     const tenantId = getTenantId(request);
     const { automationId, stepId } = request.params;
 
-    await this.automationService.deleteStep(tenantId, automationId, stepId);
+    await this.automationService.deleteAutomationStep(tenantId, automationId, stepId);
+
+    reply.code(204).send();
+  }
+
+  /**
+   * Enroll subscriber in automation
+   */
+  async enrollSubscriber(
+    request: FastifyRequest<{
+      Params: { automationId: string };
+      Body: z.infer<typeof enrollSubscriberSchema>;
+    }>,
+    reply: FastifyReply,
+  ): Promise<void> {
+    const tenantId = getTenantId(request);
+    const { automationId } = request.params;
+    const data = enrollSubscriberSchema.parse(request.body);
+
+    await this.automationService.enrollSubscriber(tenantId, automationId, data.subscriberId, data.metadata);
 
     reply.send({
       success: true,
-      message: 'Step deleted successfully'
+      message: 'Subscriber enrolled successfully',
     });
   }
 
   /**
-   * Enroll subscriber manually
+   * Get automation analytics
    */
-  @POST('/:automationId/enroll', {
-    preHandler: [authenticate, requireTenant]
-  })
-  async enrollSubscriber(
+  async getAutomationAnalytics(
     request: FastifyRequest<{
-      Params: { automationId: string },
-      Body: z.infer<typeof enrollSubscriberSchema>
+      Params: { automationId: string };
+      Querystring: {
+        startDate?: string;
+        endDate?: string;
+      };
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ): Promise<void> {
+    const tenantId = getTenantId(request);
     const { automationId } = request.params;
-    const { subscriberId, metadata } = enrollSubscriberSchema.parse(request.body);
+    const { startDate, endDate } = request.query;
 
-    const enrollment = await this.automationService.enrollSubscriber(
+    const analytics = await this.automationService.getAutomationAnalytics(
+      tenantId,
       automationId,
-      subscriberId,
-      metadata
+      startDate ? new Date(startDate) : undefined,
+      endDate ? new Date(endDate) : undefined,
     );
 
     reply.send({
       success: true,
-      data: enrollment
-    });
-  }
-
-  /**
-   * Cancel enrollment
-   */
-  @DELETE('/enrollments/:enrollmentId', {
-    preHandler: [authenticate, requireTenant]
-  })
-  async cancelEnrollment(
-    request: FastifyRequest<{
-      Params: { enrollmentId: string }
-    }>,
-    reply: FastifyReply
-  ): Promise<void> {
-    const { enrollmentId } = request.params;
-
-    await this.automationService.cancelEnrollment(enrollmentId);
-
-    reply.send({
-      success: true,
-      message: 'Enrollment cancelled successfully'
+      data: analytics,
     });
   }
 }

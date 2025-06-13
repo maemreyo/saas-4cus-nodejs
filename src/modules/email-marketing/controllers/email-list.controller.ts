@@ -1,11 +1,7 @@
-// Controller for email list management
-
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { Controller, GET, POST, PUT, DELETE } from '@/shared/decorators';
+import { Injectable } from '@/shared/decorators';
 import { EmailListService } from '../services/email-list.service';
-import { authenticate } from '@/shared/middleware/auth.middleware';
-import { requireTenant } from '@/modules/tenant/middleware/tenant.middleware';
-import { getTenantId } from '@/modules/tenant/tenant.context';
+import { getTenantId } from '@/modules/tenant/tenant.utils';
 import {
   createEmailListSchema,
   updateEmailListSchema,
@@ -24,7 +20,7 @@ const cleanListSchema = z.object({
   removeBounced: z.boolean().optional()
 });
 
-@Controller('/api/email-marketing/lists')
+@Injectable()
 export class EmailListController {
   constructor(
     private readonly listService: EmailListService
@@ -33,9 +29,6 @@ export class EmailListController {
   /**
    * Create email list
    */
-  @POST('/', {
-    preHandler: [authenticate, requireTenant]
-  })
   async createList(
     request: FastifyRequest<{
       Body: z.infer<typeof createEmailListSchema>
@@ -56,9 +49,6 @@ export class EmailListController {
   /**
    * Get email lists
    */
-  @GET('/', {
-    preHandler: [authenticate, requireTenant]
-  })
   async getLists(
     request: FastifyRequest<{
       Querystring: z.infer<typeof listFiltersSchema>
@@ -68,26 +58,17 @@ export class EmailListController {
     const tenantId = getTenantId(request);
     const filters = listFiltersSchema.parse(request.query);
 
-    // Implementation would need to add list filtering to service
-    const lists = await this.listService.getListSegments(tenantId); // Placeholder
+    const result = await this.listService.getLists(tenantId, filters);
 
     reply.send({
       success: true,
-      data: {
-        lists,
-        total: lists.length,
-        page: filters.page,
-        pages: Math.ceil(lists.length / filters.limit)
-      }
+      data: result
     });
   }
 
   /**
    * Get single list
    */
-  @GET('/:listId', {
-    preHandler: [authenticate, requireTenant]
-  })
   async getList(
     request: FastifyRequest<{
       Params: { listId: string }
@@ -108,12 +89,9 @@ export class EmailListController {
   /**
    * Update list
    */
-  @PUT('/:listId', {
-    preHandler: [authenticate, requireTenant]
-  })
   async updateList(
     request: FastifyRequest<{
-      Params: { listId: string },
+      Params: { listId: string }
       Body: z.infer<typeof updateEmailListSchema>
     }>,
     reply: FastifyReply
@@ -131,79 +109,91 @@ export class EmailListController {
   }
 
   /**
-   * Subscribe to list (public endpoint)
+   * Delete list
    */
-  @POST('/:listId/subscribe', {
-    preHandler: []
-  })
-  async subscribe(
+  async deleteList(
     request: FastifyRequest<{
-      Params: { listId: string },
-      Body: z.infer<typeof subscribeSchema>
+      Params: { listId: string }
     }>,
     reply: FastifyReply
   ): Promise<void> {
+    const tenantId = getTenantId(request);
     const { listId } = request.params;
-    const data = subscribeSchema.parse(request.body);
 
-    const subscriber = await this.listService.subscribe(
-      listId,
-      data,
-      request.headers['x-forwarded-for'] as string || 'web'
-    );
+    await this.listService.deleteList(tenantId, listId);
+
+    reply.code(204).send();
+  }
+
+  /**
+   * Get list subscribers
+   */
+  async getListSubscribers(
+    request: FastifyRequest<{
+      Params: { listId: string }
+      Querystring: {
+        page?: number;
+        limit?: number;
+        status?: 'subscribed' | 'unsubscribed' | 'pending';
+        search?: string;
+      }
+    }>,
+    reply: FastifyReply
+  ): Promise<void> {
+    const tenantId = getTenantId(request);
+    const { listId } = request.params;
+    const { page = 1, limit = 50, status, search } = request.query;
+
+    const result = await this.listService.getListSubscribers(tenantId, listId, {
+      page,
+      limit,
+      status,
+      search
+    });
 
     reply.send({
       success: true,
-      message: 'Successfully subscribed. Please check your email for confirmation.',
-      data: {
-        id: subscriber.id,
-        requiresConfirmation: !subscriber.confirmed
-      }
+      data: result
     });
   }
 
   /**
-   * Confirm subscription (public endpoint)
+   * Subscribe to list
    */
-  @GET('/confirm/:token', {
-    preHandler: []
-  })
-  async confirmSubscription(
+  async subscribe(
     request: FastifyRequest<{
-      Params: { token: string }
+      Params: { listId: string }
+      Body: z.infer<typeof subscribeSchema>
     }>,
     reply: FastifyReply
   ): Promise<void> {
-    const { token } = request.params;
+    const tenantId = getTenantId(request);
+    const { listId } = request.params;
+    const data = subscribeSchema.parse(request.body);
 
-    const result = await this.listService.confirmSubscription(token);
+    const subscriber = await this.listService.subscribe(tenantId, listId, data);
 
-    // Redirect to confirmation page if configured
-    if (result.list.confirmationPageUrl) {
-      reply.redirect(302, result.list.confirmationPageUrl);
-    } else {
-      reply.send({
-        success: true,
-        message: 'Email confirmed successfully'
-      });
-    }
+    reply.code(201).send({
+      success: true,
+      data: subscriber
+    });
   }
 
   /**
-   * Unsubscribe (public endpoint)
+   * Unsubscribe from list
    */
-  @POST('/unsubscribe', {
-    preHandler: []
-  })
   async unsubscribe(
     request: FastifyRequest<{
+      Params: { listId: string }
       Body: z.infer<typeof unsubscribeSchema>
     }>,
     reply: FastifyReply
   ): Promise<void> {
+    const tenantId = getTenantId(request);
+    const { listId } = request.params;
     const data = unsubscribeSchema.parse(request.body);
 
-    await this.listService.unsubscribe(data);
+    await this.listService.unsubscribe(tenantId, listId, data.email, data.reason);
 
     reply.send({
       success: true,
@@ -214,12 +204,9 @@ export class EmailListController {
   /**
    * Import subscribers
    */
-  @POST('/:listId/import', {
-    preHandler: [authenticate, requireTenant]
-  })
   async importSubscribers(
     request: FastifyRequest<{
-      Params: { listId: string },
+      Params: { listId: string }
       Body: z.infer<typeof importSubscribersSchema>
     }>,
     reply: FastifyReply
@@ -228,11 +215,7 @@ export class EmailListController {
     const { listId } = request.params;
     const data = importSubscribersSchema.parse(request.body);
 
-    const result = await this.listService.importSubscribers(
-      tenantId,
-      listId,
-      data
-    );
+    const result = await this.listService.importSubscribers(tenantId, listId, data);
 
     reply.send({
       success: true,
@@ -243,20 +226,18 @@ export class EmailListController {
   /**
    * Update subscriber
    */
-  @PUT('/:listId/subscribers/:subscriberId', {
-    preHandler: [authenticate, requireTenant]
-  })
   async updateSubscriber(
     request: FastifyRequest<{
-      Params: { listId: string, subscriberId: string },
+      Params: { listId: string; subscriberId: string }
       Body: z.infer<typeof updateSubscriberSchema>
     }>,
     reply: FastifyReply
   ): Promise<void> {
-    const { subscriberId } = request.params;
+    const tenantId = getTenantId(request);
+    const { listId, subscriberId } = request.params;
     const data = updateSubscriberSchema.parse(request.body);
 
-    const subscriber = await this.listService.updateSubscriber(subscriberId, data);
+    const subscriber = await this.listService.updateSubscriber(tenantId, listId, subscriberId, data);
 
     reply.send({
       success: true,
@@ -265,14 +246,28 @@ export class EmailListController {
   }
 
   /**
-   * Clean list
+   * Remove subscriber from list
    */
-  @POST('/:listId/clean', {
-    preHandler: [authenticate, requireTenant]
-  })
+  async removeSubscriber(
+    request: FastifyRequest<{
+      Params: { listId: string; subscriberId: string }
+    }>,
+    reply: FastifyReply
+  ): Promise<void> {
+    const tenantId = getTenantId(request);
+    const { listId, subscriberId } = request.params;
+
+    await this.listService.removeSubscriber(tenantId, listId, subscriberId);
+
+    reply.code(204).send();
+  }
+
+  /**
+   * Clean list (remove inactive, bounced, etc.)
+   */
   async cleanList(
     request: FastifyRequest<{
-      Params: { listId: string },
+      Params: { listId: string }
       Body: z.infer<typeof cleanListSchema>
     }>,
     reply: FastifyReply
@@ -290,24 +285,60 @@ export class EmailListController {
   }
 
   /**
-   * Get list stats
+   * Get list analytics
    */
-  @GET('/:listId/stats', {
-    preHandler: [authenticate, requireTenant]
-  })
-  async getListStats(
+  async getListAnalytics(
     request: FastifyRequest<{
       Params: { listId: string }
+      Querystring: {
+        startDate?: string;
+        endDate?: string;
+      }
     }>,
     reply: FastifyReply
   ): Promise<void> {
+    const tenantId = getTenantId(request);
     const { listId } = request.params;
+    const { startDate, endDate } = request.query;
 
-    const stats = await this.listService.getListStats(listId);
+    const analytics = await this.listService.getListAnalytics(
+      tenantId,
+      listId,
+      startDate ? new Date(startDate) : undefined,
+      endDate ? new Date(endDate) : undefined
+    );
 
     reply.send({
       success: true,
-      data: stats
+      data: analytics
     });
+  }
+
+  /**
+   * Export list subscribers
+   */
+  async exportSubscribers(
+    request: FastifyRequest<{
+      Params: { listId: string }
+      Querystring: {
+        format?: 'csv' | 'json';
+        status?: 'subscribed' | 'unsubscribed' | 'all';
+      }
+    }>,
+    reply: FastifyReply
+  ): Promise<void> {
+    const tenantId = getTenantId(request);
+    const { listId } = request.params;
+    const { format = 'csv', status = 'subscribed' } = request.query;
+
+    const data = await this.listService.exportSubscribers(tenantId, listId, { format, status });
+
+    const filename = `list-${listId}-subscribers.${format}`;
+    const contentType = format === 'csv' ? 'text/csv' : 'application/json';
+
+    reply
+      .header('Content-Type', contentType)
+      .header('Content-Disposition', `attachment; filename="${filename}"`)
+      .send(data);
   }
 }

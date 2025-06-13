@@ -1,5 +1,6 @@
 // Configuration for email marketing module
 
+import { logger } from '@/shared/logger';
 import { z } from 'zod';
 
 export const emailMarketingConfigSchema = z.object({

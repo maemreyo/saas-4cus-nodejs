@@ -1,472 +1,77 @@
-// Routes registration for email marketing module
+// FIXED: Main routes registration for email marketing module using proper Fastify pattern
 
 import { FastifyInstance } from 'fastify';
-import { container } from '@/infrastructure/container';
+import { Container } from 'typedi';
+
+// Import sub-route modules
+import emailCampaignRoutes from './routes/email-campaign.route';
+import emailAutomationRoutes from './routes/email-automation.route';
+import emailListRoutes from './routes/email-list.route';
+import emailTemplateRoutes from './routes/email-template.route';
+import emailTrackingRoutes from './routes/email-tracking.route';
+import emailWebhookRoutes from './routes/email-webhook.route';
+import emailSegmentRoutes from './routes/email-segment.route';
+
+// Import main controller
 import { EmailMarketingController } from './controllers/email-marketing.controller';
-import { EmailListController } from './controllers/email-list.controller';
-import { EmailCampaignController } from './controllers/email-campaign.controller';
-import { EmailAutomationController } from './controllers/email-automation.controller';
-import { EmailTemplateController } from './controllers/email-template.controller';
-import { EmailTrackingController } from './controllers/email-tracking.controller';
-import { EmailSegmentController } from './controllers/email-segment.controller';
-import { EmailWebhookController } from './controllers/email-webhook.controller';
-import {
-  requireEmailMarketing,
-  emailSendRateLimit,
-  checkDailyEmailQuota,
-  trackEmailUsage,
-  validateCampaignOwnership,
-  validateListOwnership,
-  validateTemplateOwnership,
-  validateAutomationOwnership,
-  checkCampaignSendPermission,
-  validateEmailContent,
-  checkSubscriberLimit,
-  validateBulkOperation,
-  antiSpamCheck,
-  validateEmailAddress,
-} from './middleware/email-marketing.middleware';
-
-export async function registerEmailMarketingRoutes(app: FastifyInstance): Promise<void> {
-  // Add global email marketing middleware
-  app.addHook('preHandler', requireEmailMarketing);
-
-  // Register main controller
-  const emailMarketingController = container.resolve(EmailMarketingController);
-  emailMarketingController.register(app);
-
-  // Register list controller with middleware
-  const listController = container.resolve(EmailListController);
-  listController.register(app);
-
-  // Add list-specific middleware
-  app.addHook('preHandler', async (request, reply) => {
-    // Apply to list import endpoints
-    if (request.routerPath?.includes('/lists/:listId/import')) {
-      await validateBulkOperation(10000)(request, reply);
-      await checkSubscriberLimit(request, reply);
-    }
-  });
-
-  // Register campaign controller with middleware
-  const campaignController = container.resolve(EmailCampaignController);
-  campaignController.register(app);
-
-  // Add campaign-specific middleware
-  app.addHook('preHandler', async (request, reply) => {
-    // Apply to campaign send endpoints
-    if (request.routerPath?.includes('/campaigns/:campaignId/send')) {
-      await validateCampaignOwnership()(request, reply);
-      await checkCampaignSendPermission(request, reply);
-      await emailSendRateLimit()(request, reply);
-      await checkDailyEmailQuota(request, reply);
-      await trackEmailUsage(request, reply);
-    }
-
-    // Apply to campaign update endpoints
-    if (request.routerPath?.includes('/campaigns/:campaignId') && ['PUT', 'PATCH', 'DELETE'].includes(request.method)) {
-      await validateCampaignOwnership()(request, reply);
-    }
-  });
-
-  // Register automation controller
-  const automationController = container.resolve(EmailAutomationController);
-  automationController.register(app);
-
-  // Add automation-specific middleware
-  app.addHook('preHandler', async (request, reply) => {
-    if (request.routerPath?.includes('/automations/:automationId')) {
-      await validateAutomationOwnership()(request, reply);
-    }
-  });
-
-  // Register template controller
-  const templateController = container.resolve(EmailTemplateController);
-  templateController.register(app);
-
-  // Add template-specific middleware
-  app.addHook('preHandler', async (request, reply) => {
-    if (request.routerPath?.includes('/templates/:templateId')) {
-      await validateTemplateOwnership()(request, reply);
-    }
-  });
-
-  // Register tracking controller (public endpoints)
-  const trackingController = container.resolve(EmailTrackingController);
-  trackingController.register(app);
-
-  // Register webhook controller (public endpoints)
-  const webhookController = container.resolve(EmailWebhookController);
-  webhookController.register(app);
-
-  // Register segment controller
-  const segmentController = container.resolve(EmailSegmentController);
-  segmentController.register(app);
-
-  // Public endpoints middleware
-  app.addHook('preHandler', async (request, reply) => {
-    // Anti-spam for public subscription endpoints
-    if (request.routerPath?.includes('/subscribe') && request.method === 'POST') {
-      await antiSpamCheck(5, 3600000)(request, reply); // 5 attempts per hour
-      await validateEmailAddress()(request, reply);
-    }
-
-    // Anti-spam for unsubscribe
-    if (request.routerPath?.includes('/unsubscribe') && request.method === 'POST') {
-      await antiSpamCheck(10, 3600000)(request, reply); // 10 attempts per hour
-      await validateEmailAddress()(request, reply);
-    }
-  });
-
-  // Validate email content for all endpoints that accept it
-  app.addHook('preHandler', async (request, reply) => {
-    if (
-      ['POST', 'PUT', 'PATCH'].includes(request.method) &&
-      (request.routerPath?.includes('/campaigns') ||
-        request.routerPath?.includes('/templates') ||
-        request.routerPath?.includes('/automations'))
-    ) {
-      await validateEmailContent()(request, reply);
-    }
-  });
-}
-
-// src/modules/email-marketing/controllers/email-tracking.controller.ts
-// Controller for email tracking endpoints
-
-import { FastifyRequest, FastifyReply } from 'fastify';
-import { Controller, GET } from '@/shared/decorators';
-import { EmailTrackingService } from '../services/email-tracking.service';
-
-@Controller('/track')
-export class EmailTrackingController {
-  constructor(private readonly trackingService: EmailTrackingService) {}
-
-  /**
-   * Track email open
-   */
-  @GET('/pixel/:encoded.gif')
-  async trackOpen(
-    request: FastifyRequest<{
-      Params: { encoded: string };
-    }>,
-    reply: FastifyReply,
-  ): Promise<void> {
-    const { encoded } = request.params;
-
-    await this.trackingService.trackOpen(encoded, {
-      userAgent: request.headers['user-agent'],
-      ipAddress: request.ip,
-    });
-
-    // Return 1x1 transparent GIF
-    const pixel = Buffer.from('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'base64');
-
-    reply.type('image/gif').header('Cache-Control', 'no-store, no-cache, must-revalidate, private').send(pixel);
-  }
-
-  /**
-   * Track link click
-   */
-  @GET('/click/:encoded')
-  async trackClick(
-    request: FastifyRequest<{
-      Params: { encoded: string };
-    }>,
-    reply: FastifyReply,
-  ): Promise<void> {
-    const { encoded } = request.params;
-
-    const originalUrl = await this.trackingService.trackClick(encoded, {
-      userAgent: request.headers['user-agent'],
-      ipAddress: request.ip,
-    });
-
-    if (originalUrl) {
-      reply.redirect(302, originalUrl);
-    } else {
-      reply.code(404).send({ error: 'Invalid tracking link' });
-    }
-  }
-}
-
-// src/modules/email-marketing/controllers/email-segment.controller.ts
-// Controller for email segmentation
-
-import { FastifyRequest, FastifyReply } from 'fastify';
-import { Controller, GET, POST, PUT, DELETE } from '@/shared/decorators';
-import { EmailSegmentService } from '../services/email-segment.service';
-import { authenticate } from '@/shared/middleware/auth.middleware';
+import { requireAuth } from '@/modules/auth/middleware/auth.middleware';
 import { requireTenant } from '@/modules/tenant/middleware/tenant.middleware';
-import { createSegmentSchema, updateSegmentSchema, testSegmentSchema } from '../dto/email-segment.dto';
-import { z } from 'zod';
 
-@Controller('/api/email-marketing/lists/:listId/segments')
-export class EmailSegmentController {
-  constructor(private readonly segmentService: EmailSegmentService) {}
+export default async function emailMarketingRoutes(fastify: FastifyInstance) {
+  // Register main email marketing controller
+  const emailMarketingController = Container.get(EmailMarketingController);
 
-  /**
-   * Create segment
-   */
-  @POST('/', {
-    preHandler: [authenticate, requireTenant],
-  })
-  async createSegment(
-    request: FastifyRequest<{
-      Params: { listId: string };
-      Body: z.infer<typeof createSegmentSchema>;
-    }>,
-    reply: FastifyReply,
-  ): Promise<void> {
-    const { listId } = request.params;
-    const data = createSegmentSchema.parse(request.body);
+  // All routes require authentication and tenant context
+  fastify.addHook('onRequest', async (request, reply) => {
+    await requireAuth(request, reply);
+    await requireTenant(request, reply);
+  });
 
-    const segment = await this.segmentService.createSegment(listId, data);
+  // Main dashboard and overview endpoints
+  fastify.get('/dashboard', emailMarketingController.getDashboard.bind(emailMarketingController));
+  fastify.get('/stats', emailMarketingController.getStats.bind(emailMarketingController));
+  fastify.get('/health', emailMarketingController.getHealthStatus.bind(emailMarketingController));
+  fastify.post('/export', emailMarketingController.exportData.bind(emailMarketingController));
 
-    reply.code(201).send({
-      success: true,
-      data: segment,
-    });
-  }
+  // Utility endpoints
+  fastify.post('/test-email', emailMarketingController.testEmail.bind(emailMarketingController));
+  fastify.post('/preview-email', emailMarketingController.previewEmail.bind(emailMarketingController));
+  fastify.post('/validate-content', emailMarketingController.validateContent.bind(emailMarketingController));
 
-  /**
-   * Get segments
-   */
-  @GET('/', {
-    preHandler: [authenticate, requireTenant],
-  })
-  async getSegments(
-    request: FastifyRequest<{
-      Params: { listId: string };
-    }>,
-    reply: FastifyReply,
-  ): Promise<void> {
-    const { listId } = request.params;
+  // Analytics endpoints
+  fastify.get('/delivery-rates', emailMarketingController.getDeliveryRates.bind(emailMarketingController));
+  fastify.get('/engagement', emailMarketingController.getEngagementMetrics.bind(emailMarketingController));
+  fastify.get('/reputation', emailMarketingController.getReputationScore.bind(emailMarketingController));
 
-    const segments = await this.segmentService.getListSegments(listId);
+  // Sender domain management
+  fastify.get('/sender-domains', emailMarketingController.getSenderDomains.bind(emailMarketingController));
+  fastify.post(
+    '/sender-domains/:domain/verify',
+    emailMarketingController.verifySenderDomain.bind(emailMarketingController),
+  );
 
-    reply.send({
-      success: true,
-      data: segments,
-    });
-  }
+  // Suppression list management
+  fastify.get('/suppression-list', emailMarketingController.getSuppressionList.bind(emailMarketingController));
+  fastify.post('/suppression-list', emailMarketingController.addToSuppressionList.bind(emailMarketingController));
+  fastify.delete(
+    '/suppression-list/:email',
+    emailMarketingController.removeFromSuppressionList.bind(emailMarketingController),
+  );
 
-  /**
-   * Get segment
-   */
-  @GET('/:segmentId', {
-    preHandler: [authenticate, requireTenant],
-  })
-  async getSegment(
-    request: FastifyRequest<{
-      Params: { listId: string; segmentId: string };
-    }>,
-    reply: FastifyReply,
-  ): Promise<void> {
-    const { segmentId } = request.params;
+  // Usage and limits
+  fastify.get('/usage-limits', emailMarketingController.getUsageLimits.bind(emailMarketingController));
+  fastify.get('/usage', emailMarketingController.getCurrentUsage.bind(emailMarketingController));
 
-    const segment = await this.segmentService.getSegment(segmentId);
+  // Register sub-modules
+  await fastify.register(emailCampaignRoutes, { prefix: '/campaigns' });
+  await fastify.register(emailAutomationRoutes, { prefix: '/automations' });
+  await fastify.register(emailListRoutes, { prefix: '/lists' });
+  await fastify.register(emailTemplateRoutes, { prefix: '/templates' });
+  await fastify.register(emailTrackingRoutes, { prefix: '/track' });
+  await fastify.register(emailWebhookRoutes, { prefix: '/webhooks' });
 
-    reply.send({
-      success: true,
-      data: segment,
-    });
-  }
-
-  /**
-   * Update segment
-   */
-  @PUT('/:segmentId', {
-    preHandler: [authenticate, requireTenant],
-  })
-  async updateSegment(
-    request: FastifyRequest<{
-      Params: { listId: string; segmentId: string };
-      Body: z.infer<typeof updateSegmentSchema>;
-    }>,
-    reply: FastifyReply,
-  ): Promise<void> {
-    const { segmentId } = request.params;
-    const data = updateSegmentSchema.parse(request.body);
-
-    const segment = await this.segmentService.updateSegment(segmentId, data);
-
-    reply.send({
-      success: true,
-      data: segment,
-    });
-  }
-
-  /**
-   * Delete segment
-   */
-  @DELETE('/:segmentId', {
-    preHandler: [authenticate, requireTenant],
-  })
-  async deleteSegment(
-    request: FastifyRequest<{
-      Params: { listId: string; segmentId: string };
-    }>,
-    reply: FastifyReply,
-  ): Promise<void> {
-    const { segmentId } = request.params;
-
-    await this.segmentService.deleteSegment(segmentId);
-
-    reply.send({
-      success: true,
-      message: 'Segment deleted successfully',
-    });
-  }
-
-  /**
-   * Test segment
-   */
-  @POST('/test', {
-    preHandler: [authenticate, requireTenant],
-  })
-  async testSegment(
-    request: FastifyRequest<{
-      Params: { listId: string };
-      Body: z.infer<typeof testSegmentSchema>;
-    }>,
-    reply: FastifyReply,
-  ): Promise<void> {
-    const { listId } = request.params;
-    const data = testSegmentSchema.parse(request.body);
-
-    const result = await this.segmentService.testSegment(listId, data);
-
-    reply.send({
-      success: true,
-      data: result,
-    });
-  }
-
-  /**
-   * Refresh segment
-   */
-  @POST('/:segmentId/refresh', {
-    preHandler: [authenticate, requireTenant],
-  })
-  async refreshSegment(
-    request: FastifyRequest<{
-      Params: { listId: string; segmentId: string };
-    }>,
-    reply: FastifyReply,
-  ): Promise<void> {
-    const { segmentId } = request.params;
-
-    const segment = await this.segmentService.refreshSegment(segmentId);
-
-    reply.send({
-      success: true,
-      data: segment,
-    });
-  }
-}
-
-// src/modules/email-marketing/events/email-marketing.events.ts
-// Event definitions for email marketing module
-
-export const EmailMarketingEvents = {
-  // List events
-  LIST_CREATED: 'email.list.created',
-  LIST_UPDATED: 'email.list.updated',
-  LIST_DELETED: 'email.list.deleted',
-  LIST_CLEANED: 'email.list.cleaned',
-
-  // Subscriber events
-  SUBSCRIBER_ADDED: 'email.subscriber.added',
-  SUBSCRIBER_CONFIRMED: 'email.subscriber.confirmed',
-  SUBSCRIBER_UPDATED: 'email.subscriber.updated',
-  SUBSCRIBER_UNSUBSCRIBED: 'email.subscriber.unsubscribed',
-  SUBSCRIBERS_IMPORTED: 'email.subscribers.imported',
-
-  // Campaign events
-  CAMPAIGN_CREATED: 'email.campaign.created',
-  CAMPAIGN_UPDATED: 'email.campaign.updated',
-  CAMPAIGN_DELETED: 'email.campaign.deleted',
-  CAMPAIGN_SCHEDULED: 'email.campaign.scheduled',
-  CAMPAIGN_SENDING: 'email.campaign.sending',
-  CAMPAIGN_SENT: 'email.campaign.sent',
-  CAMPAIGN_PAUSED: 'email.campaign.paused',
-  CAMPAIGN_RESUMED: 'email.campaign.resumed',
-  CAMPAIGN_CANCELLED: 'email.campaign.cancelled',
-  CAMPAIGN_COMPLETED: 'email.campaign.completed',
-  CAMPAIGN_DUPLICATED: 'email.campaign.duplicated',
-
-  // A/B Testing events
-  ABTEST_CREATED: 'email.abtest.created',
-  ABTEST_WINNER: 'email.abtest.winner',
-  ABTEST_CONTROL_SENDING: 'email.abtest.control.sending',
-
-  // Automation events
-  AUTOMATION_CREATED: 'email.automation.created',
-  AUTOMATION_UPDATED: 'email.automation.updated',
-  AUTOMATION_ACTIVATED: 'email.automation.activated',
-  AUTOMATION_DEACTIVATED: 'email.automation.deactivated',
-  AUTOMATION_ENROLLED: 'email.automation.enrolled',
-  AUTOMATION_COMPLETED: 'email.automation.completed',
-  AUTOMATION_CANCELLED: 'email.automation.cancelled',
-  AUTOMATION_STEP_ADDED: 'email.automation.step.added',
-  AUTOMATION_STEP_SENT: 'email.automation.step.sent',
-
-  // Template events
-  TEMPLATE_CREATED: 'email.template.created',
-  TEMPLATE_UPDATED: 'email.template.updated',
-  TEMPLATE_DELETED: 'email.template.deleted',
-  TEMPLATE_CLONED: 'email.template.cloned',
-  TEMPLATE_ARCHIVED: 'email.template.archived',
-
-  // Segment events
-  SEGMENT_CREATED: 'email.segment.created',
-  SEGMENT_UPDATED: 'email.segment.updated',
-  SEGMENT_DELETED: 'email.segment.deleted',
-  SEGMENT_SIZE_CHANGED: 'email.segment.size.changed',
-
-  // Tracking events
-  EMAIL_OPENED: 'email.opened',
-  EMAIL_CLICKED: 'email.clicked',
-  EMAIL_BOUNCED: 'email.bounced',
-  EMAIL_COMPLAINED: 'email.complained',
-
-  // Testing events
-  TEST_EMAIL_SENT: 'email.test.sent',
-} as const;
-
-export type EmailMarketingEventType = (typeof EmailMarketingEvents)[keyof typeof EmailMarketingEvents];
-
-// Event payload interfaces
-export interface EmailListCreatedEvent {
-  tenantId: string;
-  listId: string;
-  name: string;
-}
-
-export interface EmailSubscriberAddedEvent {
-  listId: string;
-  subscriberId: string;
-  email: string;
-  requiresConfirmation: boolean;
-}
-
-export interface EmailCampaignSendingEvent {
-  tenantId: string;
-  campaignId: string;
-  recipientCount: number;
-}
-
-export interface EmailAutomationEnrolledEvent {
-  automationId: string;
-  subscriberId: string;
-  enrollmentId: string;
-}
-
-export interface EmailABTestWinnerEvent {
-  campaignId: string;
-  variantId: string;
-  variantName: string;
-  metric: string;
-  improvement: number;
+  // Register segment routes under lists
+  await fastify.register(async (fastify) => {
+    await fastify.register(emailSegmentRoutes, { prefix: '/segments' });
+  }, { prefix: '/lists/:listId' });
 }

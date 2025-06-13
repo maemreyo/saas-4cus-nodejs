@@ -11,7 +11,7 @@ import { EmailTemplate, Prisma } from '@prisma/client';
 import { CreateTemplateDTO, UpdateTemplateDTO, TemplateFiltersDTO } from '../dto/email-template.dto';
 import * as handlebars from 'handlebars';
 import * as htmlMinifier from 'html-minifier-terser';
-import * as juice from 'juice';
+import juice from 'juice';
 
 export interface TemplateWithUsage extends EmailTemplate {
   _count?: {

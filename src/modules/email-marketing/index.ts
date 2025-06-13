@@ -14,7 +14,7 @@ import { EmailCampaignController } from './controllers/email-campaign.controller
 import { EmailAutomationController } from './controllers/email-automation.controller';
 import { EmailTemplateController } from './controllers/email-template.controller';
 import { EmailMarketingQueue } from './queues/email-marketing.queue';
-import { registerEmailMarketingRoutes } from './email-marketing.route';
+import { registerEmailMarketingRoutes } from './routes/email-marketing.route';
 import { EmailTrackingService } from './services/email-tracking.service';
 import { EmailDeliveryService } from './services/email-delivery.service';
 import { ABTestingService } from './services/ab-testing.service';

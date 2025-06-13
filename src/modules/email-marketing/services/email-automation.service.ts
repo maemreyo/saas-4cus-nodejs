@@ -11,6 +11,7 @@ import {
   EmailAutomationTrigger,
   EmailAutomationEnrollment,
   Prisma,
+  EmailAutomationStatus,
 } from '@prisma/client';
 import {
   CreateAutomationDTO,
@@ -373,7 +374,7 @@ export class EmailAutomationService {
       },
     });
 
-    if (existing && existing.status === 'active') {
+    if (existing && existing.status === EmailAutomationStatus.ACTIVE) {
       throw new AppError('Subscriber already enrolled in this automation', 409);
     }
 
@@ -387,11 +388,11 @@ export class EmailAutomationService {
       create: {
         automationId,
         subscriberId,
-        status: 'active',
+        status: EmailAutomationStatus.ACTIVE,
         metadata,
       },
       update: {
-        status: 'active',
+        status: EmailAutomationStatus.ACTIVE,
         enrolledAt: new Date(),
         completedAt: null,
         cancelledAt: null,
@@ -426,7 +427,7 @@ export class EmailAutomationService {
     const enrollment = await this.prisma.client.emailAutomationEnrollment.update({
       where: { id: enrollmentId },
       data: {
-        status: 'cancelled',
+        status: EmailAutomationStatus.CANCELLED,
         cancelledAt: new Date(),
       },
     });
@@ -460,7 +461,7 @@ export class EmailAutomationService {
       },
     });
 
-    if (!enrollment || enrollment.status !== 'active') {
+    if (!enrollment || enrollment.status !== EmailAutomationStatus.ACTIVE) {
       return;
     }
 
@@ -539,7 +540,7 @@ export class EmailAutomationService {
       where: { id: enrollmentId },
     });
 
-    if (!enrollment || enrollment.status !== 'active') {
+    if (!enrollment || enrollment.status !== EmailAutomationStatus.ACTIVE) {
       return;
     }
 

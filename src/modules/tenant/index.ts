@@ -11,6 +11,7 @@ export { TenantController } from './tenant.controller';
 export { TenantEvents } from './tenant.events';
 export * from './tenant.dto';
 export * from './middleware';
+export * from './tenant.utils'; // NEW: Export utility functions
 
 // Export routes
 export { default as tenantRoutes } from './tenant.route';

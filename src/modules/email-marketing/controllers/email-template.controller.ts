@@ -1,11 +1,7 @@
-// Controller for email template management
-
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { Controller, GET, POST, PUT, DELETE } from '@/shared/decorators';
+import { Injectable } from '@/shared/decorators';
 import { EmailTemplateService } from '../services/email-template.service';
-import { authenticate } from '@/shared/middleware/auth.middleware';
-import { requireTenant } from '@/modules/tenant/middleware/tenant.middleware';
-import { getTenantId } from '@/modules/tenant/tenant.context';
+import { getTenantId } from '@/modules/tenant/tenant.utils';
 import {
   createTemplateSchema,
   updateTemplateSchema,
@@ -22,7 +18,7 @@ const cloneTemplateSchema = z.object({
   name: z.string().optional()
 });
 
-@Controller('/api/email-marketing/templates')
+@Injectable()
 export class EmailTemplateController {
   constructor(
     private readonly templateService: EmailTemplateService
@@ -31,9 +27,6 @@ export class EmailTemplateController {
   /**
    * Create template
    */
-  @POST('/', {
-    preHandler: [authenticate, requireTenant]
-  })
   async createTemplate(
     request: FastifyRequest<{
       Body: z.infer<typeof createTemplateSchema>
@@ -54,9 +47,6 @@ export class EmailTemplateController {
   /**
    * Get templates
    */
-  @GET('/', {
-    preHandler: [authenticate, requireTenant]
-  })
   async getTemplates(
     request: FastifyRequest<{
       Querystring: z.infer<typeof templateFiltersSchema>
@@ -77,9 +67,6 @@ export class EmailTemplateController {
   /**
    * Get single template
    */
-  @GET('/:templateId', {
-    preHandler: [authenticate, requireTenant]
-  })
   async getTemplate(
     request: FastifyRequest<{
       Params: { templateId: string }
@@ -100,12 +87,9 @@ export class EmailTemplateController {
   /**
    * Update template
    */
-  @PUT('/:templateId', {
-    preHandler: [authenticate, requireTenant]
-  })
   async updateTemplate(
     request: FastifyRequest<{
-      Params: { templateId: string },
+      Params: { templateId: string }
       Body: z.infer<typeof updateTemplateSchema>
     }>,
     reply: FastifyReply
@@ -114,11 +98,7 @@ export class EmailTemplateController {
     const { templateId } = request.params;
     const data = updateTemplateSchema.parse(request.body);
 
-    const template = await this.templateService.updateTemplate(
-      tenantId,
-      templateId,
-      data
-    );
+    const template = await this.templateService.updateTemplate(tenantId, templateId, data);
 
     reply.send({
       success: true,
@@ -129,9 +109,6 @@ export class EmailTemplateController {
   /**
    * Delete template
    */
-  @DELETE('/:templateId', {
-    preHandler: [authenticate, requireTenant]
-  })
   async deleteTemplate(
     request: FastifyRequest<{
       Params: { templateId: string }
@@ -143,70 +120,34 @@ export class EmailTemplateController {
 
     await this.templateService.deleteTemplate(tenantId, templateId);
 
-    reply.send({
-      success: true,
-      message: 'Template deleted successfully'
-    });
+    reply.code(204).send();
   }
 
   /**
    * Clone template
    */
-  @POST('/:templateId/clone', {
-    preHandler: [authenticate, requireTenant]
-  })
   async cloneTemplate(
     request: FastifyRequest<{
-      Params: { templateId: string },
+      Params: { templateId: string }
       Body: z.infer<typeof cloneTemplateSchema>
     }>,
     reply: FastifyReply
   ): Promise<void> {
     const tenantId = getTenantId(request);
     const { templateId } = request.params;
-    const { name } = cloneTemplateSchema.parse(request.body);
+    const data = cloneTemplateSchema.parse(request.body);
 
-    const template = await this.templateService.cloneTemplate(
-      tenantId,
-      templateId,
-      name
-    );
+    const template = await this.templateService.cloneTemplate(tenantId, templateId, data.name);
 
-    reply.send({
+    reply.code(201).send({
       success: true,
       data: template
     });
   }
 
   /**
-   * Archive template
+   * Render template with data
    */
-  @PUT('/:templateId/archive', {
-    preHandler: [authenticate, requireTenant]
-  })
-  async archiveTemplate(
-    request: FastifyRequest<{
-      Params: { templateId: string }
-    }>,
-    reply: FastifyReply
-  ): Promise<void> {
-    const tenantId = getTenantId(request);
-    const { templateId } = request.params;
-
-    await this.templateService.archiveTemplate(tenantId, templateId);
-
-    reply.send({
-      success: true,
-      message: 'Template archived successfully'
-    });
-  }
-
-  /**
-   * Render template
-   */
-  @POST('/render', {
-    preHandler: [authenticate, requireTenant]
-  })
   async renderTemplate(
     request: FastifyRequest<{
       Body: z.infer<typeof renderTemplateSchema>
@@ -216,11 +157,7 @@ export class EmailTemplateController {
     const tenantId = getTenantId(request);
     const { templateId, data } = renderTemplateSchema.parse(request.body);
 
-    const rendered = await this.templateService.renderTemplate(
-      templateId,
-      data,
-      tenantId
-    );
+    const rendered = await this.templateService.renderTemplate(tenantId, templateId, data);
 
     reply.send({
       success: true,
@@ -229,22 +166,185 @@ export class EmailTemplateController {
   }
 
   /**
-   * Get template categories
+   * Get template preview
    */
-  @GET('/categories', {
-    preHandler: [authenticate, requireTenant]
-  })
-  async getCategories(
-    request: FastifyRequest,
+  async previewTemplate(
+    request: FastifyRequest<{
+      Params: { templateId: string }
+      Querystring: {
+        subscriberId?: string;
+        sampleData?: string; // JSON string
+      }
+    }>,
     reply: FastifyReply
   ): Promise<void> {
     const tenantId = getTenantId(request);
+    const { templateId } = request.params;
+    const { subscriberId, sampleData } = request.query;
 
-    const categories = await this.templateService.getCategories(tenantId);
+    let data = {};
+    if (sampleData) {
+      try {
+        data = JSON.parse(sampleData);
+      } catch (error) {
+        reply.code(400).send({
+          success: false,
+          error: 'Invalid JSON in sampleData parameter'
+        });
+        return;
+      }
+    }
+
+    const preview = await this.templateService.previewTemplate(tenantId, templateId, subscriberId, data);
 
     reply.send({
       success: true,
-      data: categories
+      data: preview
+    });
+  }
+
+  /**
+   * Get template usage statistics
+   */
+  async getTemplateStats(
+    request: FastifyRequest<{
+      Params: { templateId: string }
+      Querystring: {
+        startDate?: string;
+        endDate?: string;
+      }
+    }>,
+    reply: FastifyReply
+  ): Promise<void> {
+    const tenantId = getTenantId(request);
+    const { templateId } = request.params;
+    const { startDate, endDate } = request.query;
+
+    const stats = await this.templateService.getTemplateStats(
+      tenantId,
+      templateId,
+      startDate ? new Date(startDate) : undefined,
+      endDate ? new Date(endDate) : undefined
+    );
+
+    reply.send({
+      success: true,
+      data: stats
+    });
+  }
+
+  /**
+   * Test template rendering
+   */
+  async testTemplate(
+    request: FastifyRequest<{
+      Params: { templateId: string }
+      Body: {
+        recipientEmail: string;
+        sampleData?: Record<string, any>;
+      }
+    }>,
+    reply: FastifyReply
+  ): Promise<void> {
+    const tenantId = getTenantId(request);
+    const { templateId } = request.params;
+    const { recipientEmail, sampleData = {} } = request.body;
+
+    await this.templateService.sendTestTemplate(tenantId, templateId, recipientEmail, sampleData);
+
+    reply.send({
+      success: true,
+      message: 'Test email sent successfully'
+    });
+  }
+
+  /**
+   * Export template
+   */
+  async exportTemplate(
+    request: FastifyRequest<{
+      Params: { templateId: string }
+      Querystring: {
+        format?: 'json' | 'html';
+      }
+    }>,
+    reply: FastifyReply
+  ): Promise<void> {
+    const tenantId = getTenantId(request);
+    const { templateId } = request.params;
+    const { format = 'json' } = request.query;
+
+    const exported = await this.templateService.exportTemplate(tenantId, templateId, format);
+
+    const filename = `template-${templateId}.${format}`;
+    const contentType = format === 'json' ? 'application/json' : 'text/html';
+
+    reply
+      .header('Content-Type', contentType)
+      .header('Content-Disposition', `attachment; filename="${filename}"`)
+      .send(exported);
+  }
+
+  /**
+   * Import template
+   */
+  async importTemplate(
+    request: FastifyRequest<{
+      Body: {
+        name: string;
+        templateData: string; // JSON string
+        format: 'json';
+      }
+    }>,
+    reply: FastifyReply
+  ): Promise<void> {
+    const tenantId = getTenantId(request);
+    const { name, templateData, format } = request.body;
+
+    if (format !== 'json') {
+      reply.code(400).send({
+        success: false,
+        error: 'Only JSON format is supported for import'
+      });
+      return;
+    }
+
+    let parsedData;
+    try {
+      parsedData = JSON.parse(templateData);
+    } catch (error) {
+      reply.code(400).send({
+        success: false,
+        error: 'Invalid JSON in templateData'
+      });
+      return;
+    }
+
+    const template = await this.templateService.importTemplate(tenantId, name, parsedData);
+
+    reply.code(201).send({
+      success: true,
+      data: template
+    });
+  }
+
+  /**
+   * Get template variables
+   */
+  async getTemplateVariables(
+    request: FastifyRequest<{
+      Params: { templateId: string }
+    }>,
+    reply: FastifyReply
+  ): Promise<void> {
+    const tenantId = getTenantId(request);
+    const { templateId } = request.params;
+
+    const variables = await this.templateService.getTemplateVariables(tenantId, templateId);
+
+    reply.send({
+      success: true,
+      data: variables
     });
   }
 }

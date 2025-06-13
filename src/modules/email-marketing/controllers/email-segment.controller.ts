@@ -1,10 +1,9 @@
 // Controller for email segmentation
 
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { Controller, GET, POST, PUT, DELETE } from '@/shared/decorators';
+import { Injectable } from '@/shared/decorators';
 import { EmailSegmentService } from '../services/email-segment.service';
-import { authenticate } from '@/shared/middleware/auth.middleware';
-import { requireTenant } from '@/modules/tenant/middleware/tenant.middleware';
+import { getTenantId } from '@/modules/tenant/tenant.utils';
 import {
   createSegmentSchema,
   updateSegmentSchema,
@@ -12,7 +11,7 @@ import {
 } from '../dto/email-segment.dto';
 import { z } from 'zod';
 
-@Controller('/api/email-marketing/lists/:listId/segments')
+@Injectable()
 export class EmailSegmentController {
   constructor(
     private readonly segmentService: EmailSegmentService
@@ -21,9 +20,6 @@ export class EmailSegmentController {
   /**
    * Create segment
    */
-  @POST('/', {
-    preHandler: [authenticate, requireTenant]
-  })
   async createSegment(
     request: FastifyRequest<{
       Params: { listId: string },
@@ -45,9 +41,6 @@ export class EmailSegmentController {
   /**
    * Get segments
    */
-  @GET('/', {
-    preHandler: [authenticate, requireTenant]
-  })
   async getSegments(
     request: FastifyRequest<{
       Params: { listId: string }
@@ -67,9 +60,6 @@ export class EmailSegmentController {
   /**
    * Get segment
    */
-  @GET('/:segmentId', {
-    preHandler: [authenticate, requireTenant]
-  })
   async getSegment(
     request: FastifyRequest<{
       Params: { listId: string, segmentId: string }
@@ -89,9 +79,6 @@ export class EmailSegmentController {
   /**
    * Update segment
    */
-  @PUT('/:segmentId', {
-    preHandler: [authenticate, requireTenant]
-  })
   async updateSegment(
     request: FastifyRequest<{
       Params: { listId: string, segmentId: string },
@@ -113,9 +100,6 @@ export class EmailSegmentController {
   /**
    * Delete segment
    */
-  @DELETE('/:segmentId', {
-    preHandler: [authenticate, requireTenant]
-  })
   async deleteSegment(
     request: FastifyRequest<{
       Params: { listId: string, segmentId: string }
@@ -135,9 +119,6 @@ export class EmailSegmentController {
   /**
    * Test segment
    */
-  @POST('/test', {
-    preHandler: [authenticate, requireTenant]
-  })
   async testSegment(
     request: FastifyRequest<{
       Params: { listId: string },
@@ -159,9 +140,6 @@ export class EmailSegmentController {
   /**
    * Refresh segment
    */
-  @POST('/:segmentId/refresh', {
-    preHandler: [authenticate, requireTenant]
-  })
   async refreshSegment(
     request: FastifyRequest<{
       Params: { listId: string, segmentId: string }

@@ -19,6 +19,7 @@ export interface JobOptions {
     cron?: string
     limit?: number
   }
+  jobId?: string
 }
 
 export type JobProcessor<T = any> = (job: Job<T>) => Promise<any>
@@ -27,6 +28,10 @@ interface QueueConfig {
   name: string
   processor?: JobProcessor
   workerOptions?: Partial<WorkerOptions>
+}
+
+export interface JobFilter {
+  [key: string]: any
 }
 
 @Service()
@@ -84,10 +89,21 @@ export class QueueService {
     const worker = new Worker(
       name,
       async (job: Job) => {
+        // Try to get processor for this job
         const processor = this.getProcessor(name, job.name)
+
         if (!processor) {
-          throw new Error(`No processor found for job ${job.name} in queue ${name}`)
+          // If no specific processor found, check if there's a processor for the full job name
+          const fullJobName = `${name}:${job.name}`
+          const fullProcessor = this.processors.get(name)?.get(fullJobName)
+
+          if (!fullProcessor) {
+            throw new Error(`No processor found for job ${job.name} in queue ${name}`)
+          }
+
+          return fullProcessor(job)
         }
+
         return processor(job)
       },
       {
@@ -166,7 +182,16 @@ export class QueueService {
 
   // Get processor for job
   private getProcessor(queueName: string, jobName: string): JobProcessor | undefined {
-    return this.processors.get(queueName)?.get(jobName)
+    const queueProcessors = this.processors.get(queueName)
+    if (!queueProcessors) return undefined
+
+    // First try to find a processor for the specific job name
+    const specificProcessor = queueProcessors.get(jobName)
+    if (specificProcessor) return specificProcessor
+
+    // If not found, try to find a processor for the full job name (queueName:jobName)
+    const fullJobName = `${queueName}:${jobName}`
+    return queueProcessors.get(fullJobName)
   }
 
   // Add job to queue
@@ -188,7 +213,8 @@ export class QueueService {
       priority: options?.priority,
       repeat: options?.repeat,
       removeOnComplete: options?.removeOnComplete ?? true,
-      removeOnFail: options?.removeOnFail ?? false
+      removeOnFail: options?.removeOnFail ?? false,
+      jobId: options?.jobId
     }
 
     const job = await queue.add(jobName, data, jobOptions)
@@ -197,6 +223,46 @@ export class QueueService {
       queue: queueName,
       jobId: job.id,
       jobName,
+      delay: options?.delay,
+      repeat: options?.repeat
+    })
+
+    return job
+  }
+
+  // Simplified method to add job (used in email-marketing services)
+  async add<T = any>(
+    jobName: string,
+    data: T,
+    options?: JobOptions
+  ): Promise<Job<T>> {
+    // Parse queue name and job name from the combined string
+    // Format is typically 'queueName:jobName' (e.g., 'email:campaign:send')
+    const parts = jobName.split(':')
+    const queueName = parts[0] // e.g., 'email'
+
+    const queue = this.queues.get(queueName)
+    if (!queue) {
+      throw new Error(`Queue ${queueName} not found`)
+    }
+
+    const jobOptions: JobsOptions = {
+      attempts: options?.attempts || 3,
+      backoff: options?.backoff || { type: 'exponential', delay: 2000 },
+      delay: options?.delay,
+      priority: options?.priority,
+      repeat: options?.repeat,
+      removeOnComplete: options?.removeOnComplete ?? true,
+      removeOnFail: options?.removeOnFail ?? false,
+      jobId: options?.jobId
+    }
+
+    const job = await queue.add(jobName, data, jobOptions)
+
+    logger.info('Job added', {
+      queue: queueName,
+      jobName,
+      jobId: job.id,
       delay: options?.delay,
       repeat: options?.repeat
     })
@@ -367,6 +433,91 @@ export class QueueService {
     }
 
     return results
+  }
+
+  /**
+   * Register a processor for a specific job
+   * @param jobName The name of the job (format: 'queueName:jobType')
+   * @param concurrencyOrProcessor The concurrency level or the job processor function
+   * @param processor The job processor function (if concurrency is provided)
+   */
+  process<T = any, R = any>(
+    jobName: string,
+    concurrencyOrProcessor: number | JobProcessor<T>,
+    processor?: JobProcessor<T>
+  ): void {
+    // Parse queue name from the job name
+    const parts = jobName.split(':')
+    const queueName = parts[0] // e.g., 'email'
+
+    const queue = this.queues.get(queueName)
+    if (!queue) {
+      throw new Error(`Queue ${queueName} not found`)
+    }
+
+    const worker = this.workers.get(queueName)
+    if (!worker) {
+      throw new Error(`Worker for queue ${queueName} not found`)
+    }
+
+    // Handle overloaded method signature
+    let actualProcessor: JobProcessor<T>
+    let actualConcurrency: number = 1
+
+    if (typeof concurrencyOrProcessor === 'function') {
+      actualProcessor = concurrencyOrProcessor
+    } else {
+      actualConcurrency = concurrencyOrProcessor
+      if (!processor) {
+        throw new Error('Processor function is required when concurrency is provided')
+      }
+      actualProcessor = processor
+    }
+
+    // Register the processor for this job
+    if (!this.processors.has(queueName)) {
+      this.processors.set(queueName, new Map())
+    }
+
+    // Store the processor with the full job name
+    this.processors.get(queueName)!.set(jobName, actualProcessor)
+
+    logger.info(`Processor registered for job ${jobName} with concurrency ${actualConcurrency}`)
+  }
+
+  /**
+   * Remove jobs from a queue based on a filter
+   * @param queueName The name of the queue
+   * @param filter Filter criteria to match jobs
+   */
+  async removeJobs(queueName: string, filter: JobFilter): Promise<number> {
+    const queue = this.queues.get(queueName)
+    if (!queue) {
+      throw new Error(`Queue ${queueName} not found`)
+    }
+
+    // Get all jobs from the queue
+    const jobs = await queue.getJobs()
+
+    // Filter jobs based on the provided criteria
+    const jobsToRemove = jobs.filter(job => {
+      // Check if job data matches all filter criteria
+      for (const [key, value] of Object.entries(filter)) {
+        if (job.data[key] !== value) {
+          return false
+        }
+      }
+      return true
+    })
+
+    // Remove the matched jobs
+    await Promise.all(jobsToRemove.map(job => job.remove()))
+
+    logger.info(`Removed ${jobsToRemove.length} jobs from queue ${queueName}`, {
+      filter
+    })
+
+    return jobsToRemove.length
   }
 }
 

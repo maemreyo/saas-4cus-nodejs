@@ -6,7 +6,7 @@ import { EventBus } from '@/shared/events/event-bus';
 import { RedisService } from '@/infrastructure/cache/redis.service';
 import { AppError } from '@/shared/exceptions';
 import { logger } from '@/shared/logger';
-import { EmailSegment, EmailSegmentOperator, Prisma } from '@prisma/client';
+import { EmailActivityType, EmailSegment, EmailSegmentOperator, Prisma } from '@prisma/client';
 import { CreateSegmentDTO, UpdateSegmentDTO, TestSegmentDTO } from '../dto/email-segment.dto';
 
 export interface SegmentCondition {
@@ -390,13 +390,13 @@ export class EmailSegmentService {
         if (value) {
           return {
             activities: {
-              some: { type: 'opened' },
+              some: { type: EmailActivityType.OPENED },
             },
           };
         } else {
           return {
             activities: {
-              none: { type: 'opened' },
+              none: { type: EmailActivityType.OPENED },
             },
           };
         }
@@ -405,13 +405,13 @@ export class EmailSegmentService {
         if (value) {
           return {
             activities: {
-              some: { type: 'clicked' },
+              some: { type: EmailActivityType.CLICKED },
             },
           };
         } else {
           return {
             activities: {
-              none: { type: 'clicked' },
+              none: { type: EmailActivityType.CLICKED },
             },
           };
         }

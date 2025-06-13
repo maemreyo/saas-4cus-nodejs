@@ -1,10 +1,10 @@
 // Controller for email tracking endpoints
 
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { Controller, GET } from '@/shared/decorators';
+import { Injectable } from '@/shared/decorators';
 import { EmailTrackingService } from '../services/email-tracking.service';
 
-@Controller('/track')
+@Injectable()
 export class EmailTrackingController {
   constructor(
     private readonly trackingService: EmailTrackingService
@@ -13,7 +13,6 @@ export class EmailTrackingController {
   /**
    * Track email open
    */
-  @GET('/pixel/:encoded.gif')
   async trackOpen(
     request: FastifyRequest<{
       Params: { encoded: string }
@@ -42,7 +41,6 @@ export class EmailTrackingController {
   /**
    * Track link click
    */
-  @GET('/click/:encoded')
   async trackClick(
     request: FastifyRequest<{
       Params: { encoded: string }

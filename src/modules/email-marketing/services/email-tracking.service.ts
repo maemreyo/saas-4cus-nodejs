@@ -6,6 +6,7 @@ import { RedisService } from '@/infrastructure/cache/redis.service';
 import { EmailAnalyticsService } from './email-analytics.service';
 import { logger } from '@/shared/logger';
 import * as crypto from 'crypto';
+import { EmailActivityType } from '@prisma/client';
 
 export interface TrackingPixelData {
   campaignId: string;
@@ -94,7 +95,7 @@ export class EmailTrackingService {
 
         if (recipient) {
           // Track the open
-          await this.analytics.trackActivity('opened', {
+          await this.analytics.trackActivity(EmailActivityType.OPENED, {
             campaignId: data.campaignId,
             subscriberId: recipient.subscriberId,
             userAgent: metadata.userAgent,
@@ -141,7 +142,7 @@ export class EmailTrackingService {
 
       if (recipient) {
         // Track the click
-        await this.analytics.trackActivity('clicked', {
+        await this.analytics.trackActivity(EmailActivityType.CLICKED, {
           campaignId: data.campaignId,
           subscriberId: recipient.subscriberId,
           clickedUrl: data.originalUrl,
@@ -154,7 +155,7 @@ export class EmailTrackingService {
         const alreadyOpened = await this.redis.get(openCacheKey);
 
         if (!alreadyOpened) {
-          await this.analytics.trackActivity('opened', {
+          await this.analytics.trackActivity(EmailActivityType.OPENED, {
             campaignId: data.campaignId,
             subscriberId: recipient.subscriberId,
             userAgent: metadata.userAgent,
@@ -295,7 +296,8 @@ export class EmailTrackingService {
    */
   async batchTrackEvents(
     events: Array<{
-      type: 'delivered' | 'bounced' | 'complained';
+      type: 'DELIVERED' | 'BOUNCED' | 'COMPLAINED';
+      // type: 'delivered' | 'bounced' | 'complained';
       campaignId: string;
       recipientEmail: string;
       timestamp: Date;
@@ -321,7 +323,7 @@ export class EmailTrackingService {
           });
 
           // Update recipient status for bounces
-          if (event.type === 'bounced' && event.error) {
+          if (event.type === 'BOUNCED' && event.error) {
             await this.prisma.client.emailCampaignRecipient.update({
               where: { id: recipient.id },
               data: { error: event.error },
@@ -365,7 +367,7 @@ export class EmailTrackingService {
       this.prisma.client.emailActivity.findMany({
         where: {
           campaignId,
-          type: 'clicked',
+          type: EmailActivityType.CLICKED,
           clickedUrl: { not: null },
         },
         select: {

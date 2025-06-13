@@ -1,7 +1,7 @@
 // Webhook handler for email service provider callbacks
 
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { Controller, POST } from '@/shared/decorators';
+import { Injectable } from '@/shared/decorators';
 import { EmailTrackingService } from '../services/email-tracking.service';
 import { EmailAnalyticsService } from '../services/email-analytics.service';
 import { PrismaService } from '@/infrastructure/database/prisma.service';
@@ -13,8 +13,16 @@ import * as crypto from 'crypto';
 interface SendGridEvent {
   email: string;
   timestamp: number;
-  event: 'processed' | 'dropped' | 'delivered' | 'bounce' | 'deferred' |
-         'open' | 'click' | 'spamreport' | 'unsubscribe';
+  event:
+    | 'processed'
+    | 'dropped'
+    | 'delivered'
+    | 'bounce'
+    | 'deferred'
+    | 'open'
+    | 'click'
+    | 'spamreport'
+    | 'unsubscribe';
   sg_message_id: string;
   campaign_id?: string;
   reason?: string;
@@ -31,28 +39,27 @@ interface SESNotification {
   SigningCertURL: string;
 }
 
-@Controller('/webhooks/email')
+@Injectable()
 export class EmailWebhookController {
   constructor(
     private readonly tracking: EmailTrackingService,
     private readonly analytics: EmailAnalyticsService,
     private readonly prisma: PrismaService,
-    private readonly eventBus: EventBus
+    private readonly eventBus: EventBus,
   ) {}
 
   /**
    * SendGrid webhook handler
    */
-  @POST('/sendgrid')
   async handleSendGridWebhook(
     request: FastifyRequest<{
       Body: SendGridEvent[];
       Headers: {
         'x-twilio-email-event-webhook-signature': string;
         'x-twilio-email-event-webhook-timestamp': string;
-      }
+      };
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ): Promise<void> {
     // Verify webhook signature
     if (!this.verifySendGridSignature(request)) {
@@ -76,7 +83,7 @@ export class EmailWebhookController {
               type: 'delivered',
               campaignId: event.campaign_id!,
               recipientEmail: event.email,
-              timestamp: new Date(event.timestamp * 1000)
+              timestamp: new Date(event.timestamp * 1000),
             });
             break;
 
@@ -87,7 +94,7 @@ export class EmailWebhookController {
               campaignId: event.campaign_id!,
               recipientEmail: event.email,
               timestamp: new Date(event.timestamp * 1000),
-              error: `${event.type}: ${event.reason}`
+              error: `${event.type}: ${event.reason}`,
             });
             break;
 
@@ -97,7 +104,7 @@ export class EmailWebhookController {
               type: 'complained',
               campaignId: event.campaign_id!,
               recipientEmail: event.email,
-              timestamp: new Date(event.timestamp * 1000)
+              timestamp: new Date(event.timestamp * 1000),
             });
             break;
 
@@ -113,7 +120,7 @@ export class EmailWebhookController {
       } catch (error) {
         logger.error('Failed to process webhook event', {
           event,
-          error
+          error,
         });
       }
     }
@@ -129,12 +136,11 @@ export class EmailWebhookController {
   /**
    * AWS SES webhook handler
    */
-  @POST('/ses')
   async handleSESWebhook(
     request: FastifyRequest<{
-      Body: SESNotification
+      Body: SESNotification;
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ): Promise<void> {
     const notification = request.body;
 
@@ -171,7 +177,7 @@ export class EmailWebhookController {
     } catch (error) {
       logger.error('Failed to process SES notification', {
         message,
-        error
+        error,
       });
     }
 
@@ -181,21 +187,20 @@ export class EmailWebhookController {
   /**
    * Generic webhook handler (for custom implementations)
    */
-  @POST('/generic/:provider')
   async handleGenericWebhook(
     request: FastifyRequest<{
       Params: { provider: string };
       Body: any;
       Headers: any;
     }>,
-    reply: FastifyReply
+    reply: FastifyReply,
   ): Promise<void> {
     const { provider } = request.params;
 
     logger.info('Generic webhook received', {
       provider,
       headers: request.headers,
-      body: request.body
+      body: request.body,
     });
 
     // Implement provider-specific handling
@@ -224,21 +229,21 @@ export class EmailWebhookController {
 
     // Hard bounce - permanently unsubscribe
     if (bounceType === 'permanent' || bounceType === 'hard') {
-      await this.prisma.emailListSubscriber.updateMany({
+      await this.prisma.client.emailListSubscriber.updateMany({
         where: { email },
         data: {
           subscribed: false,
           unsubscribedAt: new Date(),
           metadata: {
             bounceType,
-            bounceReason: event.reason || event.bounce?.bouncedRecipients?.[0]?.diagnosticCode
-          }
-        }
+            bounceReason: event.reason || event.bounce?.bouncedRecipients?.[0]?.diagnosticCode,
+          },
+        },
       });
 
       await this.eventBus.emit('email.hard.bounce', {
         email,
-        reason: event.reason
+        reason: event.reason,
       });
     }
 
@@ -246,7 +251,7 @@ export class EmailWebhookController {
     await this.eventBus.emit('email.bounce', {
       email,
       type: bounceType,
-      reason: event.reason
+      reason: event.reason,
     });
   }
 
@@ -257,30 +262,30 @@ export class EmailWebhookController {
     const email = event.email || event.mail?.destination?.[0];
 
     // Immediately unsubscribe from all lists
-    await this.prisma.emailListSubscriber.updateMany({
+    await this.prisma.client.emailListSubscriber.updateMany({
       where: { email },
       data: {
         subscribed: false,
         unsubscribedAt: new Date(),
         metadata: {
-          unsubscribeReason: 'spam_complaint'
-        }
-      }
+          unsubscribeReason: 'spam_complaint',
+        },
+      },
     });
 
     // Add to suppression list
-    await this.prisma.emailUnsubscribe.create({
+    await this.prisma.client.emailUnsubscribe.create({
       data: {
         email,
         globalUnsubscribe: true,
         reason: 'spam_complaint',
-        feedback: event.feedback || 'User marked email as spam'
-      }
+        feedback: event.feedback || 'User marked email as spam',
+      },
     });
 
     await this.eventBus.emit('email.complaint', {
       email,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   }
 
@@ -293,38 +298,38 @@ export class EmailWebhookController {
 
     if (campaignId) {
       // Find the list from campaign
-      const campaign = await this.prisma.emailCampaign.findUnique({
+      const campaign = await this.prisma.client.emailCampaign.findUnique({
         where: { id: campaignId },
-        select: { listId: true }
+        select: { listId: true },
       });
 
       if (campaign?.listId) {
-        await this.prisma.emailListSubscriber.updateMany({
+        await this.prisma.client.emailListSubscriber.updateMany({
           where: {
             email,
-            listId: campaign.listId
+            listId: campaign.listId,
           },
           data: {
             subscribed: false,
-            unsubscribedAt: new Date()
-          }
+            unsubscribedAt: new Date(),
+          },
         });
       }
     } else {
       // Global unsubscribe
-      await this.prisma.emailListSubscriber.updateMany({
+      await this.prisma.client.emailListSubscriber.updateMany({
         where: { email },
         data: {
           subscribed: false,
-          unsubscribedAt: new Date()
-        }
+          unsubscribedAt: new Date(),
+        },
       });
     }
 
     await this.eventBus.emit('email.webhook.unsubscribe', {
       email,
       campaignId,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   }
 
@@ -338,7 +343,7 @@ export class EmailWebhookController {
       await this.handleBounce({
         email: recipient.emailAddress,
         type: bounce.bounceType.toLowerCase(),
-        reason: recipient.diagnosticCode
+        reason: recipient.diagnosticCode,
       });
     }
   }
@@ -352,7 +357,7 @@ export class EmailWebhookController {
     for (const recipient of complaint.complainedRecipients) {
       await this.handleComplaint({
         email: recipient.emailAddress,
-        feedback: complaint.complaintFeedbackType
+        feedback: complaint.complaintFeedbackType,
       });
     }
   }
@@ -369,7 +374,7 @@ export class EmailWebhookController {
       type: 'delivered' as const,
       campaignId: message.mail.headers?.find((h: any) => h.name === 'X-Campaign-ID')?.value,
       recipientEmail: email,
-      timestamp: new Date(delivery.timestamp)
+      timestamp: new Date(delivery.timestamp),
     }));
 
     if (events[0].campaignId) {
@@ -387,14 +392,16 @@ export class EmailWebhookController {
       case 'delivered':
       case 'bounced':
       case 'complained':
-        await this.tracking.batchTrackEvents([{
-          type: eventData.event === 'bounced' ? 'bounced' :
-                eventData.event === 'complained' ? 'complained' : 'delivered',
-          campaignId: eventData['user-variables']?.['campaign-id'],
-          recipientEmail: eventData.recipient,
-          timestamp: new Date(eventData.timestamp * 1000),
-          error: eventData.reason
-        }]);
+        await this.tracking.batchTrackEvents([
+          {
+            type:
+              eventData.event === 'bounced' ? 'bounced' : eventData.event === 'complained' ? 'complained' : 'delivered',
+            campaignId: eventData['user-variables']?.['campaign-id'],
+            recipientEmail: eventData.recipient,
+            timestamp: new Date(eventData.timestamp * 1000),
+            error: eventData.reason,
+          },
+        ]);
         break;
     }
   }
@@ -408,13 +415,13 @@ export class EmailWebhookController {
         await this.handleBounce({
           email: data.Email,
           type: data.Type,
-          reason: data.Description
+          reason: data.Description,
         });
         break;
 
       case 'SpamComplaint':
         await this.handleComplaint({
-          email: data.Email
+          email: data.Email,
         });
         break;
     }
@@ -438,10 +445,7 @@ export class EmailWebhookController {
     }
 
     const payload = timestamp + JSON.stringify(request.body);
-    const expected = crypto
-      .createVerify('sha256')
-      .update(payload)
-      .verify(publicKey, signature, 'base64');
+    const expected = crypto.createVerify('sha256').update(payload).verify(publicKey, signature, 'base64');
 
     return expected;
   }

@@ -13,7 +13,8 @@ import {
   EmailCampaignRecipient,
   EmailListSubscriber,
   EmailAutomationStep,
-  EmailDeliveryStatus
+  EmailDeliveryStatus,
+  EmailActivityType
 } from '@prisma/client';
 import * as nodemailer from 'nodemailer';
 import * as handlebars from 'handlebars';
@@ -153,7 +154,7 @@ export class EmailDeliveryService {
     failed: number;
     errors: Array<{ recipientId: string; error: string }>;
   }> {
-    const campaign = await this.prisma.emailCampaign.findUnique({
+    const campaign = await this.prisma.client.emailCampaign.findUnique({
       where: { id: campaignId },
       include: {
         list: true
@@ -291,7 +292,7 @@ export class EmailDeliveryService {
 
       // Track sent event
       await this.tracking.batchTrackEvents([{
-        type: 'delivered',
+        type: EmailActivityType.DELIVERED,
         campaignId: campaign.id,
         recipientEmail: recipient.subscriber.email,
         timestamp: new Date()

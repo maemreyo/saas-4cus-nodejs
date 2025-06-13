@@ -127,7 +127,7 @@ export class EmailMarketingQueue {
       });
 
       // Update campaign status
-      await this.prisma.emailCampaign.update({
+      await this.prisma.client.emailCampaign.update({
         where: { id: campaignId },
         data: { status: EmailCampaignStatus.FAILED }
       });
@@ -143,7 +143,7 @@ export class EmailMarketingQueue {
     const { campaignId, batchSize = 100, delayBetweenBatches = 1000 } = job.data;
 
     try {
-      const campaign = await this.prisma.emailCampaign.findUnique({
+      const campaign = await this.prisma.client.emailCampaign.findUnique({
         where: { id: campaignId },
         include: { abTestVariants: true }
       });
@@ -234,7 +234,7 @@ export class EmailMarketingQueue {
 
       // Update campaign status on critical errors
       if (job.attemptsMade >= 3) {
-        await this.prisma.emailCampaign.update({
+        await this.prisma.client.emailCampaign.update({
           where: { id: campaignId },
           data: { status: EmailCampaignStatus.FAILED }
         });
@@ -365,7 +365,7 @@ export class EmailMarketingQueue {
    * Finalize campaign
    */
   private async finalizeCampaign(campaignId: string): Promise<void> {
-    await this.prisma.emailCampaign.update({
+    await this.prisma.client.emailCampaign.update({
       where: { id: campaignId },
       data: {
         status: EmailCampaignStatus.SENT,
@@ -453,7 +453,7 @@ export class EmailMarketingQueue {
 
     // Process this recurring job
     this.queue.process('email:stats:refresh', async () => {
-      const activeCampaigns = await this.prisma.emailCampaign.findMany({
+      const activeCampaigns = await this.prisma.client.emailCampaign.findMany({
         where: {
           status: EmailCampaignStatus.SENDING
         },
@@ -481,7 +481,7 @@ export class EmailMarketingQueue {
     // Process list maintenance
     this.queue.process('email:lists:maintenance', async () => {
       // Update engagement scores
-      await this.prisma.$executeRaw`
+      await this.prisma.client.$executeRaw`
         UPDATE email_list_subscribers
         SET engagement_score = GREATEST(0, engagement_score - 1)
         WHERE last_engaged_at < NOW() - INTERVAL '30 days'

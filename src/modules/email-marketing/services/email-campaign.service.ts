@@ -127,7 +127,7 @@ export class EmailCampaignService {
         weight: variant.weight || 50,
         subject: variant.subject,
         fromName: variant.fromName,
-        preheader: variant.preheader || undefined,
+        preheader: undefined, // Remove preheader as it doesn't exist in the variant type
         htmlContent: variant.content || undefined, // Map content to htmlContent
         textContent: undefined
       }));
@@ -521,11 +521,25 @@ export class EmailCampaignService {
 
     const { id, createdAt, updatedAt, sentAt, completedAt, status, stats, ...campaignData } = original;
 
-    // Remove status from campaignData to avoid conflict
-    const { status: _, ...cleanCampaignData } = campaignData;
+    // Create a clean copy of campaign data without status
+    const cleanCampaignData = { ...campaignData };
+
+    // Convert metadata to Record<string, any> if needed
+    const metadata = cleanCampaignData.metadata ?
+      (typeof cleanCampaignData.metadata === 'string' ?
+        JSON.parse(cleanCampaignData.metadata) : cleanCampaignData.metadata) :
+      {};
+
+    // Convert utmParams to Record<string, any> if needed
+    const utmParams = cleanCampaignData.utmParams ?
+      (typeof cleanCampaignData.utmParams === 'string' ?
+        JSON.parse(cleanCampaignData.utmParams) : cleanCampaignData.utmParams) :
+      {};
 
     const duplicate = await this.createCampaign(tenantId, {
       ...cleanCampaignData,
+      metadata,
+      utmParams,
       name: name || `${original.name} (Copy)`,
       // status will be set to DRAFT in createCampaign
     });
@@ -583,10 +597,17 @@ export class EmailCampaignService {
     // Apply exclusion segments
     if (campaign.excludeSegmentIds.length > 0) {
       const excludeSubscribers = await this.segmentService.getSegmentSubscribers(campaign.excludeSegmentIds);
-      query.id = {
-        ...query.id,
-        notIn: excludeSubscribers,
-      };
+      // Handle the case where query.id might not be an object
+      if (query.id && typeof query.id === 'object') {
+        query.id = {
+          ...query.id,
+          notIn: excludeSubscribers,
+        };
+      } else {
+        query.id = {
+          notIn: excludeSubscribers,
+        };
+      }
     }
 
     // Apply test mode filter

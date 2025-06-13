@@ -1482,6 +1482,7 @@ model EmailListSubscriber {
   @@index([subscribedAt])
   @@index([engagementLevel])
   @@map("email_list_subscribers")
+  EmailAutomationEnrollment EmailAutomationEnrollment[]
 }
 
 model EmailCampaign {
@@ -1783,6 +1784,11 @@ model EmailAutomationStep {
   // Conditions
   conditions Json? @db.JsonB
 
+  // Stats
+  delivered Int @default(0)
+  opened    Int @default(0)
+  clicked   Int @default(0)
+
   metadata Json? @db.JsonB
 
   createdAt DateTime @default(now())
@@ -1791,11 +1797,37 @@ model EmailAutomationStep {
   // Relations
   automation EmailAutomation @relation(fields: [automationId], references: [id], onDelete: Cascade)
   template   EmailTemplate?  @relation(fields: [templateId], references: [id])
+  stepRuns   EmailAutomationStepRun[]
 
   // Indexes
   @@index([automationId])
   @@index([order])
   @@map("email_automation_steps")
+}
+
+model EmailAutomationStepRun {
+  id           String @id @default(cuid())
+  stepId       String
+  enrollmentId String
+
+  executedAt DateTime @default(now())
+  status     EmailDeliveryStatus @default(PENDING)
+
+  // Stats
+  delivered Boolean @default(false)
+  opened    Boolean @default(false)
+  clicked   Boolean @default(false)
+
+  metadata Json? @db.JsonB
+
+  // Relations
+  step EmailAutomationStep @relation(fields: [stepId], references: [id], onDelete: Cascade)
+
+  // Indexes
+  @@index([stepId])
+  @@index([enrollmentId])
+  @@index([executedAt])
+  @@map("email_automation_step_runs")
 }
 
 model EmailAutomationEnrollment {
@@ -1814,6 +1846,7 @@ model EmailAutomationEnrollment {
 
   // Relations
   automation EmailAutomation @relation(fields: [automationId], references: [id], onDelete: Cascade)
+  subscriber EmailListSubscriber @relation(fields: [subscriberId], references: [id])
 
   // Constraints
   @@unique([automationId, subscriberId])
@@ -1856,9 +1889,10 @@ model EmailActivity {
 }
 
 model EmailUnsubscribe {
-  id     String  @id @default(cuid())
-  email  String  @db.VarChar(255)
-  listId String?
+  id       String  @id @default(cuid())
+  tenantId String
+  email    String  @db.VarChar(255)
+  listId   String?
 
   reason   String? @db.Text
   feedback String? @db.Text
@@ -1871,7 +1905,8 @@ model EmailUnsubscribe {
   createdAt DateTime @default(now())
 
   // Indexes
-  @@unique([email, listId])
+  @@unique([tenantId, email, listId])
+  @@index([tenantId])
   @@index([email])
   @@index([globalUnsubscribe])
   @@map("email_unsubscribes")

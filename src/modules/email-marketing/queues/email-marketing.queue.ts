@@ -69,33 +69,33 @@ export class EmailMarketingQueue {
    */
   async initialize(): Promise<void> {
     // Campaign send job (triggered by schedule)
-    this.queue.process('email:campaign:send', async (job: Job<CampaignSendJob>) => {
-      return this.processCampaignSend(job);
+    this.queue.process('email:campaign:send', async (job) => {
+      return this.processCampaignSend(job as unknown as Job<CampaignSendJob>);
     });
 
     // Campaign processing (actual sending)
-    this.queue.process('email:campaign:process', 5, async (job: Job<CampaignProcessJob>) => {
-      return this.processCampaign(job);
+    this.queue.process('email:campaign:process', 5, async (job) => {
+      return this.processCampaign(job as unknown as Job<CampaignProcessJob>);
     });
 
     // Automation step execution
-    this.queue.process('email:automation:step', 10, async (job: Job<AutomationStepJob>) => {
-      return this.processAutomationStep(job);
+    this.queue.process('email:automation:step', 10, async (job) => {
+      return this.processAutomationStep(job as unknown as Job<AutomationStepJob>);
     });
 
     // Update campaign statistics
-    this.queue.process('email:stats:update', async (job: Job<CampaignStatsUpdateJob>) => {
-      return this.updateCampaignStats(job);
+    this.queue.process('email:stats:update', async (job) => {
+      return this.updateCampaignStats(job as unknown as Job<CampaignStatsUpdateJob>);
     });
 
     // List cleanup
-    this.queue.process('email:list:cleanup', async (job: Job<ListCleanupJob>) => {
-      return this.processListCleanup(job);
+    this.queue.process('email:list:cleanup', async (job) => {
+      return this.processListCleanup(job as unknown as Job<ListCleanupJob>);
     });
 
     // A/B test winner determination
-    this.queue.process('email:abtest:winner', async (job: Job<ABTestWinnerJob>) => {
-      return this.determineABTestWinner(job);
+    this.queue.process('email:abtest:winner', async (job) => {
+      return this.determineABTestWinner(job as unknown as Job<ABTestWinnerJob>);
     });
 
     // Set up recurring jobs

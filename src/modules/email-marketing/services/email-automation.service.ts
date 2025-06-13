@@ -825,7 +825,7 @@ export class EmailAutomationService {
         },
       },
       include: {
-        emailAutomationSteps: true,
+        subscriber: true,
       },
     });
 
@@ -863,6 +863,7 @@ export class EmailAutomationService {
             id: true,
           },
           _sum: {
+            // Count boolean fields as numbers
             delivered: true,
             opened: true,
             clicked: true,
@@ -1086,7 +1087,7 @@ export class EmailAutomationService {
       },
       include: {
         automation: true,
-        emailListSubscriber: true,
+        subscriber: true, // Use the correct relation name
       },
     });
 

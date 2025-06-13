@@ -277,6 +277,7 @@ export class EmailWebhookController {
     await this.prisma.client.emailUnsubscribe.create({
       data: {
         email,
+        tenantId: 'system', // Use system tenant ID for global unsubscribes
         globalUnsubscribe: true,
         reason: 'spam_complaint',
         feedback: event.feedback || 'User marked email as spam',

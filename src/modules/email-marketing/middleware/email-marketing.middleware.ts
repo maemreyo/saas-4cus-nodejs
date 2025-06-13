@@ -120,15 +120,15 @@ export async function checkSubscriberLimit(
 
   // Get subscription details
   const subscription = await prisma.client.subscription.findUnique({
-    where: { id: tenant.subscriptionId },
-    include: { plan: true }
+    where: { id: tenant.subscriptionId }
   });
 
-  if (!subscription?.plan) {
-    return; // No limits if no plan
+  if (!subscription) {
+    return; // No limits if no subscription
   }
 
-  const planLimits = subscription.plan.features as any;
+  // Get plan limits from subscription metadata
+  const planLimits = subscription.metadata as any;
   const maxSubscribers = planLimits?.maxSubscribers || Infinity;
 
   if (maxSubscribers !== Infinity) {
@@ -295,8 +295,8 @@ export async function checkCampaignSendPermission(
     throw new AppError('Campaign has already been sent', 400);
   }
 
-  if (campaign.status === EmailCampaignStatus.ARCHIVED) {
-    throw new AppError('Cannot send archived campaign', 400);
+  if (campaign.status === EmailCampaignStatus.CANCELLED) {
+    throw new AppError('Cannot send cancelled campaign', 400);
   }
 
   // Check if campaign has required fields

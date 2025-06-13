@@ -307,6 +307,7 @@ export class EmailListService {
       this.prisma.client.emailUnsubscribe.create({
         data: {
           email: data.email.toLowerCase(),
+          tenantId: data.tenantId || 'system', // Add tenantId with fallback
           listId: data.listId,
           reason: data.reason,
           feedback: data.feedback,

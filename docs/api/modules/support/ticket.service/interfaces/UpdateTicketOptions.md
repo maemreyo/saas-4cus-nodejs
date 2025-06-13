@@ -6,7 +6,7 @@
 
 # Interface: UpdateTicketOptions
 
-Defined in: [src/modules/support/ticket.service.ts:34](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L34)
+Defined in: [src/modules/support/ticket.service.ts:34](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L34)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/support/ticket.service.ts:34](https://github.com/maemre
 
 > `optional` **assigneeId**: `string`
 
-Defined in: [src/modules/support/ticket.service.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L42)
+Defined in: [src/modules/support/ticket.service.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L42)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/support/ticket.service.ts:42](https://github.com/maemre
 
 > `optional` **categoryId**: `string`
 
-Defined in: [src/modules/support/ticket.service.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L40)
+Defined in: [src/modules/support/ticket.service.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L40)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/support/ticket.service.ts:40](https://github.com/maemre
 
 > `optional` **closedAt**: `Date`
 
-Defined in: [src/modules/support/ticket.service.ts:44](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L44)
+Defined in: [src/modules/support/ticket.service.ts:44](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L44)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/modules/support/ticket.service.ts:44](https://github.com/maemre
 
 > `optional` **description**: `string`
 
-Defined in: [src/modules/support/ticket.service.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L36)
+Defined in: [src/modules/support/ticket.service.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L36)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/modules/support/ticket.service.ts:36](https://github.com/maemre
 
 > `optional` **firstResponseSla**: `number`
 
-Defined in: [src/modules/support/ticket.service.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L45)
+Defined in: [src/modules/support/ticket.service.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L45)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [src/modules/support/ticket.service.ts:45](https://github.com/maemre
 
 > `optional` **priority**: `TicketPriority`
 
-Defined in: [src/modules/support/ticket.service.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L38)
+Defined in: [src/modules/support/ticket.service.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L38)
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: [src/modules/support/ticket.service.ts:38](https://github.com/maemre
 
 > `optional` **resolutionAt**: `Date`
 
-Defined in: [src/modules/support/ticket.service.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L43)
+Defined in: [src/modules/support/ticket.service.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L43)
 
 ***
 
@@ -70,7 +70,7 @@ Defined in: [src/modules/support/ticket.service.ts:43](https://github.com/maemre
 
 > `optional` **resolutionSla**: `number`
 
-Defined in: [src/modules/support/ticket.service.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L46)
+Defined in: [src/modules/support/ticket.service.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L46)
 
 ***
 
@@ -78,7 +78,7 @@ Defined in: [src/modules/support/ticket.service.ts:46](https://github.com/maemre
 
 > `optional` **status**: `TicketStatus`
 
-Defined in: [src/modules/support/ticket.service.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L39)
+Defined in: [src/modules/support/ticket.service.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L39)
 
 ***
 
@@ -86,7 +86,7 @@ Defined in: [src/modules/support/ticket.service.ts:39](https://github.com/maemre
 
 > `optional` **subject**: `string`
 
-Defined in: [src/modules/support/ticket.service.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L35)
+Defined in: [src/modules/support/ticket.service.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L35)
 
 ***
 
@@ -94,7 +94,7 @@ Defined in: [src/modules/support/ticket.service.ts:35](https://github.com/maemre
 
 > `optional` **tags**: `string`[]
 
-Defined in: [src/modules/support/ticket.service.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L41)
+Defined in: [src/modules/support/ticket.service.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L41)
 
 ***
 
@@ -102,4 +102,4 @@ Defined in: [src/modules/support/ticket.service.ts:41](https://github.com/maemre
 
 > `optional` **type**: `TicketType`
 
-Defined in: [src/modules/support/ticket.service.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L37)
+Defined in: [src/modules/support/ticket.service.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L37)

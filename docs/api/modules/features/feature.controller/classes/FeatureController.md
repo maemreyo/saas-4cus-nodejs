@@ -6,7 +6,7 @@
 
 # Class: FeatureController
 
-Defined in: [src/modules/features/feature.controller.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.controller.ts#L16)
+Defined in: [src/modules/features/feature.controller.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.controller.ts#L16)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/features/feature.controller.ts:16](https://github.com/m
 
 > **new FeatureController**(`featureService`, `entitlementService`): `FeatureController`
 
-Defined in: [src/modules/features/feature.controller.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.controller.ts#L17)
+Defined in: [src/modules/features/feature.controller.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.controller.ts#L17)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [src/modules/features/feature.controller.ts:17](https://github.com/m
 
 > **checkEntitlement**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/features/feature.controller.ts:165](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.controller.ts#L165)
+Defined in: [src/modules/features/feature.controller.ts:165](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.controller.ts#L165)
 
 Check entitlement
 
@@ -60,7 +60,7 @@ Check entitlement
 
 > **checkFeatureFlag**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/features/feature.controller.ts:127](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.controller.ts#L127)
+Defined in: [src/modules/features/feature.controller.ts:127](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.controller.ts#L127)
 
 Check specific feature flag
 
@@ -84,7 +84,7 @@ Check specific feature flag
 
 > **comparePlans**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/features/feature.controller.ts:107](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.controller.ts#L107)
+Defined in: [src/modules/features/feature.controller.ts:107](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.controller.ts#L107)
 
 Compare plans
 
@@ -108,7 +108,7 @@ Compare plans
 
 > **consumeEntitlement**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/features/feature.controller.ts:176](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.controller.ts#L176)
+Defined in: [src/modules/features/feature.controller.ts:176](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.controller.ts#L176)
 
 Consume entitlement
 
@@ -132,7 +132,7 @@ Consume entitlement
 
 > **createFeature**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/features/feature.controller.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.controller.ts#L38)
+Defined in: [src/modules/features/feature.controller.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.controller.ts#L38)
 
 Create feature (admin only)
 
@@ -156,7 +156,7 @@ Create feature (admin only)
 
 > **createPlan**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/features/feature.controller.ts:74](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.controller.ts#L74)
+Defined in: [src/modules/features/feature.controller.ts:74](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.controller.ts#L74)
 
 Create plan (admin only)
 
@@ -180,7 +180,7 @@ Create plan (admin only)
 
 > **getFeatures**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/features/feature.controller.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.controller.ts#L25)
+Defined in: [src/modules/features/feature.controller.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.controller.ts#L25)
 
 Get all features
 
@@ -204,7 +204,7 @@ Get all features
 
 > **getFeatureUsageStats**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/features/feature.controller.ts:200](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.controller.ts#L200)
+Defined in: [src/modules/features/feature.controller.ts:200](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.controller.ts#L200)
 
 Get feature usage statistics (admin only)
 
@@ -228,7 +228,7 @@ Get feature usage statistics (admin only)
 
 > **getPlan**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/features/feature.controller.ts:64](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.controller.ts#L64)
+Defined in: [src/modules/features/feature.controller.ts:64](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.controller.ts#L64)
 
 Get plan by slug
 
@@ -252,7 +252,7 @@ Get plan by slug
 
 > **getPlans**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/features/feature.controller.ts:51](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.controller.ts#L51)
+Defined in: [src/modules/features/feature.controller.ts:51](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.controller.ts#L51)
 
 Get all plans
 
@@ -276,7 +276,7 @@ Get all plans
 
 > **getUserEntitlements**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/features/feature.controller.ts:155](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.controller.ts#L155)
+Defined in: [src/modules/features/feature.controller.ts:155](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.controller.ts#L155)
 
 Get user's entitlements
 
@@ -300,7 +300,7 @@ Get user's entitlements
 
 > **getUserFeatureFlags**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/features/feature.controller.ts:117](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.controller.ts#L117)
+Defined in: [src/modules/features/feature.controller.ts:117](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.controller.ts#L117)
 
 Get user's feature flags
 
@@ -324,7 +324,7 @@ Get user's feature flags
 
 > **trackUsage**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/features/feature.controller.ts:187](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.controller.ts#L187)
+Defined in: [src/modules/features/feature.controller.ts:187](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.controller.ts#L187)
 
 Track feature usage
 
@@ -348,7 +348,7 @@ Track feature usage
 
 > **updateFeatureFlag**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/features/feature.controller.ts:138](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.controller.ts#L138)
+Defined in: [src/modules/features/feature.controller.ts:138](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.controller.ts#L138)
 
 Update feature flag (admin only)
 
@@ -372,7 +372,7 @@ Update feature flag (admin only)
 
 > **updatePlan**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/features/feature.controller.ts:87](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.controller.ts#L87)
+Defined in: [src/modules/features/feature.controller.ts:87](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.controller.ts#L87)
 
 Update plan (admin only)
 
@@ -396,7 +396,7 @@ Update plan (admin only)
 
 > `private` **entitlementService**: [`EntitlementService`](../../entitlement.service/classes/EntitlementService.md)
 
-Defined in: [src/modules/features/feature.controller.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.controller.ts#L19)
+Defined in: [src/modules/features/feature.controller.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.controller.ts#L19)
 
 ***
 
@@ -404,4 +404,4 @@ Defined in: [src/modules/features/feature.controller.ts:19](https://github.com/m
 
 > `private` **featureService**: [`FeatureService`](../../feature.service/classes/FeatureService.md)
 
-Defined in: [src/modules/features/feature.controller.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.controller.ts#L18)
+Defined in: [src/modules/features/feature.controller.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.controller.ts#L18)

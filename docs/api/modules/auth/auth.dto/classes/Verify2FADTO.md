@@ -6,7 +6,7 @@
 
 # Class: Verify2FADTO
 
-Defined in: [src/modules/auth/auth.dto.ts:63](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.dto.ts#L63)
+Defined in: [src/modules/auth/auth.dto.ts:63](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.dto.ts#L63)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/auth/auth.dto.ts:63](https://github.com/maemreyo/saas-4
 
 > **code**: `string`
 
-Defined in: [src/modules/auth/auth.dto.ts:68](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.dto.ts#L68)
+Defined in: [src/modules/auth/auth.dto.ts:68](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.dto.ts#L68)
 
 ***
 
@@ -32,4 +32,4 @@ Defined in: [src/modules/auth/auth.dto.ts:68](https://github.com/maemreyo/saas-4
 
 > `static` **schema**: `ZodObject`\<\{ `code`: `ZodString`; \}, `"strip"`, `ZodTypeAny`, \{ `code?`: `string`; \}, \{ `code?`: `string`; \}\>
 
-Defined in: [src/modules/auth/auth.dto.ts:64](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.dto.ts#L64)
+Defined in: [src/modules/auth/auth.dto.ts:64](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.dto.ts#L64)

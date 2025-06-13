@@ -6,7 +6,7 @@
 
 # Class: ApiUsageEventHandlers
 
-Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.events.handlers.ts#L11)
+Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.events.handlers.ts#L11)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:11](https://gith
 
 > **new ApiUsageEventHandlers**(`emailService`, `webhookService`, `notificationService`): `ApiUsageEventHandlers`
 
-Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.events.handlers.ts#L12)
+Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.events.handlers.ts#L12)
 
 #### Parameters
 
@@ -40,7 +40,7 @@ Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:12](https://gith
 
 > **handleApiHealthDegraded**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:157](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.events.handlers.ts#L157)
+Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:157](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.events.handlers.ts#L157)
 
 #### Parameters
 
@@ -68,7 +68,7 @@ Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:157](https://git
 
 > **handleApiHealthRecovered**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:237](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.events.handlers.ts#L237)
+Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:237](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.events.handlers.ts#L237)
 
 #### Parameters
 
@@ -100,7 +100,7 @@ Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:237](https://git
 
 > **handleApiHealthUnhealthy**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:187](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.events.handlers.ts#L187)
+Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:187](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.events.handlers.ts#L187)
 
 #### Parameters
 
@@ -128,7 +128,7 @@ Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:187](https://git
 
 > **handleApiUsageTracked**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:424](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.events.handlers.ts#L424)
+Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:424](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.events.handlers.ts#L424)
 
 #### Parameters
 
@@ -168,7 +168,7 @@ Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:424](https://git
 
 > **handleEndpointDown**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:440](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.events.handlers.ts#L440)
+Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:440](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.events.handlers.ts#L440)
 
 #### Parameters
 
@@ -200,7 +200,7 @@ Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:440](https://git
 
 > **handleHighErrorRate**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:84](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.events.handlers.ts#L84)
+Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:84](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.events.handlers.ts#L84)
 
 #### Parameters
 
@@ -236,7 +236,7 @@ Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:84](https://gith
 
 > **handleQuotaExceeded**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.events.handlers.ts#L39)
+Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.events.handlers.ts#L39)
 
 #### Parameters
 
@@ -272,7 +272,7 @@ Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:39](https://gith
 
 > **handleQuotaReset**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:399](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.events.handlers.ts#L399)
+Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:399](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.events.handlers.ts#L399)
 
 #### Parameters
 
@@ -304,7 +304,7 @@ Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:399](https://git
 
 > **handleQuotaWarning**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:351](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.events.handlers.ts#L351)
+Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:351](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.events.handlers.ts#L351)
 
 #### Parameters
 
@@ -340,7 +340,7 @@ Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:351](https://git
 
 > **handleRateLimitExceeded**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:313](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.events.handlers.ts#L313)
+Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:313](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.events.handlers.ts#L313)
 
 #### Parameters
 
@@ -372,7 +372,7 @@ Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:313](https://git
 
 > **handleRateLimitWarning**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.events.handlers.ts#L19)
+Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.events.handlers.ts#L19)
 
 #### Parameters
 
@@ -408,7 +408,7 @@ Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:19](https://gith
 
 > **handleSlowResponseTime**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:121](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.events.handlers.ts#L121)
+Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:121](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.events.handlers.ts#L121)
 
 #### Parameters
 
@@ -444,7 +444,7 @@ Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:121](https://git
 
 > **handleUsageExported**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:487](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.events.handlers.ts#L487)
+Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:487](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.events.handlers.ts#L487)
 
 #### Parameters
 
@@ -480,7 +480,7 @@ Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:487](https://git
 
 > **handleUsageLimitReached**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:578](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.events.handlers.ts#L578)
+Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:578](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.events.handlers.ts#L578)
 
 #### Parameters
 
@@ -520,7 +520,7 @@ Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:578](https://git
 
 > **handleUsageLimitWarning**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:527](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.events.handlers.ts#L527)
+Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:527](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.events.handlers.ts#L527)
 
 #### Parameters
 
@@ -564,7 +564,7 @@ Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:527](https://git
 
 > **handleUsageReportGenerated**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:275](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.events.handlers.ts#L275)
+Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:275](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.events.handlers.ts#L275)
 
 #### Parameters
 
@@ -596,7 +596,7 @@ Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:275](https://git
 
 > `private` **emailService**: [`EmailService`](../../../../shared/services/email.service/classes/EmailService.md)
 
-Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.events.handlers.ts#L13)
+Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.events.handlers.ts#L13)
 
 ***
 
@@ -604,7 +604,7 @@ Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:13](https://gith
 
 > `private` **notificationService**: [`NotificationService`](../../../notification/notification.service/classes/NotificationService.md)
 
-Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.events.handlers.ts#L15)
+Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.events.handlers.ts#L15)
 
 ***
 
@@ -612,4 +612,4 @@ Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:15](https://gith
 
 > `private` **webhookService**: [`WebhookService`](../../../webhooks/webhook.service/classes/WebhookService.md)
 
-Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.events.handlers.ts#L14)
+Defined in: [src/modules/api-usage/api-usage.events.handlers.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.events.handlers.ts#L14)

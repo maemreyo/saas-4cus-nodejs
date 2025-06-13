@@ -6,7 +6,7 @@
 
 # Class: UpdateMemberRoleDTO
 
-Defined in: [src/modules/tenant/tenant.dto.ts:56](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.dto.ts#L56)
+Defined in: [src/modules/tenant/tenant.dto.ts:56](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.dto.ts#L56)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/tenant/tenant.dto.ts:56](https://github.com/maemreyo/sa
 
 > **role**: `TenantMemberRole`
 
-Defined in: [src/modules/tenant/tenant.dto.ts:61](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.dto.ts#L61)
+Defined in: [src/modules/tenant/tenant.dto.ts:61](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.dto.ts#L61)
 
 ***
 
@@ -32,4 +32,4 @@ Defined in: [src/modules/tenant/tenant.dto.ts:61](https://github.com/maemreyo/sa
 
 > `static` **schema**: `ZodObject`\<\{ `role`: `ZodNativeEnum`\<\{ \}\>; \}, `"strip"`, `ZodTypeAny`, \{ `role?`: `"ADMIN"` \| `"OWNER"` \| `"MEMBER"` \| `"VIEWER"`; \}, \{ `role?`: `"ADMIN"` \| `"OWNER"` \| `"MEMBER"` \| `"VIEWER"`; \}\>
 
-Defined in: [src/modules/tenant/tenant.dto.ts:57](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.dto.ts#L57)
+Defined in: [src/modules/tenant/tenant.dto.ts:57](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.dto.ts#L57)

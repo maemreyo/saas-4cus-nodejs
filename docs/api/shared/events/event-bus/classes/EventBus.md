@@ -6,7 +6,7 @@
 
 # Class: EventBus
 
-Defined in: [src/shared/events/event-bus.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/events/event-bus.ts#L14)
+Defined in: [src/shared/events/event-bus.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/events/event-bus.ts#L14)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/shared/events/event-bus.ts:14](https://github.com/maemreyo/saas
 
 > **new EventBus**(): `EventBus`
 
-Defined in: [src/shared/events/event-bus.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/events/event-bus.ts#L18)
+Defined in: [src/shared/events/event-bus.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/events/event-bus.ts#L18)
 
 #### Returns
 
@@ -26,7 +26,7 @@ Defined in: [src/shared/events/event-bus.ts:18](https://github.com/maemreyo/saas
 
 > **clear**(): `void`
 
-Defined in: [src/shared/events/event-bus.ts:115](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/events/event-bus.ts#L115)
+Defined in: [src/shared/events/event-bus.ts:115](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/events/event-bus.ts#L115)
 
 #### Returns
 
@@ -38,7 +38,7 @@ Defined in: [src/shared/events/event-bus.ts:115](https://github.com/maemreyo/saa
 
 > **emit**\<`T`\>(`event`, `payload`): `Promise`\<`void`\>
 
-Defined in: [src/shared/events/event-bus.ts:73](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/events/event-bus.ts#L73)
+Defined in: [src/shared/events/event-bus.ts:73](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/events/event-bus.ts#L73)
 
 #### Type Parameters
 
@@ -66,7 +66,7 @@ Defined in: [src/shared/events/event-bus.ts:73](https://github.com/maemreyo/saas
 
 > **emitLocal**\<`T`\>(`event`, `payload`): `void`
 
-Defined in: [src/shared/events/event-bus.ts:67](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/events/event-bus.ts#L67)
+Defined in: [src/shared/events/event-bus.ts:67](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/events/event-bus.ts#L67)
 
 #### Type Parameters
 
@@ -94,7 +94,7 @@ Defined in: [src/shared/events/event-bus.ts:67](https://github.com/maemreyo/saas
 
 > **getEvents**(): `string`[]
 
-Defined in: [src/shared/events/event-bus.ts:105](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/events/event-bus.ts#L105)
+Defined in: [src/shared/events/event-bus.ts:105](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/events/event-bus.ts#L105)
 
 #### Returns
 
@@ -106,7 +106,7 @@ Defined in: [src/shared/events/event-bus.ts:105](https://github.com/maemreyo/saa
 
 > **getHandlerCount**(`event`): `number`
 
-Defined in: [src/shared/events/event-bus.ts:110](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/events/event-bus.ts#L110)
+Defined in: [src/shared/events/event-bus.ts:110](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/events/event-bus.ts#L110)
 
 #### Parameters
 
@@ -124,7 +124,7 @@ Defined in: [src/shared/events/event-bus.ts:110](https://github.com/maemreyo/saa
 
 > **off**(`event`, `handler`): `void`
 
-Defined in: [src/shared/events/event-bus.ts:61](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/events/event-bus.ts#L61)
+Defined in: [src/shared/events/event-bus.ts:61](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/events/event-bus.ts#L61)
 
 #### Parameters
 
@@ -146,7 +146,7 @@ Defined in: [src/shared/events/event-bus.ts:61](https://github.com/maemreyo/saas
 
 > **on**\<`T`\>(`event`, `handler`): `void`
 
-Defined in: [src/shared/events/event-bus.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/events/event-bus.ts#L33)
+Defined in: [src/shared/events/event-bus.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/events/event-bus.ts#L33)
 
 #### Type Parameters
 
@@ -174,7 +174,7 @@ Defined in: [src/shared/events/event-bus.ts:33](https://github.com/maemreyo/saas
 
 > **once**\<`T`\>(`event`, `handler`): `void`
 
-Defined in: [src/shared/events/event-bus.ts:50](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/events/event-bus.ts#L50)
+Defined in: [src/shared/events/event-bus.ts:50](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/events/event-bus.ts#L50)
 
 #### Type Parameters
 
@@ -202,7 +202,7 @@ Defined in: [src/shared/events/event-bus.ts:50](https://github.com/maemreyo/saas
 
 > `private` **setupRedisSubscriber**(): `void`
 
-Defined in: [src/shared/events/event-bus.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/events/event-bus.ts#L25)
+Defined in: [src/shared/events/event-bus.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/events/event-bus.ts#L25)
 
 #### Returns
 
@@ -214,7 +214,7 @@ Defined in: [src/shared/events/event-bus.ts:25](https://github.com/maemreyo/saas
 
 > **waitFor**\<`T`\>(`event`, `timeout?`): `Promise`\<`T`\>
 
-Defined in: [src/shared/events/event-bus.ts:88](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/events/event-bus.ts#L88)
+Defined in: [src/shared/events/event-bus.ts:88](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/events/event-bus.ts#L88)
 
 #### Type Parameters
 
@@ -242,7 +242,7 @@ Defined in: [src/shared/events/event-bus.ts:88](https://github.com/maemreyo/saas
 
 > `private` **emitter**: `EventEmitter`
 
-Defined in: [src/shared/events/event-bus.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/events/event-bus.ts#L15)
+Defined in: [src/shared/events/event-bus.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/events/event-bus.ts#L15)
 
 ***
 
@@ -250,4 +250,4 @@ Defined in: [src/shared/events/event-bus.ts:15](https://github.com/maemreyo/saas
 
 > `private` **handlers**: `Map`\<`string`, `Set`\<[`EventHandler`](../type-aliases/EventHandler.md)\<`any`\>\>\>
 
-Defined in: [src/shared/events/event-bus.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/events/event-bus.ts#L16)
+Defined in: [src/shared/events/event-bus.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/events/event-bus.ts#L16)

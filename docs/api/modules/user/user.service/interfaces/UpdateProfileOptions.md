@@ -6,7 +6,7 @@
 
 # Interface: UpdateProfileOptions
 
-Defined in: [src/modules/user/user.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L13)
+Defined in: [src/modules/user/user.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L13)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/user/user.service.ts:13](https://github.com/maemreyo/sa
 
 > `optional` **bio**: `string`
 
-Defined in: [src/modules/user/user.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L18)
+Defined in: [src/modules/user/user.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L18)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/user/user.service.ts:18](https://github.com/maemreyo/sa
 
 > `optional` **displayName**: `string`
 
-Defined in: [src/modules/user/user.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L16)
+Defined in: [src/modules/user/user.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L16)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/user/user.service.ts:16](https://github.com/maemreyo/sa
 
 > `optional` **firstName**: `string`
 
-Defined in: [src/modules/user/user.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L14)
+Defined in: [src/modules/user/user.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L14)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/modules/user/user.service.ts:14](https://github.com/maemreyo/sa
 
 > `optional` **lastName**: `string`
 
-Defined in: [src/modules/user/user.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L15)
+Defined in: [src/modules/user/user.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L15)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/modules/user/user.service.ts:15](https://github.com/maemreyo/sa
 
 > `optional` **location**: `string`
 
-Defined in: [src/modules/user/user.service.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L20)
+Defined in: [src/modules/user/user.service.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L20)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [src/modules/user/user.service.ts:20](https://github.com/maemreyo/sa
 
 > `optional` **metadata**: `Record`\<`string`, `any`\>
 
-Defined in: [src/modules/user/user.service.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L21)
+Defined in: [src/modules/user/user.service.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L21)
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: [src/modules/user/user.service.ts:21](https://github.com/maemreyo/sa
 
 > `optional` **username**: `string`
 
-Defined in: [src/modules/user/user.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L17)
+Defined in: [src/modules/user/user.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L17)
 
 ***
 
@@ -70,4 +70,4 @@ Defined in: [src/modules/user/user.service.ts:17](https://github.com/maemreyo/sa
 
 > `optional` **website**: `string`
 
-Defined in: [src/modules/user/user.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L19)
+Defined in: [src/modules/user/user.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L19)

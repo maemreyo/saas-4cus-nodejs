@@ -6,7 +6,7 @@
 
 # Class: AiController
 
-Defined in: [src/modules/ai/ai.controller.ts:34](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L34)
+Defined in: [src/modules/ai/ai.controller.ts:34](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L34)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/ai/ai.controller.ts:34](https://github.com/maemreyo/saa
 
 > **new AiController**(`aiService`, `cacheService`): `AiController`
 
-Defined in: [src/modules/ai/ai.controller.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L35)
+Defined in: [src/modules/ai/ai.controller.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L35)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [src/modules/ai/ai.controller.ts:35](https://github.com/maemreyo/saa
 
 > **addMessage**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.controller.ts:456](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L456)
+Defined in: [src/modules/ai/ai.controller.ts:456](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L456)
 
 #### Parameters
 
@@ -58,7 +58,7 @@ Defined in: [src/modules/ai/ai.controller.ts:456](https://github.com/maemreyo/sa
 
 > **chat**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.controller.ts:79](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L79)
+Defined in: [src/modules/ai/ai.controller.ts:79](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L79)
 
 #### Parameters
 
@@ -80,7 +80,7 @@ Defined in: [src/modules/ai/ai.controller.ts:79](https://github.com/maemreyo/saa
 
 > **clearCache**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.controller.ts:529](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L529)
+Defined in: [src/modules/ai/ai.controller.ts:529](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L529)
 
 #### Parameters
 
@@ -102,7 +102,7 @@ Defined in: [src/modules/ai/ai.controller.ts:529](https://github.com/maemreyo/sa
 
 > **complete**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.controller.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L41)
+Defined in: [src/modules/ai/ai.controller.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L41)
 
 #### Parameters
 
@@ -124,7 +124,7 @@ Defined in: [src/modules/ai/ai.controller.ts:41](https://github.com/maemreyo/saa
 
 > **createApiKey**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.controller.ts:469](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L469)
+Defined in: [src/modules/ai/ai.controller.ts:469](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L469)
 
 #### Parameters
 
@@ -146,7 +146,7 @@ Defined in: [src/modules/ai/ai.controller.ts:469](https://github.com/maemreyo/sa
 
 > **createConversation**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.controller.ts:415](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L415)
+Defined in: [src/modules/ai/ai.controller.ts:415](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L415)
 
 #### Parameters
 
@@ -168,7 +168,7 @@ Defined in: [src/modules/ai/ai.controller.ts:415](https://github.com/maemreyo/sa
 
 > **createTemplate**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.controller.ts:342](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L342)
+Defined in: [src/modules/ai/ai.controller.ts:342](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L342)
 
 #### Parameters
 
@@ -190,7 +190,7 @@ Defined in: [src/modules/ai/ai.controller.ts:342](https://github.com/maemreyo/sa
 
 > **deleteApiKey**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.controller.ts:509](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L509)
+Defined in: [src/modules/ai/ai.controller.ts:509](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L509)
 
 #### Parameters
 
@@ -212,7 +212,7 @@ Defined in: [src/modules/ai/ai.controller.ts:509](https://github.com/maemreyo/sa
 
 > **deleteTemplate**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.controller.ts:391](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L391)
+Defined in: [src/modules/ai/ai.controller.ts:391](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L391)
 
 #### Parameters
 
@@ -234,7 +234,7 @@ Defined in: [src/modules/ai/ai.controller.ts:391](https://github.com/maemreyo/sa
 
 > **embed**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.controller.ts:120](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L120)
+Defined in: [src/modules/ai/ai.controller.ts:120](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L120)
 
 #### Parameters
 
@@ -256,7 +256,7 @@ Defined in: [src/modules/ai/ai.controller.ts:120](https://github.com/maemreyo/sa
 
 > **generateImage**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.controller.ts:169](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L169)
+Defined in: [src/modules/ai/ai.controller.ts:169](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L169)
 
 #### Parameters
 
@@ -278,7 +278,7 @@ Defined in: [src/modules/ai/ai.controller.ts:169](https://github.com/maemreyo/sa
 
 > **getApiKeys**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.controller.ts:498](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L498)
+Defined in: [src/modules/ai/ai.controller.ts:498](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L498)
 
 #### Parameters
 
@@ -300,7 +300,7 @@ Defined in: [src/modules/ai/ai.controller.ts:498](https://github.com/maemreyo/sa
 
 > **getCacheStats**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.controller.ts:520](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L520)
+Defined in: [src/modules/ai/ai.controller.ts:520](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L520)
 
 #### Parameters
 
@@ -322,7 +322,7 @@ Defined in: [src/modules/ai/ai.controller.ts:520](https://github.com/maemreyo/sa
 
 > **getConversation**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.controller.ts:445](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L445)
+Defined in: [src/modules/ai/ai.controller.ts:445](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L445)
 
 #### Parameters
 
@@ -344,7 +344,7 @@ Defined in: [src/modules/ai/ai.controller.ts:445](https://github.com/maemreyo/sa
 
 > **getConversations**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.controller.ts:434](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L434)
+Defined in: [src/modules/ai/ai.controller.ts:434](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L434)
 
 #### Parameters
 
@@ -366,7 +366,7 @@ Defined in: [src/modules/ai/ai.controller.ts:434](https://github.com/maemreyo/sa
 
 > **getCurrentUsage**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.controller.ts:329](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L329)
+Defined in: [src/modules/ai/ai.controller.ts:329](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L329)
 
 #### Parameters
 
@@ -388,7 +388,7 @@ Defined in: [src/modules/ai/ai.controller.ts:329](https://github.com/maemreyo/sa
 
 > **getModels**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.controller.ts:274](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L274)
+Defined in: [src/modules/ai/ai.controller.ts:274](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L274)
 
 #### Parameters
 
@@ -410,7 +410,7 @@ Defined in: [src/modules/ai/ai.controller.ts:274](https://github.com/maemreyo/sa
 
 > **getProviders**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.controller.ts:297](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L297)
+Defined in: [src/modules/ai/ai.controller.ts:297](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L297)
 
 #### Parameters
 
@@ -432,7 +432,7 @@ Defined in: [src/modules/ai/ai.controller.ts:297](https://github.com/maemreyo/sa
 
 > **getTemplates**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.controller.ts:362](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L362)
+Defined in: [src/modules/ai/ai.controller.ts:362](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L362)
 
 #### Parameters
 
@@ -454,7 +454,7 @@ Defined in: [src/modules/ai/ai.controller.ts:362](https://github.com/maemreyo/sa
 
 > **getUsageStats**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.controller.ts:307](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L307)
+Defined in: [src/modules/ai/ai.controller.ts:307](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L307)
 
 #### Parameters
 
@@ -476,7 +476,7 @@ Defined in: [src/modules/ai/ai.controller.ts:307](https://github.com/maemreyo/sa
 
 > **transcribeAudio**(`request`, `reply`): `Promise`\<`never`\>
 
-Defined in: [src/modules/ai/ai.controller.ts:207](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L207)
+Defined in: [src/modules/ai/ai.controller.ts:207](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L207)
 
 #### Parameters
 
@@ -498,7 +498,7 @@ Defined in: [src/modules/ai/ai.controller.ts:207](https://github.com/maemreyo/sa
 
 > **updateTemplate**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.controller.ts:379](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L379)
+Defined in: [src/modules/ai/ai.controller.ts:379](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L379)
 
 #### Parameters
 
@@ -520,7 +520,7 @@ Defined in: [src/modules/ai/ai.controller.ts:379](https://github.com/maemreyo/sa
 
 > **useTemplate**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.controller.ts:401](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L401)
+Defined in: [src/modules/ai/ai.controller.ts:401](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L401)
 
 #### Parameters
 
@@ -542,7 +542,7 @@ Defined in: [src/modules/ai/ai.controller.ts:401](https://github.com/maemreyo/sa
 
 > `private` **aiService**: [`AiService`](../../ai.service/classes/AiService.md)
 
-Defined in: [src/modules/ai/ai.controller.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L36)
+Defined in: [src/modules/ai/ai.controller.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L36)
 
 ***
 
@@ -550,4 +550,4 @@ Defined in: [src/modules/ai/ai.controller.ts:36](https://github.com/maemreyo/saa
 
 > `private` **cacheService**: [`AiCacheService`](../../ai.cache/classes/AiCacheService.md)
 
-Defined in: [src/modules/ai/ai.controller.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.controller.ts#L37)
+Defined in: [src/modules/ai/ai.controller.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.controller.ts#L37)

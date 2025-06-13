@@ -6,7 +6,7 @@
 
 # Class: StorageService
 
-Defined in: [src/shared/services/storage.service.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/storage.service.ts#L23)
+Defined in: [src/shared/services/storage.service.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/storage.service.ts#L23)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/shared/services/storage.service.ts:23](https://github.com/maemr
 
 > **new StorageService**(): `StorageService`
 
-Defined in: [src/shared/services/storage.service.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/storage.service.ts#L27)
+Defined in: [src/shared/services/storage.service.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/storage.service.ts#L27)
 
 #### Returns
 
@@ -26,7 +26,7 @@ Defined in: [src/shared/services/storage.service.ts:27](https://github.com/maemr
 
 > **delete**(`key`): `Promise`\<`void`\>
 
-Defined in: [src/shared/services/storage.service.ts:94](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/storage.service.ts#L94)
+Defined in: [src/shared/services/storage.service.ts:94](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/storage.service.ts#L94)
 
 #### Parameters
 
@@ -44,7 +44,7 @@ Defined in: [src/shared/services/storage.service.ts:94](https://github.com/maemr
 
 > `private` **deleteLocal**(`key`): `Promise`\<`void`\>
 
-Defined in: [src/shared/services/storage.service.ts:105](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/storage.service.ts#L105)
+Defined in: [src/shared/services/storage.service.ts:105](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/storage.service.ts#L105)
 
 #### Parameters
 
@@ -62,7 +62,7 @@ Defined in: [src/shared/services/storage.service.ts:105](https://github.com/maem
 
 > `private` **deleteS3**(`key`): `Promise`\<`void`\>
 
-Defined in: [src/shared/services/storage.service.ts:111](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/storage.service.ts#L111)
+Defined in: [src/shared/services/storage.service.ts:111](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/storage.service.ts#L111)
 
 #### Parameters
 
@@ -80,7 +80,7 @@ Defined in: [src/shared/services/storage.service.ts:111](https://github.com/maem
 
 > **exists**(`key`): `Promise`\<`boolean`\>
 
-Defined in: [src/shared/services/storage.service.ts:116](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/storage.service.ts#L116)
+Defined in: [src/shared/services/storage.service.ts:116](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/storage.service.ts#L116)
 
 #### Parameters
 
@@ -98,7 +98,7 @@ Defined in: [src/shared/services/storage.service.ts:116](https://github.com/maem
 
 > `private` **existsLocal**(`key`): `Promise`\<`boolean`\>
 
-Defined in: [src/shared/services/storage.service.ts:127](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/storage.service.ts#L127)
+Defined in: [src/shared/services/storage.service.ts:127](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/storage.service.ts#L127)
 
 #### Parameters
 
@@ -116,7 +116,7 @@ Defined in: [src/shared/services/storage.service.ts:127](https://github.com/maem
 
 > `private` **existsS3**(`key`): `Promise`\<`boolean`\>
 
-Defined in: [src/shared/services/storage.service.ts:137](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/storage.service.ts#L137)
+Defined in: [src/shared/services/storage.service.ts:137](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/storage.service.ts#L137)
 
 #### Parameters
 
@@ -134,7 +134,7 @@ Defined in: [src/shared/services/storage.service.ts:137](https://github.com/maem
 
 > `private` **generateKey**(`filename`): `string`
 
-Defined in: [src/shared/services/storage.service.ts:87](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/storage.service.ts#L87)
+Defined in: [src/shared/services/storage.service.ts:87](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/storage.service.ts#L87)
 
 #### Parameters
 
@@ -152,7 +152,7 @@ Defined in: [src/shared/services/storage.service.ts:87](https://github.com/maemr
 
 > **storeFile**(`buffer`, `filename`, `options?`): `Promise`\<`string`\>
 
-Defined in: [src/shared/services/storage.service.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/storage.service.ts#L45)
+Defined in: [src/shared/services/storage.service.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/storage.service.ts#L45)
 
 #### Parameters
 
@@ -180,7 +180,7 @@ Defined in: [src/shared/services/storage.service.ts:45](https://github.com/maemr
 
 > **upload**(`options`): `Promise`\<[`UploadResult`](../interfaces/UploadResult.md)\>
 
-Defined in: [src/shared/services/storage.service.ts:32](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/storage.service.ts#L32)
+Defined in: [src/shared/services/storage.service.ts:32](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/storage.service.ts#L32)
 
 #### Parameters
 
@@ -198,7 +198,7 @@ Defined in: [src/shared/services/storage.service.ts:32](https://github.com/maemr
 
 > `private` **uploadLocal**(`buffer`, `filename`, `mimeType`, `subPath?`): `Promise`\<[`UploadResult`](../interfaces/UploadResult.md)\>
 
-Defined in: [src/shared/services/storage.service.ts:54](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/storage.service.ts#L54)
+Defined in: [src/shared/services/storage.service.ts:54](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/storage.service.ts#L54)
 
 #### Parameters
 
@@ -228,7 +228,7 @@ Defined in: [src/shared/services/storage.service.ts:54](https://github.com/maemr
 
 > `private` **uploadS3**(`buffer`, `filename`, `mimeType`, `subPath?`): `Promise`\<[`UploadResult`](../interfaces/UploadResult.md)\>
 
-Defined in: [src/shared/services/storage.service.ts:81](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/storage.service.ts#L81)
+Defined in: [src/shared/services/storage.service.ts:81](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/storage.service.ts#L81)
 
 #### Parameters
 
@@ -258,7 +258,7 @@ Defined in: [src/shared/services/storage.service.ts:81](https://github.com/maemr
 
 > `private` **basePath**: `string`
 
-Defined in: [src/shared/services/storage.service.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/storage.service.ts#L25)
+Defined in: [src/shared/services/storage.service.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/storage.service.ts#L25)
 
 ***
 
@@ -266,4 +266,4 @@ Defined in: [src/shared/services/storage.service.ts:25](https://github.com/maemr
 
 > `private` **storageType**: `string`
 
-Defined in: [src/shared/services/storage.service.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/storage.service.ts#L24)
+Defined in: [src/shared/services/storage.service.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/storage.service.ts#L24)

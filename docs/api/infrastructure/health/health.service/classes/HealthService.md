@@ -6,7 +6,7 @@
 
 # Class: HealthService
 
-Defined in: [src/infrastructure/health/health.service.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/health/health.service.ts#L12)
+Defined in: [src/infrastructure/health/health.service.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/health/health.service.ts#L12)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/infrastructure/health/health.service.ts:12](https://github.com/
 
 > **check**(`name`): `Promise`\<[`HealthCheckResult`](../../health.types/interfaces/HealthCheckResult.md)\>
 
-Defined in: [src/infrastructure/health/health.service.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/health/health.service.ts#L48)
+Defined in: [src/infrastructure/health/health.service.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/health/health.service.ts#L48)
 
 Run a specific health check
 
@@ -44,7 +44,7 @@ Run a specific health check
 
 > **checkAll**(): `Promise`\<[`HealthSummary`](../../health.types/interfaces/HealthSummary.md)\>
 
-Defined in: [src/infrastructure/health/health.service.ts:93](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/health/health.service.ts#L93)
+Defined in: [src/infrastructure/health/health.service.ts:93](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/health/health.service.ts#L93)
 
 Run all health checks
 
@@ -58,7 +58,7 @@ Run all health checks
 
 > **getRegisteredChecks**(): [`HealthCheckEntry`](../../health.types/interfaces/HealthCheckEntry.md)[]
 
-Defined in: [src/infrastructure/health/health.service.ts:121](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/health/health.service.ts#L121)
+Defined in: [src/infrastructure/health/health.service.ts:121](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/health/health.service.ts#L121)
 
 Get all registered health checks
 
@@ -72,7 +72,7 @@ Get all registered health checks
 
 > **register**(`name`, `check`, `description?`, `tags?`): `void`
 
-Defined in: [src/infrastructure/health/health.service.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/health/health.service.ts#L23)
+Defined in: [src/infrastructure/health/health.service.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/health/health.service.ts#L23)
 
 Register a health check
 
@@ -104,7 +104,7 @@ Register a health check
 
 > **setCacheTime**(`milliseconds`): `void`
 
-Defined in: [src/infrastructure/health/health.service.ts:128](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/health/health.service.ts#L128)
+Defined in: [src/infrastructure/health/health.service.ts:128](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/health/health.service.ts#L128)
 
 Set cache time for health check results
 
@@ -124,7 +124,7 @@ Set cache time for health check results
 
 > **unregister**(`name`): `boolean`
 
-Defined in: [src/infrastructure/health/health.service.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/health/health.service.ts#L35)
+Defined in: [src/infrastructure/health/health.service.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/health/health.service.ts#L35)
 
 Unregister a health check
 
@@ -144,7 +144,7 @@ Unregister a health check
 
 > `private` **cacheTime**: `number`
 
-Defined in: [src/infrastructure/health/health.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/health/health.service.ts#L18)
+Defined in: [src/infrastructure/health/health.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/health/health.service.ts#L18)
 
 ***
 
@@ -152,7 +152,7 @@ Defined in: [src/infrastructure/health/health.service.ts:18](https://github.com/
 
 > `private` **checks**: `Map`\<`string`, [`HealthCheckEntry`](../../health.types/interfaces/HealthCheckEntry.md)\>
 
-Defined in: [src/infrastructure/health/health.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/health/health.service.ts#L13)
+Defined in: [src/infrastructure/health/health.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/health/health.service.ts#L13)
 
 ***
 
@@ -160,7 +160,7 @@ Defined in: [src/infrastructure/health/health.service.ts:13](https://github.com/
 
 > `private` **lastCheckTime**: `Map`\<`string`, `number`\>
 
-Defined in: [src/infrastructure/health/health.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/health/health.service.ts#L15)
+Defined in: [src/infrastructure/health/health.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/health/health.service.ts#L15)
 
 ***
 
@@ -168,4 +168,4 @@ Defined in: [src/infrastructure/health/health.service.ts:15](https://github.com/
 
 > `private` **lastResults**: `Map`\<`string`, [`HealthCheckResult`](../../health.types/interfaces/HealthCheckResult.md)\>
 
-Defined in: [src/infrastructure/health/health.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/health/health.service.ts#L14)
+Defined in: [src/infrastructure/health/health.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/health/health.service.ts#L14)

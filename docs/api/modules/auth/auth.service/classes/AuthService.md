@@ -6,7 +6,7 @@
 
 # Class: AuthService
 
-Defined in: [src/modules/auth/auth.service.ts:71](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L71)
+Defined in: [src/modules/auth/auth.service.ts:71](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L71)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/auth/auth.service.ts:71](https://github.com/maemreyo/sa
 
 > **new AuthService**(`emailService`, `eventBus`): `AuthService`
 
-Defined in: [src/modules/auth/auth.service.ts:74](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L74)
+Defined in: [src/modules/auth/auth.service.ts:74](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L74)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [src/modules/auth/auth.service.ts:74](https://github.com/maemreyo/sa
 
 > **confirm2FA**(`userId`, `code`): `Promise`\<`void`\>
 
-Defined in: [src/modules/auth/auth.service.ts:459](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L459)
+Defined in: [src/modules/auth/auth.service.ts:459](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L459)
 
 #### Parameters
 
@@ -58,7 +58,7 @@ Defined in: [src/modules/auth/auth.service.ts:459](https://github.com/maemreyo/s
 
 > **disable2FA**(`userId`, `password`): `Promise`\<`void`\>
 
-Defined in: [src/modules/auth/auth.service.ts:507](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L507)
+Defined in: [src/modules/auth/auth.service.ts:507](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L507)
 
 #### Parameters
 
@@ -80,7 +80,7 @@ Defined in: [src/modules/auth/auth.service.ts:507](https://github.com/maemreyo/s
 
 > **enable2FA**(`userId`): `Promise`\<\{ `backupCodes`: `string`[]; `qrCode`: `string`; `secret`: `string`; \}\>
 
-Defined in: [src/modules/auth/auth.service.ts:416](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L416)
+Defined in: [src/modules/auth/auth.service.ts:416](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L416)
 
 #### Parameters
 
@@ -98,7 +98,7 @@ Defined in: [src/modules/auth/auth.service.ts:416](https://github.com/maemreyo/s
 
 > `private` **generateAuthTokens**(`user`, `sessionId?`): `Promise`\<[`AuthTokens`](../interfaces/AuthTokens.md)\>
 
-Defined in: [src/modules/auth/auth.service.ts:696](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L696)
+Defined in: [src/modules/auth/auth.service.ts:696](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L696)
 
 #### Parameters
 
@@ -118,7 +118,7 @@ Defined in: [src/modules/auth/auth.service.ts:696](https://github.com/maemreyo/s
 
 > **getGoogleAuthUrl**(): `string`
 
-Defined in: [src/modules/auth/auth.service.ts:890](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L890)
+Defined in: [src/modules/auth/auth.service.ts:890](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L890)
 
 #### Returns
 
@@ -130,7 +130,7 @@ Defined in: [src/modules/auth/auth.service.ts:890](https://github.com/maemreyo/s
 
 > **getUserById**(`userId`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/auth/auth.service.ts:878](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L878)
+Defined in: [src/modules/auth/auth.service.ts:878](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L878)
 
 #### Parameters
 
@@ -148,7 +148,7 @@ Defined in: [src/modules/auth/auth.service.ts:878](https://github.com/maemreyo/s
 
 > **handleGoogleCallback**(`code`): `Promise`\<\{ `tokens`: [`AuthTokens`](../interfaces/AuthTokens.md); `user`: \{ \}; \}\>
 
-Defined in: [src/modules/auth/auth.service.ts:902](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L902)
+Defined in: [src/modules/auth/auth.service.ts:902](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L902)
 
 #### Parameters
 
@@ -166,7 +166,7 @@ Defined in: [src/modules/auth/auth.service.ts:902](https://github.com/maemreyo/s
 
 > `private` **isValidEmail**(`email`): `boolean`
 
-Defined in: [src/modules/auth/auth.service.ts:831](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L831)
+Defined in: [src/modules/auth/auth.service.ts:831](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L831)
 
 #### Parameters
 
@@ -184,7 +184,7 @@ Defined in: [src/modules/auth/auth.service.ts:831](https://github.com/maemreyo/s
 
 > `private` **logFailedLoginAttempt**(`userId`, `email`): `Promise`\<`void`\>
 
-Defined in: [src/modules/auth/auth.service.ts:784](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L784)
+Defined in: [src/modules/auth/auth.service.ts:784](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L784)
 
 #### Parameters
 
@@ -206,7 +206,7 @@ Defined in: [src/modules/auth/auth.service.ts:784](https://github.com/maemreyo/s
 
 > **login**(`dto`): `Promise`\<\{ `requiresTwoFactor?`: `boolean`; `tokens`: [`AuthTokens`](../interfaces/AuthTokens.md); `user`: \{ \}; \}\>
 
-Defined in: [src/modules/auth/auth.service.ts:154](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L154)
+Defined in: [src/modules/auth/auth.service.ts:154](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L154)
 
 #### Parameters
 
@@ -224,7 +224,7 @@ Defined in: [src/modules/auth/auth.service.ts:154](https://github.com/maemreyo/s
 
 > **logout**(`userId`, `sessionId?`): `Promise`\<`void`\>
 
-Defined in: [src/modules/auth/auth.service.ts:388](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L388)
+Defined in: [src/modules/auth/auth.service.ts:388](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L388)
 
 #### Parameters
 
@@ -246,7 +246,7 @@ Defined in: [src/modules/auth/auth.service.ts:388](https://github.com/maemreyo/s
 
 > **oauthLogin**(`profile`): `Promise`\<\{ `tokens`: [`AuthTokens`](../interfaces/AuthTokens.md); `user`: \{ \}; \}\>
 
-Defined in: [src/modules/auth/auth.service.ts:222](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L222)
+Defined in: [src/modules/auth/auth.service.ts:222](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L222)
 
 #### Parameters
 
@@ -264,7 +264,7 @@ Defined in: [src/modules/auth/auth.service.ts:222](https://github.com/maemreyo/s
 
 > **refreshTokens**(`refreshToken`): `Promise`\<[`AuthTokens`](../interfaces/AuthTokens.md)\>
 
-Defined in: [src/modules/auth/auth.service.ts:332](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L332)
+Defined in: [src/modules/auth/auth.service.ts:332](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L332)
 
 #### Parameters
 
@@ -282,7 +282,7 @@ Defined in: [src/modules/auth/auth.service.ts:332](https://github.com/maemreyo/s
 
 > **register**(`dto`): `Promise`\<\{ `tokens`: [`AuthTokens`](../interfaces/AuthTokens.md); `user`: \{ \}; \}\>
 
-Defined in: [src/modules/auth/auth.service.ts:86](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L86)
+Defined in: [src/modules/auth/auth.service.ts:86](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L86)
 
 #### Parameters
 
@@ -300,7 +300,7 @@ Defined in: [src/modules/auth/auth.service.ts:86](https://github.com/maemreyo/sa
 
 > **requestPasswordReset**(`email`): `Promise`\<`void`\>
 
-Defined in: [src/modules/auth/auth.service.ts:548](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L548)
+Defined in: [src/modules/auth/auth.service.ts:548](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L548)
 
 #### Parameters
 
@@ -318,7 +318,7 @@ Defined in: [src/modules/auth/auth.service.ts:548](https://github.com/maemreyo/s
 
 > **resetPassword**(`token`, `newPassword`): `Promise`\<`void`\>
 
-Defined in: [src/modules/auth/auth.service.ts:583](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L583)
+Defined in: [src/modules/auth/auth.service.ts:583](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L583)
 
 #### Parameters
 
@@ -340,7 +340,7 @@ Defined in: [src/modules/auth/auth.service.ts:583](https://github.com/maemreyo/s
 
 > `private` **sendVerificationEmail**(`user`): `Promise`\<`void`\>
 
-Defined in: [src/modules/auth/auth.service.ts:768](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L768)
+Defined in: [src/modules/auth/auth.service.ts:768](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L768)
 
 #### Parameters
 
@@ -356,7 +356,7 @@ Defined in: [src/modules/auth/auth.service.ts:768](https://github.com/maemreyo/s
 
 > `private` **validatePasswordStrength**(`password`): `void`
 
-Defined in: [src/modules/auth/auth.service.ts:809](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L809)
+Defined in: [src/modules/auth/auth.service.ts:809](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L809)
 
 #### Parameters
 
@@ -374,7 +374,7 @@ Defined in: [src/modules/auth/auth.service.ts:809](https://github.com/maemreyo/s
 
 > `private` **verify2FACode**(`secret`, `code`): `boolean`
 
-Defined in: [src/modules/auth/auth.service.ts:761](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L761)
+Defined in: [src/modules/auth/auth.service.ts:761](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L761)
 
 #### Parameters
 
@@ -396,7 +396,7 @@ Defined in: [src/modules/auth/auth.service.ts:761](https://github.com/maemreyo/s
 
 > **verifyAccessToken**(`token`): `Promise`\<[`JwtPayload`](../interfaces/JwtPayload.md)\>
 
-Defined in: [src/modules/auth/auth.service.ts:637](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L637)
+Defined in: [src/modules/auth/auth.service.ts:637](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L637)
 
 #### Parameters
 
@@ -414,7 +414,7 @@ Defined in: [src/modules/auth/auth.service.ts:637](https://github.com/maemreyo/s
 
 > **verifyEmail**(`token`): `Promise`\<`void`\>
 
-Defined in: [src/modules/auth/auth.service.ts:837](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L837)
+Defined in: [src/modules/auth/auth.service.ts:837](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L837)
 
 #### Parameters
 
@@ -432,7 +432,7 @@ Defined in: [src/modules/auth/auth.service.ts:837](https://github.com/maemreyo/s
 
 > **verifyGoogleToken**(`idToken`): `Promise`\<[`OAuthProfile`](../interfaces/OAuthProfile.md)\>
 
-Defined in: [src/modules/auth/auth.service.ts:304](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L304)
+Defined in: [src/modules/auth/auth.service.ts:304](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L304)
 
 #### Parameters
 
@@ -450,7 +450,7 @@ Defined in: [src/modules/auth/auth.service.ts:304](https://github.com/maemreyo/s
 
 > `private` **emailService**: [`EmailService`](../../../../shared/services/email.service/classes/EmailService.md)
 
-Defined in: [src/modules/auth/auth.service.ts:75](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L75)
+Defined in: [src/modules/auth/auth.service.ts:75](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L75)
 
 ***
 
@@ -458,7 +458,7 @@ Defined in: [src/modules/auth/auth.service.ts:75](https://github.com/maemreyo/sa
 
 > `private` **eventBus**: [`EventBus`](../../../../shared/events/event-bus/classes/EventBus.md)
 
-Defined in: [src/modules/auth/auth.service.ts:76](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L76)
+Defined in: [src/modules/auth/auth.service.ts:76](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L76)
 
 ***
 
@@ -466,4 +466,4 @@ Defined in: [src/modules/auth/auth.service.ts:76](https://github.com/maemreyo/sa
 
 > `private` **googleClient**: `OAuth2Client`
 
-Defined in: [src/modules/auth/auth.service.ts:72](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L72)
+Defined in: [src/modules/auth/auth.service.ts:72](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L72)

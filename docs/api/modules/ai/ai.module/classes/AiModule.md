@@ -6,7 +6,7 @@
 
 # Class: AiModule
 
-Defined in: [src/modules/ai/ai.module.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.module.ts#L14)
+Defined in: [src/modules/ai/ai.module.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.module.ts#L14)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/ai/ai.module.ts:14](https://github.com/maemreyo/saas-4c
 
 > `private` `static` **initializeServices**(): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.module.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.module.ts#L39)
+Defined in: [src/modules/ai/ai.module.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.module.ts#L39)
 
 #### Returns
 
@@ -36,7 +36,7 @@ Defined in: [src/modules/ai/ai.module.ts:39](https://github.com/maemreyo/saas-4c
 
 > `private` `static` **initializeWorkers**(): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.module.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.module.ts#L48)
+Defined in: [src/modules/ai/ai.module.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.module.ts#L48)
 
 #### Returns
 
@@ -48,7 +48,7 @@ Defined in: [src/modules/ai/ai.module.ts:48](https://github.com/maemreyo/saas-4c
 
 > `static` **register**(`fastify`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.module.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.module.ts#L15)
+Defined in: [src/modules/ai/ai.module.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.module.ts#L15)
 
 #### Parameters
 
@@ -66,7 +66,7 @@ Defined in: [src/modules/ai/ai.module.ts:15](https://github.com/maemreyo/saas-4c
 
 > `private` `static` **registerHealthChecks**(): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.module.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.module.ts#L55)
+Defined in: [src/modules/ai/ai.module.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.module.ts#L55)
 
 #### Returns
 
@@ -78,7 +78,7 @@ Defined in: [src/modules/ai/ai.module.ts:55](https://github.com/maemreyo/saas-4c
 
 > `private` `static` **seedProviders**(): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.module.ts:62](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.module.ts#L62)
+Defined in: [src/modules/ai/ai.module.ts:62](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.module.ts#L62)
 
 #### Returns
 
@@ -90,7 +90,7 @@ Defined in: [src/modules/ai/ai.module.ts:62](https://github.com/maemreyo/saas-4c
 
 > `static` **shutdown**(): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.module.ts:140](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.module.ts#L140)
+Defined in: [src/modules/ai/ai.module.ts:140](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.module.ts#L140)
 
 #### Returns
 

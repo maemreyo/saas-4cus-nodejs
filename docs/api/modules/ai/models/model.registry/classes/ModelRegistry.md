@@ -6,7 +6,7 @@
 
 # Class: ModelRegistry
 
-Defined in: [src/modules/ai/models/model.registry.ts:3](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.registry.ts#L3)
+Defined in: [src/modules/ai/models/model.registry.ts:3](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.registry.ts#L3)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/ai/models/model.registry.ts:3](https://github.com/maemr
 
 > `static` **calculateCost**(`modelId`, `usage`): `number`
 
-Defined in: [src/modules/ai/models/model.registry.ts:390](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.registry.ts#L390)
+Defined in: [src/modules/ai/models/model.registry.ts:390](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.registry.ts#L390)
 
 #### Parameters
 
@@ -52,7 +52,7 @@ Defined in: [src/modules/ai/models/model.registry.ts:390](https://github.com/mae
 
 > `static` **get**(`modelId`): [`AiModel`](../../model.types/interfaces/AiModel.md)
 
-Defined in: [src/modules/ai/models/model.registry.ts:357](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.registry.ts#L357)
+Defined in: [src/modules/ai/models/model.registry.ts:357](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.registry.ts#L357)
 
 #### Parameters
 
@@ -70,7 +70,7 @@ Defined in: [src/modules/ai/models/model.registry.ts:357](https://github.com/mae
 
 > `static` **getAll**(): [`AiModel`](../../model.types/interfaces/AiModel.md)[]
 
-Defined in: [src/modules/ai/models/model.registry.ts:369](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.registry.ts#L369)
+Defined in: [src/modules/ai/models/model.registry.ts:369](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.registry.ts#L369)
 
 #### Returns
 
@@ -82,7 +82,7 @@ Defined in: [src/modules/ai/models/model.registry.ts:369](https://github.com/mae
 
 > `static` **getAvailable**(`capabilities?`): [`AiModel`](../../model.types/interfaces/AiModel.md)[]
 
-Defined in: [src/modules/ai/models/model.registry.ts:373](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.registry.ts#L373)
+Defined in: [src/modules/ai/models/model.registry.ts:373](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.registry.ts#L373)
 
 #### Parameters
 
@@ -100,7 +100,7 @@ Defined in: [src/modules/ai/models/model.registry.ts:373](https://github.com/mae
 
 > `static` **getByCategory**(`category`): [`AiModel`](../../model.types/interfaces/AiModel.md)[]
 
-Defined in: [src/modules/ai/models/model.registry.ts:365](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.registry.ts#L365)
+Defined in: [src/modules/ai/models/model.registry.ts:365](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.registry.ts#L365)
 
 #### Parameters
 
@@ -118,7 +118,7 @@ Defined in: [src/modules/ai/models/model.registry.ts:365](https://github.com/mae
 
 > `static` **getByProvider**(`provider`): [`AiModel`](../../model.types/interfaces/AiModel.md)[]
 
-Defined in: [src/modules/ai/models/model.registry.ts:361](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.registry.ts#L361)
+Defined in: [src/modules/ai/models/model.registry.ts:361](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.registry.ts#L361)
 
 #### Parameters
 
@@ -136,7 +136,7 @@ Defined in: [src/modules/ai/models/model.registry.ts:361](https://github.com/mae
 
 > `static` **register**(`model`): `void`
 
-Defined in: [src/modules/ai/models/model.registry.ts:353](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.registry.ts#L353)
+Defined in: [src/modules/ai/models/model.registry.ts:353](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.registry.ts#L353)
 
 #### Parameters
 
@@ -154,7 +154,7 @@ Defined in: [src/modules/ai/models/model.registry.ts:353](https://github.com/mae
 
 > `private` `static` **registerDefaultModels**(): `void`
 
-Defined in: [src/modules/ai/models/model.registry.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.registry.ts#L11)
+Defined in: [src/modules/ai/models/model.registry.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.registry.ts#L11)
 
 #### Returns
 
@@ -166,4 +166,4 @@ Defined in: [src/modules/ai/models/model.registry.ts:11](https://github.com/maem
 
 > `private` `static` **models**: `Map`\<`string`, [`AiModel`](../../model.types/interfaces/AiModel.md)\>
 
-Defined in: [src/modules/ai/models/model.registry.ts:4](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.registry.ts#L4)
+Defined in: [src/modules/ai/models/model.registry.ts:4](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.registry.ts#L4)

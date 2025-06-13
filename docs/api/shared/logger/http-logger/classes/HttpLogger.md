@@ -6,7 +6,7 @@
 
 # Class: HttpLogger
 
-Defined in: [src/shared/logger/http-logger.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/http-logger.ts#L14)
+Defined in: [src/shared/logger/http-logger.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/http-logger.ts#L14)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/shared/logger/http-logger.ts:14](https://github.com/maemreyo/sa
 
 > `static` **logRequest**(`req`, `reply`): `void`
 
-Defined in: [src/shared/logger/http-logger.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/http-logger.ts#L15)
+Defined in: [src/shared/logger/http-logger.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/http-logger.ts#L15)
 
 #### Parameters
 
@@ -46,7 +46,7 @@ Defined in: [src/shared/logger/http-logger.ts:15](https://github.com/maemreyo/sa
 
 > `private` `static` **sanitizeHeaders**(`headers`): `any`
 
-Defined in: [src/shared/logger/http-logger.ts:61](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/http-logger.ts#L61)
+Defined in: [src/shared/logger/http-logger.ts:61](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/http-logger.ts#L61)
 
 #### Parameters
 

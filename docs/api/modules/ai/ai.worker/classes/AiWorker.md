@@ -6,7 +6,7 @@
 
 # Class: AiWorker
 
-Defined in: [src/modules/ai/ai.worker.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.worker.ts#L11)
+Defined in: [src/modules/ai/ai.worker.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.worker.ts#L11)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/ai/ai.worker.ts:11](https://github.com/maemreyo/saas-4c
 
 > **new AiWorker**(`cacheService`, `notificationService`): `AiWorker`
 
-Defined in: [src/modules/ai/ai.worker.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.worker.ts#L14)
+Defined in: [src/modules/ai/ai.worker.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.worker.ts#L14)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [src/modules/ai/ai.worker.ts:14](https://github.com/maemreyo/saas-4c
 
 > `private` **checkUsageLimits**(): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.worker.ts:148](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.worker.ts#L148)
+Defined in: [src/modules/ai/ai.worker.ts:148](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.worker.ts#L148)
 
 #### Returns
 
@@ -48,7 +48,7 @@ Defined in: [src/modules/ai/ai.worker.ts:148](https://github.com/maemreyo/saas-4
 
 > `private` **cleanupExpiredApiKeys**(): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.worker.ts:98](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.worker.ts#L98)
+Defined in: [src/modules/ai/ai.worker.ts:98](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.worker.ts#L98)
 
 #### Returns
 
@@ -60,7 +60,7 @@ Defined in: [src/modules/ai/ai.worker.ts:98](https://github.com/maemreyo/saas-4c
 
 > `private` **cleanupOldCache**(): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.worker.ts:292](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.worker.ts#L292)
+Defined in: [src/modules/ai/ai.worker.ts:292](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.worker.ts#L292)
 
 #### Returns
 
@@ -72,7 +72,7 @@ Defined in: [src/modules/ai/ai.worker.ts:292](https://github.com/maemreyo/saas-4
 
 > `private` **generateDailyUsageReports**(): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.worker.ts:226](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.worker.ts#L226)
+Defined in: [src/modules/ai/ai.worker.ts:226](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.worker.ts#L226)
 
 #### Returns
 
@@ -84,7 +84,7 @@ Defined in: [src/modules/ai/ai.worker.ts:226](https://github.com/maemreyo/saas-4
 
 > `private` **handleApiKeyExpired**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.worker.ts:411](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.worker.ts#L411)
+Defined in: [src/modules/ai/ai.worker.ts:411](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.worker.ts#L411)
 
 #### Parameters
 
@@ -102,7 +102,7 @@ Defined in: [src/modules/ai/ai.worker.ts:411](https://github.com/maemreyo/saas-4
 
 > `private` **handleCostThresholdExceeded**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.worker.ts:391](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.worker.ts#L391)
+Defined in: [src/modules/ai/ai.worker.ts:391](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.worker.ts#L391)
 
 #### Parameters
 
@@ -120,7 +120,7 @@ Defined in: [src/modules/ai/ai.worker.ts:391](https://github.com/maemreyo/saas-4
 
 > `private` **handleUsageLimitExceeded**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.worker.ts:370](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.worker.ts#L370)
+Defined in: [src/modules/ai/ai.worker.ts:370](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.worker.ts#L370)
 
 #### Parameters
 
@@ -138,7 +138,7 @@ Defined in: [src/modules/ai/ai.worker.ts:370](https://github.com/maemreyo/saas-4
 
 > `private` **handleUsageLimitWarning**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.worker.ts:350](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.worker.ts#L350)
+Defined in: [src/modules/ai/ai.worker.ts:350](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.worker.ts#L350)
 
 #### Parameters
 
@@ -156,7 +156,7 @@ Defined in: [src/modules/ai/ai.worker.ts:350](https://github.com/maemreyo/saas-4
 
 > `private` **registerEventListeners**(): `void`
 
-Defined in: [src/modules/ai/ai.worker.ts:76](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.worker.ts#L76)
+Defined in: [src/modules/ai/ai.worker.ts:76](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.worker.ts#L76)
 
 #### Returns
 
@@ -168,7 +168,7 @@ Defined in: [src/modules/ai/ai.worker.ts:76](https://github.com/maemreyo/saas-4c
 
 > **start**(): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.worker.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.worker.ts#L19)
+Defined in: [src/modules/ai/ai.worker.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.worker.ts#L19)
 
 #### Returns
 
@@ -180,7 +180,7 @@ Defined in: [src/modules/ai/ai.worker.ts:19](https://github.com/maemreyo/saas-4c
 
 > **stop**(): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.worker.ts:66](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.worker.ts#L66)
+Defined in: [src/modules/ai/ai.worker.ts:66](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.worker.ts#L66)
 
 #### Returns
 
@@ -192,7 +192,7 @@ Defined in: [src/modules/ai/ai.worker.ts:66](https://github.com/maemreyo/saas-4c
 
 > `private` **warmUpCache**(): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.worker.ts:310](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.worker.ts#L310)
+Defined in: [src/modules/ai/ai.worker.ts:310](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.worker.ts#L310)
 
 #### Returns
 
@@ -204,7 +204,7 @@ Defined in: [src/modules/ai/ai.worker.ts:310](https://github.com/maemreyo/saas-4
 
 > `private` **cacheService**: [`AiCacheService`](../../ai.cache/classes/AiCacheService.md)
 
-Defined in: [src/modules/ai/ai.worker.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.worker.ts#L15)
+Defined in: [src/modules/ai/ai.worker.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.worker.ts#L15)
 
 ***
 
@@ -212,7 +212,7 @@ Defined in: [src/modules/ai/ai.worker.ts:15](https://github.com/maemreyo/saas-4c
 
 > `private` **jobs**: `CronJob`\<`null`, `null`\>[] = `[]`
 
-Defined in: [src/modules/ai/ai.worker.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.worker.ts#L12)
+Defined in: [src/modules/ai/ai.worker.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.worker.ts#L12)
 
 ***
 
@@ -220,4 +220,4 @@ Defined in: [src/modules/ai/ai.worker.ts:12](https://github.com/maemreyo/saas-4c
 
 > `private` **notificationService**: [`NotificationService`](../../../notification/notification.service/classes/NotificationService.md)
 
-Defined in: [src/modules/ai/ai.worker.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.worker.ts#L16)
+Defined in: [src/modules/ai/ai.worker.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.worker.ts#L16)

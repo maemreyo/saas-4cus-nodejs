@@ -6,7 +6,7 @@
 
 # Class: UserEventHandlers
 
-Defined in: [src/modules/user/user.events.ts:7](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.events.ts#L7)
+Defined in: [src/modules/user/user.events.ts:7](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.events.ts#L7)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/user/user.events.ts:7](https://github.com/maemreyo/saas
 
 > **handleUserLoggedIn**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/user/user.events.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.events.ts#L15)
+Defined in: [src/modules/user/user.events.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.events.ts#L15)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [src/modules/user/user.events.ts:15](https://github.com/maemreyo/saa
 
 > **handleUserRegistered**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/user/user.events.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.events.ts#L9)
+Defined in: [src/modules/user/user.events.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.events.ts#L9)
 
 #### Parameters
 

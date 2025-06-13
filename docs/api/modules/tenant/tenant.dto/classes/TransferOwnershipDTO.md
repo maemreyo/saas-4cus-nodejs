@@ -6,7 +6,7 @@
 
 # Class: TransferOwnershipDTO
 
-Defined in: [src/modules/tenant/tenant.dto.ts:64](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.dto.ts#L64)
+Defined in: [src/modules/tenant/tenant.dto.ts:64](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.dto.ts#L64)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/tenant/tenant.dto.ts:64](https://github.com/maemreyo/sa
 
 > **newOwnerId**: `string`
 
-Defined in: [src/modules/tenant/tenant.dto.ts:69](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.dto.ts#L69)
+Defined in: [src/modules/tenant/tenant.dto.ts:69](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.dto.ts#L69)
 
 ***
 
@@ -32,4 +32,4 @@ Defined in: [src/modules/tenant/tenant.dto.ts:69](https://github.com/maemreyo/sa
 
 > `static` **schema**: `ZodObject`\<\{ `newOwnerId`: `ZodString`; \}, `"strip"`, `ZodTypeAny`, \{ `newOwnerId?`: `string`; \}, \{ `newOwnerId?`: `string`; \}\>
 
-Defined in: [src/modules/tenant/tenant.dto.ts:65](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.dto.ts#L65)
+Defined in: [src/modules/tenant/tenant.dto.ts:65](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.dto.ts#L65)

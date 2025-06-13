@@ -8,4 +8,4 @@
 
 > `const` **CreateApiKeySchema**: `ZodObject`\<\{ `apiKey`: `ZodString`; `expiresAt`: `ZodOptional`\<`ZodString`\>; `name`: `ZodString`; `providerId`: `ZodString`; `usageLimit`: `ZodOptional`\<`ZodNumber`\>; \}, `"strip"`, `ZodTypeAny`, \{ `apiKey?`: `string`; `expiresAt?`: `string`; `name?`: `string`; `providerId?`: `string`; `usageLimit?`: `number`; \}, \{ `apiKey?`: `string`; `expiresAt?`: `string`; `name?`: `string`; `providerId?`: `string`; `usageLimit?`: `number`; \}\>
 
-Defined in: [src/modules/ai/ai.dto.ts:304](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.dto.ts#L304)
+Defined in: [src/modules/ai/ai.dto.ts:304](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.dto.ts#L304)

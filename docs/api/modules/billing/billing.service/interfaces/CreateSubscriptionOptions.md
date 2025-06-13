@@ -6,7 +6,7 @@
 
 # Interface: CreateSubscriptionOptions
 
-Defined in: [src/modules/billing/billing.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L19)
+Defined in: [src/modules/billing/billing.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L19)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/billing/billing.service.ts:19](https://github.com/maemr
 
 > `optional` **couponId**: `string`
 
-Defined in: [src/modules/billing/billing.service.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L22)
+Defined in: [src/modules/billing/billing.service.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L22)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/billing/billing.service.ts:22](https://github.com/maemr
 
 > `optional` **metadata**: `Record`\<`string`, `string`\>
 
-Defined in: [src/modules/billing/billing.service.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L24)
+Defined in: [src/modules/billing/billing.service.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L24)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/billing/billing.service.ts:24](https://github.com/maemr
 
 > **priceId**: `string`
 
-Defined in: [src/modules/billing/billing.service.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L21)
+Defined in: [src/modules/billing/billing.service.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L21)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/modules/billing/billing.service.ts:21](https://github.com/maemr
 
 > `optional` **trialDays**: `number`
 
-Defined in: [src/modules/billing/billing.service.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L23)
+Defined in: [src/modules/billing/billing.service.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L23)
 
 ***
 
@@ -46,4 +46,4 @@ Defined in: [src/modules/billing/billing.service.ts:23](https://github.com/maemr
 
 > **userId**: `string`
 
-Defined in: [src/modules/billing/billing.service.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L20)
+Defined in: [src/modules/billing/billing.service.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L20)

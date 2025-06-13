@@ -6,7 +6,7 @@
 
 # Interface: OnboardingStepTemplate
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L19)
+Defined in: [src/modules/onboarding/onboarding.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L19)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/onboarding/onboarding.service.ts:19](https://github.com
 
 > `optional` **action**: `object`
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L27)
+Defined in: [src/modules/onboarding/onboarding.service.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L27)
 
 #### target?
 
@@ -34,7 +34,7 @@ Defined in: [src/modules/onboarding/onboarding.service.ts:27](https://github.com
 
 > `optional` **content**: `any`
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L26)
+Defined in: [src/modules/onboarding/onboarding.service.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L26)
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: [src/modules/onboarding/onboarding.service.ts:26](https://github.com
 
 > **description**: `string`
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L22)
+Defined in: [src/modules/onboarding/onboarding.service.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L22)
 
 ***
 
@@ -50,7 +50,7 @@ Defined in: [src/modules/onboarding/onboarding.service.ts:22](https://github.com
 
 > **id**: `string`
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L20)
+Defined in: [src/modules/onboarding/onboarding.service.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L20)
 
 ***
 
@@ -58,7 +58,7 @@ Defined in: [src/modules/onboarding/onboarding.service.ts:20](https://github.com
 
 > `optional` **metadata**: `Record`\<`string`, `any`\>
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L33)
+Defined in: [src/modules/onboarding/onboarding.service.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L33)
 
 ***
 
@@ -66,7 +66,7 @@ Defined in: [src/modules/onboarding/onboarding.service.ts:33](https://github.com
 
 > **order**: `number`
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L24)
+Defined in: [src/modules/onboarding/onboarding.service.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L24)
 
 ***
 
@@ -74,7 +74,7 @@ Defined in: [src/modules/onboarding/onboarding.service.ts:24](https://github.com
 
 > **required**: `boolean`
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L25)
+Defined in: [src/modules/onboarding/onboarding.service.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L25)
 
 ***
 
@@ -82,7 +82,7 @@ Defined in: [src/modules/onboarding/onboarding.service.ts:25](https://github.com
 
 > `optional` **skipCondition**: `any`
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:32](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L32)
+Defined in: [src/modules/onboarding/onboarding.service.ts:32](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L32)
 
 ***
 
@@ -90,7 +90,7 @@ Defined in: [src/modules/onboarding/onboarding.service.ts:32](https://github.com
 
 > **title**: `string`
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L21)
+Defined in: [src/modules/onboarding/onboarding.service.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L21)
 
 ***
 
@@ -98,4 +98,4 @@ Defined in: [src/modules/onboarding/onboarding.service.ts:21](https://github.com
 
 > **type**: `"custom"` \| `"welcome"` \| `"profile"` \| `"tour"` \| `"task"`
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L23)
+Defined in: [src/modules/onboarding/onboarding.service.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L23)

@@ -6,7 +6,7 @@
 
 # Class: FeatureService
 
-Defined in: [src/modules/features/feature.service.ts:64](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L64)
+Defined in: [src/modules/features/feature.service.ts:64](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L64)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/features/feature.service.ts:64](https://github.com/maem
 
 > **new FeatureService**(`eventBus`): `FeatureService`
 
-Defined in: [src/modules/features/feature.service.ts:67](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L67)
+Defined in: [src/modules/features/feature.service.ts:67](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L67)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/features/feature.service.ts:67](https://github.com/maem
 
 > **comparePlans**(`planIds`): `Promise`\<\{ `features`: `object`[]; `plans`: `object`[]; \}\>
 
-Defined in: [src/modules/features/feature.service.ts:564](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L564)
+Defined in: [src/modules/features/feature.service.ts:564](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L564)
 
 Compare plans
 
@@ -52,7 +52,7 @@ Compare plans
 
 > **createFeature**(`options`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/features/feature.service.ts:101](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L101)
+Defined in: [src/modules/features/feature.service.ts:101](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L101)
 
 Create a new feature
 
@@ -72,7 +72,7 @@ Create a new feature
 
 > **createPlan**(`options`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/features/feature.service.ts:186](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L186)
+Defined in: [src/modules/features/feature.service.ts:186](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L186)
 
 Create a new plan
 
@@ -92,7 +92,7 @@ Create a new plan
 
 > **getFeatureByKey**(`key`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/features/feature.service.ts:170](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L170)
+Defined in: [src/modules/features/feature.service.ts:170](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L170)
 
 Get feature by key
 
@@ -112,7 +112,7 @@ Get feature by key
 
 > **getFeatures**(`options?`): `Promise`\<`object`[]\>
 
-Defined in: [src/modules/features/feature.service.ts:136](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L136)
+Defined in: [src/modules/features/feature.service.ts:136](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L136)
 
 Get all features
 
@@ -138,7 +138,7 @@ Get all features
 
 > **getFeatureUsageStats**(`featureKey`, `options?`): `Promise`\<\{ `dailyUsage`: `object`[]; `totalUsage`: `number`; `totalUsers`: `number`; \}\>
 
-Defined in: [src/modules/features/feature.service.ts:475](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L475)
+Defined in: [src/modules/features/feature.service.ts:475](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L475)
 
 Get feature usage statistics
 
@@ -172,7 +172,7 @@ Get feature usage statistics
 
 > **getPlanBySlug**(`slug`): `Promise`\<`object` & `object`\>
 
-Defined in: [src/modules/features/feature.service.ts:269](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L269)
+Defined in: [src/modules/features/feature.service.ts:269](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L269)
 
 Get plan by slug
 
@@ -192,7 +192,7 @@ Get plan by slug
 
 > **getPlans**(`options?`): `Promise`\<`object` & `object`[]\>
 
-Defined in: [src/modules/features/feature.service.ts:245](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L245)
+Defined in: [src/modules/features/feature.service.ts:245](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L245)
 
 Get all plans with features
 
@@ -218,7 +218,7 @@ Get all plans with features
 
 > **getUserFeatureFlags**(`userId`): `Promise`\<`Record`\<`string`, `boolean`\>\>
 
-Defined in: [src/modules/features/feature.service.ts:382](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L382)
+Defined in: [src/modules/features/feature.service.ts:382](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L382)
 
 Get all feature flags for user
 
@@ -238,7 +238,7 @@ Get all feature flags for user
 
 > `private` **hashUserId**(`userId`, `featureKey`): `number`
 
-Defined in: [src/modules/features/feature.service.ts:548](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L548)
+Defined in: [src/modules/features/feature.service.ts:548](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L548)
 
 Hash user ID for consistent feature flag rollout
 
@@ -262,7 +262,7 @@ Hash user ID for consistent feature flag rollout
 
 > `private` **initializeFeatureFlags**(): `Promise`\<`void`\>
 
-Defined in: [src/modules/features/feature.service.ts:74](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L74)
+Defined in: [src/modules/features/feature.service.ts:74](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L74)
 
 Initialize feature flags from config or database
 
@@ -276,7 +276,7 @@ Initialize feature flags from config or database
 
 > **isFeatureFlagEnabled**(`key`, `userId?`, `attributes?`): `Promise`\<`boolean`\>
 
-Defined in: [src/modules/features/feature.service.ts:339](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L339)
+Defined in: [src/modules/features/feature.service.ts:339](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L339)
 
 Check if feature flag is enabled for user
 
@@ -304,7 +304,7 @@ Check if feature flag is enabled for user
 
 > **trackFeatureUsage**(`userId`, `featureKey`, `tenantId?`): `Promise`\<`void`\>
 
-Defined in: [src/modules/features/feature.service.ts:422](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L422)
+Defined in: [src/modules/features/feature.service.ts:422](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L422)
 
 Track feature usage
 
@@ -332,7 +332,7 @@ Track feature usage
 
 > **updateFeatureFlag**(`key`, `updates`): `Promise`\<`void`\>
 
-Defined in: [src/modules/features/feature.service.ts:395](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L395)
+Defined in: [src/modules/features/feature.service.ts:395](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L395)
 
 Update feature flag
 
@@ -356,7 +356,7 @@ Update feature flag
 
 > **updatePlan**(`planId`, `updates`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/features/feature.service.ts:292](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L292)
+Defined in: [src/modules/features/feature.service.ts:292](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L292)
 
 Update plan
 
@@ -380,7 +380,7 @@ Update plan
 
 > `private` **eventBus**: [`EventBus`](../../../../shared/events/event-bus/classes/EventBus.md)
 
-Defined in: [src/modules/features/feature.service.ts:67](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L67)
+Defined in: [src/modules/features/feature.service.ts:67](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L67)
 
 ***
 
@@ -388,4 +388,4 @@ Defined in: [src/modules/features/feature.service.ts:67](https://github.com/maem
 
 > `private` **featureFlags**: `Map`\<`string`, [`FeatureFlag`](../interfaces/FeatureFlag.md)\>
 
-Defined in: [src/modules/features/feature.service.ts:65](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L65)
+Defined in: [src/modules/features/feature.service.ts:65](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L65)

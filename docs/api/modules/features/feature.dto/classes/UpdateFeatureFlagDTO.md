@@ -6,7 +6,7 @@
 
 # Class: UpdateFeatureFlagDTO
 
-Defined in: [src/modules/features/feature.dto.ts:57](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L57)
+Defined in: [src/modules/features/feature.dto.ts:57](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L57)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/features/feature.dto.ts:57](https://github.com/maemreyo
 
 > `optional` **enabled**: `boolean`
 
-Defined in: [src/modules/features/feature.dto.ts:66](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L66)
+Defined in: [src/modules/features/feature.dto.ts:66](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L66)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/features/feature.dto.ts:66](https://github.com/maemreyo
 
 > `optional` **metadata**: `Record`\<`string`, `any`\>
 
-Defined in: [src/modules/features/feature.dto.ts:70](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L70)
+Defined in: [src/modules/features/feature.dto.ts:70](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L70)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [src/modules/features/feature.dto.ts:70](https://github.com/maemreyo
 
 > `optional` **rolloutPercentage**: `number`
 
-Defined in: [src/modules/features/feature.dto.ts:67](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L67)
+Defined in: [src/modules/features/feature.dto.ts:67](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L67)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [src/modules/features/feature.dto.ts:67](https://github.com/maemreyo
 
 > `static` **schema**: `ZodObject`\<\{ `enabled`: `ZodOptional`\<`ZodBoolean`\>; `metadata`: `ZodOptional`\<`ZodRecord`\<`ZodString`, `ZodAny`\>\>; `rolloutPercentage`: `ZodOptional`\<`ZodNumber`\>; `userBlacklist`: `ZodOptional`\<`ZodArray`\<`ZodString`, `"many"`\>\>; `userWhitelist`: `ZodOptional`\<`ZodArray`\<`ZodString`, `"many"`\>\>; \}, `"strip"`, `ZodTypeAny`, \{ `enabled?`: `boolean`; `metadata?`: `Record`\<`string`, `any`\>; `rolloutPercentage?`: `number`; `userBlacklist?`: `string`[]; `userWhitelist?`: `string`[]; \}, \{ `enabled?`: `boolean`; `metadata?`: `Record`\<`string`, `any`\>; `rolloutPercentage?`: `number`; `userBlacklist?`: `string`[]; `userWhitelist?`: `string`[]; \}\>
 
-Defined in: [src/modules/features/feature.dto.ts:58](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L58)
+Defined in: [src/modules/features/feature.dto.ts:58](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L58)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [src/modules/features/feature.dto.ts:58](https://github.com/maemreyo
 
 > `optional` **userBlacklist**: `string`[]
 
-Defined in: [src/modules/features/feature.dto.ts:69](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L69)
+Defined in: [src/modules/features/feature.dto.ts:69](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L69)
 
 ***
 
@@ -64,4 +64,4 @@ Defined in: [src/modules/features/feature.dto.ts:69](https://github.com/maemreyo
 
 > `optional` **userWhitelist**: `string`[]
 
-Defined in: [src/modules/features/feature.dto.ts:68](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L68)
+Defined in: [src/modules/features/feature.dto.ts:68](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L68)

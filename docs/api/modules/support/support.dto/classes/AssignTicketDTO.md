@@ -6,7 +6,7 @@
 
 # Class: AssignTicketDTO
 
-Defined in: [src/modules/support/support.dto.ts:99](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L99)
+Defined in: [src/modules/support/support.dto.ts:99](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L99)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/support/support.dto.ts:99](https://github.com/maemreyo/
 
 > **assignedToId**: `string`
 
-Defined in: [src/modules/support/support.dto.ts:105](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L105)
+Defined in: [src/modules/support/support.dto.ts:105](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L105)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/support/support.dto.ts:105](https://github.com/maemreyo
 
 > `optional` **message**: `string`
 
-Defined in: [src/modules/support/support.dto.ts:106](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L106)
+Defined in: [src/modules/support/support.dto.ts:106](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L106)
 
 ***
 
@@ -40,4 +40,4 @@ Defined in: [src/modules/support/support.dto.ts:106](https://github.com/maemreyo
 
 > `static` **schema**: `ZodObject`\<\{ `assignedToId`: `ZodString`; `message`: `ZodOptional`\<`ZodString`\>; \}, `"strip"`, `ZodTypeAny`, \{ `assignedToId?`: `string`; `message?`: `string`; \}, \{ `assignedToId?`: `string`; `message?`: `string`; \}\>
 
-Defined in: [src/modules/support/support.dto.ts:100](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L100)
+Defined in: [src/modules/support/support.dto.ts:100](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L100)

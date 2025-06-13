@@ -6,7 +6,7 @@
 
 # Class: TemplateService
 
-Defined in: [src/modules/support/template.service.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/template.service.ts#L11)
+Defined in: [src/modules/support/template.service.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/template.service.ts#L11)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/support/template.service.ts:11](https://github.com/maem
 
 > **applyTemplateVariables**(`template`, `variables`): `object`
 
-Defined in: [src/modules/support/template.service.ts:152](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/template.service.ts#L152)
+Defined in: [src/modules/support/template.service.ts:152](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/template.service.ts#L152)
 
 Apply template variables
 
@@ -54,7 +54,7 @@ Apply template variables
 
 > **createTemplate**(`data`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/support/template.service.ts:59](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/template.service.ts#L59)
+Defined in: [src/modules/support/template.service.ts:59](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/template.service.ts#L59)
 
 Create template
 
@@ -74,7 +74,7 @@ Create template
 
 > **deleteTemplate**(`templateId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/template.service.ts:100](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/template.service.ts#L100)
+Defined in: [src/modules/support/template.service.ts:100](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/template.service.ts#L100)
 
 Delete template
 
@@ -94,7 +94,7 @@ Delete template
 
 > **duplicateTemplate**(`templateId`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/support/template.service.ts:176](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/template.service.ts#L176)
+Defined in: [src/modules/support/template.service.ts:176](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/template.service.ts#L176)
 
 Duplicate template
 
@@ -114,7 +114,7 @@ Duplicate template
 
 > **getFrequentTemplates**(`limit`, `userId?`): `Promise`\<`object`[]\>
 
-Defined in: [src/modules/support/template.service.ts:134](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/template.service.ts#L134)
+Defined in: [src/modules/support/template.service.ts:134](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/template.service.ts#L134)
 
 Get frequently used templates
 
@@ -138,7 +138,7 @@ Get frequently used templates
 
 > **getTemplate**(`templateId`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/support/template.service.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/template.service.ts#L43)
+Defined in: [src/modules/support/template.service.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/template.service.ts#L43)
 
 Get template by ID
 
@@ -158,7 +158,7 @@ Get template by ID
 
 > **getTemplates**(`options?`): `Promise`\<`object`[]\>
 
-Defined in: [src/modules/support/template.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/template.service.ts#L16)
+Defined in: [src/modules/support/template.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/template.service.ts#L16)
 
 Get all templates
 
@@ -184,7 +184,7 @@ Get all templates
 
 > **toggleTemplateStatus**(`templateId`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/support/template.service.ts:114](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/template.service.ts#L114)
+Defined in: [src/modules/support/template.service.ts:114](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/template.service.ts#L114)
 
 Toggle template status
 
@@ -204,7 +204,7 @@ Toggle template status
 
 > **updateTemplate**(`templateId`, `updates`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/support/template.service.ts:80](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/template.service.ts#L80)
+Defined in: [src/modules/support/template.service.ts:80](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/template.service.ts#L80)
 
 Update template
 

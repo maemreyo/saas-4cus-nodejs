@@ -6,7 +6,7 @@
 
 # Class: BillingController
 
-Defined in: [src/modules/billing/billing.controller.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.controller.ts#L10)
+Defined in: [src/modules/billing/billing.controller.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.controller.ts#L10)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/billing/billing.controller.ts:10](https://github.com/ma
 
 > **new BillingController**(`billingService`, `subscriptionService`): `BillingController`
 
-Defined in: [src/modules/billing/billing.controller.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.controller.ts#L11)
+Defined in: [src/modules/billing/billing.controller.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.controller.ts#L11)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [src/modules/billing/billing.controller.ts:11](https://github.com/ma
 
 > **applyCoupon**(`request`, `reply`): `Promise`\<`never`\>
 
-Defined in: [src/modules/billing/billing.controller.ts:157](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.controller.ts#L157)
+Defined in: [src/modules/billing/billing.controller.ts:157](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.controller.ts#L157)
 
 Apply coupon to subscription
 
@@ -60,7 +60,7 @@ Apply coupon to subscription
 
 > **calculateProration**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/billing/billing.controller.ts:175](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.controller.ts#L175)
+Defined in: [src/modules/billing/billing.controller.ts:175](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.controller.ts#L175)
 
 Calculate proration for plan change
 
@@ -84,7 +84,7 @@ Calculate proration for plan change
 
 > **cancelSubscription**(`request`, `reply`): `Promise`\<`never`\>
 
-Defined in: [src/modules/billing/billing.controller.ts:114](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.controller.ts#L114)
+Defined in: [src/modules/billing/billing.controller.ts:114](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.controller.ts#L114)
 
 Cancel subscription
 
@@ -108,7 +108,7 @@ Cancel subscription
 
 > **checkFeature**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/billing/billing.controller.ts:187](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.controller.ts#L187)
+Defined in: [src/modules/billing/billing.controller.ts:187](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.controller.ts#L187)
 
 Check feature access
 
@@ -132,7 +132,7 @@ Check feature access
 
 > **checkUsageLimit**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/billing/billing.controller.ts:199](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.controller.ts#L199)
+Defined in: [src/modules/billing/billing.controller.ts:199](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.controller.ts#L199)
 
 Check usage limit
 
@@ -156,7 +156,7 @@ Check usage limit
 
 > **createCheckoutSession**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/billing/billing.controller.ts:62](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.controller.ts#L62)
+Defined in: [src/modules/billing/billing.controller.ts:62](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.controller.ts#L62)
 
 Create checkout session for new subscription or upgrade
 
@@ -180,7 +180,7 @@ Create checkout session for new subscription or upgrade
 
 > **createPortalSession**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/billing/billing.controller.ts:84](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.controller.ts#L84)
+Defined in: [src/modules/billing/billing.controller.ts:84](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.controller.ts#L84)
 
 Create customer portal session
 
@@ -204,7 +204,7 @@ Create customer portal session
 
 > **getBillingHistory**(`request`, `reply`): `Promise`\<`never`\>
 
-Defined in: [src/modules/billing/billing.controller.ts:223](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.controller.ts#L223)
+Defined in: [src/modules/billing/billing.controller.ts:223](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.controller.ts#L223)
 
 Get billing history
 
@@ -228,7 +228,7 @@ Get billing history
 
 > **getCurrentSubscription**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/billing/billing.controller.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.controller.ts#L42)
+Defined in: [src/modules/billing/billing.controller.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.controller.ts#L42)
 
 Get current subscription details
 
@@ -252,7 +252,7 @@ Get current subscription details
 
 > **getPlans**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/billing/billing.controller.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.controller.ts#L19)
+Defined in: [src/modules/billing/billing.controller.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.controller.ts#L19)
 
 Get available subscription plans
 
@@ -276,7 +276,7 @@ Get available subscription plans
 
 > **getSubscriptionStats**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/billing/billing.controller.ts:52](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.controller.ts#L52)
+Defined in: [src/modules/billing/billing.controller.ts:52](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.controller.ts#L52)
 
 Get subscription statistics and usage
 
@@ -300,7 +300,7 @@ Get subscription statistics and usage
 
 > **handleWebhook**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/billing/billing.controller.ts:211](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.controller.ts#L211)
+Defined in: [src/modules/billing/billing.controller.ts:211](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.controller.ts#L211)
 
 Handle Stripe webhook
 
@@ -324,7 +324,7 @@ Handle Stripe webhook
 
 > **resumeSubscription**(`request`, `reply`): `Promise`\<`never`\>
 
-Defined in: [src/modules/billing/billing.controller.ts:136](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.controller.ts#L136)
+Defined in: [src/modules/billing/billing.controller.ts:136](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.controller.ts#L136)
 
 Resume cancelled subscription
 
@@ -348,7 +348,7 @@ Resume cancelled subscription
 
 > **updateSubscription**(`request`, `reply`): `Promise`\<`never`\>
 
-Defined in: [src/modules/billing/billing.controller.ts:96](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.controller.ts#L96)
+Defined in: [src/modules/billing/billing.controller.ts:96](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.controller.ts#L96)
 
 Update subscription (upgrade/downgrade)
 
@@ -372,7 +372,7 @@ Update subscription (upgrade/downgrade)
 
 > `private` **billingService**: [`BillingService`](../../billing.service/classes/BillingService.md)
 
-Defined in: [src/modules/billing/billing.controller.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.controller.ts#L12)
+Defined in: [src/modules/billing/billing.controller.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.controller.ts#L12)
 
 ***
 
@@ -380,4 +380,4 @@ Defined in: [src/modules/billing/billing.controller.ts:12](https://github.com/ma
 
 > `private` **subscriptionService**: [`SubscriptionService`](../../subscription.service/classes/SubscriptionService.md)
 
-Defined in: [src/modules/billing/billing.controller.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.controller.ts#L13)
+Defined in: [src/modules/billing/billing.controller.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.controller.ts#L13)

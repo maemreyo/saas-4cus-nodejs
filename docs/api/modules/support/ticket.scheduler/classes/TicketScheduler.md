@@ -6,7 +6,7 @@
 
 # Class: TicketScheduler
 
-Defined in: [src/modules/support/ticket.scheduler.ts:6](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.scheduler.ts#L6)
+Defined in: [src/modules/support/ticket.scheduler.ts:6](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.scheduler.ts#L6)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/support/ticket.scheduler.ts:6](https://github.com/maemr
 
 > **initialize**(): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.scheduler.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.scheduler.ts#L10)
+Defined in: [src/modules/support/ticket.scheduler.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.scheduler.ts#L10)
 
 Initialize scheduled jobs for ticket system
 
@@ -38,7 +38,7 @@ Initialize scheduled jobs for ticket system
 
 > **shutdown**(): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.scheduler.ts:91](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.scheduler.ts#L91)
+Defined in: [src/modules/support/ticket.scheduler.ts:91](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.scheduler.ts#L91)
 
 Cancel all scheduled jobs
 

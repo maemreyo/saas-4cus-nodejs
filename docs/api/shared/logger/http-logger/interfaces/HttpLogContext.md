@@ -6,7 +6,7 @@
 
 # Interface: HttpLogContext
 
-Defined in: [src/shared/logger/http-logger.ts:4](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/http-logger.ts#L4)
+Defined in: [src/shared/logger/http-logger.ts:4](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/http-logger.ts#L4)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/shared/logger/http-logger.ts:4](https://github.com/maemreyo/saa
 
 > **duration**: `number`
 
-Defined in: [src/shared/logger/http-logger.ts:8](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/http-logger.ts#L8)
+Defined in: [src/shared/logger/http-logger.ts:8](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/http-logger.ts#L8)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/shared/logger/http-logger.ts:8](https://github.com/maemreyo/saa
 
 > `optional` **ip**: `string`
 
-Defined in: [src/shared/logger/http-logger.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/http-logger.ts#L10)
+Defined in: [src/shared/logger/http-logger.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/http-logger.ts#L10)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/shared/logger/http-logger.ts:10](https://github.com/maemreyo/sa
 
 > **method**: `string`
 
-Defined in: [src/shared/logger/http-logger.ts:5](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/http-logger.ts#L5)
+Defined in: [src/shared/logger/http-logger.ts:5](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/http-logger.ts#L5)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/shared/logger/http-logger.ts:5](https://github.com/maemreyo/saa
 
 > **statusCode**: `number`
 
-Defined in: [src/shared/logger/http-logger.ts:7](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/http-logger.ts#L7)
+Defined in: [src/shared/logger/http-logger.ts:7](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/http-logger.ts#L7)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/shared/logger/http-logger.ts:7](https://github.com/maemreyo/saa
 
 > **url**: `string`
 
-Defined in: [src/shared/logger/http-logger.ts:6](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/http-logger.ts#L6)
+Defined in: [src/shared/logger/http-logger.ts:6](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/http-logger.ts#L6)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [src/shared/logger/http-logger.ts:6](https://github.com/maemreyo/saa
 
 > `optional` **userAgent**: `string`
 
-Defined in: [src/shared/logger/http-logger.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/http-logger.ts#L9)
+Defined in: [src/shared/logger/http-logger.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/http-logger.ts#L9)
 
 ***
 
@@ -62,4 +62,4 @@ Defined in: [src/shared/logger/http-logger.ts:9](https://github.com/maemreyo/saa
 
 > `optional` **userId**: `string`
 
-Defined in: [src/shared/logger/http-logger.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/http-logger.ts#L11)
+Defined in: [src/shared/logger/http-logger.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/http-logger.ts#L11)

@@ -6,7 +6,7 @@
 
 # Class: SystemConfigService
 
-Defined in: [src/modules/admin/system-config.service.ts:108](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L108)
+Defined in: [src/modules/admin/system-config.service.ts:108](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L108)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/admin/system-config.service.ts:108](https://github.com/
 
 > **new SystemConfigService**(`eventBus`): `SystemConfigService`
 
-Defined in: [src/modules/admin/system-config.service.ts:112](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L112)
+Defined in: [src/modules/admin/system-config.service.ts:112](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L112)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/admin/system-config.service.ts:112](https://github.com/
 
 > `private` **applyConfigChanges**(`oldConfig`, `newConfig`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/system-config.service.ts:590](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L590)
+Defined in: [src/modules/admin/system-config.service.ts:590](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L590)
 
 #### Parameters
 
@@ -54,7 +54,7 @@ Defined in: [src/modules/admin/system-config.service.ts:590](https://github.com/
 
 > `private` **deepMerge**(`target`, `source`): `any`
 
-Defined in: [src/modules/admin/system-config.service.ts:528](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L528)
+Defined in: [src/modules/admin/system-config.service.ts:528](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L528)
 
 #### Parameters
 
@@ -76,7 +76,7 @@ Defined in: [src/modules/admin/system-config.service.ts:528](https://github.com/
 
 > `private` **ensureCompleteNestedObjects**(`updates`, `currentConfig`): `Partial`\<[`SystemConfig`](../interfaces/SystemConfig.md)\>
 
-Defined in: [src/modules/admin/system-config.service.ts:197](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L197)
+Defined in: [src/modules/admin/system-config.service.ts:197](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L197)
 
 Ensures that partial nested objects are properly merged with current config
 to avoid TypeScript errors with required properties
@@ -101,7 +101,7 @@ to avoid TypeScript errors with required properties
 
 > **exportConfig**(): `Promise`\<\{ `config`: [`SystemConfig`](../interfaces/SystemConfig.md); `exportedAt`: `Date`; `version`: `string`; \}\>
 
-Defined in: [src/modules/admin/system-config.service.ts:402](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L402)
+Defined in: [src/modules/admin/system-config.service.ts:402](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L402)
 
 Export configuration
 
@@ -115,7 +115,7 @@ Export configuration
 
 > `private` **flattenConfig**(`config`, `prefix`): `Record`\<`string`, `any`\>
 
-Defined in: [src/modules/admin/system-config.service.ts:542](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L542)
+Defined in: [src/modules/admin/system-config.service.ts:542](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L542)
 
 #### Parameters
 
@@ -137,7 +137,7 @@ Defined in: [src/modules/admin/system-config.service.ts:542](https://github.com/
 
 > **getConfig**(): `Promise`\<[`SystemConfig`](../interfaces/SystemConfig.md)\>
 
-Defined in: [src/modules/admin/system-config.service.ts:118](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L118)
+Defined in: [src/modules/admin/system-config.service.ts:118](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L118)
 
 Get system configuration
 
@@ -151,7 +151,7 @@ Get system configuration
 
 > `private` **getConfigDescription**(`key`): `string`
 
-Defined in: [src/modules/admin/system-config.service.ts:577](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L577)
+Defined in: [src/modules/admin/system-config.service.ts:577](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L577)
 
 #### Parameters
 
@@ -169,7 +169,7 @@ Defined in: [src/modules/admin/system-config.service.ts:577](https://github.com/
 
 > **getConfigValue**(`path`): `Promise`\<`any`\>
 
-Defined in: [src/modules/admin/system-config.service.ts:271](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L271)
+Defined in: [src/modules/admin/system-config.service.ts:271](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L271)
 
 Get specific configuration value
 
@@ -189,7 +189,7 @@ Get specific configuration value
 
 > `private` **getDefaultConfig**(): [`SystemConfig`](../interfaces/SystemConfig.md)
 
-Defined in: [src/modules/admin/system-config.service.ts:440](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L440)
+Defined in: [src/modules/admin/system-config.service.ts:440](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L440)
 
 #### Returns
 
@@ -201,7 +201,7 @@ Defined in: [src/modules/admin/system-config.service.ts:440](https://github.com/
 
 > **getRateLimit**(`resource`): `Promise`\<`number`\>
 
-Defined in: [src/modules/admin/system-config.service.ts:386](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L386)
+Defined in: [src/modules/admin/system-config.service.ts:386](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L386)
 
 Get rate limit for a specific resource
 
@@ -221,7 +221,7 @@ Get rate limit for a specific resource
 
 > **importConfig**(`configData`, `options?`): `Promise`\<[`SystemConfig`](../interfaces/SystemConfig.md)\>
 
-Defined in: [src/modules/admin/system-config.service.ts:419](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L419)
+Defined in: [src/modules/admin/system-config.service.ts:419](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L419)
 
 Import configuration
 
@@ -251,7 +251,7 @@ Import configuration
 
 > **isFeatureEnabled**(`feature`): `Promise`\<`boolean`\>
 
-Defined in: [src/modules/admin/system-config.service.ts:370](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L370)
+Defined in: [src/modules/admin/system-config.service.ts:370](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L370)
 
 Get feature availability
 
@@ -271,7 +271,7 @@ Get feature availability
 
 > **isInMaintenanceMode**(`ipAddress?`): `Promise`\<`boolean`\>
 
-Defined in: [src/modules/admin/system-config.service.ts:344](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L344)
+Defined in: [src/modules/admin/system-config.service.ts:344](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L344)
 
 Check if system is in maintenance mode
 
@@ -291,7 +291,7 @@ Check if system is in maintenance mode
 
 > **isTwoFactorEnabled**(): `Promise`\<`boolean`\>
 
-Defined in: [src/modules/admin/system-config.service.ts:379](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L379)
+Defined in: [src/modules/admin/system-config.service.ts:379](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L379)
 
 Legacy method for backward compatibility
 
@@ -309,7 +309,7 @@ Use isFeatureEnabled with 'twoFactorAuth' instead
 
 > `private` **mergeWithDefaults**(`config`): [`SystemConfig`](../interfaces/SystemConfig.md)
 
-Defined in: [src/modules/admin/system-config.service.ts:524](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L524)
+Defined in: [src/modules/admin/system-config.service.ts:524](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L524)
 
 #### Parameters
 
@@ -327,7 +327,7 @@ Defined in: [src/modules/admin/system-config.service.ts:524](https://github.com/
 
 > **toggleMaintenanceMode**(`enabled`, `options?`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/system-config.service.ts:287](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L287)
+Defined in: [src/modules/admin/system-config.service.ts:287](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L287)
 
 Toggle maintenance mode
 
@@ -365,7 +365,7 @@ Toggle maintenance mode
 
 > **updateConfig**(`updates`): `Promise`\<[`SystemConfig`](../interfaces/SystemConfig.md)\>
 
-Defined in: [src/modules/admin/system-config.service.ts:151](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L151)
+Defined in: [src/modules/admin/system-config.service.ts:151](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L151)
 
 Update system configuration
 
@@ -385,7 +385,7 @@ Update system configuration
 
 > **updateFeatureFlags**(`features`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/system-config.service.ts:323](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L323)
+Defined in: [src/modules/admin/system-config.service.ts:323](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L323)
 
 Update feature flags
 
@@ -405,7 +405,7 @@ Update feature flags
 
 > **updateSecuritySettings**(`security`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/system-config.service.ts:332](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L332)
+Defined in: [src/modules/admin/system-config.service.ts:332](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L332)
 
 Update security settings
 
@@ -425,7 +425,7 @@ Update security settings
 
 > `private` **validateConfig**(`config`): `void`
 
-Defined in: [src/modules/admin/system-config.service.ts:558](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L558)
+Defined in: [src/modules/admin/system-config.service.ts:558](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L558)
 
 #### Parameters
 
@@ -443,7 +443,7 @@ Defined in: [src/modules/admin/system-config.service.ts:558](https://github.com/
 
 > `private` `readonly` **CONFIG\_CACHE\_TTL**: `3600` = `3600`
 
-Defined in: [src/modules/admin/system-config.service.ts:110](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L110)
+Defined in: [src/modules/admin/system-config.service.ts:110](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L110)
 
 ***
 
@@ -451,7 +451,7 @@ Defined in: [src/modules/admin/system-config.service.ts:110](https://github.com/
 
 > `private` `readonly` **CONFIG\_KEY**: `"system:config"` = `'system:config'`
 
-Defined in: [src/modules/admin/system-config.service.ts:109](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L109)
+Defined in: [src/modules/admin/system-config.service.ts:109](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L109)
 
 ***
 
@@ -459,4 +459,4 @@ Defined in: [src/modules/admin/system-config.service.ts:109](https://github.com/
 
 > `private` **eventBus**: [`EventBus`](../../../../shared/events/event-bus/classes/EventBus.md)
 
-Defined in: [src/modules/admin/system-config.service.ts:112](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L112)
+Defined in: [src/modules/admin/system-config.service.ts:112](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L112)

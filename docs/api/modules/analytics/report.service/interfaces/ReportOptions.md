@@ -6,7 +6,7 @@
 
 # Interface: ReportOptions
 
-Defined in: [src/modules/analytics/report.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L13)
+Defined in: [src/modules/analytics/report.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L13)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/analytics/report.service.ts:13](https://github.com/maem
 
 > `optional` **customQuery**: `any`
 
-Defined in: [src/modules/analytics/report.service.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L29)
+Defined in: [src/modules/analytics/report.service.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L29)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/analytics/report.service.ts:29](https://github.com/maem
 
 > `optional` **filters**: `object`
 
-Defined in: [src/modules/analytics/report.service.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L23)
+Defined in: [src/modules/analytics/report.service.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L23)
 
 #### dateRange?
 
@@ -46,7 +46,7 @@ Defined in: [src/modules/analytics/report.service.ts:23](https://github.com/maem
 
 > **format**: `"csv"` \| `"json"` \| `"pdf"`
 
-Defined in: [src/modules/analytics/report.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L15)
+Defined in: [src/modules/analytics/report.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L15)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [src/modules/analytics/report.service.ts:15](https://github.com/maem
 
 > `optional` **recipients**: `string`[]
 
-Defined in: [src/modules/analytics/report.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L16)
+Defined in: [src/modules/analytics/report.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L16)
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: [src/modules/analytics/report.service.ts:16](https://github.com/maem
 
 > `optional` **schedule**: `object`
 
-Defined in: [src/modules/analytics/report.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L17)
+Defined in: [src/modules/analytics/report.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L17)
 
 #### dayOfMonth?
 
@@ -86,4 +86,4 @@ Defined in: [src/modules/analytics/report.service.ts:17](https://github.com/maem
 
 > **type**: `"custom"` \| `"revenue"` \| `"users"` \| `"dashboard"`
 
-Defined in: [src/modules/analytics/report.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L14)
+Defined in: [src/modules/analytics/report.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L14)

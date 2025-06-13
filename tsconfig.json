@@ -7,9 +7,9 @@
     "emitDecoratorMetadata": true,
 
     // Modules
-    "module": "NodeNext",
+    "module": "commonjs",
     "rootDir": "./src",
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],

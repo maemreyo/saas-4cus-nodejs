@@ -6,7 +6,7 @@
 
 # Class: TicketService
 
-Defined in: [src/modules/support/ticket.service.ts:75](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L75)
+Defined in: [src/modules/support/ticket.service.ts:75](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L75)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/support/ticket.service.ts:75](https://github.com/maemre
 
 > **new TicketService**(`eventBus`, `emailService`): `TicketService`
 
-Defined in: [src/modules/support/ticket.service.ts:92](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L92)
+Defined in: [src/modules/support/ticket.service.ts:92](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L92)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [src/modules/support/ticket.service.ts:92](https://github.com/maemre
 
 > **addMessage**(`ticketId`, `userId`, `content`, `options?`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/support/ticket.service.ts:509](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L509)
+Defined in: [src/modules/support/ticket.service.ts:509](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L509)
 
 Add message to ticket
 
@@ -74,7 +74,7 @@ Add message to ticket
 
 > **assignTicket**(`ticketId`, `assigneeId`, `assignedBy`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/support/ticket.service.ts:445](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L445)
+Defined in: [src/modules/support/ticket.service.ts:445](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L445)
 
 Assign ticket to agent
 
@@ -102,7 +102,7 @@ Assign ticket to agent
 
 > **bulkUpdateTickets**(`ticketIds`, `updates`, `userId`): `Promise`\<`number`\>
 
-Defined in: [src/modules/support/ticket.service.ts:930](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L930)
+Defined in: [src/modules/support/ticket.service.ts:930](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L930)
 
 Bulk update tickets
 
@@ -148,7 +148,7 @@ Bulk update tickets
 
 > **closeTicket**(`ticketId`, `userId`, `isAgent`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/support/ticket.service.ts:691](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L691)
+Defined in: [src/modules/support/ticket.service.ts:691](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L691)
 
 Close ticket
 
@@ -176,7 +176,7 @@ Close ticket
 
 > `private` **createActivity**(`ticketId`, `userId`, `type`, `metadata?`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.service.ts:1030](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L1030)
+Defined in: [src/modules/support/ticket.service.ts:1030](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L1030)
 
 Create ticket activity
 
@@ -208,7 +208,7 @@ Create ticket activity
 
 > **createTicket**(`userId`, `options`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/support/ticket.service.ts:100](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L100)
+Defined in: [src/modules/support/ticket.service.ts:100](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L100)
 
 Create a new ticket
 
@@ -232,7 +232,7 @@ Create a new ticket
 
 > `private` **detectPriority**(`text`): `TicketPriority`
 
-Defined in: [src/modules/support/ticket.service.ts:1007](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L1007)
+Defined in: [src/modules/support/ticket.service.ts:1007](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L1007)
 
 Detect priority based on keywords
 
@@ -252,7 +252,7 @@ Detect priority based on keywords
 
 > `private` **generateTicketNumber**(): `Promise`\<`string`\>
 
-Defined in: [src/modules/support/ticket.service.ts:987](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L987)
+Defined in: [src/modules/support/ticket.service.ts:987](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L987)
 
 Generate unique ticket number
 
@@ -266,7 +266,7 @@ Generate unique ticket number
 
 > **getTicket**(`ticketId`): `Promise`\<`object` & `object`\>
 
-Defined in: [src/modules/support/ticket.service.ts:291](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L291)
+Defined in: [src/modules/support/ticket.service.ts:291](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L291)
 
 Get ticket by ID
 
@@ -286,7 +286,7 @@ Get ticket by ID
 
 > **getTicketActivities**(`ticketId`, `limit`): `Promise`\<`object`[]\>
 
-Defined in: [src/modules/support/ticket.service.ts:906](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L906)
+Defined in: [src/modules/support/ticket.service.ts:906](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L906)
 
 Get ticket activities
 
@@ -310,7 +310,7 @@ Get ticket activities
 
 > **getTicketByNumber**(`number`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/support/ticket.service.ts:330](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L330)
+Defined in: [src/modules/support/ticket.service.ts:330](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L330)
 
 Get ticket by number
 
@@ -330,7 +330,7 @@ Get ticket by number
 
 > **getTicketMessages**(`ticketId`, `userId`, `includeInternal`): `Promise`\<`object`[]\>
 
-Defined in: [src/modules/support/ticket.service.ts:635](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L635)
+Defined in: [src/modules/support/ticket.service.ts:635](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L635)
 
 Get ticket messages
 
@@ -358,7 +358,7 @@ Get ticket messages
 
 > **getTicketStats**(`filters?`): `Promise`\<[`TicketStats`](../interfaces/TicketStats.md)\>
 
-Defined in: [src/modules/support/ticket.service.ts:832](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L832)
+Defined in: [src/modules/support/ticket.service.ts:832](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L832)
 
 Get ticket statistics
 
@@ -396,7 +396,7 @@ Get ticket statistics
 
 > **listTickets**(`filters`, `pagination`): `Promise`\<\{ `page`: `number`; `tickets`: `object`[]; `total`: `number`; `totalPages`: `number`; \}\>
 
-Defined in: [src/modules/support/ticket.service.ts:350](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L350)
+Defined in: [src/modules/support/ticket.service.ts:350](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L350)
 
 List tickets
 
@@ -434,7 +434,7 @@ List tickets
 
 > **rateTicket**(`ticketId`, `userId`, `rating`, `comment?`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/support/ticket.service.ts:784](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L784)
+Defined in: [src/modules/support/ticket.service.ts:784](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L784)
 
 Rate ticket satisfaction
 
@@ -466,7 +466,7 @@ Rate ticket satisfaction
 
 > **reopenTicket**(`ticketId`, `userId`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/support/ticket.service.ts:736](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L736)
+Defined in: [src/modules/support/ticket.service.ts:736](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L736)
 
 Reopen ticket
 
@@ -490,7 +490,7 @@ Reopen ticket
 
 > `private` **scheduleSLAMonitoring**(`ticketId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.service.ts:1052](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L1052)
+Defined in: [src/modules/support/ticket.service.ts:1052](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L1052)
 
 Schedule SLA monitoring
 
@@ -510,7 +510,7 @@ Schedule SLA monitoring
 
 > **updateTicket**(`ticketId`, `userId`, `updates`, `isAgent`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/support/ticket.service.ts:177](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L177)
+Defined in: [src/modules/support/ticket.service.ts:177](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L177)
 
 Update ticket
 
@@ -542,7 +542,7 @@ Update ticket
 
 > `private` **emailService**: [`EmailService`](../../../../shared/services/email.service/classes/EmailService.md)
 
-Defined in: [src/modules/support/ticket.service.ts:94](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L94)
+Defined in: [src/modules/support/ticket.service.ts:94](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L94)
 
 ***
 
@@ -550,7 +550,7 @@ Defined in: [src/modules/support/ticket.service.ts:94](https://github.com/maemre
 
 > `private` **eventBus**: [`EventBus`](../../../../shared/events/event-bus/classes/EventBus.md)
 
-Defined in: [src/modules/support/ticket.service.ts:93](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L93)
+Defined in: [src/modules/support/ticket.service.ts:93](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L93)
 
 ***
 
@@ -558,7 +558,7 @@ Defined in: [src/modules/support/ticket.service.ts:93](https://github.com/maemre
 
 > `private` `readonly` **SLA\_FIRST\_RESPONSE\_MINUTES**: `object`
 
-Defined in: [src/modules/support/ticket.service.ts:76](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L76)
+Defined in: [src/modules/support/ticket.service.ts:76](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L76)
 
 #### CRITICAL
 
@@ -586,7 +586,7 @@ Defined in: [src/modules/support/ticket.service.ts:76](https://github.com/maemre
 
 > `private` `readonly` **SLA\_RESOLUTION\_MINUTES**: `object`
 
-Defined in: [src/modules/support/ticket.service.ts:84](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.service.ts#L84)
+Defined in: [src/modules/support/ticket.service.ts:84](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.service.ts#L84)
 
 #### CRITICAL
 

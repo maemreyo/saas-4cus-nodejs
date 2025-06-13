@@ -6,7 +6,7 @@
 
 # Class: CreatePlanDTO
 
-Defined in: [src/modules/features/feature.dto.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L17)
+Defined in: [src/modules/features/feature.dto.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L17)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/features/feature.dto.ts:17](https://github.com/maemreyo
 
 > `optional` **currency**: `string`
 
-Defined in: [src/modules/features/feature.dto.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L42)
+Defined in: [src/modules/features/feature.dto.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L42)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/features/feature.dto.ts:42](https://github.com/maemreyo
 
 > `optional` **description**: `string`
 
-Defined in: [src/modules/features/feature.dto.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L38)
+Defined in: [src/modules/features/feature.dto.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L38)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [src/modules/features/feature.dto.ts:38](https://github.com/maemreyo
 
 > **features**: `object`[]
 
-Defined in: [src/modules/features/feature.dto.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L46)
+Defined in: [src/modules/features/feature.dto.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L46)
 
 #### featureId
 
@@ -60,7 +60,7 @@ Defined in: [src/modules/features/feature.dto.ts:46](https://github.com/maemreyo
 
 > `optional` **interval**: `string`
 
-Defined in: [src/modules/features/feature.dto.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L43)
+Defined in: [src/modules/features/feature.dto.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L43)
 
 ***
 
@@ -68,7 +68,7 @@ Defined in: [src/modules/features/feature.dto.ts:43](https://github.com/maemreyo
 
 > **name**: `string`
 
-Defined in: [src/modules/features/feature.dto.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L36)
+Defined in: [src/modules/features/feature.dto.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L36)
 
 ***
 
@@ -76,7 +76,7 @@ Defined in: [src/modules/features/feature.dto.ts:36](https://github.com/maemreyo
 
 > `optional` **popular**: `boolean`
 
-Defined in: [src/modules/features/feature.dto.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L45)
+Defined in: [src/modules/features/feature.dto.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L45)
 
 ***
 
@@ -84,7 +84,7 @@ Defined in: [src/modules/features/feature.dto.ts:45](https://github.com/maemreyo
 
 > **price**: `number`
 
-Defined in: [src/modules/features/feature.dto.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L41)
+Defined in: [src/modules/features/feature.dto.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L41)
 
 ***
 
@@ -92,7 +92,7 @@ Defined in: [src/modules/features/feature.dto.ts:41](https://github.com/maemreyo
 
 > `static` **schema**: `ZodObject`\<\{ `currency`: `ZodDefault`\<`ZodString`\>; `description`: `ZodOptional`\<`ZodString`\>; `features`: `ZodArray`\<`ZodObject`\<\{ `featureId`: `ZodString`; `included`: `ZodBoolean`; `limitValue`: `ZodOptional`\<`ZodNumber`\>; \}, `"strip"`, `ZodTypeAny`, \{ `featureId?`: `string`; `included?`: `boolean`; `limitValue?`: `number`; \}, \{ `featureId?`: `string`; `included?`: `boolean`; `limitValue?`: `number`; \}\>, `"many"`\>; `interval`: `ZodDefault`\<`ZodEnum`\<\[`"month"`, `"year"`\]\>\>; `name`: `ZodString`; `popular`: `ZodDefault`\<`ZodBoolean`\>; `price`: `ZodNumber`; `slug`: `ZodString`; `stripePriceId`: `ZodOptional`\<`ZodString`\>; `stripeProductId`: `ZodOptional`\<`ZodString`\>; `trialDays`: `ZodDefault`\<`ZodNumber`\>; \}, `"strip"`, `ZodTypeAny`, \{ `currency?`: `string`; `description?`: `string`; `features?`: `object`[]; `interval?`: `"month"` \| `"year"`; `name?`: `string`; `popular?`: `boolean`; `price?`: `number`; `slug?`: `string`; `stripePriceId?`: `string`; `stripeProductId?`: `string`; `trialDays?`: `number`; \}, \{ `currency?`: `string`; `description?`: `string`; `features?`: `object`[]; `interval?`: `"month"` \| `"year"`; `name?`: `string`; `popular?`: `boolean`; `price?`: `number`; `slug?`: `string`; `stripePriceId?`: `string`; `stripeProductId?`: `string`; `trialDays?`: `number`; \}\>
 
-Defined in: [src/modules/features/feature.dto.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L18)
+Defined in: [src/modules/features/feature.dto.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L18)
 
 ***
 
@@ -100,7 +100,7 @@ Defined in: [src/modules/features/feature.dto.ts:18](https://github.com/maemreyo
 
 > **slug**: `string`
 
-Defined in: [src/modules/features/feature.dto.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L37)
+Defined in: [src/modules/features/feature.dto.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L37)
 
 ***
 
@@ -108,7 +108,7 @@ Defined in: [src/modules/features/feature.dto.ts:37](https://github.com/maemreyo
 
 > `optional` **stripePriceId**: `string`
 
-Defined in: [src/modules/features/feature.dto.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L39)
+Defined in: [src/modules/features/feature.dto.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L39)
 
 ***
 
@@ -116,7 +116,7 @@ Defined in: [src/modules/features/feature.dto.ts:39](https://github.com/maemreyo
 
 > `optional` **stripeProductId**: `string`
 
-Defined in: [src/modules/features/feature.dto.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L40)
+Defined in: [src/modules/features/feature.dto.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L40)
 
 ***
 
@@ -124,4 +124,4 @@ Defined in: [src/modules/features/feature.dto.ts:40](https://github.com/maemreyo
 
 > `optional` **trialDays**: `number`
 
-Defined in: [src/modules/features/feature.dto.ts:44](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L44)
+Defined in: [src/modules/features/feature.dto.ts:44](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L44)

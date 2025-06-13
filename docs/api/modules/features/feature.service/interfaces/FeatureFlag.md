@@ -6,7 +6,7 @@
 
 # Interface: FeatureFlag
 
-Defined in: [src/modules/features/feature.service.ts:54](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L54)
+Defined in: [src/modules/features/feature.service.ts:54](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L54)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/features/feature.service.ts:54](https://github.com/maem
 
 > **enabled**: `boolean`
 
-Defined in: [src/modules/features/feature.service.ts:56](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L56)
+Defined in: [src/modules/features/feature.service.ts:56](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L56)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/features/feature.service.ts:56](https://github.com/maem
 
 > **key**: `string`
 
-Defined in: [src/modules/features/feature.service.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L55)
+Defined in: [src/modules/features/feature.service.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L55)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/features/feature.service.ts:55](https://github.com/maem
 
 > `optional` **metadata**: `Record`\<`string`, `any`\>
 
-Defined in: [src/modules/features/feature.service.ts:60](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L60)
+Defined in: [src/modules/features/feature.service.ts:60](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L60)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/modules/features/feature.service.ts:60](https://github.com/maem
 
 > `optional` **rolloutPercentage**: `number`
 
-Defined in: [src/modules/features/feature.service.ts:57](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L57)
+Defined in: [src/modules/features/feature.service.ts:57](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L57)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/modules/features/feature.service.ts:57](https://github.com/maem
 
 > `optional` **userBlacklist**: `string`[]
 
-Defined in: [src/modules/features/feature.service.ts:59](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L59)
+Defined in: [src/modules/features/feature.service.ts:59](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L59)
 
 ***
 
@@ -54,4 +54,4 @@ Defined in: [src/modules/features/feature.service.ts:59](https://github.com/maem
 
 > `optional` **userWhitelist**: `string`[]
 
-Defined in: [src/modules/features/feature.service.ts:58](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.service.ts#L58)
+Defined in: [src/modules/features/feature.service.ts:58](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.service.ts#L58)

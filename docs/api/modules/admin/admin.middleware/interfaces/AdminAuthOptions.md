@@ -6,7 +6,7 @@
 
 # Interface: AdminAuthOptions
 
-Defined in: [src/modules/admin/admin.middleware.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.middleware.ts#L9)
+Defined in: [src/modules/admin/admin.middleware.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.middleware.ts#L9)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/admin/admin.middleware.ts:9](https://github.com/maemrey
 
 > `optional` **allowedRoles**: `string`[]
 
-Defined in: [src/modules/admin/admin.middleware.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.middleware.ts#L11)
+Defined in: [src/modules/admin/admin.middleware.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.middleware.ts#L11)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/admin/admin.middleware.ts:11](https://github.com/maemre
 
 > `optional` **checkIpWhitelist**: `boolean`
 
-Defined in: [src/modules/admin/admin.middleware.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.middleware.ts#L12)
+Defined in: [src/modules/admin/admin.middleware.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.middleware.ts#L12)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/admin/admin.middleware.ts:12](https://github.com/maemre
 
 > `optional` **rateLimit**: `object`
 
-Defined in: [src/modules/admin/admin.middleware.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.middleware.ts#L14)
+Defined in: [src/modules/admin/admin.middleware.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.middleware.ts#L14)
 
 #### max
 
@@ -46,7 +46,7 @@ Defined in: [src/modules/admin/admin.middleware.ts:14](https://github.com/maemre
 
 > `optional` **requireSuperAdmin**: `boolean`
 
-Defined in: [src/modules/admin/admin.middleware.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.middleware.ts#L10)
+Defined in: [src/modules/admin/admin.middleware.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.middleware.ts#L10)
 
 ***
 
@@ -54,4 +54,4 @@ Defined in: [src/modules/admin/admin.middleware.ts:10](https://github.com/maemre
 
 > `optional` **trackActivity**: `boolean`
 
-Defined in: [src/modules/admin/admin.middleware.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.middleware.ts#L13)
+Defined in: [src/modules/admin/admin.middleware.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.middleware.ts#L13)

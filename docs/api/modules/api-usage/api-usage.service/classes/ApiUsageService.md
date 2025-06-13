@@ -6,7 +6,7 @@
 
 # Class: ApiUsageService
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L47)
+Defined in: [src/modules/api-usage/api-usage.service.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L47)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/api-usage/api-usage.service.ts:47](https://github.com/m
 
 > **new ApiUsageService**(`eventBus`, `subscriptionService`): `ApiUsageService`
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:51](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L51)
+Defined in: [src/modules/api-usage/api-usage.service.ts:51](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L51)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [src/modules/api-usage/api-usage.service.ts:51](https://github.com/m
 
 > `private` **checkAndUpdateQuota**(`userId`, `endpoint`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:382](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L382)
+Defined in: [src/modules/api-usage/api-usage.service.ts:382](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L382)
 
 Check and update quota
 
@@ -60,7 +60,7 @@ Check and update quota
 
 > **checkRateLimit**(`userId`, `endpoint`, `limit?`): `Promise`\<[`RateLimitInfo`](../interfaces/RateLimitInfo.md)\>
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:342](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L342)
+Defined in: [src/modules/api-usage/api-usage.service.ts:342](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L342)
 
 Check rate limit for user
 
@@ -88,7 +88,7 @@ Check rate limit for user
 
 > **exportUsageData**(`userId`, `options`): `Promise`\<`Buffer`\<`ArrayBufferLike`\>\>
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:638](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L638)
+Defined in: [src/modules/api-usage/api-usage.service.ts:638](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L638)
 
 Export usage data
 
@@ -122,7 +122,7 @@ Export usage data
 
 > **getEndpointAnalytics**(`endpoint`, `options?`): `Promise`\<\{ `averageResponseTime`: `number`; `endpoint`: `string`; `errorRate`: `number`; `methods`: `Record`\<`string`, `number`\>; `p95ResponseTime`: `number`; `p99ResponseTime`: `number`; `statusCodes`: `Record`\<`string`, `number`\>; `topErrors`: `object`[]; `totalRequests`: `number`; `uniqueUsers`: `number`; \}\>
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:488](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L488)
+Defined in: [src/modules/api-usage/api-usage.service.ts:488](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L488)
 
 Get endpoint analytics
 
@@ -156,7 +156,7 @@ Get endpoint analytics
 
 > `private` **getResponseTimePercentiles**(`where`): `Promise`\<\{ `averageResponseTime`: `number`; `p95ResponseTime`: `number`; `p99ResponseTime`: `number`; \}\>
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:579](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L579)
+Defined in: [src/modules/api-usage/api-usage.service.ts:579](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L579)
 
 Get response time percentiles
 
@@ -176,7 +176,7 @@ Get response time percentiles
 
 > `private` **getTopEndpoints**(`where`, `limit`): `Promise`\<[`ApiUsageMetrics`](../interfaces/ApiUsageMetrics.md)[]\>
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:231](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L231)
+Defined in: [src/modules/api-usage/api-usage.service.ts:231](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L231)
 
 Get top endpoints by usage
 
@@ -200,7 +200,7 @@ Get top endpoints by usage
 
 > `private` **getTopErrors**(`where`, `limit`): `Promise`\<`object`[]\>
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:613](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L613)
+Defined in: [src/modules/api-usage/api-usage.service.ts:613](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L613)
 
 Get top errors
 
@@ -224,7 +224,7 @@ Get top errors
 
 > **getUsageQuota**(`userId`): `Promise`\<[`UsageQuota`](../interfaces/UsageQuota.md)[]\>
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:432](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L432)
+Defined in: [src/modules/api-usage/api-usage.service.ts:432](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L432)
 
 Get usage quota for user
 
@@ -244,7 +244,7 @@ Get usage quota for user
 
 > **getUsageStats**(`userId?`, `tenantId?`, `options?`): `Promise`\<[`ApiUsageStats`](../interfaces/ApiUsageStats.md)\>
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:152](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L152)
+Defined in: [src/modules/api-usage/api-usage.service.ts:152](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L152)
 
 Get API usage statistics
 
@@ -282,7 +282,7 @@ Get API usage statistics
 
 > **getUsageTimeSeries**(`options`, `userId?`, `tenantId?`): `Promise`\<`object`[]\>
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:276](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L276)
+Defined in: [src/modules/api-usage/api-usage.service.ts:276](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L276)
 
 Get usage time series
 
@@ -324,7 +324,7 @@ Get usage time series
 
 > **healthCheck**(): `Promise`\<\{ `issues`: `string`[]; `metrics`: \{ `activeEndpoints`: `number`; `averageResponseTime`: `number`; `errorRate`: `number`; `requestsPerMinute`: `number`; \}; `status`: `"healthy"` \| `"degraded"` \| `"unhealthy"`; \}\>
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:671](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L671)
+Defined in: [src/modules/api-usage/api-usage.service.ts:671](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L671)
 
 Health check for API monitoring
 
@@ -338,7 +338,7 @@ Health check for API monitoring
 
 > `private` **trackRealTimeMetrics**(`userId`, `endpoint`, `method`, `statusCode`, `responseTime`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:111](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L111)
+Defined in: [src/modules/api-usage/api-usage.service.ts:111](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L111)
 
 Track real-time metrics in Redis
 
@@ -374,7 +374,7 @@ Track real-time metrics in Redis
 
 > **trackUsage**(`userId`, `endpoint`, `method`, `statusCode`, `responseTime`, `options?`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:59](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L59)
+Defined in: [src/modules/api-usage/api-usage.service.ts:59](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L59)
 
 Track API usage
 
@@ -428,7 +428,7 @@ Track API usage
 
 > `private` **eventBus**: [`EventBus`](../../../../shared/events/event-bus/classes/EventBus.md)
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:52](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L52)
+Defined in: [src/modules/api-usage/api-usage.service.ts:52](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L52)
 
 ***
 
@@ -436,7 +436,7 @@ Defined in: [src/modules/api-usage/api-usage.service.ts:52](https://github.com/m
 
 > `private` `readonly` **METRICS\_WINDOW**: `60` = `60`
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L48)
+Defined in: [src/modules/api-usage/api-usage.service.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L48)
 
 ***
 
@@ -444,7 +444,7 @@ Defined in: [src/modules/api-usage/api-usage.service.ts:48](https://github.com/m
 
 > `private` **subscriptionService**: [`SubscriptionService`](../../../billing/subscription.service/classes/SubscriptionService.md)
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:53](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L53)
+Defined in: [src/modules/api-usage/api-usage.service.ts:53](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L53)
 
 ***
 
@@ -452,4 +452,4 @@ Defined in: [src/modules/api-usage/api-usage.service.ts:53](https://github.com/m
 
 > `private` `readonly` **USAGE\_CACHE\_TTL**: `300` = `300`
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:49](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L49)
+Defined in: [src/modules/api-usage/api-usage.service.ts:49](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L49)

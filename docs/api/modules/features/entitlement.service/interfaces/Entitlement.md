@@ -6,7 +6,7 @@
 
 # Interface: Entitlement
 
-Defined in: [src/modules/features/entitlement.service.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/entitlement.service.ts#L9)
+Defined in: [src/modules/features/entitlement.service.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/entitlement.service.ts#L9)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/features/entitlement.service.ts:9](https://github.com/m
 
 > **access**: `boolean`
 
-Defined in: [src/modules/features/entitlement.service.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/entitlement.service.ts#L11)
+Defined in: [src/modules/features/entitlement.service.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/entitlement.service.ts#L11)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/features/entitlement.service.ts:11](https://github.com/
 
 > **feature**: `string`
 
-Defined in: [src/modules/features/entitlement.service.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/entitlement.service.ts#L10)
+Defined in: [src/modules/features/entitlement.service.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/entitlement.service.ts#L10)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/features/entitlement.service.ts:10](https://github.com/
 
 > `optional` **limit**: `number`
 
-Defined in: [src/modules/features/entitlement.service.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/entitlement.service.ts#L12)
+Defined in: [src/modules/features/entitlement.service.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/entitlement.service.ts#L12)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/modules/features/entitlement.service.ts:12](https://github.com/
 
 > `optional` **remaining**: `number`
 
-Defined in: [src/modules/features/entitlement.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/entitlement.service.ts#L14)
+Defined in: [src/modules/features/entitlement.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/entitlement.service.ts#L14)
 
 ***
 
@@ -46,4 +46,4 @@ Defined in: [src/modules/features/entitlement.service.ts:14](https://github.com/
 
 > `optional` **used**: `number`
 
-Defined in: [src/modules/features/entitlement.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/entitlement.service.ts#L13)
+Defined in: [src/modules/features/entitlement.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/entitlement.service.ts#L13)

@@ -6,7 +6,7 @@
 
 # Class: BulkContentActionDTO
 
-Defined in: [src/modules/admin/admin.dto.ts:129](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.dto.ts#L129)
+Defined in: [src/modules/admin/admin.dto.ts:129](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.dto.ts#L129)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/admin/admin.dto.ts:129](https://github.com/maemreyo/saa
 
 > **action**: `"delete"` \| `"flag"` \| `"approve"` \| `"reject"`
 
-Defined in: [src/modules/admin/admin.dto.ts:140](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.dto.ts#L140)
+Defined in: [src/modules/admin/admin.dto.ts:140](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.dto.ts#L140)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/admin/admin.dto.ts:140](https://github.com/maemreyo/saa
 
 > **items**: `object`[]
 
-Defined in: [src/modules/admin/admin.dto.ts:139](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.dto.ts#L139)
+Defined in: [src/modules/admin/admin.dto.ts:139](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.dto.ts#L139)
 
 #### entityId
 
@@ -48,7 +48,7 @@ Defined in: [src/modules/admin/admin.dto.ts:139](https://github.com/maemreyo/saa
 
 > `optional` **reason**: `string`
 
-Defined in: [src/modules/admin/admin.dto.ts:141](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.dto.ts#L141)
+Defined in: [src/modules/admin/admin.dto.ts:141](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.dto.ts#L141)
 
 ***
 
@@ -56,4 +56,4 @@ Defined in: [src/modules/admin/admin.dto.ts:141](https://github.com/maemreyo/saa
 
 > `static` **schema**: `ZodObject`\<\{ `action`: `ZodEnum`\<\[`"approve"`, `"reject"`, `"flag"`, `"delete"`\]\>; `items`: `ZodArray`\<`ZodObject`\<\{ `entityId`: `ZodString`; `entityType`: `ZodString`; \}, `"strip"`, `ZodTypeAny`, \{ `entityId?`: `string`; `entityType?`: `string`; \}, \{ `entityId?`: `string`; `entityType?`: `string`; \}\>, `"many"`\>; `reason`: `ZodOptional`\<`ZodString`\>; \}, `"strip"`, `ZodTypeAny`, \{ `action?`: `"delete"` \| `"flag"` \| `"approve"` \| `"reject"`; `items?`: `object`[]; `reason?`: `string`; \}, \{ `action?`: `"delete"` \| `"flag"` \| `"approve"` \| `"reject"`; `items?`: `object`[]; `reason?`: `string`; \}\>
 
-Defined in: [src/modules/admin/admin.dto.ts:130](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.dto.ts#L130)
+Defined in: [src/modules/admin/admin.dto.ts:130](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.dto.ts#L130)

@@ -6,7 +6,7 @@
 
 # Interface: PlanFeature
 
-Defined in: [src/modules/billing/subscription.service.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L21)
+Defined in: [src/modules/billing/subscription.service.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L21)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/billing/subscription.service.ts:21](https://github.com/
 
 > `optional` **description**: `string`
 
-Defined in: [src/modules/billing/subscription.service.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L24)
+Defined in: [src/modules/billing/subscription.service.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L24)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/billing/subscription.service.ts:24](https://github.com/
 
 > **id**: `string`
 
-Defined in: [src/modules/billing/subscription.service.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L22)
+Defined in: [src/modules/billing/subscription.service.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L22)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/billing/subscription.service.ts:22](https://github.com/
 
 > **included**: `boolean`
 
-Defined in: [src/modules/billing/subscription.service.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L25)
+Defined in: [src/modules/billing/subscription.service.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L25)
 
 ***
 
@@ -38,4 +38,4 @@ Defined in: [src/modules/billing/subscription.service.ts:25](https://github.com/
 
 > **name**: `string`
 
-Defined in: [src/modules/billing/subscription.service.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L23)
+Defined in: [src/modules/billing/subscription.service.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L23)

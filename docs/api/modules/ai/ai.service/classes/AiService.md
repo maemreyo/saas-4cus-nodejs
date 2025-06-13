@@ -6,7 +6,7 @@
 
 # Class: AiService
 
-Defined in: [src/modules/ai/ai.service.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L42)
+Defined in: [src/modules/ai/ai.service.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L42)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/ai/ai.service.ts:42](https://github.com/maemreyo/saas-4
 
 > **new AiService**(`cacheService`, `billingService`, `entitlementService`, `analyticsService`): `AiService`
 
-Defined in: [src/modules/ai/ai.service.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L46)
+Defined in: [src/modules/ai/ai.service.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L46)
 
 #### Parameters
 
@@ -44,7 +44,7 @@ Defined in: [src/modules/ai/ai.service.ts:46](https://github.com/maemreyo/saas-4
 
 > **chat**(`messages`, `options`): `Promise`\<[`ChatResult`](../../models/model.types/interfaces/ChatResult.md)\>
 
-Defined in: [src/modules/ai/ai.service.ts:436](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L436)
+Defined in: [src/modules/ai/ai.service.ts:436](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L436)
 
 #### Parameters
 
@@ -66,7 +66,7 @@ Defined in: [src/modules/ai/ai.service.ts:436](https://github.com/maemreyo/saas-
 
 > `private` **checkQuotas**(`userId`, `operation`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.service.ts:285](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L285)
+Defined in: [src/modules/ai/ai.service.ts:285](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L285)
 
 #### Parameters
 
@@ -88,7 +88,7 @@ Defined in: [src/modules/ai/ai.service.ts:285](https://github.com/maemreyo/saas-
 
 > **complete**(`prompt`, `options`): `Promise`\<[`CompletionResult`](../../models/model.types/interfaces/CompletionResult.md)\>
 
-Defined in: [src/modules/ai/ai.service.ts:326](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L326)
+Defined in: [src/modules/ai/ai.service.ts:326](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L326)
 
 #### Parameters
 
@@ -110,7 +110,7 @@ Defined in: [src/modules/ai/ai.service.ts:326](https://github.com/maemreyo/saas-
 
 > **createApiKey**(`userId`, `providerId`, `name`, `apiKey`, `tenantId?`, `expiresAt?`, `usageLimit?`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/ai/ai.service.ts:148](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L148)
+Defined in: [src/modules/ai/ai.service.ts:148](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L148)
 
 #### Parameters
 
@@ -152,7 +152,7 @@ Defined in: [src/modules/ai/ai.service.ts:148](https://github.com/maemreyo/saas-
 
 > **createConversation**(`userId`, `data`, `tenantId?`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/ai/ai.service.ts:891](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L891)
+Defined in: [src/modules/ai/ai.service.ts:891](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L891)
 
 #### Parameters
 
@@ -196,7 +196,7 @@ Defined in: [src/modules/ai/ai.service.ts:891](https://github.com/maemreyo/saas-
 
 > `private` **createProviderWithApiKey**(`providerName`, `apiKey`): [`BaseAiProvider`](../../providers/base.provider/classes/BaseAiProvider.md)
 
-Defined in: [src/modules/ai/ai.service.ts:122](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L122)
+Defined in: [src/modules/ai/ai.service.ts:122](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L122)
 
 #### Parameters
 
@@ -216,7 +216,7 @@ Defined in: [src/modules/ai/ai.service.ts:122](https://github.com/maemreyo/saas-
 
 > **createTemplate**(`userId`, `data`, `tenantId?`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/ai/ai.service.ts:779](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L779)
+Defined in: [src/modules/ai/ai.service.ts:779](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L779)
 
 #### Parameters
 
@@ -264,7 +264,7 @@ Defined in: [src/modules/ai/ai.service.ts:779](https://github.com/maemreyo/saas-
 
 > **embed**(`text`, `options`): `Promise`\<[`EmbeddingResult`](../../models/model.types/interfaces/EmbeddingResult.md) \| [`EmbeddingResult`](../../models/model.types/interfaces/EmbeddingResult.md)[]\>
 
-Defined in: [src/modules/ai/ai.service.ts:544](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L544)
+Defined in: [src/modules/ai/ai.service.ts:544](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L544)
 
 #### Parameters
 
@@ -286,7 +286,7 @@ Defined in: [src/modules/ai/ai.service.ts:544](https://github.com/maemreyo/saas-
 
 > **generateImage**(`options`): `Promise`\<[`ImageResult`](../../models/model.types/interfaces/ImageResult.md)\>
 
-Defined in: [src/modules/ai/ai.service.ts:631](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L631)
+Defined in: [src/modules/ai/ai.service.ts:631](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L631)
 
 #### Parameters
 
@@ -304,7 +304,7 @@ Defined in: [src/modules/ai/ai.service.ts:631](https://github.com/maemreyo/saas-
 
 > **getAvailableModels**(`capabilities?`): `Promise`\<`any`[]\>
 
-Defined in: [src/modules/ai/ai.service.ts:1066](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L1066)
+Defined in: [src/modules/ai/ai.service.ts:1066](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L1066)
 
 #### Parameters
 
@@ -322,7 +322,7 @@ Defined in: [src/modules/ai/ai.service.ts:1066](https://github.com/maemreyo/saas
 
 > **getCurrentMonthUsage**(`userId`, `tenantId?`): `Promise`\<\{ `byModel`: `Record`\<`string`, \{ `cost`: `number`; `tokens`: `number`; \}\>; `totalCost`: `number`; `totalTokens`: `number`; \}\>
 
-Defined in: [src/modules/ai/ai.service.ts:967](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L967)
+Defined in: [src/modules/ai/ai.service.ts:967](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L967)
 
 #### Parameters
 
@@ -344,7 +344,7 @@ Defined in: [src/modules/ai/ai.service.ts:967](https://github.com/maemreyo/saas-
 
 > `private` **getProvider**(`providerName?`, `userId?`, `tenantId?`): `Promise`\<[`BaseAiProvider`](../../providers/base.provider/classes/BaseAiProvider.md)\>
 
-Defined in: [src/modules/ai/ai.service.ts:91](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L91)
+Defined in: [src/modules/ai/ai.service.ts:91](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L91)
 
 #### Parameters
 
@@ -370,7 +370,7 @@ Defined in: [src/modules/ai/ai.service.ts:91](https://github.com/maemreyo/saas-4
 
 > **getProviders**(): `Promise`\<`any`[]\>
 
-Defined in: [src/modules/ai/ai.service.ts:1070](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L1070)
+Defined in: [src/modules/ai/ai.service.ts:1070](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L1070)
 
 #### Returns
 
@@ -382,7 +382,7 @@ Defined in: [src/modules/ai/ai.service.ts:1070](https://github.com/maemreyo/saas
 
 > **getTemplates**(`userId`, `filters?`, `tenantId?`): `Promise`\<`object`[]\>
 
-Defined in: [src/modules/ai/ai.service.ts:812](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L812)
+Defined in: [src/modules/ai/ai.service.ts:812](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L812)
 
 #### Parameters
 
@@ -418,7 +418,7 @@ Defined in: [src/modules/ai/ai.service.ts:812](https://github.com/maemreyo/saas-
 
 > **getUsageStats**(`userId`, `startDate?`, `endDate?`, `tenantId?`): `Promise`\<`any`\>
 
-Defined in: [src/modules/ai/ai.service.ts:1004](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L1004)
+Defined in: [src/modules/ai/ai.service.ts:1004](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L1004)
 
 #### Parameters
 
@@ -448,7 +448,7 @@ Defined in: [src/modules/ai/ai.service.ts:1004](https://github.com/maemreyo/saas
 
 > `private` **getUserApiKey**(`userId`, `providerName`, `tenantId?`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/ai/ai.service.ts:192](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L192)
+Defined in: [src/modules/ai/ai.service.ts:192](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L192)
 
 #### Parameters
 
@@ -474,7 +474,7 @@ Defined in: [src/modules/ai/ai.service.ts:192](https://github.com/maemreyo/saas-
 
 > `private` **initializeProviders**(): `void`
 
-Defined in: [src/modules/ai/ai.service.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L55)
+Defined in: [src/modules/ai/ai.service.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L55)
 
 #### Returns
 
@@ -486,7 +486,7 @@ Defined in: [src/modules/ai/ai.service.ts:55](https://github.com/maemreyo/saas-4
 
 > `private` **trackUsage**(`userId`, `providerId`, `model`, `operation`, `usage`, `cost`, `latency`, `cached`, `tenantId?`, `error?`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.service.ts:233](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L233)
+Defined in: [src/modules/ai/ai.service.ts:233](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L233)
 
 #### Parameters
 
@@ -546,7 +546,7 @@ Defined in: [src/modules/ai/ai.service.ts:233](https://github.com/maemreyo/saas-
 
 > **transcribeAudio**(`audioBuffer`, `options`): `Promise`\<[`AudioResult`](../../models/model.types/interfaces/AudioResult.md)\>
 
-Defined in: [src/modules/ai/ai.service.ts:711](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L711)
+Defined in: [src/modules/ai/ai.service.ts:711](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L711)
 
 #### Parameters
 
@@ -568,7 +568,7 @@ Defined in: [src/modules/ai/ai.service.ts:711](https://github.com/maemreyo/saas-
 
 > **updateConversation**(`conversationId`, `messages`, `userId`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/ai/ai.service.ts:932](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L932)
+Defined in: [src/modules/ai/ai.service.ts:932](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L932)
 
 #### Parameters
 
@@ -594,7 +594,7 @@ Defined in: [src/modules/ai/ai.service.ts:932](https://github.com/maemreyo/saas-
 
 > **useTemplate**(`templateId`, `variables`, `userId`): `Promise`\<`string`\>
 
-Defined in: [src/modules/ai/ai.service.ts:848](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L848)
+Defined in: [src/modules/ai/ai.service.ts:848](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L848)
 
 #### Parameters
 
@@ -620,7 +620,7 @@ Defined in: [src/modules/ai/ai.service.ts:848](https://github.com/maemreyo/saas-
 
 > `private` **analyticsService**: [`AnalyticsService`](../../../analytics/analytics.service/classes/AnalyticsService.md)
 
-Defined in: [src/modules/ai/ai.service.ts:50](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L50)
+Defined in: [src/modules/ai/ai.service.ts:50](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L50)
 
 ***
 
@@ -628,7 +628,7 @@ Defined in: [src/modules/ai/ai.service.ts:50](https://github.com/maemreyo/saas-4
 
 > `private` **billingService**: [`BillingService`](../../../billing/billing.service/classes/BillingService.md)
 
-Defined in: [src/modules/ai/ai.service.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L48)
+Defined in: [src/modules/ai/ai.service.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L48)
 
 ***
 
@@ -636,7 +636,7 @@ Defined in: [src/modules/ai/ai.service.ts:48](https://github.com/maemreyo/saas-4
 
 > `private` **cacheService**: [`AiCacheService`](../../ai.cache/classes/AiCacheService.md)
 
-Defined in: [src/modules/ai/ai.service.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L47)
+Defined in: [src/modules/ai/ai.service.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L47)
 
 ***
 
@@ -644,7 +644,7 @@ Defined in: [src/modules/ai/ai.service.ts:47](https://github.com/maemreyo/saas-4
 
 > `private` **defaultProvider**: `string` = `'openai'`
 
-Defined in: [src/modules/ai/ai.service.ts:44](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L44)
+Defined in: [src/modules/ai/ai.service.ts:44](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L44)
 
 ***
 
@@ -652,7 +652,7 @@ Defined in: [src/modules/ai/ai.service.ts:44](https://github.com/maemreyo/saas-4
 
 > `private` **entitlementService**: [`EntitlementService`](../../../features/entitlement.service/classes/EntitlementService.md)
 
-Defined in: [src/modules/ai/ai.service.ts:49](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L49)
+Defined in: [src/modules/ai/ai.service.ts:49](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L49)
 
 ***
 
@@ -660,4 +660,4 @@ Defined in: [src/modules/ai/ai.service.ts:49](https://github.com/maemreyo/saas-4
 
 > `private` **providers**: `Map`\<`string`, [`BaseAiProvider`](../../providers/base.provider/classes/BaseAiProvider.md)\>
 
-Defined in: [src/modules/ai/ai.service.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.service.ts#L43)
+Defined in: [src/modules/ai/ai.service.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.service.ts#L43)

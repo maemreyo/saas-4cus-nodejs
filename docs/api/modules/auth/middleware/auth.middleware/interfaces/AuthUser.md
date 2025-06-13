@@ -6,7 +6,7 @@
 
 # Interface: AuthUser
 
-Defined in: [src/modules/auth/middleware/auth.middleware.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/middleware/auth.middleware.ts#L19)
+Defined in: [src/modules/auth/middleware/auth.middleware.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/middleware/auth.middleware.ts#L19)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/auth/middleware/auth.middleware.ts:19](https://github.c
 
 > **email**: `string`
 
-Defined in: [src/modules/auth/middleware/auth.middleware.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/middleware/auth.middleware.ts#L21)
+Defined in: [src/modules/auth/middleware/auth.middleware.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/middleware/auth.middleware.ts#L21)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/auth/middleware/auth.middleware.ts:21](https://github.c
 
 > **id**: `string`
 
-Defined in: [src/modules/auth/middleware/auth.middleware.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/middleware/auth.middleware.ts#L20)
+Defined in: [src/modules/auth/middleware/auth.middleware.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/middleware/auth.middleware.ts#L20)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/auth/middleware/auth.middleware.ts:20](https://github.c
 
 > `optional` **permissions**: `string`[]
 
-Defined in: [src/modules/auth/middleware/auth.middleware.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/middleware/auth.middleware.ts#L24)
+Defined in: [src/modules/auth/middleware/auth.middleware.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/middleware/auth.middleware.ts#L24)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/modules/auth/middleware/auth.middleware.ts:24](https://github.c
 
 > **role**: `UserRole`
 
-Defined in: [src/modules/auth/middleware/auth.middleware.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/middleware/auth.middleware.ts#L22)
+Defined in: [src/modules/auth/middleware/auth.middleware.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/middleware/auth.middleware.ts#L22)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/modules/auth/middleware/auth.middleware.ts:22](https://github.c
 
 > `optional` **sessionId**: `string`
 
-Defined in: [src/modules/auth/middleware/auth.middleware.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/middleware/auth.middleware.ts#L25)
+Defined in: [src/modules/auth/middleware/auth.middleware.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/middleware/auth.middleware.ts#L25)
 
 ***
 
@@ -54,4 +54,4 @@ Defined in: [src/modules/auth/middleware/auth.middleware.ts:25](https://github.c
 
 > `optional` **tenantId**: `string`
 
-Defined in: [src/modules/auth/middleware/auth.middleware.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/middleware/auth.middleware.ts#L23)
+Defined in: [src/modules/auth/middleware/auth.middleware.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/middleware/auth.middleware.ts#L23)

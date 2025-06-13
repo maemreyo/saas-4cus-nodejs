@@ -6,7 +6,7 @@
 
 # Class: UpdateWebhookDTO
 
-Defined in: [src/modules/webhooks/webhook.dto.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.dto.ts#L22)
+Defined in: [src/modules/webhooks/webhook.dto.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.dto.ts#L22)
 
 ## Constructors
 
@@ -24,4 +24,4 @@ Defined in: [src/modules/webhooks/webhook.dto.ts:22](https://github.com/maemreyo
 
 > `static` **schema**: `ZodObject`\<\{ `description`: `ZodOptional`\<`ZodOptional`\<`ZodString`\>\>; `enabled`: `ZodOptional`\<`ZodDefault`\<`ZodOptional`\<`ZodBoolean`\>\>\>; `events`: `ZodOptional`\<`ZodArray`\<`ZodString`, `"many"`\>\>; `headers`: `ZodOptional`\<`ZodOptional`\<`ZodRecord`\<`ZodString`, `ZodString`\>\>\>; `secret`: `ZodOptional`\<`ZodOptional`\<`ZodString`\>\>; `url`: `ZodOptional`\<`ZodString`\>; \}, `"strip"`, `ZodTypeAny`, \{ `description?`: `string`; `enabled?`: `boolean`; `events?`: `string`[]; `headers?`: `Record`\<`string`, `string`\>; `secret?`: `string`; `url?`: `string`; \}, \{ `description?`: `string`; `enabled?`: `boolean`; `events?`: `string`[]; `headers?`: `Record`\<`string`, `string`\>; `secret?`: `string`; `url?`: `string`; \}\>
 
-Defined in: [src/modules/webhooks/webhook.dto.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.dto.ts#L23)
+Defined in: [src/modules/webhooks/webhook.dto.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.dto.ts#L23)

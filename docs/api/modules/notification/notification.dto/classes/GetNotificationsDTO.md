@@ -6,7 +6,7 @@
 
 # Class: GetNotificationsDTO
 
-Defined in: [src/modules/notification/notification.dto.ts:69](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.dto.ts#L69)
+Defined in: [src/modules/notification/notification.dto.ts:69](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.dto.ts#L69)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/notification/notification.dto.ts:69](https://github.com
 
 > `optional` **limit**: `number`
 
-Defined in: [src/modules/notification/notification.dto.ts:77](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.dto.ts#L77)
+Defined in: [src/modules/notification/notification.dto.ts:77](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.dto.ts#L77)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/notification/notification.dto.ts:77](https://github.com
 
 > `optional` **offset**: `number`
 
-Defined in: [src/modules/notification/notification.dto.ts:78](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.dto.ts#L78)
+Defined in: [src/modules/notification/notification.dto.ts:78](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.dto.ts#L78)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [src/modules/notification/notification.dto.ts:78](https://github.com
 
 > `static` **schema**: `ZodObject`\<\{ `limit`: `ZodDefault`\<`ZodNumber`\>; `offset`: `ZodDefault`\<`ZodNumber`\>; `type`: `ZodOptional`\<`ZodString`\>; `unreadOnly`: `ZodOptional`\<`ZodBoolean`\>; \}, `"strip"`, `ZodTypeAny`, \{ `limit?`: `number`; `offset?`: `number`; `type?`: `string`; `unreadOnly?`: `boolean`; \}, \{ `limit?`: `number`; `offset?`: `number`; `type?`: `string`; `unreadOnly?`: `boolean`; \}\>
 
-Defined in: [src/modules/notification/notification.dto.ts:70](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.dto.ts#L70)
+Defined in: [src/modules/notification/notification.dto.ts:70](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.dto.ts#L70)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [src/modules/notification/notification.dto.ts:70](https://github.com
 
 > `optional` **type**: `string`
 
-Defined in: [src/modules/notification/notification.dto.ts:80](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.dto.ts#L80)
+Defined in: [src/modules/notification/notification.dto.ts:80](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.dto.ts#L80)
 
 ***
 
@@ -56,4 +56,4 @@ Defined in: [src/modules/notification/notification.dto.ts:80](https://github.com
 
 > `optional` **unreadOnly**: `boolean`
 
-Defined in: [src/modules/notification/notification.dto.ts:79](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.dto.ts#L79)
+Defined in: [src/modules/notification/notification.dto.ts:79](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.dto.ts#L79)

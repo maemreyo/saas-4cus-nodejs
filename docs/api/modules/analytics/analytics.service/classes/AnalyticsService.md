@@ -6,7 +6,7 @@
 
 # Class: AnalyticsService
 
-Defined in: [src/modules/analytics/analytics.service.ts:63](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L63)
+Defined in: [src/modules/analytics/analytics.service.ts:63](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L63)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/analytics/analytics.service.ts:63](https://github.com/m
 
 > **new AnalyticsService**(`eventBus`): `AnalyticsService`
 
-Defined in: [src/modules/analytics/analytics.service.ts:66](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L66)
+Defined in: [src/modules/analytics/analytics.service.ts:66](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L66)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/analytics/analytics.service.ts:66](https://github.com/m
 
 > `private` **calculateMetricData**(`current`, `previous`): [`MetricData`](../interfaces/MetricData.md)
 
-Defined in: [src/modules/analytics/analytics.service.ts:253](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L253)
+Defined in: [src/modules/analytics/analytics.service.ts:253](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L253)
 
 Calculate metric data with change
 
@@ -56,7 +56,7 @@ Calculate metric data with change
 
 > `private` **getActiveUsersCount**(`tenantId`, `startDate`, `endDate`): `Promise`\<`number`\>
 
-Defined in: [src/modules/analytics/analytics.service.ts:268](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L268)
+Defined in: [src/modules/analytics/analytics.service.ts:268](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L268)
 
 Get active users count
 
@@ -84,7 +84,7 @@ Get active users count
 
 > `private` **getActiveUsersTimeSeries**(`tenantId`, `dates`): `Promise`\<[`TimeSeriesData`](../interfaces/TimeSeriesData.md)[]\>
 
-Defined in: [src/modules/analytics/analytics.service.ts:417](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L417)
+Defined in: [src/modules/analytics/analytics.service.ts:417](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L417)
 
 Get active users time series
 
@@ -108,7 +108,7 @@ Get active users time series
 
 > `private` **getBreakdownMetrics**(`tenantId?`): `Promise`\<\{ `revenueByPlan`: `object`[]; `topFeatures`: `object`[]; `usersByPlan`: `object`[]; \}\>
 
-Defined in: [src/modules/analytics/analytics.service.ts:236](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L236)
+Defined in: [src/modules/analytics/analytics.service.ts:236](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L236)
 
 Get breakdown metrics
 
@@ -128,7 +128,7 @@ Get breakdown metrics
 
 > `private` **getChurnedUsers**(`tenantId`, `startDate`, `endDate`): `Promise`\<`number`\>
 
-Defined in: [src/modules/analytics/analytics.service.ts:321](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L321)
+Defined in: [src/modules/analytics/analytics.service.ts:321](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L321)
 
 Get churned users
 
@@ -156,7 +156,7 @@ Get churned users
 
 > **getCohortRetention**(`options`): `Promise`\<\{ `cohorts`: `object`[]; \}\>
 
-Defined in: [src/modules/analytics/analytics.service.ts:669](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L669)
+Defined in: [src/modules/analytics/analytics.service.ts:669](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L669)
 
 Get cohort retention
 
@@ -186,7 +186,7 @@ Get cohort retention
 
 > **getDashboardMetrics**(`tenantId?`, `dateRange?`): `Promise`\<[`DashboardMetrics`](../interfaces/DashboardMetrics.md)\>
 
-Defined in: [src/modules/analytics/analytics.service.ts:150](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L150)
+Defined in: [src/modules/analytics/analytics.service.ts:150](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L150)
 
 Get dashboard metrics
 
@@ -210,7 +210,7 @@ Get dashboard metrics
 
 > **getFunnelAnalytics**(`steps`, `options`): `Promise`\<\{ `overall`: \{ `completedUsers`: `number`; `conversionRate`: `number`; `totalUsers`: `number`; \}; `steps`: `object`[]; \}\>
 
-Defined in: [src/modules/analytics/analytics.service.ts:588](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L588)
+Defined in: [src/modules/analytics/analytics.service.ts:588](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L588)
 
 Get funnel analytics
 
@@ -248,7 +248,7 @@ Get funnel analytics
 
 > `private` **getOverviewMetrics**(`tenantId`, `startDate`, `endDate`): `Promise`\<\{ `activeUsers`: [`MetricData`](../interfaces/MetricData.md); `churnRate`: [`MetricData`](../interfaces/MetricData.md); `revenue`: [`MetricData`](../interfaces/MetricData.md); `totalUsers`: [`MetricData`](../interfaces/MetricData.md); \}\>
 
-Defined in: [src/modules/analytics/analytics.service.ts:170](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L170)
+Defined in: [src/modules/analytics/analytics.service.ts:170](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L170)
 
 Get overview metrics
 
@@ -276,7 +276,7 @@ Get overview metrics
 
 > `private` **getRevenue**(`tenantId`, `startDate`, `endDate`): `Promise`\<`number`\>
 
-Defined in: [src/modules/analytics/analytics.service.ts:295](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L295)
+Defined in: [src/modules/analytics/analytics.service.ts:295](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L295)
 
 Get revenue
 
@@ -304,7 +304,7 @@ Get revenue
 
 > `private` **getRevenueByPlan**(`tenantId?`): `Promise`\<`object`[]\>
 
-Defined in: [src/modules/analytics/analytics.service.ts:499](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L499)
+Defined in: [src/modules/analytics/analytics.service.ts:499](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L499)
 
 Get revenue by plan
 
@@ -324,7 +324,7 @@ Get revenue by plan
 
 > `private` **getRevenueTimeSeries**(`tenantId`, `dates`): `Promise`\<[`TimeSeriesData`](../interfaces/TimeSeriesData.md)[]\>
 
-Defined in: [src/modules/analytics/analytics.service.ts:382](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L382)
+Defined in: [src/modules/analytics/analytics.service.ts:382](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L382)
 
 Get revenue time series
 
@@ -348,7 +348,7 @@ Get revenue time series
 
 > `private` **getTenantUserIds**(`tenantId`): `Promise`\<`string`[]\>
 
-Defined in: [src/modules/analytics/analytics.service.ts:343](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L343)
+Defined in: [src/modules/analytics/analytics.service.ts:343](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L343)
 
 Get tenant user IDs
 
@@ -368,7 +368,7 @@ Get tenant user IDs
 
 > `private` **getTimeSeriesMetrics**(`tenantId`, `startDate`, `endDate`): `Promise`\<\{ `activeUsers`: [`TimeSeriesData`](../interfaces/TimeSeriesData.md)[]; `revenueGrowth`: [`TimeSeriesData`](../interfaces/TimeSeriesData.md)[]; `userGrowth`: [`TimeSeriesData`](../interfaces/TimeSeriesData.md)[]; \}\>
 
-Defined in: [src/modules/analytics/analytics.service.ts:208](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L208)
+Defined in: [src/modules/analytics/analytics.service.ts:208](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L208)
 
 Get time series metrics
 
@@ -396,7 +396,7 @@ Get time series metrics
 
 > `private` **getTopFeatures**(`tenantId?`, `limit?`): `Promise`\<`object`[]\>
 
-Defined in: [src/modules/analytics/analytics.service.ts:544](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L544)
+Defined in: [src/modules/analytics/analytics.service.ts:544](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L544)
 
 Get top features
 
@@ -420,7 +420,7 @@ Get top features
 
 > `private` **getUserGrowthTimeSeries**(`tenantId`, `dates`): `Promise`\<[`TimeSeriesData`](../interfaces/TimeSeriesData.md)[]\>
 
-Defined in: [src/modules/analytics/analytics.service.ts:355](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L355)
+Defined in: [src/modules/analytics/analytics.service.ts:355](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L355)
 
 Get user growth time series
 
@@ -444,7 +444,7 @@ Get user growth time series
 
 > **getUserJourney**(`userId`, `options`): `Promise`\<\{ `events`: `object`[]; `summary`: \{ `avgEventsPerSession`: `number`; `sessions`: `number`; `totalEvents`: `number`; `uniqueEvents`: `number`; \}; \}\>
 
-Defined in: [src/modules/analytics/analytics.service.ts:777](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L777)
+Defined in: [src/modules/analytics/analytics.service.ts:777](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L777)
 
 Get user journey
 
@@ -478,7 +478,7 @@ Get user journey
 
 > `private` **getUsersByPlan**(`tenantId?`): `Promise`\<`object`[]\>
 
-Defined in: [src/modules/analytics/analytics.service.ts:441](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L441)
+Defined in: [src/modules/analytics/analytics.service.ts:441](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L441)
 
 Get users by plan
 
@@ -498,7 +498,7 @@ Get users by plan
 
 > **track**(`event`): `Promise`\<`void`\>
 
-Defined in: [src/modules/analytics/analytics.service.ts:71](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L71)
+Defined in: [src/modules/analytics/analytics.service.ts:71](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L71)
 
 Track analytics event
 
@@ -518,7 +518,7 @@ Track analytics event
 
 > **trackPageView**(`userId`, `page`, `properties?`): `Promise`\<`void`\>
 
-Defined in: [src/modules/analytics/analytics.service.ts:107](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L107)
+Defined in: [src/modules/analytics/analytics.service.ts:107](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L107)
 
 Track page view
 
@@ -546,7 +546,7 @@ Track page view
 
 > `private` **trackRealTimeMetric**(`event`): `Promise`\<`void`\>
 
-Defined in: [src/modules/analytics/analytics.service.ts:121](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L121)
+Defined in: [src/modules/analytics/analytics.service.ts:121](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L121)
 
 Track real-time metric in Redis
 
@@ -566,7 +566,7 @@ Track real-time metric in Redis
 
 > `private` **eventBus**: [`EventBus`](../../../../shared/events/event-bus/classes/EventBus.md)
 
-Defined in: [src/modules/analytics/analytics.service.ts:66](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L66)
+Defined in: [src/modules/analytics/analytics.service.ts:66](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L66)
 
 ***
 
@@ -574,4 +574,4 @@ Defined in: [src/modules/analytics/analytics.service.ts:66](https://github.com/m
 
 > `private` `readonly` **METRICS\_CACHE\_TTL**: `300` = `300`
 
-Defined in: [src/modules/analytics/analytics.service.ts:64](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L64)
+Defined in: [src/modules/analytics/analytics.service.ts:64](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L64)

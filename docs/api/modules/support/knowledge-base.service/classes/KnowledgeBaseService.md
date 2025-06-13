@@ -6,7 +6,7 @@
 
 # Class: KnowledgeBaseService
 
-Defined in: [src/modules/support/knowledge-base.service.ts:32](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L32)
+Defined in: [src/modules/support/knowledge-base.service.ts:32](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L32)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/support/knowledge-base.service.ts:32](https://github.co
 
 > `private` **buildResponseTemplate**(`phrases`): `string`
 
-Defined in: [src/modules/support/knowledge-base.service.ts:332](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L332)
+Defined in: [src/modules/support/knowledge-base.service.ts:332](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L332)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [src/modules/support/knowledge-base.service.ts:332](https://github.c
 
 > `private` **extractCommonPhrases**(`messages`): `string`[]
 
-Defined in: [src/modules/support/knowledge-base.service.ts:312](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L312)
+Defined in: [src/modules/support/knowledge-base.service.ts:312](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L312)
 
 #### Parameters
 
@@ -60,7 +60,7 @@ Defined in: [src/modules/support/knowledge-base.service.ts:312](https://github.c
 
 > `private` **extractKeywords**(`text`): `string`[]
 
-Defined in: [src/modules/support/knowledge-base.service.ts:252](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L252)
+Defined in: [src/modules/support/knowledge-base.service.ts:252](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L252)
 
 #### Parameters
 
@@ -78,7 +78,7 @@ Defined in: [src/modules/support/knowledge-base.service.ts:252](https://github.c
 
 > `private` **fallbackSearch**(`query`, `options?`): `Promise`\<[`SuggestedSolution`](../interfaces/SuggestedSolution.md)[]\>
 
-Defined in: [src/modules/support/knowledge-base.service.ts:243](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L243)
+Defined in: [src/modules/support/knowledge-base.service.ts:243](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L243)
 
 #### Parameters
 
@@ -106,7 +106,7 @@ Defined in: [src/modules/support/knowledge-base.service.ts:243](https://github.c
 
 > **generateAutoResponse**(`category`, `issueType`): `Promise`\<`string`\>
 
-Defined in: [src/modules/support/knowledge-base.service.ts:205](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L205)
+Defined in: [src/modules/support/knowledge-base.service.ts:205](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L205)
 
 Create auto-response template from resolved tickets
 
@@ -130,7 +130,7 @@ Create auto-response template from resolved tickets
 
 > **getCommonIssueArticles**(): `Promise`\<`object`[]\>
 
-Defined in: [src/modules/support/knowledge-base.service.ts:169](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L169)
+Defined in: [src/modules/support/knowledge-base.service.ts:169](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L169)
 
 Get articles related to common ticket issues
 
@@ -144,7 +144,7 @@ Get articles related to common ticket issues
 
 > **getPopularArticles**(`limit`): `Promise`\<[`KnowledgeArticle`](../interfaces/KnowledgeArticle.md)[]\>
 
-Defined in: [src/modules/support/knowledge-base.service.ts:117](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L117)
+Defined in: [src/modules/support/knowledge-base.service.ts:117](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L117)
 
 Get popular articles
 
@@ -164,7 +164,7 @@ Get popular articles
 
 > **getSuggestedArticles**(`ticketSubject`, `ticketDescription`, `category?`): `Promise`\<[`SuggestedSolution`](../interfaces/SuggestedSolution.md)[]\>
 
-Defined in: [src/modules/support/knowledge-base.service.ts:100](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L100)
+Defined in: [src/modules/support/knowledge-base.service.ts:100](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L100)
 
 Get suggested articles for a ticket
 
@@ -192,7 +192,7 @@ Get suggested articles for a ticket
 
 > `private` **identifyCommonIssues**(`tickets`): `object`[]
 
-Defined in: [src/modules/support/knowledge-base.service.ts:287](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L287)
+Defined in: [src/modules/support/knowledge-base.service.ts:287](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L287)
 
 #### Parameters
 
@@ -210,7 +210,7 @@ Defined in: [src/modules/support/knowledge-base.service.ts:287](https://github.c
 
 > **indexArticle**(`article`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/knowledge-base.service.ts:340](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L340)
+Defined in: [src/modules/support/knowledge-base.service.ts:340](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L340)
 
 Index knowledge article for search
 
@@ -230,7 +230,7 @@ Index knowledge article for search
 
 > **rateArticle**(`articleId`, `userId`, `helpful`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/knowledge-base.service.ts:144](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L144)
+Defined in: [src/modules/support/knowledge-base.service.ts:144](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L144)
 
 Rate article helpfulness
 
@@ -258,7 +258,7 @@ Rate article helpfulness
 
 > **searchSolutions**(`query`, `options?`): `Promise`\<[`SuggestedSolution`](../interfaces/SuggestedSolution.md)[]\>
 
-Defined in: [src/modules/support/knowledge-base.service.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L36)
+Defined in: [src/modules/support/knowledge-base.service.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L36)
 
 Search for solutions based on ticket content
 
@@ -288,7 +288,7 @@ Search for solutions based on ticket content
 
 > **trackArticleView**(`articleId`, `userId?`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/knowledge-base.service.ts:126](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L126)
+Defined in: [src/modules/support/knowledge-base.service.ts:126](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L126)
 
 Track article view
 
@@ -312,7 +312,7 @@ Track article view
 
 > `private` **updateArticleRatings**(`articleId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/knowledge-base.service.ts:274](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L274)
+Defined in: [src/modules/support/knowledge-base.service.ts:274](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L274)
 
 #### Parameters
 
@@ -330,7 +330,7 @@ Defined in: [src/modules/support/knowledge-base.service.ts:274](https://github.c
 
 > `private` **updateArticleViewCount**(`articleId`, `views`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/knowledge-base.service.ts:269](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L269)
+Defined in: [src/modules/support/knowledge-base.service.ts:269](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L269)
 
 #### Parameters
 

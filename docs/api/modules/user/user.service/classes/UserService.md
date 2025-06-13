@@ -6,7 +6,7 @@
 
 # Class: UserService
 
-Defined in: [src/modules/user/user.service.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L45)
+Defined in: [src/modules/user/user.service.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L45)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/user/user.service.ts:45](https://github.com/maemreyo/sa
 
 > **new UserService**(`eventBus`, `auditService`): `UserService`
 
-Defined in: [src/modules/user/user.service.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L46)
+Defined in: [src/modules/user/user.service.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L46)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [src/modules/user/user.service.ts:46](https://github.com/maemreyo/sa
 
 > **changePassword**(`userId`, `currentPassword`, `newPassword`): `Promise`\<`void`\>
 
-Defined in: [src/modules/user/user.service.ts:152](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L152)
+Defined in: [src/modules/user/user.service.ts:152](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L152)
 
 Change user password
 
@@ -64,7 +64,7 @@ Change user password
 
 > **deleteAccount**(`userId`, `password`): `Promise`\<`void`\>
 
-Defined in: [src/modules/user/user.service.ts:362](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L362)
+Defined in: [src/modules/user/user.service.ts:362](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L362)
 
 Delete user account
 
@@ -88,7 +88,7 @@ Delete user account
 
 > **getPublicProfile**(`userId`): `Promise`\<`Partial`\<\{ \}\>\>
 
-Defined in: [src/modules/user/user.service.ts:220](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L220)
+Defined in: [src/modules/user/user.service.ts:220](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L220)
 
 Get public profile
 
@@ -108,7 +108,7 @@ Get public profile
 
 > **getUserActivity**(`userId`, `days`): `Promise`\<\{ `actions`: \{ `logs`: `object`[]; `summary`: `Record`\<`string`, `number`\>; `total`: `number`; \}; `apiUsage`: `PickEnumerable`\<`ApiUsageGroupByOutputType`, `"createdAt"`[]\> & `object`[]; `loginHistory`: `object`[]; \}\>
 
-Defined in: [src/modules/user/user.service.ts:409](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L409)
+Defined in: [src/modules/user/user.service.ts:409](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L409)
 
 Get user activity
 
@@ -132,7 +132,7 @@ Get user activity
 
 > **getUserByEmail**(`email`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/user/user.service.ts:70](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L70)
+Defined in: [src/modules/user/user.service.ts:70](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L70)
 
 Get user by email
 
@@ -152,7 +152,7 @@ Get user by email
 
 > **getUserById**(`userId`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/user/user.service.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L55)
+Defined in: [src/modules/user/user.service.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L55)
 
 Get user by ID
 
@@ -172,7 +172,7 @@ Get user by ID
 
 > **getUserByUsername**(`username`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/user/user.service.ts:79](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L79)
+Defined in: [src/modules/user/user.service.ts:79](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L79)
 
 Get user by username
 
@@ -192,7 +192,7 @@ Get user by username
 
 > **getUserSessions**(`userId`): `Promise`\<`object`[]\>
 
-Defined in: [src/modules/user/user.service.ts:449](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L449)
+Defined in: [src/modules/user/user.service.ts:449](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L449)
 
 Get user sessions
 
@@ -212,7 +212,7 @@ Get user sessions
 
 > `private` **invalidateUserSessions**(`userId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/user/user.service.ts:487](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L487)
+Defined in: [src/modules/user/user.service.ts:487](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L487)
 
 Invalidate all user sessions
 
@@ -232,7 +232,7 @@ Invalidate all user sessions
 
 > **revokeSession**(`userId`, `sessionId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/user/user.service.ts:462](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L462)
+Defined in: [src/modules/user/user.service.ts:462](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L462)
 
 Revoke session
 
@@ -256,7 +256,7 @@ Revoke session
 
 > **searchUsers**(`options`): `Promise`\<\{ `pagination`: \{ `limit`: `number`; `page`: `number`; `pages`: `number`; `total`: `number`; \}; `users`: `object`[]; \}\>
 
-Defined in: [src/modules/user/user.service.ts:247](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L247)
+Defined in: [src/modules/user/user.service.ts:247](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L247)
 
 Search users
 
@@ -276,7 +276,7 @@ Search users
 
 > **updatePreferences**(`userId`, `preferences`): `Promise`\<[`UserPreferences`](../interfaces/UserPreferences.md)\>
 
-Defined in: [src/modules/user/user.service.ts:196](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L196)
+Defined in: [src/modules/user/user.service.ts:196](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L196)
 
 Update user preferences
 
@@ -300,7 +300,7 @@ Update user preferences
 
 > **updateProfile**(`userId`, `options`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/user/user.service.ts:89](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L89)
+Defined in: [src/modules/user/user.service.ts:89](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L89)
 
 Update user profile
 
@@ -324,7 +324,7 @@ Update user profile
 
 > **uploadAvatar**(`userId`, `file`): `Promise`\<`string`\>
 
-Defined in: [src/modules/user/user.service.ts:309](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L309)
+Defined in: [src/modules/user/user.service.ts:309](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L309)
 
 Upload user avatar
 
@@ -348,7 +348,7 @@ Upload user avatar
 
 > `private` **auditService**: [`AuditService`](../../../../shared/services/audit.service/classes/AuditService.md)
 
-Defined in: [src/modules/user/user.service.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L48)
+Defined in: [src/modules/user/user.service.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L48)
 
 ***
 
@@ -356,4 +356,4 @@ Defined in: [src/modules/user/user.service.ts:48](https://github.com/maemreyo/sa
 
 > `private` **eventBus**: [`EventBus`](../../../../shared/events/event-bus/classes/EventBus.md)
 
-Defined in: [src/modules/user/user.service.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.service.ts#L47)
+Defined in: [src/modules/user/user.service.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.service.ts#L47)

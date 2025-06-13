@@ -6,7 +6,7 @@
 
 # Interface: PaginationOptions
 
-Defined in: [src/infrastructure/database/repository.base.ts:4](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/database/repository.base.ts#L4)
+Defined in: [src/infrastructure/database/repository.base.ts:4](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/database/repository.base.ts#L4)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/infrastructure/database/repository.base.ts:4](https://github.co
 
 > `optional` **include**: `any`
 
-Defined in: [src/infrastructure/database/repository.base.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/database/repository.base.ts#L9)
+Defined in: [src/infrastructure/database/repository.base.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/database/repository.base.ts#L9)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/infrastructure/database/repository.base.ts:9](https://github.co
 
 > `optional` **limit**: `number`
 
-Defined in: [src/infrastructure/database/repository.base.ts:6](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/database/repository.base.ts#L6)
+Defined in: [src/infrastructure/database/repository.base.ts:6](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/database/repository.base.ts#L6)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/infrastructure/database/repository.base.ts:6](https://github.co
 
 > `optional` **orderBy**: `any`
 
-Defined in: [src/infrastructure/database/repository.base.ts:7](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/database/repository.base.ts#L7)
+Defined in: [src/infrastructure/database/repository.base.ts:7](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/database/repository.base.ts#L7)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/infrastructure/database/repository.base.ts:7](https://github.co
 
 > `optional` **page**: `number`
 
-Defined in: [src/infrastructure/database/repository.base.ts:5](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/database/repository.base.ts#L5)
+Defined in: [src/infrastructure/database/repository.base.ts:5](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/database/repository.base.ts#L5)
 
 ***
 
@@ -46,4 +46,4 @@ Defined in: [src/infrastructure/database/repository.base.ts:5](https://github.co
 
 > `optional` **where**: `any`
 
-Defined in: [src/infrastructure/database/repository.base.ts:8](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/database/repository.base.ts#L8)
+Defined in: [src/infrastructure/database/repository.base.ts:8](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/database/repository.base.ts#L8)

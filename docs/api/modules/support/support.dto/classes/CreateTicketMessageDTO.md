@@ -6,7 +6,7 @@
 
 # Class: CreateTicketMessageDTO
 
-Defined in: [src/modules/support/support.dto.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L47)
+Defined in: [src/modules/support/support.dto.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L47)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/support/support.dto.ts:47](https://github.com/maemreyo/
 
 > `optional` **attachmentIds**: `string`[]
 
-Defined in: [src/modules/support/support.dto.ts:56](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L56)
+Defined in: [src/modules/support/support.dto.ts:56](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L56)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/support/support.dto.ts:56](https://github.com/maemreyo/
 
 > **content**: `string`
 
-Defined in: [src/modules/support/support.dto.ts:54](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L54)
+Defined in: [src/modules/support/support.dto.ts:54](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L54)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [src/modules/support/support.dto.ts:54](https://github.com/maemreyo/
 
 > `optional` **internal**: `boolean`
 
-Defined in: [src/modules/support/support.dto.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L55)
+Defined in: [src/modules/support/support.dto.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L55)
 
 ***
 
@@ -48,4 +48,4 @@ Defined in: [src/modules/support/support.dto.ts:55](https://github.com/maemreyo/
 
 > `static` **schema**: `ZodObject`\<\{ `attachmentIds`: `ZodOptional`\<`ZodArray`\<`ZodString`, `"many"`\>\>; `content`: `ZodString`; `internal`: `ZodDefault`\<`ZodBoolean`\>; \}, `"strip"`, `ZodTypeAny`, \{ `attachmentIds?`: `string`[]; `content?`: `string`; `internal?`: `boolean`; \}, \{ `attachmentIds?`: `string`[]; `content?`: `string`; `internal?`: `boolean`; \}\>
 
-Defined in: [src/modules/support/support.dto.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L48)
+Defined in: [src/modules/support/support.dto.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L48)

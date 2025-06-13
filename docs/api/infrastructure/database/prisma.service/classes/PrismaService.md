@@ -6,7 +6,7 @@
 
 # Class: PrismaService
 
-Defined in: [src/infrastructure/database/prisma.service.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/database/prisma.service.ts#L12)
+Defined in: [src/infrastructure/database/prisma.service.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/database/prisma.service.ts#L12)
 
 ## Accessors
 
@@ -16,7 +16,7 @@ Defined in: [src/infrastructure/database/prisma.service.ts:12](https://github.co
 
 > **get** **client**(): `PrismaClient`
 
-Defined in: [src/infrastructure/database/prisma.service.ts:160](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/database/prisma.service.ts#L160)
+Defined in: [src/infrastructure/database/prisma.service.ts:160](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/database/prisma.service.ts#L160)
 
 ##### Returns
 
@@ -28,7 +28,7 @@ Defined in: [src/infrastructure/database/prisma.service.ts:160](https://github.c
 
 > **new PrismaService**(): `PrismaService`
 
-Defined in: [src/infrastructure/database/prisma.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/database/prisma.service.ts#L15)
+Defined in: [src/infrastructure/database/prisma.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/database/prisma.service.ts#L15)
 
 #### Returns
 
@@ -40,7 +40,7 @@ Defined in: [src/infrastructure/database/prisma.service.ts:15](https://github.co
 
 > **batchCreate**\<`T`\>(`model`, `data`, `batchSize`): `Promise`\<`number`\>
 
-Defined in: [src/infrastructure/database/prisma.service.ts:252](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/database/prisma.service.ts#L252)
+Defined in: [src/infrastructure/database/prisma.service.ts:252](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/database/prisma.service.ts#L252)
 
 #### Type Parameters
 
@@ -72,7 +72,7 @@ keyof `PrismaClient`\<`PrismaClientOptions`, `never`, `DefaultArgs`\>
 
 > **connect**(): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/database/prisma.service.ts:165](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/database/prisma.service.ts#L165)
+Defined in: [src/infrastructure/database/prisma.service.ts:165](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/database/prisma.service.ts#L165)
 
 #### Returns
 
@@ -84,7 +84,7 @@ Defined in: [src/infrastructure/database/prisma.service.ts:165](https://github.c
 
 > **disconnect**(): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/database/prisma.service.ts:176](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/database/prisma.service.ts#L176)
+Defined in: [src/infrastructure/database/prisma.service.ts:176](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/database/prisma.service.ts#L176)
 
 #### Returns
 
@@ -96,7 +96,7 @@ Defined in: [src/infrastructure/database/prisma.service.ts:176](https://github.c
 
 > `private` **getLogLevels**(): `LogLevel`[]
 
-Defined in: [src/infrastructure/database/prisma.service.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/database/prisma.service.ts#L26)
+Defined in: [src/infrastructure/database/prisma.service.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/database/prisma.service.ts#L26)
 
 #### Returns
 
@@ -108,7 +108,7 @@ Defined in: [src/infrastructure/database/prisma.service.ts:26](https://github.co
 
 > **getStats**(): `Promise`\<\{ `activeSessions`: `number`; `databaseSize`: `string`; `pendingJobs`: `number`; `users`: `number`; \}\>
 
-Defined in: [src/infrastructure/database/prisma.service.ts:302](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/database/prisma.service.ts#L302)
+Defined in: [src/infrastructure/database/prisma.service.ts:302](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/database/prisma.service.ts#L302)
 
 #### Returns
 
@@ -120,7 +120,7 @@ Defined in: [src/infrastructure/database/prisma.service.ts:302](https://github.c
 
 > **paginate**\<`T`, `K`\>(`model`, `__namedParameters`): `Promise`\<\{ `data`: `any`; `meta`: \{ `hasNext`: `boolean`; `hasPrev`: `boolean`; `limit`: `number`; `page`: `number`; `pages`: `number`; `total`: `any`; \}; \}\>
 
-Defined in: [src/infrastructure/database/prisma.service.ts:205](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/database/prisma.service.ts#L205)
+Defined in: [src/infrastructure/database/prisma.service.ts:205](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/database/prisma.service.ts#L205)
 
 #### Type Parameters
 
@@ -170,7 +170,7 @@ Defined in: [src/infrastructure/database/prisma.service.ts:205](https://github.c
 
 > **ping**(): `Promise`\<`boolean`\>
 
-Defined in: [src/infrastructure/database/prisma.service.ts:186](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/database/prisma.service.ts#L186)
+Defined in: [src/infrastructure/database/prisma.service.ts:186](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/database/prisma.service.ts#L186)
 
 #### Returns
 
@@ -182,7 +182,7 @@ Defined in: [src/infrastructure/database/prisma.service.ts:186](https://github.c
 
 > **raw**\<`T`\>(`sql`, `params?`): `Promise`\<`T`\>
 
-Defined in: [src/infrastructure/database/prisma.service.ts:297](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/database/prisma.service.ts#L297)
+Defined in: [src/infrastructure/database/prisma.service.ts:297](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/database/prisma.service.ts#L297)
 
 #### Type Parameters
 
@@ -210,7 +210,7 @@ Defined in: [src/infrastructure/database/prisma.service.ts:297](https://github.c
 
 > `private` **setupEventHandlers**(): `void`
 
-Defined in: [src/infrastructure/database/prisma.service.ts:118](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/database/prisma.service.ts#L118)
+Defined in: [src/infrastructure/database/prisma.service.ts:118](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/database/prisma.service.ts#L118)
 
 #### Returns
 
@@ -222,7 +222,7 @@ Defined in: [src/infrastructure/database/prisma.service.ts:118](https://github.c
 
 > `private` **setupMiddleware**(): `void`
 
-Defined in: [src/infrastructure/database/prisma.service.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/database/prisma.service.ts#L36)
+Defined in: [src/infrastructure/database/prisma.service.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/database/prisma.service.ts#L36)
 
 #### Returns
 
@@ -234,7 +234,7 @@ Defined in: [src/infrastructure/database/prisma.service.ts:36](https://github.co
 
 > `private` **setupShutdownHooks**(): `void`
 
-Defined in: [src/infrastructure/database/prisma.service.ts:142](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/database/prisma.service.ts#L142)
+Defined in: [src/infrastructure/database/prisma.service.ts:142](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/database/prisma.service.ts#L142)
 
 #### Returns
 
@@ -246,7 +246,7 @@ Defined in: [src/infrastructure/database/prisma.service.ts:142](https://github.c
 
 > **transaction**\<`T`\>(`fn`, `options?`): `Promise`\<`T`\>
 
-Defined in: [src/infrastructure/database/prisma.service.ts:197](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/database/prisma.service.ts#L197)
+Defined in: [src/infrastructure/database/prisma.service.ts:197](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/database/prisma.service.ts#L197)
 
 #### Type Parameters
 
@@ -280,7 +280,7 @@ Defined in: [src/infrastructure/database/prisma.service.ts:197](https://github.c
 
 > **upsertMany**\<`T`\>(`model`, `data`, `uniqueFields`): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/database/prisma.service.ts:273](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/database/prisma.service.ts#L273)
+Defined in: [src/infrastructure/database/prisma.service.ts:273](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/database/prisma.service.ts#L273)
 
 #### Type Parameters
 
@@ -312,4 +312,4 @@ keyof `PrismaClient`\<`PrismaClientOptions`, `never`, `DefaultArgs`\>
 
 > `private` **prisma**: [`ExtendedPrismaClient`](../-internal-/type-aliases/ExtendedPrismaClient.md)
 
-Defined in: [src/infrastructure/database/prisma.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/database/prisma.service.ts#L13)
+Defined in: [src/infrastructure/database/prisma.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/database/prisma.service.ts#L13)

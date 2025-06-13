@@ -6,7 +6,7 @@
 
 # Class: EntitlementService
 
-Defined in: [src/modules/features/entitlement.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/entitlement.service.ts#L18)
+Defined in: [src/modules/features/entitlement.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/entitlement.service.ts#L18)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/features/entitlement.service.ts:18](https://github.com/
 
 > **new EntitlementService**(`subscriptionService`, `tenantContext`): `EntitlementService`
 
-Defined in: [src/modules/features/entitlement.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/entitlement.service.ts#L19)
+Defined in: [src/modules/features/entitlement.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/entitlement.service.ts#L19)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [src/modules/features/entitlement.service.ts:19](https://github.com/
 
 > **check**(`userId`, `featureKey`): `Promise`\<`boolean`\>
 
-Defined in: [src/modules/features/entitlement.service.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/entitlement.service.ts#L27)
+Defined in: [src/modules/features/entitlement.service.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/entitlement.service.ts#L27)
 
 Check if user has access to a feature
 
@@ -60,7 +60,7 @@ Check if user has access to a feature
 
 > **consume**(`userId`, `featureKey`, `amount`): `Promise`\<`void`\>
 
-Defined in: [src/modules/features/entitlement.service.ts:144](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/entitlement.service.ts#L144)
+Defined in: [src/modules/features/entitlement.service.ts:144](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/entitlement.service.ts#L144)
 
 Consume an entitlement
 
@@ -88,7 +88,7 @@ Consume an entitlement
 
 > **getAllEntitlements**(`userId`): `Promise`\<[`Entitlement`](../interfaces/Entitlement.md)[]\>
 
-Defined in: [src/modules/features/entitlement.service.ts:101](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/entitlement.service.ts#L101)
+Defined in: [src/modules/features/entitlement.service.ts:101](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/entitlement.service.ts#L101)
 
 Get all entitlements for user
 
@@ -108,7 +108,7 @@ Get all entitlements for user
 
 > **getEntitlement**(`userId`, `featureKey`): `Promise`\<[`Entitlement`](../interfaces/Entitlement.md)\>
 
-Defined in: [src/modules/features/entitlement.service.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/entitlement.service.ts#L36)
+Defined in: [src/modules/features/entitlement.service.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/entitlement.service.ts#L36)
 
 Get entitlement details for a feature
 
@@ -132,7 +132,7 @@ Get entitlement details for a feature
 
 > `private` **getFeatureUsage**(`userId`, `featureId`, `tenantId?`): `Promise`\<`number`\>
 
-Defined in: [src/modules/features/entitlement.service.ts:176](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/entitlement.service.ts#L176)
+Defined in: [src/modules/features/entitlement.service.ts:176](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/entitlement.service.ts#L176)
 
 Get feature usage for current period
 
@@ -160,7 +160,7 @@ Get feature usage for current period
 
 > `private` **incrementUsage**(`userId`, `featureId`, `tenantId`, `amount`): `Promise`\<`void`\>
 
-Defined in: [src/modules/features/entitlement.service.ts:203](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/entitlement.service.ts#L203)
+Defined in: [src/modules/features/entitlement.service.ts:203](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/entitlement.service.ts#L203)
 
 Increment feature usage
 
@@ -192,7 +192,7 @@ Increment feature usage
 
 > **resetUsage**(`userId`, `featureKey`): `Promise`\<`void`\>
 
-Defined in: [src/modules/features/entitlement.service.ts:244](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/entitlement.service.ts#L244)
+Defined in: [src/modules/features/entitlement.service.ts:244](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/entitlement.service.ts#L244)
 
 Reset usage for a feature
 
@@ -216,7 +216,7 @@ Reset usage for a feature
 
 > `private` **subscriptionService**: [`SubscriptionService`](../../../billing/subscription.service/classes/SubscriptionService.md)
 
-Defined in: [src/modules/features/entitlement.service.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/entitlement.service.ts#L20)
+Defined in: [src/modules/features/entitlement.service.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/entitlement.service.ts#L20)
 
 ***
 
@@ -224,4 +224,4 @@ Defined in: [src/modules/features/entitlement.service.ts:20](https://github.com/
 
 > `private` **tenantContext**: [`TenantContextService`](../../../tenant/tenant.context/classes/TenantContextService.md)
 
-Defined in: [src/modules/features/entitlement.service.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/entitlement.service.ts#L21)
+Defined in: [src/modules/features/entitlement.service.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/entitlement.service.ts#L21)

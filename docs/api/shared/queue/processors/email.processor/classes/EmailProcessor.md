@@ -6,7 +6,7 @@
 
 # Class: EmailProcessor
 
-Defined in: [src/shared/queue/processors/email.processor.ts:7](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/processors/email.processor.ts#L7)
+Defined in: [src/shared/queue/processors/email.processor.ts:7](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/processors/email.processor.ts#L7)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/shared/queue/processors/email.processor.ts:7](https://github.co
 
 > **new EmailProcessor**(`emailService`): `EmailProcessor`
 
-Defined in: [src/shared/queue/processors/email.processor.ts:8](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/processors/email.processor.ts#L8)
+Defined in: [src/shared/queue/processors/email.processor.ts:8](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/processors/email.processor.ts#L8)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/shared/queue/processors/email.processor.ts:8](https://github.co
 
 > **processSendBulkEmail**(`job`): `Promise`\<`any`[]\>
 
-Defined in: [src/shared/queue/processors/email.processor.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/processors/email.processor.ts#L27)
+Defined in: [src/shared/queue/processors/email.processor.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/processors/email.processor.ts#L27)
 
 #### Parameters
 
@@ -50,7 +50,7 @@ Defined in: [src/shared/queue/processors/email.processor.ts:27](https://github.c
 
 > **processSendEmail**(`job`): `Promise`\<\{ `sent`: `boolean`; `to`: `string` \| `string`[]; \}\>
 
-Defined in: [src/shared/queue/processors/email.processor.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/processors/email.processor.ts#L17)
+Defined in: [src/shared/queue/processors/email.processor.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/processors/email.processor.ts#L17)
 
 #### Parameters
 
@@ -68,7 +68,7 @@ Defined in: [src/shared/queue/processors/email.processor.ts:17](https://github.c
 
 > `private` **registerProcessors**(): `void`
 
-Defined in: [src/shared/queue/processors/email.processor.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/processors/email.processor.ts#L12)
+Defined in: [src/shared/queue/processors/email.processor.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/processors/email.processor.ts#L12)
 
 #### Returns
 
@@ -80,4 +80,4 @@ Defined in: [src/shared/queue/processors/email.processor.ts:12](https://github.c
 
 > `private` **emailService**: [`EmailService`](../../../../services/email.service/classes/EmailService.md)
 
-Defined in: [src/shared/queue/processors/email.processor.ts:8](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/processors/email.processor.ts#L8)
+Defined in: [src/shared/queue/processors/email.processor.ts:8](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/processors/email.processor.ts#L8)

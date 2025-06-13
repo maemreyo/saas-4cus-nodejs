@@ -8,7 +8,7 @@
 
 > **safeParse**\<`T`\>(`schema`, `data`): `Promise`\<\{ `data`: `T`; `success`: `true`; \} \| \{ `error`: `ZodError`; `success`: `false`; \}\>
 
-Defined in: [src/shared/utils/validation.ts:90](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/utils/validation.ts#L90)
+Defined in: [src/shared/utils/validation.ts:90](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/utils/validation.ts#L90)
 
 Safe parse - returns result object instead of throwing
 

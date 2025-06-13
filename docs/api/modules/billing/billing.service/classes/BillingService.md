@@ -6,7 +6,7 @@
 
 # Class: BillingService
 
-Defined in: [src/modules/billing/billing.service.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L28)
+Defined in: [src/modules/billing/billing.service.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L28)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/billing/billing.service.ts:28](https://github.com/maemr
 
 > **new BillingService**(`eventBus`): `BillingService`
 
-Defined in: [src/modules/billing/billing.service.ts:31](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L31)
+Defined in: [src/modules/billing/billing.service.ts:31](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L31)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/billing/billing.service.ts:31](https://github.com/maemr
 
 > **applyCoupon**(`subscriptionId`, `couponId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/billing/billing.service.ts:398](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L398)
+Defined in: [src/modules/billing/billing.service.ts:398](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L398)
 
 Apply coupon to subscription
 
@@ -56,7 +56,7 @@ Apply coupon to subscription
 
 > **cancelSubscription**(`subscriptionId`, `immediately`): `Promise`\<`void`\>
 
-Defined in: [src/modules/billing/billing.service.ts:280](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L280)
+Defined in: [src/modules/billing/billing.service.ts:280](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L280)
 
 Cancel subscription
 
@@ -80,7 +80,7 @@ Cancel subscription
 
 > **createCheckoutSession**(`userId`, `priceId`, `successUrl`, `cancelUrl`, `options?`): `Promise`\<`string`\>
 
-Defined in: [src/modules/billing/billing.service.ts:103](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L103)
+Defined in: [src/modules/billing/billing.service.ts:103](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L103)
 
 Create a checkout session for subscription
 
@@ -126,7 +126,7 @@ Create a checkout session for subscription
 
 > **createPortalSession**(`userId`, `returnUrl`): `Promise`\<`string`\>
 
-Defined in: [src/modules/billing/billing.service.ts:206](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L206)
+Defined in: [src/modules/billing/billing.service.ts:206](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L206)
 
 Create customer portal session
 
@@ -150,7 +150,7 @@ Create customer portal session
 
 > **getOrCreateCustomer**(`options`): `Promise`\<`string`\>
 
-Defined in: [src/modules/billing/billing.service.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L41)
+Defined in: [src/modules/billing/billing.service.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L41)
 
 Create or get existing Stripe customer
 
@@ -170,7 +170,7 @@ Create or get existing Stripe customer
 
 > `private` **handleCheckoutSessionCompleted**(`session`): `Promise`\<`void`\>
 
-Defined in: [src/modules/billing/billing.service.ts:412](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L412)
+Defined in: [src/modules/billing/billing.service.ts:412](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L412)
 
 #### Parameters
 
@@ -188,7 +188,7 @@ Defined in: [src/modules/billing/billing.service.ts:412](https://github.com/maem
 
 > `private` **handleInvoicePaymentFailed**(`invoice`): `Promise`\<`void`\>
 
-Defined in: [src/modules/billing/billing.service.ts:603](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L603)
+Defined in: [src/modules/billing/billing.service.ts:603](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L603)
 
 #### Parameters
 
@@ -206,7 +206,7 @@ Defined in: [src/modules/billing/billing.service.ts:603](https://github.com/maem
 
 > `private` **handleInvoicePaymentSucceeded**(`invoice`): `Promise`\<`void`\>
 
-Defined in: [src/modules/billing/billing.service.ts:564](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L564)
+Defined in: [src/modules/billing/billing.service.ts:564](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L564)
 
 #### Parameters
 
@@ -224,7 +224,7 @@ Defined in: [src/modules/billing/billing.service.ts:564](https://github.com/maem
 
 > `private` **handleSubscriptionCreated**(`subscription`): `Promise`\<`void`\>
 
-Defined in: [src/modules/billing/billing.service.ts:430](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L430)
+Defined in: [src/modules/billing/billing.service.ts:430](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L430)
 
 #### Parameters
 
@@ -242,7 +242,7 @@ Defined in: [src/modules/billing/billing.service.ts:430](https://github.com/maem
 
 > `private` **handleSubscriptionDeleted**(`subscription`): `Promise`\<`void`\>
 
-Defined in: [src/modules/billing/billing.service.ts:530](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L530)
+Defined in: [src/modules/billing/billing.service.ts:530](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L530)
 
 #### Parameters
 
@@ -260,7 +260,7 @@ Defined in: [src/modules/billing/billing.service.ts:530](https://github.com/maem
 
 > `private` **handleSubscriptionUpdated**(`subscription`): `Promise`\<`void`\>
 
-Defined in: [src/modules/billing/billing.service.ts:489](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L489)
+Defined in: [src/modules/billing/billing.service.ts:489](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L489)
 
 #### Parameters
 
@@ -278,7 +278,7 @@ Defined in: [src/modules/billing/billing.service.ts:489](https://github.com/maem
 
 > `private` **handleTrialWillEnd**(`subscription`): `Promise`\<`void`\>
 
-Defined in: [src/modules/billing/billing.service.ts:635](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L635)
+Defined in: [src/modules/billing/billing.service.ts:635](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L635)
 
 #### Parameters
 
@@ -296,7 +296,7 @@ Defined in: [src/modules/billing/billing.service.ts:635](https://github.com/maem
 
 > **handleWebhook**(`payload`, `signature`): `Promise`\<`void`\>
 
-Defined in: [src/modules/billing/billing.service.ts:231](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L231)
+Defined in: [src/modules/billing/billing.service.ts:231](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L231)
 
 Handle Stripe webhook events
 
@@ -320,7 +320,7 @@ Handle Stripe webhook events
 
 > **resumeSubscription**(`subscriptionId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/billing/billing.service.ts:374](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L374)
+Defined in: [src/modules/billing/billing.service.ts:374](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L374)
 
 Resume a cancelled subscription
 
@@ -340,7 +340,7 @@ Resume a cancelled subscription
 
 > **updateSubscription**(`subscriptionId`, `newPriceId`, `prorationBehavior`): `Promise`\<`void`\>
 
-Defined in: [src/modules/billing/billing.service.ts:326](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L326)
+Defined in: [src/modules/billing/billing.service.ts:326](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L326)
 
 Update subscription (upgrade/downgrade)
 
@@ -368,7 +368,7 @@ Update subscription (upgrade/downgrade)
 
 > `private` **eventBus**: [`EventBus`](../../../../shared/events/event-bus/classes/EventBus.md)
 
-Defined in: [src/modules/billing/billing.service.ts:31](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L31)
+Defined in: [src/modules/billing/billing.service.ts:31](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L31)
 
 ***
 
@@ -376,4 +376,4 @@ Defined in: [src/modules/billing/billing.service.ts:31](https://github.com/maemr
 
 > `private` **stripe**: `Stripe`
 
-Defined in: [src/modules/billing/billing.service.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.service.ts#L29)
+Defined in: [src/modules/billing/billing.service.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.service.ts#L29)

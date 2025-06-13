@@ -6,7 +6,7 @@
 
 # Interface: RateLimitOptions
 
-Defined in: [src/shared/middleware/rate-limiter.middleware.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/middleware/rate-limiter.middleware.ts#L9)
+Defined in: [src/shared/middleware/rate-limiter.middleware.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/middleware/rate-limiter.middleware.ts#L9)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/shared/middleware/rate-limiter.middleware.ts:9](https://github.
 
 > `optional` **keyGenerator**: (`request`) => `string`
 
-Defined in: [src/shared/middleware/rate-limiter.middleware.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/middleware/rate-limiter.middleware.ts#L16)
+Defined in: [src/shared/middleware/rate-limiter.middleware.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/middleware/rate-limiter.middleware.ts#L16)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/shared/middleware/rate-limiter.middleware.ts:16](https://github
 
 > `optional` **legacyHeaders**: `boolean`
 
-Defined in: [src/shared/middleware/rate-limiter.middleware.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/middleware/rate-limiter.middleware.ts#L14)
+Defined in: [src/shared/middleware/rate-limiter.middleware.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/middleware/rate-limiter.middleware.ts#L14)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [src/shared/middleware/rate-limiter.middleware.ts:14](https://github
 
 > **max**: `number`
 
-Defined in: [src/shared/middleware/rate-limiter.middleware.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/middleware/rate-limiter.middleware.ts#L11)
+Defined in: [src/shared/middleware/rate-limiter.middleware.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/middleware/rate-limiter.middleware.ts#L11)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [src/shared/middleware/rate-limiter.middleware.ts:11](https://github
 
 > `optional` **skipSuccessfulRequests**: `boolean`
 
-Defined in: [src/shared/middleware/rate-limiter.middleware.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/middleware/rate-limiter.middleware.ts#L15)
+Defined in: [src/shared/middleware/rate-limiter.middleware.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/middleware/rate-limiter.middleware.ts#L15)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [src/shared/middleware/rate-limiter.middleware.ts:15](https://github
 
 > `optional` **standardHeaders**: `boolean`
 
-Defined in: [src/shared/middleware/rate-limiter.middleware.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/middleware/rate-limiter.middleware.ts#L13)
+Defined in: [src/shared/middleware/rate-limiter.middleware.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/middleware/rate-limiter.middleware.ts#L13)
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: [src/shared/middleware/rate-limiter.middleware.ts:13](https://github
 
 > `optional` **timeWindow**: `string`
 
-Defined in: [src/shared/middleware/rate-limiter.middleware.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/middleware/rate-limiter.middleware.ts#L12)
+Defined in: [src/shared/middleware/rate-limiter.middleware.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/middleware/rate-limiter.middleware.ts#L12)
 
 ***
 
@@ -72,4 +72,4 @@ Defined in: [src/shared/middleware/rate-limiter.middleware.ts:12](https://github
 
 > **windowMs**: `number`
 
-Defined in: [src/shared/middleware/rate-limiter.middleware.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/middleware/rate-limiter.middleware.ts#L10)
+Defined in: [src/shared/middleware/rate-limiter.middleware.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/middleware/rate-limiter.middleware.ts#L10)

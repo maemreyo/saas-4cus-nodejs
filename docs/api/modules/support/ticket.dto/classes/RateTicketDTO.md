@@ -6,7 +6,7 @@
 
 # Class: RateTicketDTO
 
-Defined in: [src/modules/support/ticket.dto.ts:64](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.dto.ts#L64)
+Defined in: [src/modules/support/ticket.dto.ts:64](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.dto.ts#L64)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/support/ticket.dto.ts:64](https://github.com/maemreyo/s
 
 > `optional` **comment**: `string`
 
-Defined in: [src/modules/support/ticket.dto.ts:71](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.dto.ts#L71)
+Defined in: [src/modules/support/ticket.dto.ts:71](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.dto.ts#L71)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/support/ticket.dto.ts:71](https://github.com/maemreyo/s
 
 > **rating**: `number`
 
-Defined in: [src/modules/support/ticket.dto.ts:70](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.dto.ts#L70)
+Defined in: [src/modules/support/ticket.dto.ts:70](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.dto.ts#L70)
 
 ***
 
@@ -40,4 +40,4 @@ Defined in: [src/modules/support/ticket.dto.ts:70](https://github.com/maemreyo/s
 
 > `static` **schema**: `ZodObject`\<\{ `comment`: `ZodOptional`\<`ZodString`\>; `rating`: `ZodNumber`; \}, `"strip"`, `ZodTypeAny`, \{ `comment?`: `string`; `rating?`: `number`; \}, \{ `comment?`: `string`; `rating?`: `number`; \}\>
 
-Defined in: [src/modules/support/ticket.dto.ts:65](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.dto.ts#L65)
+Defined in: [src/modules/support/ticket.dto.ts:65](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.dto.ts#L65)

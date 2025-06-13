@@ -6,7 +6,7 @@
 
 # Class: AuditService
 
-Defined in: [src/shared/services/audit.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/audit.service.ts#L18)
+Defined in: [src/shared/services/audit.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/audit.service.ts#L18)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/shared/services/audit.service.ts:18](https://github.com/maemrey
 
 > **cleanup**(`retentionDays`): `Promise`\<`number`\>
 
-Defined in: [src/shared/services/audit.service.ts:171](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/audit.service.ts#L171)
+Defined in: [src/shared/services/audit.service.ts:171](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/audit.service.ts#L171)
 
 Clean up old audit logs
 
@@ -44,7 +44,7 @@ Clean up old audit logs
 
 > **getEntityHistory**(`entity`, `entityId`): `Promise`\<`object` & `object`[]\>
 
-Defined in: [src/shared/services/audit.service.ts:118](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/audit.service.ts#L118)
+Defined in: [src/shared/services/audit.service.ts:118](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/audit.service.ts#L118)
 
 Get entity history
 
@@ -68,7 +68,7 @@ Get entity history
 
 > **getUserActivity**(`userId`, `days`): `Promise`\<\{ `logs`: `object`[]; `summary`: `Record`\<`string`, `number`\>; `total`: `number`; \}\>
 
-Defined in: [src/shared/services/audit.service.ts:142](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/audit.service.ts#L142)
+Defined in: [src/shared/services/audit.service.ts:142](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/audit.service.ts#L142)
 
 Get user activity
 
@@ -92,7 +92,7 @@ Get user activity
 
 > **log**(`entry`): `Promise`\<`void`\>
 
-Defined in: [src/shared/services/audit.service.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/audit.service.ts#L22)
+Defined in: [src/shared/services/audit.service.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/audit.service.ts#L22)
 
 Create an audit log entry
 
@@ -112,7 +112,7 @@ Create an audit log entry
 
 > **query**(`filters`, `options?`): `Promise`\<\{ `logs`: `object` & `object`[]; `pagination`: \{ `limit`: `number`; `page`: `number`; `pages`: `number`; `total`: `number`; \}; \}\>
 
-Defined in: [src/shared/services/audit.service.ts:51](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/audit.service.ts#L51)
+Defined in: [src/shared/services/audit.service.ts:51](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/audit.service.ts#L51)
 
 Query audit logs
 

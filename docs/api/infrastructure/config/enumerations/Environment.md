@@ -6,7 +6,7 @@
 
 # Enumeration: Environment
 
-Defined in: [src/infrastructure/config/index.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/config/index.ts#L9)
+Defined in: [src/infrastructure/config/index.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/config/index.ts#L9)
 
 ## Enumeration Members
 
@@ -14,7 +14,7 @@ Defined in: [src/infrastructure/config/index.ts:9](https://github.com/maemreyo/s
 
 > **Development**: `"development"`
 
-Defined in: [src/infrastructure/config/index.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/config/index.ts#L10)
+Defined in: [src/infrastructure/config/index.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/config/index.ts#L10)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/infrastructure/config/index.ts:10](https://github.com/maemreyo/
 
 > **Production**: `"production"`
 
-Defined in: [src/infrastructure/config/index.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/config/index.ts#L13)
+Defined in: [src/infrastructure/config/index.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/config/index.ts#L13)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/infrastructure/config/index.ts:13](https://github.com/maemreyo/
 
 > **Staging**: `"staging"`
 
-Defined in: [src/infrastructure/config/index.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/config/index.ts#L12)
+Defined in: [src/infrastructure/config/index.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/config/index.ts#L12)
 
 ***
 
@@ -38,4 +38,4 @@ Defined in: [src/infrastructure/config/index.ts:12](https://github.com/maemreyo/
 
 > **Test**: `"test"`
 
-Defined in: [src/infrastructure/config/index.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/config/index.ts#L11)
+Defined in: [src/infrastructure/config/index.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/config/index.ts#L11)

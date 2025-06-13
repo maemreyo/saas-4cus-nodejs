@@ -6,7 +6,7 @@
 
 # Class: RedisService
 
-Defined in: [src/infrastructure/cache/redis.service.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L23)
+Defined in: [src/infrastructure/cache/redis.service.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L23)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:23](https://github.com/ma
 
 > **new RedisService**(): `RedisService`
 
-Defined in: [src/infrastructure/cache/redis.service.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L55)
+Defined in: [src/infrastructure/cache/redis.service.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L55)
 
 #### Returns
 
@@ -26,7 +26,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:55](https://github.com/ma
 
 > **acquireLock**(`resource`, `ttl`, `retries`, `retryDelay`): `Promise`\<`string`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:514](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L514)
+Defined in: [src/infrastructure/cache/redis.service.ts:514](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L514)
 
 #### Parameters
 
@@ -56,7 +56,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:514](https://github.com/m
 
 > **connect**(): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:140](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L140)
+Defined in: [src/infrastructure/cache/redis.service.ts:140](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L140)
 
 #### Returns
 
@@ -68,7 +68,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:140](https://github.com/m
 
 > **decrement**(`key`, `value`, `options?`): `Promise`\<`number`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:407](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L407)
+Defined in: [src/infrastructure/cache/redis.service.ts:407](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L407)
 
 #### Parameters
 
@@ -96,7 +96,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:407](https://github.com/m
 
 > **delete**(`key`, `options?`): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:228](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L228)
+Defined in: [src/infrastructure/cache/redis.service.ts:228](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L228)
 
 #### Parameters
 
@@ -120,7 +120,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:228](https://github.com/m
 
 > `private` **deserialize**(`value`): `any`
 
-Defined in: [src/infrastructure/cache/redis.service.ts:169](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L169)
+Defined in: [src/infrastructure/cache/redis.service.ts:169](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L169)
 
 #### Parameters
 
@@ -138,7 +138,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:169](https://github.com/m
 
 > **disconnect**(): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:145](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L145)
+Defined in: [src/infrastructure/cache/redis.service.ts:145](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L145)
 
 #### Returns
 
@@ -150,7 +150,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:145](https://github.com/m
 
 > **exists**(`key`, `options?`): `Promise`\<`boolean`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:240](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L240)
+Defined in: [src/infrastructure/cache/redis.service.ts:240](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L240)
 
 #### Parameters
 
@@ -174,7 +174,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:240](https://github.com/m
 
 > **expire**(`key`, `ttl`, `options?`): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:262](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L262)
+Defined in: [src/infrastructure/cache/redis.service.ts:262](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L262)
 
 #### Parameters
 
@@ -202,7 +202,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:262](https://github.com/m
 
 > **flush**(`namespace?`): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:330](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L330)
+Defined in: [src/infrastructure/cache/redis.service.ts:330](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L330)
 
 #### Parameters
 
@@ -220,7 +220,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:330](https://github.com/m
 
 > `private` **generateKey**(`key`, `namespace?`): `string`
 
-Defined in: [src/infrastructure/cache/redis.service.ts:150](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L150)
+Defined in: [src/infrastructure/cache/redis.service.ts:150](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L150)
 
 #### Parameters
 
@@ -242,7 +242,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:150](https://github.com/m
 
 > **get**\<`T`\>(`key`, `options?`): `Promise`\<`T`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:178](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L178)
+Defined in: [src/infrastructure/cache/redis.service.ts:178](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L178)
 
 #### Type Parameters
 
@@ -272,7 +272,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:178](https://github.com/m
 
 > **getStats**(): [`CacheStats`](../interfaces/CacheStats.md)
 
-Defined in: [src/infrastructure/cache/redis.service.ts:344](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L344)
+Defined in: [src/infrastructure/cache/redis.service.ts:344](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L344)
 
 #### Returns
 
@@ -284,7 +284,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:344](https://github.com/m
 
 > **hget**(`key`, `field`): `Promise`\<`any`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:454](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L454)
+Defined in: [src/infrastructure/cache/redis.service.ts:454](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L454)
 
 #### Parameters
 
@@ -306,7 +306,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:454](https://github.com/m
 
 > **hgetall**(`key`): `Promise`\<`Record`\<`string`, `any`\>\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:459](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L459)
+Defined in: [src/infrastructure/cache/redis.service.ts:459](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L459)
 
 #### Parameters
 
@@ -324,7 +324,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:459](https://github.com/m
 
 > **hincrby**(`key`, `field`, `increment`): `Promise`\<`number`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:471](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L471)
+Defined in: [src/infrastructure/cache/redis.service.ts:471](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L471)
 
 #### Parameters
 
@@ -350,7 +350,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:471](https://github.com/m
 
 > **hset**(`key`, `field`, `value`): `Promise`\<`number`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:450](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L450)
+Defined in: [src/infrastructure/cache/redis.service.ts:450](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L450)
 
 #### Parameters
 
@@ -376,7 +376,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:450](https://github.com/m
 
 > **incr**(`key`): `Promise`\<`number`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L41)
+Defined in: [src/infrastructure/cache/redis.service.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L41)
 
 #### Parameters
 
@@ -394,7 +394,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:41](https://github.com/ma
 
 > **increment**(`key`, `value`, `options?`): `Promise`\<`number`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:396](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L396)
+Defined in: [src/infrastructure/cache/redis.service.ts:396](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L396)
 
 #### Parameters
 
@@ -422,7 +422,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:396](https://github.com/m
 
 > **info**(): `Promise`\<`Record`\<`string`, `any`\>\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:371](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L371)
+Defined in: [src/infrastructure/cache/redis.service.ts:371](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L371)
 
 #### Returns
 
@@ -434,7 +434,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:371](https://github.com/m
 
 > **invalidateByPattern**(`pattern`): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:324](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L324)
+Defined in: [src/infrastructure/cache/redis.service.ts:324](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L324)
 
 #### Parameters
 
@@ -452,7 +452,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:324](https://github.com/m
 
 > `private` **invalidateByPatternLocal**(`pattern`): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:310](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L310)
+Defined in: [src/infrastructure/cache/redis.service.ts:310](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L310)
 
 #### Parameters
 
@@ -470,7 +470,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:310](https://github.com/m
 
 > **invalidateByTag**(`tag`): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:304](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L304)
+Defined in: [src/infrastructure/cache/redis.service.ts:304](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L304)
 
 #### Parameters
 
@@ -488,7 +488,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:304](https://github.com/m
 
 > `private` **invalidateByTagLocal**(`tag`): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:289](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L289)
+Defined in: [src/infrastructure/cache/redis.service.ts:289](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L289)
 
 #### Parameters
 
@@ -506,7 +506,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:289](https://github.com/m
 
 > **lpush**(`key`, ...`values`): `Promise`\<`number`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:418](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L418)
+Defined in: [src/infrastructure/cache/redis.service.ts:418](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L418)
 
 #### Parameters
 
@@ -528,7 +528,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:418](https://github.com/m
 
 > **lrange**(`key`, `start`, `stop`): `Promise`\<`any`[]\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:428](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L428)
+Defined in: [src/infrastructure/cache/redis.service.ts:428](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L428)
 
 #### Parameters
 
@@ -554,7 +554,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:428](https://github.com/m
 
 > **pfadd**(`key`, ...`values`): `Promise`\<`number`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:501](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L501)
+Defined in: [src/infrastructure/cache/redis.service.ts:501](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L501)
 
 #### Parameters
 
@@ -576,7 +576,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:501](https://github.com/m
 
 > **pfcount**(...`keys`): `Promise`\<`number`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:505](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L505)
+Defined in: [src/infrastructure/cache/redis.service.ts:505](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L505)
 
 #### Parameters
 
@@ -594,7 +594,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:505](https://github.com/m
 
 > **pfmerge**(`destkey`, ...`sourcekeys`): `Promise`\<`"OK"`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:509](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L509)
+Defined in: [src/infrastructure/cache/redis.service.ts:509](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L509)
 
 #### Parameters
 
@@ -616,7 +616,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:509](https://github.com/m
 
 > **ping**(): `Promise`\<`boolean`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:360](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L360)
+Defined in: [src/infrastructure/cache/redis.service.ts:360](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L360)
 
 #### Returns
 
@@ -628,7 +628,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:360](https://github.com/m
 
 > **pipeline**(): `any`
 
-Defined in: [src/infrastructure/cache/redis.service.ts:496](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L496)
+Defined in: [src/infrastructure/cache/redis.service.ts:496](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L496)
 
 #### Returns
 
@@ -640,7 +640,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:496](https://github.com/m
 
 > **publish**(`channel`, `message`): `Promise`\<`number`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:481](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L481)
+Defined in: [src/infrastructure/cache/redis.service.ts:481](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L481)
 
 #### Parameters
 
@@ -662,7 +662,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:481](https://github.com/m
 
 > **releaseLock**(`resource`, `lockId`): `Promise`\<`boolean`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:538](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L538)
+Defined in: [src/infrastructure/cache/redis.service.ts:538](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L538)
 
 #### Parameters
 
@@ -684,7 +684,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:538](https://github.com/m
 
 > **remember**\<`T`\>(`key`, `factory`, `options?`): `Promise`\<`T`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:272](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L272)
+Defined in: [src/infrastructure/cache/redis.service.ts:272](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L272)
 
 #### Type Parameters
 
@@ -716,7 +716,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:272](https://github.com/m
 
 > **resetStats**(): `void`
 
-Defined in: [src/infrastructure/cache/redis.service.ts:349](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L349)
+Defined in: [src/infrastructure/cache/redis.service.ts:349](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L349)
 
 #### Returns
 
@@ -728,7 +728,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:349](https://github.com/m
 
 > **rpush**(`key`, ...`values`): `Promise`\<`number`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:423](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L423)
+Defined in: [src/infrastructure/cache/redis.service.ts:423](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L423)
 
 #### Parameters
 
@@ -750,7 +750,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:423](https://github.com/m
 
 > **sadd**(`key`, ...`members`): `Promise`\<`number`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:434](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L434)
+Defined in: [src/infrastructure/cache/redis.service.ts:434](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L434)
 
 #### Parameters
 
@@ -772,7 +772,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:434](https://github.com/m
 
 > `private` **serialize**(`value`, `compress?`): `string`
 
-Defined in: [src/infrastructure/cache/redis.service.ts:156](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L156)
+Defined in: [src/infrastructure/cache/redis.service.ts:156](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L156)
 
 #### Parameters
 
@@ -794,7 +794,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:156](https://github.com/m
 
 > **set**(`key`, `value`, `options?`): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:198](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L198)
+Defined in: [src/infrastructure/cache/redis.service.ts:198](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L198)
 
 #### Parameters
 
@@ -820,7 +820,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:198](https://github.com/m
 
 > `private` **setupCacheInvalidation**(): `void`
 
-Defined in: [src/infrastructure/cache/redis.service.ts:117](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L117)
+Defined in: [src/infrastructure/cache/redis.service.ts:117](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L117)
 
 #### Returns
 
@@ -832,7 +832,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:117](https://github.com/m
 
 > `private` **setupEventHandlers**(): `void`
 
-Defined in: [src/infrastructure/cache/redis.service.ts:93](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L93)
+Defined in: [src/infrastructure/cache/redis.service.ts:93](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L93)
 
 #### Returns
 
@@ -844,7 +844,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:93](https://github.com/ma
 
 > **smembers**(`key`): `Promise`\<`any`[]\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:439](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L439)
+Defined in: [src/infrastructure/cache/redis.service.ts:439](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L439)
 
 #### Parameters
 
@@ -862,7 +862,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:439](https://github.com/m
 
 > **srem**(`key`, ...`members`): `Promise`\<`number`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:444](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L444)
+Defined in: [src/infrastructure/cache/redis.service.ts:444](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L444)
 
 #### Parameters
 
@@ -884,7 +884,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:444](https://github.com/m
 
 > **subscribe**(`channel`, `handler`): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:485](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L485)
+Defined in: [src/infrastructure/cache/redis.service.ts:485](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L485)
 
 #### Parameters
 
@@ -906,7 +906,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:485](https://github.com/m
 
 > **ttl**(`key`, `options?`): `Promise`\<`number`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:251](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L251)
+Defined in: [src/infrastructure/cache/redis.service.ts:251](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L251)
 
 #### Parameters
 
@@ -930,7 +930,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:251](https://github.com/m
 
 > **zadd**(`key`, `score`, `member`): `Promise`\<`number`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L37)
+Defined in: [src/infrastructure/cache/redis.service.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L37)
 
 #### Parameters
 
@@ -956,7 +956,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:37](https://github.com/ma
 
 > **zcard**(`key`): `Promise`\<`number`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L29)
+Defined in: [src/infrastructure/cache/redis.service.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L29)
 
 #### Parameters
 
@@ -974,7 +974,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:29](https://github.com/ma
 
 > **zrange**(`key`, `start`, `stop`, `withScores?`): `Promise`\<`string`[]\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L33)
+Defined in: [src/infrastructure/cache/redis.service.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L33)
 
 #### Parameters
 
@@ -1004,7 +1004,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:33](https://github.com/ma
 
 > **zremrangebyscore**(`key`, `min`, `max`): `Promise`\<`number`\>
 
-Defined in: [src/infrastructure/cache/redis.service.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L25)
+Defined in: [src/infrastructure/cache/redis.service.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L25)
 
 #### Parameters
 
@@ -1030,7 +1030,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:25](https://github.com/ma
 
 > `private` **publisher**: `Redis`
 
-Defined in: [src/infrastructure/cache/redis.service.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L46)
+Defined in: [src/infrastructure/cache/redis.service.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L46)
 
 ***
 
@@ -1038,7 +1038,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:46](https://github.com/ma
 
 > `private` **redis**: `Redis`
 
-Defined in: [src/infrastructure/cache/redis.service.ts:44](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L44)
+Defined in: [src/infrastructure/cache/redis.service.ts:44](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L44)
 
 ***
 
@@ -1046,7 +1046,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:44](https://github.com/ma
 
 > `private` **stats**: [`CacheStats`](../interfaces/CacheStats.md)
 
-Defined in: [src/infrastructure/cache/redis.service.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L47)
+Defined in: [src/infrastructure/cache/redis.service.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L47)
 
 ***
 
@@ -1054,4 +1054,4 @@ Defined in: [src/infrastructure/cache/redis.service.ts:47](https://github.com/ma
 
 > `private` **subscriber**: `Redis`
 
-Defined in: [src/infrastructure/cache/redis.service.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L45)
+Defined in: [src/infrastructure/cache/redis.service.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L45)

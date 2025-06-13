@@ -6,7 +6,7 @@
 
 # Class: AdminUserService
 
-Defined in: [src/modules/admin/admin-user.service.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L45)
+Defined in: [src/modules/admin/admin-user.service.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L45)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/admin/admin-user.service.ts:45](https://github.com/maem
 
 > **new AdminUserService**(`eventBus`, `emailService`, `auditService`): `AdminUserService`
 
-Defined in: [src/modules/admin/admin-user.service.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L46)
+Defined in: [src/modules/admin/admin-user.service.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L46)
 
 #### Parameters
 
@@ -40,7 +40,7 @@ Defined in: [src/modules/admin/admin-user.service.ts:46](https://github.com/maem
 
 > **activateUser**(`adminId`, `userId`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/admin/admin-user.service.ts:429](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L429)
+Defined in: [src/modules/admin/admin-user.service.ts:429](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L429)
 
 Activate user account
 
@@ -64,7 +64,7 @@ Activate user account
 
 > **bulkUserAction**(`adminId`, `userIds`, `action`, `options?`): `Promise`\<\{ `failed`: `object`[]; `succeeded`: `string`[]; \}\>
 
-Defined in: [src/modules/admin/admin-user.service.ts:299](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L299)
+Defined in: [src/modules/admin/admin-user.service.ts:299](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L299)
 
 Bulk user actions
 
@@ -102,7 +102,7 @@ Bulk user actions
 
 > **deleteUser**(`adminId`, `userId`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/admin/admin-user.service.ts:462](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L462)
+Defined in: [src/modules/admin/admin-user.service.ts:462](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L462)
 
 Delete user account (soft delete)
 
@@ -126,7 +126,7 @@ Delete user account (soft delete)
 
 > **exportUserData**(`userId`): `Promise`\<\{ `exportedAt`: `Date`; `exportedBy`: `string`; `user`: \{ `_count`: \{ `auditLogs`: `number`; `files`: `number`; `notifications`: `number`; `projects`: `number`; \}; `apiUsage`: `object`[]; `authProviders`: `object`[]; `metrics`: \{ `activeSessions`: `number`; `apiUsageByEndpoint`: `Record`\<`string`, `number`\>; `totalApiCalls`: `number`; `totalRevenue`: `number`; \}; `sessions`: `object`[]; `subscriptions`: `object` & `object`[]; `tenantMembers`: `object` & `object`[]; `tickets`: `object`[]; \}; \}\>
 
-Defined in: [src/modules/admin/admin-user.service.ts:711](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L711)
+Defined in: [src/modules/admin/admin-user.service.ts:711](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L711)
 
 Export user data
 
@@ -146,7 +146,7 @@ Export user data
 
 > **getUserActivity**(`userId`, `days`): `Promise`\<\{ `apiUsage`: `PickEnumerable`\<`ApiUsageGroupByOutputType`, (`"endpoint"` \| `"method"`)[]\> & `object`[]; `auditLogs`: `object`[]; `logins`: `object`[]; `tickets`: `object`[]; \}\>
 
-Defined in: [src/modules/admin/admin-user.service.ts:640](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L640)
+Defined in: [src/modules/admin/admin-user.service.ts:640](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L640)
 
 Get user activity timeline
 
@@ -170,7 +170,7 @@ Get user activity timeline
 
 > **getUserDetails**(`userId`): `Promise`\<\{ `_count`: \{ `auditLogs`: `number`; `files`: `number`; `notifications`: `number`; `projects`: `number`; \}; `apiUsage`: `object`[]; `authProviders`: `object`[]; `metrics`: \{ `activeSessions`: `number`; `apiUsageByEndpoint`: `Record`\<`string`, `number`\>; `totalApiCalls`: `number`; `totalRevenue`: `number`; \}; `sessions`: `object`[]; `subscriptions`: `object` & `object`[]; `tenantMembers`: `object` & `object`[]; `tickets`: `object`[]; \}\>
 
-Defined in: [src/modules/admin/admin-user.service.ts:136](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L136)
+Defined in: [src/modules/admin/admin-user.service.ts:136](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L136)
 
 Get detailed user information
 
@@ -190,7 +190,7 @@ Get detailed user information
 
 > **getUserStatistics**(): `Promise`\<[`UserStatistics`](../interfaces/UserStatistics.md)\>
 
-Defined in: [src/modules/admin/admin-user.service.ts:576](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L576)
+Defined in: [src/modules/admin/admin-user.service.ts:576](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L576)
 
 Get user statistics
 
@@ -204,7 +204,7 @@ Get user statistics
 
 > `private` **notifyBulkAction**(`user`, `action`, `reason?`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin-user.service.ts:760](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L760)
+Defined in: [src/modules/admin/admin-user.service.ts:760](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L760)
 
 Notify user about bulk action
 
@@ -230,7 +230,7 @@ Notify user about bulk action
 
 > `private` **notifyUserStatusChange**(`user`, `newStatus`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin-user.service.ts:727](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L727)
+Defined in: [src/modules/admin/admin-user.service.ts:727](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L727)
 
 Notify user about status change
 
@@ -252,7 +252,7 @@ Notify user about status change
 
 > **resetUserPassword**(`adminId`, `userId`): `Promise`\<\{ `message`: `string`; \}\>
 
-Defined in: [src/modules/admin/admin-user.service.ts:538](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L538)
+Defined in: [src/modules/admin/admin-user.service.ts:538](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L538)
 
 Force reset user password
 
@@ -276,7 +276,7 @@ Force reset user password
 
 > **searchUsers**(`options`): `Promise`\<\{ `pagination`: \{ `limit`: `number`; `page`: `number`; `pages`: `number`; `total`: `number`; \}; `users`: `object`[]; \}\>
 
-Defined in: [src/modules/admin/admin-user.service.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L55)
+Defined in: [src/modules/admin/admin-user.service.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L55)
 
 Search and list users with advanced filters
 
@@ -296,7 +296,7 @@ Search and list users with advanced filters
 
 > **suspendUser**(`adminId`, `userId`, `reason?`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/admin/admin-user.service.ts:385](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L385)
+Defined in: [src/modules/admin/admin-user.service.ts:385](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L385)
 
 Suspend user account
 
@@ -324,7 +324,7 @@ Suspend user account
 
 > **updateUser**(`adminId`, `userId`, `updates`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/admin/admin-user.service.ts:227](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L227)
+Defined in: [src/modules/admin/admin-user.service.ts:227](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L227)
 
 Update user information
 
@@ -382,7 +382,7 @@ Update user information
 
 > **verifyUserEmail**(`adminId`, `userId`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/admin/admin-user.service.ts:515](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L515)
+Defined in: [src/modules/admin/admin-user.service.ts:515](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L515)
 
 Force verify user email
 
@@ -406,7 +406,7 @@ Force verify user email
 
 > `private` **auditService**: [`AuditService`](../../../../shared/services/audit.service/classes/AuditService.md)
 
-Defined in: [src/modules/admin/admin-user.service.ts:49](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L49)
+Defined in: [src/modules/admin/admin-user.service.ts:49](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L49)
 
 ***
 
@@ -414,7 +414,7 @@ Defined in: [src/modules/admin/admin-user.service.ts:49](https://github.com/maem
 
 > `private` **emailService**: [`EmailService`](../../../../shared/services/email.service/classes/EmailService.md)
 
-Defined in: [src/modules/admin/admin-user.service.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L48)
+Defined in: [src/modules/admin/admin-user.service.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L48)
 
 ***
 
@@ -422,4 +422,4 @@ Defined in: [src/modules/admin/admin-user.service.ts:48](https://github.com/maem
 
 > `private` **eventBus**: [`EventBus`](../../../../shared/events/event-bus/classes/EventBus.md)
 
-Defined in: [src/modules/admin/admin-user.service.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L47)
+Defined in: [src/modules/admin/admin-user.service.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L47)

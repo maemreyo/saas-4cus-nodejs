@@ -6,7 +6,7 @@
 
 # Class: GetUsageTimeSeriesDTO
 
-Defined in: [src/modules/api-usage/api-usage.dto.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.dto.ts#L9)
+Defined in: [src/modules/api-usage/api-usage.dto.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.dto.ts#L9)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/api-usage/api-usage.dto.ts:9](https://github.com/maemre
 
 > **endDate**: `string`
 
-Defined in: [src/modules/api-usage/api-usage.dto.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.dto.ts#L19)
+Defined in: [src/modules/api-usage/api-usage.dto.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.dto.ts#L19)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/api-usage/api-usage.dto.ts:19](https://github.com/maemr
 
 > `optional` **endpoint**: `string`
 
-Defined in: [src/modules/api-usage/api-usage.dto.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.dto.ts#L21)
+Defined in: [src/modules/api-usage/api-usage.dto.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.dto.ts#L21)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [src/modules/api-usage/api-usage.dto.ts:21](https://github.com/maemr
 
 > **groupBy**: `"month"` \| `"hour"` \| `"day"`
 
-Defined in: [src/modules/api-usage/api-usage.dto.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.dto.ts#L20)
+Defined in: [src/modules/api-usage/api-usage.dto.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.dto.ts#L20)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [src/modules/api-usage/api-usage.dto.ts:20](https://github.com/maemr
 
 > `static` **schema**: `ZodObject`\<\{ `endDate`: `ZodString`; `endpoint`: `ZodOptional`\<`ZodString`\>; `groupBy`: `ZodEnum`\<\[`"hour"`, `"day"`, `"month"`\]\>; `startDate`: `ZodString`; `userId`: `ZodOptional`\<`ZodString`\>; \}, `"strip"`, `ZodTypeAny`, \{ `endDate?`: `string`; `endpoint?`: `string`; `groupBy?`: `"month"` \| `"hour"` \| `"day"`; `startDate?`: `string`; `userId?`: `string`; \}, \{ `endDate?`: `string`; `endpoint?`: `string`; `groupBy?`: `"month"` \| `"hour"` \| `"day"`; `startDate?`: `string`; `userId?`: `string`; \}\>
 
-Defined in: [src/modules/api-usage/api-usage.dto.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.dto.ts#L10)
+Defined in: [src/modules/api-usage/api-usage.dto.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.dto.ts#L10)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [src/modules/api-usage/api-usage.dto.ts:10](https://github.com/maemr
 
 > **startDate**: `string`
 
-Defined in: [src/modules/api-usage/api-usage.dto.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.dto.ts#L18)
+Defined in: [src/modules/api-usage/api-usage.dto.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.dto.ts#L18)
 
 ***
 
@@ -64,4 +64,4 @@ Defined in: [src/modules/api-usage/api-usage.dto.ts:18](https://github.com/maemr
 
 > `optional` **userId**: `string`
 
-Defined in: [src/modules/api-usage/api-usage.dto.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.dto.ts#L22)
+Defined in: [src/modules/api-usage/api-usage.dto.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.dto.ts#L22)

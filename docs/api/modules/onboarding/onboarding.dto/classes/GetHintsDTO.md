@@ -6,7 +6,7 @@
 
 # Class: GetHintsDTO
 
-Defined in: [src/modules/onboarding/onboarding.dto.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.dto.ts#L23)
+Defined in: [src/modules/onboarding/onboarding.dto.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.dto.ts#L23)
 
 ## Constructors
 
@@ -24,4 +24,4 @@ Defined in: [src/modules/onboarding/onboarding.dto.ts:23](https://github.com/mae
 
 > **page**: `string`
 
-Defined in: [src/modules/onboarding/onboarding.dto.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.dto.ts#L24)
+Defined in: [src/modules/onboarding/onboarding.dto.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.dto.ts#L24)

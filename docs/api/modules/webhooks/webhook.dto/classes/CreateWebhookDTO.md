@@ -6,7 +6,7 @@
 
 # Class: CreateWebhookDTO
 
-Defined in: [src/modules/webhooks/webhook.dto.ts:4](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.dto.ts#L4)
+Defined in: [src/modules/webhooks/webhook.dto.ts:4](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.dto.ts#L4)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/webhooks/webhook.dto.ts:4](https://github.com/maemreyo/
 
 > `optional` **description**: `string`
 
-Defined in: [src/modules/webhooks/webhook.dto.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.dto.ts#L16)
+Defined in: [src/modules/webhooks/webhook.dto.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.dto.ts#L16)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/webhooks/webhook.dto.ts:16](https://github.com/maemreyo
 
 > `optional` **enabled**: `boolean`
 
-Defined in: [src/modules/webhooks/webhook.dto.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.dto.ts#L18)
+Defined in: [src/modules/webhooks/webhook.dto.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.dto.ts#L18)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [src/modules/webhooks/webhook.dto.ts:18](https://github.com/maemreyo
 
 > **events**: `string`[]
 
-Defined in: [src/modules/webhooks/webhook.dto.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.dto.ts#L15)
+Defined in: [src/modules/webhooks/webhook.dto.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.dto.ts#L15)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [src/modules/webhooks/webhook.dto.ts:15](https://github.com/maemreyo
 
 > `optional` **headers**: `Record`\<`string`, `string`\>
 
-Defined in: [src/modules/webhooks/webhook.dto.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.dto.ts#L19)
+Defined in: [src/modules/webhooks/webhook.dto.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.dto.ts#L19)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [src/modules/webhooks/webhook.dto.ts:19](https://github.com/maemreyo
 
 > `static` **schema**: `ZodObject`\<\{ `description`: `ZodOptional`\<`ZodString`\>; `enabled`: `ZodDefault`\<`ZodOptional`\<`ZodBoolean`\>\>; `events`: `ZodArray`\<`ZodString`, `"many"`\>; `headers`: `ZodOptional`\<`ZodRecord`\<`ZodString`, `ZodString`\>\>; `secret`: `ZodOptional`\<`ZodString`\>; `url`: `ZodString`; \}, `"strip"`, `ZodTypeAny`, \{ `description?`: `string`; `enabled?`: `boolean`; `events?`: `string`[]; `headers?`: `Record`\<`string`, `string`\>; `secret?`: `string`; `url?`: `string`; \}, \{ `description?`: `string`; `enabled?`: `boolean`; `events?`: `string`[]; `headers?`: `Record`\<`string`, `string`\>; `secret?`: `string`; `url?`: `string`; \}\>
 
-Defined in: [src/modules/webhooks/webhook.dto.ts:5](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.dto.ts#L5)
+Defined in: [src/modules/webhooks/webhook.dto.ts:5](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.dto.ts#L5)
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: [src/modules/webhooks/webhook.dto.ts:5](https://github.com/maemreyo/
 
 > `optional` **secret**: `string`
 
-Defined in: [src/modules/webhooks/webhook.dto.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.dto.ts#L17)
+Defined in: [src/modules/webhooks/webhook.dto.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.dto.ts#L17)
 
 ***
 
@@ -72,4 +72,4 @@ Defined in: [src/modules/webhooks/webhook.dto.ts:17](https://github.com/maemreyo
 
 > **url**: `string`
 
-Defined in: [src/modules/webhooks/webhook.dto.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.dto.ts#L14)
+Defined in: [src/modules/webhooks/webhook.dto.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.dto.ts#L14)

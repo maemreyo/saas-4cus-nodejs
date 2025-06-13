@@ -6,7 +6,7 @@
 
 # Interface: PlanLimits
 
-Defined in: [src/modules/billing/subscription.service.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L28)
+Defined in: [src/modules/billing/subscription.service.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L28)
 
 ## Indexable
 
@@ -18,7 +18,7 @@ Defined in: [src/modules/billing/subscription.service.ts:28](https://github.com/
 
 > `optional` **maxApiCalls**: `number`
 
-Defined in: [src/modules/billing/subscription.service.ts:32](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L32)
+Defined in: [src/modules/billing/subscription.service.ts:32](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L32)
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: [src/modules/billing/subscription.service.ts:32](https://github.com/
 
 > `optional` **maxFileUploads**: `number`
 
-Defined in: [src/modules/billing/subscription.service.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L33)
+Defined in: [src/modules/billing/subscription.service.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L33)
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: [src/modules/billing/subscription.service.ts:33](https://github.com/
 
 > `optional` **maxProjects**: `number`
 
-Defined in: [src/modules/billing/subscription.service.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L29)
+Defined in: [src/modules/billing/subscription.service.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L29)
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: [src/modules/billing/subscription.service.ts:29](https://github.com/
 
 > `optional` **maxStorage**: `number`
 
-Defined in: [src/modules/billing/subscription.service.ts:31](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L31)
+Defined in: [src/modules/billing/subscription.service.ts:31](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L31)
 
 ***
 
@@ -50,4 +50,4 @@ Defined in: [src/modules/billing/subscription.service.ts:31](https://github.com/
 
 > `optional` **maxUsers**: `number`
 
-Defined in: [src/modules/billing/subscription.service.ts:30](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L30)
+Defined in: [src/modules/billing/subscription.service.ts:30](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L30)

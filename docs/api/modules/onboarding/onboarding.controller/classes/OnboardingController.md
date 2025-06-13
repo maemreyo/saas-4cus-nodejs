@@ -6,7 +6,7 @@
 
 # Class: OnboardingController
 
-Defined in: [src/modules/onboarding/onboarding.controller.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.controller.ts#L12)
+Defined in: [src/modules/onboarding/onboarding.controller.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.controller.ts#L12)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/onboarding/onboarding.controller.ts:12](https://github.
 
 > **new OnboardingController**(`onboardingService`): `OnboardingController`
 
-Defined in: [src/modules/onboarding/onboarding.controller.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.controller.ts#L13)
+Defined in: [src/modules/onboarding/onboarding.controller.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.controller.ts#L13)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/onboarding/onboarding.controller.ts:13](https://github.
 
 > **completeStep**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/onboarding/onboarding.controller.ts:50](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.controller.ts#L50)
+Defined in: [src/modules/onboarding/onboarding.controller.ts:50](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.controller.ts#L50)
 
 Complete onboarding step
 
@@ -56,7 +56,7 @@ Complete onboarding step
 
 > **getAnalytics**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/onboarding/onboarding.controller.ts:116](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.controller.ts#L116)
+Defined in: [src/modules/onboarding/onboarding.controller.ts:116](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.controller.ts#L116)
 
 Get onboarding analytics (admin)
 
@@ -80,7 +80,7 @@ Get onboarding analytics (admin)
 
 > **getChecklist**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/onboarding/onboarding.controller.ts:91](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.controller.ts#L91)
+Defined in: [src/modules/onboarding/onboarding.controller.ts:91](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.controller.ts#L91)
 
 Get onboarding checklist
 
@@ -104,7 +104,7 @@ Get onboarding checklist
 
 > **getHints**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/onboarding/onboarding.controller.ts:101](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.controller.ts#L101)
+Defined in: [src/modules/onboarding/onboarding.controller.ts:101](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.controller.ts#L101)
 
 Get onboarding hints for page
 
@@ -128,7 +128,7 @@ Get onboarding hints for page
 
 > **getProgress**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/onboarding/onboarding.controller.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.controller.ts#L40)
+Defined in: [src/modules/onboarding/onboarding.controller.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.controller.ts#L40)
 
 Get onboarding progress
 
@@ -152,7 +152,7 @@ Get onboarding progress
 
 > **skipOnboarding**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/onboarding/onboarding.controller.ts:80](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.controller.ts#L80)
+Defined in: [src/modules/onboarding/onboarding.controller.ts:80](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.controller.ts#L80)
 
 Skip entire onboarding
 
@@ -176,7 +176,7 @@ Skip entire onboarding
 
 > **skipStep**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/onboarding/onboarding.controller.ts:65](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.controller.ts#L65)
+Defined in: [src/modules/onboarding/onboarding.controller.ts:65](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.controller.ts#L65)
 
 Skip onboarding step
 
@@ -200,7 +200,7 @@ Skip onboarding step
 
 > **startOnboarding**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/onboarding/onboarding.controller.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.controller.ts#L18)
+Defined in: [src/modules/onboarding/onboarding.controller.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.controller.ts#L18)
 
 Start onboarding flow
 
@@ -224,4 +224,4 @@ Start onboarding flow
 
 > `private` **onboardingService**: [`OnboardingService`](../../onboarding.service/classes/OnboardingService.md)
 
-Defined in: [src/modules/onboarding/onboarding.controller.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.controller.ts#L13)
+Defined in: [src/modules/onboarding/onboarding.controller.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.controller.ts#L13)

@@ -6,7 +6,7 @@
 
 # Interface: AnalyticsEvent
 
-Defined in: [src/modules/analytics/analytics.service.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L10)
+Defined in: [src/modules/analytics/analytics.service.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L10)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/analytics/analytics.service.ts:10](https://github.com/m
 
 > `optional` **deviceId**: `string`
 
-Defined in: [src/modules/analytics/analytics.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L17)
+Defined in: [src/modules/analytics/analytics.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L17)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/analytics/analytics.service.ts:17](https://github.com/m
 
 > **event**: `string`
 
-Defined in: [src/modules/analytics/analytics.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L13)
+Defined in: [src/modules/analytics/analytics.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L13)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/analytics/analytics.service.ts:13](https://github.com/m
 
 > `optional` **ipAddress**: `string`
 
-Defined in: [src/modules/analytics/analytics.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L18)
+Defined in: [src/modules/analytics/analytics.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L18)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/modules/analytics/analytics.service.ts:18](https://github.com/m
 
 > `optional` **properties**: `Record`\<`string`, `any`\>
 
-Defined in: [src/modules/analytics/analytics.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L14)
+Defined in: [src/modules/analytics/analytics.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L14)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/modules/analytics/analytics.service.ts:14](https://github.com/m
 
 > `optional` **referrer**: `string`
 
-Defined in: [src/modules/analytics/analytics.service.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L20)
+Defined in: [src/modules/analytics/analytics.service.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L20)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [src/modules/analytics/analytics.service.ts:20](https://github.com/m
 
 > `optional` **sessionId**: `string`
 
-Defined in: [src/modules/analytics/analytics.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L16)
+Defined in: [src/modules/analytics/analytics.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L16)
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: [src/modules/analytics/analytics.service.ts:16](https://github.com/m
 
 > `optional` **tenantId**: `string`
 
-Defined in: [src/modules/analytics/analytics.service.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L12)
+Defined in: [src/modules/analytics/analytics.service.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L12)
 
 ***
 
@@ -70,7 +70,7 @@ Defined in: [src/modules/analytics/analytics.service.ts:12](https://github.com/m
 
 > `optional` **timestamp**: `Date`
 
-Defined in: [src/modules/analytics/analytics.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L15)
+Defined in: [src/modules/analytics/analytics.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L15)
 
 ***
 
@@ -78,7 +78,7 @@ Defined in: [src/modules/analytics/analytics.service.ts:15](https://github.com/m
 
 > `optional` **userAgent**: `string`
 
-Defined in: [src/modules/analytics/analytics.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L19)
+Defined in: [src/modules/analytics/analytics.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L19)
 
 ***
 
@@ -86,7 +86,7 @@ Defined in: [src/modules/analytics/analytics.service.ts:19](https://github.com/m
 
 > `optional` **userId**: `string`
 
-Defined in: [src/modules/analytics/analytics.service.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L11)
+Defined in: [src/modules/analytics/analytics.service.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L11)
 
 ***
 
@@ -94,7 +94,7 @@ Defined in: [src/modules/analytics/analytics.service.ts:11](https://github.com/m
 
 > `optional` **utm**: `object`
 
-Defined in: [src/modules/analytics/analytics.service.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L21)
+Defined in: [src/modules/analytics/analytics.service.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L21)
 
 #### campaign?
 

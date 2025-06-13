@@ -6,7 +6,7 @@
 
 # Class: CreateTemplateDTO
 
-Defined in: [src/modules/support/ticket.dto.ts:110](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.dto.ts#L110)
+Defined in: [src/modules/support/ticket.dto.ts:110](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.dto.ts#L110)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/support/ticket.dto.ts:110](https://github.com/maemreyo/
 
 > `optional` **category**: `string`
 
-Defined in: [src/modules/support/ticket.dto.ts:124](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.dto.ts#L124)
+Defined in: [src/modules/support/ticket.dto.ts:124](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.dto.ts#L124)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/support/ticket.dto.ts:124](https://github.com/maemreyo/
 
 > **content**: `string`
 
-Defined in: [src/modules/support/ticket.dto.ts:123](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.dto.ts#L123)
+Defined in: [src/modules/support/ticket.dto.ts:123](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.dto.ts#L123)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [src/modules/support/ticket.dto.ts:123](https://github.com/maemreyo/
 
 > `optional` **description**: `string`
 
-Defined in: [src/modules/support/ticket.dto.ts:121](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.dto.ts#L121)
+Defined in: [src/modules/support/ticket.dto.ts:121](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.dto.ts#L121)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [src/modules/support/ticket.dto.ts:121](https://github.com/maemreyo/
 
 > **name**: `string`
 
-Defined in: [src/modules/support/ticket.dto.ts:120](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.dto.ts#L120)
+Defined in: [src/modules/support/ticket.dto.ts:120](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.dto.ts#L120)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [src/modules/support/ticket.dto.ts:120](https://github.com/maemreyo/
 
 > `static` **schema**: `ZodObject`\<\{ `category`: `ZodOptional`\<`ZodString`\>; `content`: `ZodString`; `description`: `ZodOptional`\<`ZodString`\>; `name`: `ZodString`; `subject`: `ZodString`; `tags`: `ZodOptional`\<`ZodArray`\<`ZodString`, `"many"`\>\>; \}, `"strip"`, `ZodTypeAny`, \{ `category?`: `string`; `content?`: `string`; `description?`: `string`; `name?`: `string`; `subject?`: `string`; `tags?`: `string`[]; \}, \{ `category?`: `string`; `content?`: `string`; `description?`: `string`; `name?`: `string`; `subject?`: `string`; `tags?`: `string`[]; \}\>
 
-Defined in: [src/modules/support/ticket.dto.ts:111](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.dto.ts#L111)
+Defined in: [src/modules/support/ticket.dto.ts:111](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.dto.ts#L111)
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: [src/modules/support/ticket.dto.ts:111](https://github.com/maemreyo/
 
 > **subject**: `string`
 
-Defined in: [src/modules/support/ticket.dto.ts:122](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.dto.ts#L122)
+Defined in: [src/modules/support/ticket.dto.ts:122](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.dto.ts#L122)
 
 ***
 
@@ -72,4 +72,4 @@ Defined in: [src/modules/support/ticket.dto.ts:122](https://github.com/maemreyo/
 
 > `optional` **tags**: `string`[]
 
-Defined in: [src/modules/support/ticket.dto.ts:125](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.dto.ts#L125)
+Defined in: [src/modules/support/ticket.dto.ts:125](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.dto.ts#L125)

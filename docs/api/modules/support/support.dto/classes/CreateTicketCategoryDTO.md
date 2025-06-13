@@ -6,7 +6,7 @@
 
 # Class: CreateTicketCategoryDTO
 
-Defined in: [src/modules/support/support.dto.ts:119](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L119)
+Defined in: [src/modules/support/support.dto.ts:119](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L119)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/support/support.dto.ts:119](https://github.com/maemreyo
 
 > `optional` **color**: `string`
 
-Defined in: [src/modules/support/support.dto.ts:134](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L134)
+Defined in: [src/modules/support/support.dto.ts:134](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L134)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/support/support.dto.ts:134](https://github.com/maemreyo
 
 > `optional` **description**: `string`
 
-Defined in: [src/modules/support/support.dto.ts:132](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L132)
+Defined in: [src/modules/support/support.dto.ts:132](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L132)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [src/modules/support/support.dto.ts:132](https://github.com/maemreyo
 
 > `optional` **icon**: `string`
 
-Defined in: [src/modules/support/support.dto.ts:133](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L133)
+Defined in: [src/modules/support/support.dto.ts:133](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L133)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [src/modules/support/support.dto.ts:133](https://github.com/maemreyo
 
 > **name**: `string`
 
-Defined in: [src/modules/support/support.dto.ts:130](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L130)
+Defined in: [src/modules/support/support.dto.ts:130](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L130)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [src/modules/support/support.dto.ts:130](https://github.com/maemreyo
 
 > `optional` **parentId**: `string`
 
-Defined in: [src/modules/support/support.dto.ts:135](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L135)
+Defined in: [src/modules/support/support.dto.ts:135](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L135)
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: [src/modules/support/support.dto.ts:135](https://github.com/maemreyo
 
 > `static` **schema**: `ZodObject`\<\{ `color`: `ZodOptional`\<`ZodString`\>; `description`: `ZodOptional`\<`ZodString`\>; `icon`: `ZodOptional`\<`ZodString`\>; `name`: `ZodString`; `parentId`: `ZodOptional`\<`ZodString`\>; `slug`: `ZodString`; `sortOrder`: `ZodDefault`\<`ZodNumber`\>; \}, `"strip"`, `ZodTypeAny`, \{ `color?`: `string`; `description?`: `string`; `icon?`: `string`; `name?`: `string`; `parentId?`: `string`; `slug?`: `string`; `sortOrder?`: `number`; \}, \{ `color?`: `string`; `description?`: `string`; `icon?`: `string`; `name?`: `string`; `parentId?`: `string`; `slug?`: `string`; `sortOrder?`: `number`; \}\>
 
-Defined in: [src/modules/support/support.dto.ts:120](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L120)
+Defined in: [src/modules/support/support.dto.ts:120](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L120)
 
 ***
 
@@ -72,7 +72,7 @@ Defined in: [src/modules/support/support.dto.ts:120](https://github.com/maemreyo
 
 > **slug**: `string`
 
-Defined in: [src/modules/support/support.dto.ts:131](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L131)
+Defined in: [src/modules/support/support.dto.ts:131](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L131)
 
 ***
 
@@ -80,4 +80,4 @@ Defined in: [src/modules/support/support.dto.ts:131](https://github.com/maemreyo
 
 > `optional` **sortOrder**: `number`
 
-Defined in: [src/modules/support/support.dto.ts:136](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L136)
+Defined in: [src/modules/support/support.dto.ts:136](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L136)

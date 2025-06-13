@@ -6,7 +6,7 @@
 
 # Class: AiRateLimiter
 
-Defined in: [src/modules/ai/ai.rate-limiter.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.rate-limiter.ts#L27)
+Defined in: [src/modules/ai/ai.rate-limiter.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.rate-limiter.ts#L27)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/ai/ai.rate-limiter.ts:27](https://github.com/maemreyo/s
 
 > **new AiRateLimiter**(`entitlementService`): `AiRateLimiter`
 
-Defined in: [src/modules/ai/ai.rate-limiter.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.rate-limiter.ts#L36)
+Defined in: [src/modules/ai/ai.rate-limiter.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.rate-limiter.ts#L36)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/ai/ai.rate-limiter.ts:36](https://github.com/maemreyo/s
 
 > **costBasedLimiter**(`costPerRequest`): `Promise`\<(`request`, `reply`) => `Promise`\<`void`\>\>
 
-Defined in: [src/modules/ai/ai.rate-limiter.ts:214](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.rate-limiter.ts#L214)
+Defined in: [src/modules/ai/ai.rate-limiter.ts:214](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.rate-limiter.ts#L214)
 
 #### Parameters
 
@@ -50,7 +50,7 @@ Defined in: [src/modules/ai/ai.rate-limiter.ts:214](https://github.com/maemreyo/
 
 > **createLimiter**(`operation`): `Promise`\<(`request`, `reply`) => `Promise`\<`void`\>\>
 
-Defined in: [src/modules/ai/ai.rate-limiter.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.rate-limiter.ts#L40)
+Defined in: [src/modules/ai/ai.rate-limiter.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.rate-limiter.ts#L40)
 
 #### Parameters
 
@@ -68,7 +68,7 @@ keyof [`UserRateLimits`](../-internal-/interfaces/UserRateLimits.md)
 
 > `private` **generateKey**(`operation`, `userId`, `tenantId?`): `string`
 
-Defined in: [src/modules/ai/ai.rate-limiter.ts:142](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.rate-limiter.ts#L142)
+Defined in: [src/modules/ai/ai.rate-limiter.ts:142](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.rate-limiter.ts#L142)
 
 #### Parameters
 
@@ -94,7 +94,7 @@ Defined in: [src/modules/ai/ai.rate-limiter.ts:142](https://github.com/maemreyo/
 
 > **getAllLimits**(`userId`, `tenantId?`): `Promise`\<`Record`\<keyof [`UserRateLimits`](../-internal-/interfaces/UserRateLimits.md), \{ `current`: `number`; `limit`: `number`; `resetAt`: `Date`; \}\>\>
 
-Defined in: [src/modules/ai/ai.rate-limiter.ts:199](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.rate-limiter.ts#L199)
+Defined in: [src/modules/ai/ai.rate-limiter.ts:199](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.rate-limiter.ts#L199)
 
 #### Parameters
 
@@ -116,7 +116,7 @@ Defined in: [src/modules/ai/ai.rate-limiter.ts:199](https://github.com/maemreyo/
 
 > `private` **getCurrentMonthCost**(`userId`): `Promise`\<`number`\>
 
-Defined in: [src/modules/ai/ai.rate-limiter.ts:240](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.rate-limiter.ts#L240)
+Defined in: [src/modules/ai/ai.rate-limiter.ts:240](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.rate-limiter.ts#L240)
 
 #### Parameters
 
@@ -134,7 +134,7 @@ Defined in: [src/modules/ai/ai.rate-limiter.ts:240](https://github.com/maemreyo/
 
 > **getCurrentUsage**(`userId`, `operation`, `tenantId?`): `Promise`\<\{ `current`: `number`; `limit`: `number`; `resetAt`: `Date`; \}\>
 
-Defined in: [src/modules/ai/ai.rate-limiter.ts:154](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.rate-limiter.ts#L154)
+Defined in: [src/modules/ai/ai.rate-limiter.ts:154](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.rate-limiter.ts#L154)
 
 #### Parameters
 
@@ -160,7 +160,7 @@ keyof [`UserRateLimits`](../-internal-/interfaces/UserRateLimits.md)
 
 > `private` **getUserRateLimits**(`userId`, `operation`): `Promise`\<\{ `max`: `number`; `windowMs`: `number`; \}\>
 
-Defined in: [src/modules/ai/ai.rate-limiter.ts:107](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.rate-limiter.ts#L107)
+Defined in: [src/modules/ai/ai.rate-limiter.ts:107](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.rate-limiter.ts#L107)
 
 #### Parameters
 
@@ -182,7 +182,7 @@ keyof [`UserRateLimits`](../-internal-/interfaces/UserRateLimits.md)
 
 > **resetLimit**(`userId`, `operation?`, `tenantId?`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.rate-limiter.ts:178](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.rate-limiter.ts#L178)
+Defined in: [src/modules/ai/ai.rate-limiter.ts:178](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.rate-limiter.ts#L178)
 
 #### Parameters
 
@@ -208,7 +208,7 @@ keyof [`UserRateLimits`](../-internal-/interfaces/UserRateLimits.md)
 
 > `private` **defaultLimits**: [`UserRateLimits`](../-internal-/interfaces/UserRateLimits.md)
 
-Defined in: [src/modules/ai/ai.rate-limiter.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.rate-limiter.ts#L28)
+Defined in: [src/modules/ai/ai.rate-limiter.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.rate-limiter.ts#L28)
 
 ***
 
@@ -216,4 +216,4 @@ Defined in: [src/modules/ai/ai.rate-limiter.ts:28](https://github.com/maemreyo/s
 
 > `private` **entitlementService**: [`EntitlementService`](../../../features/entitlement.service/classes/EntitlementService.md)
 
-Defined in: [src/modules/ai/ai.rate-limiter.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.rate-limiter.ts#L37)
+Defined in: [src/modules/ai/ai.rate-limiter.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.rate-limiter.ts#L37)

@@ -6,7 +6,7 @@
 
 # Class: NotificationService
 
-Defined in: [src/modules/notification/notification.service.ts:44](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.service.ts#L44)
+Defined in: [src/modules/notification/notification.service.ts:44](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.service.ts#L44)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/notification/notification.service.ts:44](https://github
 
 > **new NotificationService**(`eventBus`, `emailService`): `NotificationService`
 
-Defined in: [src/modules/notification/notification.service.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.service.ts#L45)
+Defined in: [src/modules/notification/notification.service.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.service.ts#L45)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [src/modules/notification/notification.service.ts:45](https://github
 
 > **cleanupOldNotifications**(`daysToKeep`): `Promise`\<`number`\>
 
-Defined in: [src/modules/notification/notification.service.ts:403](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.service.ts#L403)
+Defined in: [src/modules/notification/notification.service.ts:403](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.service.ts#L403)
 
 Clean up old notifications
 
@@ -56,7 +56,7 @@ Clean up old notifications
 
 > **create**(`options`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/notification/notification.service.ts:53](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.service.ts#L53)
+Defined in: [src/modules/notification/notification.service.ts:53](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.service.ts#L53)
 
 Create a notification
 
@@ -76,7 +76,7 @@ Create a notification
 
 > **deleteNotification**(`notificationId`, `userId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/notification/notification.service.ts:246](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.service.ts#L246)
+Defined in: [src/modules/notification/notification.service.ts:246](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.service.ts#L246)
 
 Delete notification
 
@@ -100,7 +100,7 @@ Delete notification
 
 > **getStatistics**(`userId`): `Promise`\<\{ `byPriority`: `Record`\<`string`, `number`\>; `byType`: `Record`\<`string`, `number`\>; `lastWeek`: `number`; `total`: `number`; `unread`: `number`; \}\>
 
-Defined in: [src/modules/notification/notification.service.ts:353](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.service.ts#L353)
+Defined in: [src/modules/notification/notification.service.ts:353](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.service.ts#L353)
 
 Get notification statistics
 
@@ -120,7 +120,7 @@ Get notification statistics
 
 > **getUserNotifications**(`userId`, `options?`): `Promise`\<\{ `notifications`: `object`[]; `total`: `number`; `unread`: `number`; \}\>
 
-Defined in: [src/modules/notification/notification.service.ts:154](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.service.ts#L154)
+Defined in: [src/modules/notification/notification.service.ts:154](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.service.ts#L154)
 
 Get user notifications
 
@@ -158,7 +158,7 @@ Get user notifications
 
 > **getUserPreferences**(`userId`): `Promise`\<[`NotificationPreferences`](../interfaces/NotificationPreferences.md)\>
 
-Defined in: [src/modules/notification/notification.service.ts:269](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.service.ts#L269)
+Defined in: [src/modules/notification/notification.service.ts:269](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.service.ts#L269)
 
 Get user notification preferences
 
@@ -178,7 +178,7 @@ Get user notification preferences
 
 > **markAllAsRead**(`userId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/notification/notification.service.ts:230](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.service.ts#L230)
+Defined in: [src/modules/notification/notification.service.ts:230](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.service.ts#L230)
 
 Mark all notifications as read
 
@@ -198,7 +198,7 @@ Mark all notifications as read
 
 > **markAsRead**(`notificationId`, `userId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/notification/notification.service.ts:201](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.service.ts#L201)
+Defined in: [src/modules/notification/notification.service.ts:201](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.service.ts#L201)
 
 Mark notification as read
 
@@ -222,7 +222,7 @@ Mark notification as read
 
 > `private` **queueEmailNotification**(`notification`): `Promise`\<`void`\>
 
-Defined in: [src/modules/notification/notification.service.ts:324](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.service.ts#L324)
+Defined in: [src/modules/notification/notification.service.ts:324](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.service.ts#L324)
 
 Queue email notification
 
@@ -240,7 +240,7 @@ Queue email notification
 
 > `private` **queuePushNotification**(`notification`): `Promise`\<`void`\>
 
-Defined in: [src/modules/notification/notification.service.ts:333](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.service.ts#L333)
+Defined in: [src/modules/notification/notification.service.ts:333](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.service.ts#L333)
 
 Queue push notification
 
@@ -258,7 +258,7 @@ Queue push notification
 
 > `private` **sendRealTimeNotification**(`notification`): `Promise`\<`void`\>
 
-Defined in: [src/modules/notification/notification.service.ts:342](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.service.ts#L342)
+Defined in: [src/modules/notification/notification.service.ts:342](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.service.ts#L342)
 
 Send real-time notification
 
@@ -276,7 +276,7 @@ Send real-time notification
 
 > **updateUserPreferences**(`userId`, `preferences`): `Promise`\<`void`\>
 
-Defined in: [src/modules/notification/notification.service.ts:295](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.service.ts#L295)
+Defined in: [src/modules/notification/notification.service.ts:295](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.service.ts#L295)
 
 Update user notification preferences
 
@@ -300,7 +300,7 @@ Update user notification preferences
 
 > `private` **emailService**: [`EmailService`](../../../../shared/services/email.service/classes/EmailService.md)
 
-Defined in: [src/modules/notification/notification.service.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.service.ts#L47)
+Defined in: [src/modules/notification/notification.service.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.service.ts#L47)
 
 ***
 
@@ -308,4 +308,4 @@ Defined in: [src/modules/notification/notification.service.ts:47](https://github
 
 > `private` **eventBus**: [`EventBus`](../../../../shared/events/event-bus/classes/EventBus.md)
 
-Defined in: [src/modules/notification/notification.service.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.service.ts#L46)
+Defined in: [src/modules/notification/notification.service.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.service.ts#L46)

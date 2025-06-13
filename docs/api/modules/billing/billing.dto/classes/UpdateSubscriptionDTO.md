@@ -6,7 +6,7 @@
 
 # Class: UpdateSubscriptionDTO
 
-Defined in: [src/modules/billing/billing.dto.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.dto.ts#L21)
+Defined in: [src/modules/billing/billing.dto.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.dto.ts#L21)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/billing/billing.dto.ts:21](https://github.com/maemreyo/
 
 > **priceId**: `string`
 
-Defined in: [src/modules/billing/billing.dto.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.dto.ts#L27)
+Defined in: [src/modules/billing/billing.dto.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.dto.ts#L27)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/billing/billing.dto.ts:27](https://github.com/maemreyo/
 
 > `optional` **prorationBehavior**: `"none"` \| `"create_prorations"` \| `"always_invoice"`
 
-Defined in: [src/modules/billing/billing.dto.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.dto.ts#L28)
+Defined in: [src/modules/billing/billing.dto.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.dto.ts#L28)
 
 ***
 
@@ -40,4 +40,4 @@ Defined in: [src/modules/billing/billing.dto.ts:28](https://github.com/maemreyo/
 
 > `static` **schema**: `ZodObject`\<\{ `priceId`: `ZodString`; `prorationBehavior`: `ZodOptional`\<`ZodEnum`\<\[`"create_prorations"`, `"none"`, `"always_invoice"`\]\>\>; \}, `"strip"`, `ZodTypeAny`, \{ `priceId?`: `string`; `prorationBehavior?`: `"none"` \| `"create_prorations"` \| `"always_invoice"`; \}, \{ `priceId?`: `string`; `prorationBehavior?`: `"none"` \| `"create_prorations"` \| `"always_invoice"`; \}\>
 
-Defined in: [src/modules/billing/billing.dto.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.dto.ts#L22)
+Defined in: [src/modules/billing/billing.dto.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.dto.ts#L22)

@@ -6,7 +6,7 @@
 
 # Interface: CreateWebhookOptions
 
-Defined in: [src/modules/webhooks/webhook.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.service.ts#L13)
+Defined in: [src/modules/webhooks/webhook.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.service.ts#L13)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/webhooks/webhook.service.ts:13](https://github.com/maem
 
 > `optional` **description**: `string`
 
-Defined in: [src/modules/webhooks/webhook.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.service.ts#L16)
+Defined in: [src/modules/webhooks/webhook.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.service.ts#L16)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/webhooks/webhook.service.ts:16](https://github.com/maem
 
 > `optional` **enabled**: `boolean`
 
-Defined in: [src/modules/webhooks/webhook.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.service.ts#L18)
+Defined in: [src/modules/webhooks/webhook.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.service.ts#L18)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/webhooks/webhook.service.ts:18](https://github.com/maem
 
 > **events**: `string`[]
 
-Defined in: [src/modules/webhooks/webhook.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.service.ts#L15)
+Defined in: [src/modules/webhooks/webhook.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.service.ts#L15)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/modules/webhooks/webhook.service.ts:15](https://github.com/maem
 
 > `optional` **headers**: `Record`\<`string`, `string`\>
 
-Defined in: [src/modules/webhooks/webhook.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.service.ts#L19)
+Defined in: [src/modules/webhooks/webhook.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.service.ts#L19)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/modules/webhooks/webhook.service.ts:19](https://github.com/maem
 
 > `optional` **metadata**: `Record`\<`string`, `any`\>
 
-Defined in: [src/modules/webhooks/webhook.service.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.service.ts#L20)
+Defined in: [src/modules/webhooks/webhook.service.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.service.ts#L20)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [src/modules/webhooks/webhook.service.ts:20](https://github.com/maem
 
 > `optional` **secret**: `string`
 
-Defined in: [src/modules/webhooks/webhook.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.service.ts#L17)
+Defined in: [src/modules/webhooks/webhook.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.service.ts#L17)
 
 ***
 
@@ -62,4 +62,4 @@ Defined in: [src/modules/webhooks/webhook.service.ts:17](https://github.com/maem
 
 > **url**: `string`
 
-Defined in: [src/modules/webhooks/webhook.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.service.ts#L14)
+Defined in: [src/modules/webhooks/webhook.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.service.ts#L14)

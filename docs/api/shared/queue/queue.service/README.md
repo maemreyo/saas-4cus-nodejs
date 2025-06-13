@@ -16,6 +16,7 @@
 
 ## Interfaces
 
+- [JobFilter](interfaces/JobFilter.md)
 - [JobOptions](interfaces/JobOptions.md)
 
 ## Type Aliases

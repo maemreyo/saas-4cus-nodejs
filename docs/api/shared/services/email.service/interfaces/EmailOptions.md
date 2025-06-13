@@ -6,7 +6,7 @@
 
 # Interface: EmailOptions
 
-Defined in: [src/shared/services/email.service.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L9)
+Defined in: [src/shared/services/email.service.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L9)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/shared/services/email.service.ts:9](https://github.com/maemreyo
 
 > `optional` **attachments**: `object`[]
 
-Defined in: [src/shared/services/email.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L16)
+Defined in: [src/shared/services/email.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L16)
 
 #### content?
 
@@ -34,7 +34,7 @@ Defined in: [src/shared/services/email.service.ts:16](https://github.com/maemrey
 
 > `optional` **bcc**: `string` \| `string`[]
 
-Defined in: [src/shared/services/email.service.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L22)
+Defined in: [src/shared/services/email.service.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L22)
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: [src/shared/services/email.service.ts:22](https://github.com/maemrey
 
 > `optional` **cc**: `string` \| `string`[]
 
-Defined in: [src/shared/services/email.service.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L21)
+Defined in: [src/shared/services/email.service.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L21)
 
 ***
 
@@ -50,7 +50,7 @@ Defined in: [src/shared/services/email.service.ts:21](https://github.com/maemrey
 
 > `optional` **context**: `Record`\<`string`, `any`\>
 
-Defined in: [src/shared/services/email.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L15)
+Defined in: [src/shared/services/email.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L15)
 
 ***
 
@@ -58,7 +58,7 @@ Defined in: [src/shared/services/email.service.ts:15](https://github.com/maemrey
 
 > `optional` **html**: `string`
 
-Defined in: [src/shared/services/email.service.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L12)
+Defined in: [src/shared/services/email.service.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L12)
 
 ***
 
@@ -66,7 +66,7 @@ Defined in: [src/shared/services/email.service.ts:12](https://github.com/maemrey
 
 > `optional` **replyTo**: `string`
 
-Defined in: [src/shared/services/email.service.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L23)
+Defined in: [src/shared/services/email.service.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L23)
 
 ***
 
@@ -74,7 +74,7 @@ Defined in: [src/shared/services/email.service.ts:23](https://github.com/maemrey
 
 > **subject**: `string`
 
-Defined in: [src/shared/services/email.service.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L11)
+Defined in: [src/shared/services/email.service.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L11)
 
 ***
 
@@ -82,7 +82,7 @@ Defined in: [src/shared/services/email.service.ts:11](https://github.com/maemrey
 
 > `optional` **template**: `string`
 
-Defined in: [src/shared/services/email.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L14)
+Defined in: [src/shared/services/email.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L14)
 
 ***
 
@@ -90,7 +90,7 @@ Defined in: [src/shared/services/email.service.ts:14](https://github.com/maemrey
 
 > `optional` **text**: `string`
 
-Defined in: [src/shared/services/email.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L13)
+Defined in: [src/shared/services/email.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L13)
 
 ***
 
@@ -98,4 +98,4 @@ Defined in: [src/shared/services/email.service.ts:13](https://github.com/maemrey
 
 > **to**: `string` \| `string`[]
 
-Defined in: [src/shared/services/email.service.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L10)
+Defined in: [src/shared/services/email.service.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L10)

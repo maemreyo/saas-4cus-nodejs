@@ -6,7 +6,7 @@
 
 # Class: ModuleManager
 
-Defined in: [src/infrastructure/modules/module-manager.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/modules/module-manager.ts#L28)
+Defined in: [src/infrastructure/modules/module-manager.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/modules/module-manager.ts#L28)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/infrastructure/modules/module-manager.ts:28](https://github.com
 
 > `private` **new ModuleManager**(): `ModuleManager`
 
-Defined in: [src/infrastructure/modules/module-manager.ts:34](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/modules/module-manager.ts#L34)
+Defined in: [src/infrastructure/modules/module-manager.ts:34](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/modules/module-manager.ts#L34)
 
 #### Returns
 
@@ -26,7 +26,7 @@ Defined in: [src/infrastructure/modules/module-manager.ts:34](https://github.com
 
 > `private` **buildInitializationOrder**(`modules`): `string`[]
 
-Defined in: [src/infrastructure/modules/module-manager.ts:283](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/modules/module-manager.ts#L283)
+Defined in: [src/infrastructure/modules/module-manager.ts:283](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/modules/module-manager.ts#L283)
 
 #### Parameters
 
@@ -44,7 +44,7 @@ Defined in: [src/infrastructure/modules/module-manager.ts:283](https://github.co
 
 > **getInitializedModules**(): `string`[]
 
-Defined in: [src/infrastructure/modules/module-manager.ts:275](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/modules/module-manager.ts#L275)
+Defined in: [src/infrastructure/modules/module-manager.ts:275](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/modules/module-manager.ts#L275)
 
 #### Returns
 
@@ -56,7 +56,7 @@ Defined in: [src/infrastructure/modules/module-manager.ts:275](https://github.co
 
 > `static` **getInstance**(): `ModuleManager`
 
-Defined in: [src/infrastructure/modules/module-manager.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/modules/module-manager.ts#L38)
+Defined in: [src/infrastructure/modules/module-manager.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/modules/module-manager.ts#L38)
 
 #### Returns
 
@@ -68,7 +68,7 @@ Defined in: [src/infrastructure/modules/module-manager.ts:38](https://github.com
 
 > **healthCheck**(): `Promise`\<\{ `healthy`: `boolean`; `modules`: `Record`\<`string`, `any`\>; \}\>
 
-Defined in: [src/infrastructure/modules/module-manager.ts:239](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/modules/module-manager.ts#L239)
+Defined in: [src/infrastructure/modules/module-manager.ts:239](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/modules/module-manager.ts#L239)
 
 #### Returns
 
@@ -80,7 +80,7 @@ Defined in: [src/infrastructure/modules/module-manager.ts:239](https://github.co
 
 > **initializeAll**(): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/modules/module-manager.ts:181](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/modules/module-manager.ts#L181)
+Defined in: [src/infrastructure/modules/module-manager.ts:181](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/modules/module-manager.ts#L181)
 
 #### Returns
 
@@ -92,7 +92,7 @@ Defined in: [src/infrastructure/modules/module-manager.ts:181](https://github.co
 
 > **isModuleInitialized**(`name`): `boolean`
 
-Defined in: [src/infrastructure/modules/module-manager.ts:279](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/modules/module-manager.ts#L279)
+Defined in: [src/infrastructure/modules/module-manager.ts:279](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/modules/module-manager.ts#L279)
 
 #### Parameters
 
@@ -110,7 +110,7 @@ Defined in: [src/infrastructure/modules/module-manager.ts:279](https://github.co
 
 > `private` **register**(`config`): `void`
 
-Defined in: [src/infrastructure/modules/module-manager.ts:177](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/modules/module-manager.ts#L177)
+Defined in: [src/infrastructure/modules/module-manager.ts:177](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/modules/module-manager.ts#L177)
 
 #### Parameters
 
@@ -128,7 +128,7 @@ Defined in: [src/infrastructure/modules/module-manager.ts:177](https://github.co
 
 > `private` **registerModules**(): `void`
 
-Defined in: [src/infrastructure/modules/module-manager.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/modules/module-manager.ts#L45)
+Defined in: [src/infrastructure/modules/module-manager.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/modules/module-manager.ts#L45)
 
 #### Returns
 
@@ -140,7 +140,7 @@ Defined in: [src/infrastructure/modules/module-manager.ts:45](https://github.com
 
 > **shutdownAll**(): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/modules/module-manager.ts:214](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/modules/module-manager.ts#L214)
+Defined in: [src/infrastructure/modules/module-manager.ts:214](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/modules/module-manager.ts#L214)
 
 #### Returns
 
@@ -152,7 +152,7 @@ Defined in: [src/infrastructure/modules/module-manager.ts:214](https://github.co
 
 > `private` **initializationOrder**: `string`[] = `[]`
 
-Defined in: [src/infrastructure/modules/module-manager.ts:32](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/modules/module-manager.ts#L32)
+Defined in: [src/infrastructure/modules/module-manager.ts:32](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/modules/module-manager.ts#L32)
 
 ***
 
@@ -160,7 +160,7 @@ Defined in: [src/infrastructure/modules/module-manager.ts:32](https://github.com
 
 > `private` **initialized**: `Set`\<`string`\>
 
-Defined in: [src/infrastructure/modules/module-manager.ts:31](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/modules/module-manager.ts#L31)
+Defined in: [src/infrastructure/modules/module-manager.ts:31](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/modules/module-manager.ts#L31)
 
 ***
 
@@ -168,7 +168,7 @@ Defined in: [src/infrastructure/modules/module-manager.ts:31](https://github.com
 
 > `private` `static` **instance**: `ModuleManager`
 
-Defined in: [src/infrastructure/modules/module-manager.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/modules/module-manager.ts#L29)
+Defined in: [src/infrastructure/modules/module-manager.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/modules/module-manager.ts#L29)
 
 ***
 
@@ -176,4 +176,4 @@ Defined in: [src/infrastructure/modules/module-manager.ts:29](https://github.com
 
 > `private` **modules**: `Map`\<`string`, [`ModuleConfig`](../interfaces/ModuleConfig.md)\>
 
-Defined in: [src/infrastructure/modules/module-manager.ts:30](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/modules/module-manager.ts#L30)
+Defined in: [src/infrastructure/modules/module-manager.ts:30](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/modules/module-manager.ts#L30)

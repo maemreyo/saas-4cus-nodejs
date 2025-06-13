@@ -6,7 +6,7 @@
 
 # Class: UserController
 
-Defined in: [src/modules/user/user.controller.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.controller.ts#L13)
+Defined in: [src/modules/user/user.controller.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.controller.ts#L13)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/user/user.controller.ts:13](https://github.com/maemreyo
 
 > **new UserController**(`userService`): `UserController`
 
-Defined in: [src/modules/user/user.controller.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.controller.ts#L14)
+Defined in: [src/modules/user/user.controller.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.controller.ts#L14)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/user/user.controller.ts:14](https://github.com/maemreyo
 
 > **changePassword**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/user/user.controller.ts:66](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.controller.ts#L66)
+Defined in: [src/modules/user/user.controller.ts:66](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.controller.ts#L66)
 
 Change password
 
@@ -56,7 +56,7 @@ Change password
 
 > **deleteAccount**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/user/user.controller.ts:146](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.controller.ts#L146)
+Defined in: [src/modules/user/user.controller.ts:146](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.controller.ts#L146)
 
 Delete account
 
@@ -80,7 +80,7 @@ Delete account
 
 > **getProfile**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/user/user.controller.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.controller.ts#L19)
+Defined in: [src/modules/user/user.controller.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.controller.ts#L19)
 
 Get current user profile
 
@@ -104,7 +104,7 @@ Get current user profile
 
 > **getUserActivity**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/user/user.controller.ts:163](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.controller.ts#L163)
+Defined in: [src/modules/user/user.controller.ts:163](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.controller.ts#L163)
 
 Get user activity
 
@@ -128,7 +128,7 @@ Get user activity
 
 > **getUserById**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/user/user.controller.ts:101](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.controller.ts#L101)
+Defined in: [src/modules/user/user.controller.ts:101](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.controller.ts#L101)
 
 Get user by ID (public profile)
 
@@ -152,7 +152,7 @@ Get user by ID (public profile)
 
 > **getUserSessions**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/user/user.controller.ts:178](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.controller.ts#L178)
+Defined in: [src/modules/user/user.controller.ts:178](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.controller.ts#L178)
 
 Get user sessions
 
@@ -176,7 +176,7 @@ Get user sessions
 
 > **revokeSession**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/user/user.controller.ts:188](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.controller.ts#L188)
+Defined in: [src/modules/user/user.controller.ts:188](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.controller.ts#L188)
 
 Revoke session
 
@@ -200,7 +200,7 @@ Revoke session
 
 > **searchUsers**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/user/user.controller.ts:114](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.controller.ts#L114)
+Defined in: [src/modules/user/user.controller.ts:114](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.controller.ts#L114)
 
 Search users
 
@@ -224,7 +224,7 @@ Search users
 
 > **updatePreferences**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/user/user.controller.ts:83](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.controller.ts#L83)
+Defined in: [src/modules/user/user.controller.ts:83](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.controller.ts#L83)
 
 Update preferences
 
@@ -248,7 +248,7 @@ Update preferences
 
 > **updateProfile**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/user/user.controller.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.controller.ts#L48)
+Defined in: [src/modules/user/user.controller.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.controller.ts#L48)
 
 Update user profile
 
@@ -272,7 +272,7 @@ Update user profile
 
 > **uploadAvatar**(`request`, `reply`): `Promise`\<`never`\>
 
-Defined in: [src/modules/user/user.controller.ts:127](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.controller.ts#L127)
+Defined in: [src/modules/user/user.controller.ts:127](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.controller.ts#L127)
 
 Upload avatar
 
@@ -296,4 +296,4 @@ Upload avatar
 
 > `private` **userService**: [`UserService`](../../user.service/classes/UserService.md)
 
-Defined in: [src/modules/user/user.controller.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/user/user.controller.ts#L14)
+Defined in: [src/modules/user/user.controller.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/user/user.controller.ts#L14)

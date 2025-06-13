@@ -6,7 +6,7 @@
 
 # Class: SubscriptionService
 
-Defined in: [src/modules/billing/subscription.service.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L38)
+Defined in: [src/modules/billing/subscription.service.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L38)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/billing/subscription.service.ts:38](https://github.com/
 
 > **new SubscriptionService**(): `SubscriptionService`
 
-Defined in: [src/modules/billing/subscription.service.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L41)
+Defined in: [src/modules/billing/subscription.service.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L41)
 
 #### Returns
 
@@ -26,7 +26,7 @@ Defined in: [src/modules/billing/subscription.service.ts:41](https://github.com/
 
 > **calculateProration**(`userId`, `newPlanId`): `Promise`\<\{ `amount`: `number`; `credits`: `number`; `description`: `string`; \}\>
 
-Defined in: [src/modules/billing/subscription.service.ts:391](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L391)
+Defined in: [src/modules/billing/subscription.service.ts:391](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L391)
 
 Calculate proration for plan change
 
@@ -50,7 +50,7 @@ Calculate proration for plan change
 
 > **checkUsageLimit**(`userId`, `resource`, `currentUsage?`): `Promise`\<\{ `allowed`: `boolean`; `limit`: `number`; `remaining`: `number`; `unlimited`: `boolean`; `used`: `number`; \}\>
 
-Defined in: [src/modules/billing/subscription.service.ts:244](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L244)
+Defined in: [src/modules/billing/subscription.service.ts:244](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L244)
 
 Check usage limit for a resource
 
@@ -78,7 +78,7 @@ keyof [`PlanLimits`](../interfaces/PlanLimits.md)
 
 > **enforceUsageLimit**(`userId`, `resource`): `Promise`\<`void`\>
 
-Defined in: [src/modules/billing/subscription.service.ts:330](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L330)
+Defined in: [src/modules/billing/subscription.service.ts:330](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L330)
 
 Enforce usage limit - throws exception if limit exceeded
 
@@ -102,7 +102,7 @@ keyof [`PlanLimits`](../interfaces/PlanLimits.md)
 
 > `private` **getCurrentUsage**(`userId`, `resource`): `Promise`\<`number`\>
 
-Defined in: [src/modules/billing/subscription.service.ts:290](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L290)
+Defined in: [src/modules/billing/subscription.service.ts:290](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L290)
 
 Get current usage for a resource
 
@@ -126,7 +126,7 @@ keyof [`PlanLimits`](../interfaces/PlanLimits.md)
 
 > **getPlan**(`planId`): [`SubscriptionPlan`](../interfaces/SubscriptionPlan.md)
 
-Defined in: [src/modules/billing/subscription.service.ts:171](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L171)
+Defined in: [src/modules/billing/subscription.service.ts:171](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L171)
 
 Get plan by ID
 
@@ -146,7 +146,7 @@ Get plan by ID
 
 > **getPlanByPriceId**(`stripePriceId`): [`SubscriptionPlan`](../interfaces/SubscriptionPlan.md)
 
-Defined in: [src/modules/billing/subscription.service.ts:178](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L178)
+Defined in: [src/modules/billing/subscription.service.ts:178](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L178)
 
 Get plan by Stripe price ID
 
@@ -166,7 +166,7 @@ Get plan by Stripe price ID
 
 > **getPlans**(): [`SubscriptionPlan`](../interfaces/SubscriptionPlan.md)[]
 
-Defined in: [src/modules/billing/subscription.service.ts:164](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L164)
+Defined in: [src/modules/billing/subscription.service.ts:164](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L164)
 
 Get all available plans
 
@@ -180,7 +180,7 @@ Get all available plans
 
 > **getSubscriptionStats**(`userId`): `Promise`\<\{ `billing`: \{ `invoiceCount`: `number`; `lastPayment`: `Date`; `nextPayment`: `any`; `totalSpent`: `number`; \}; `plan`: [`SubscriptionPlan`](../interfaces/SubscriptionPlan.md); `subscription`: `any`; `usage`: `Record`\<`string`, `any`\>; \}\>
 
-Defined in: [src/modules/billing/subscription.service.ts:349](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L349)
+Defined in: [src/modules/billing/subscription.service.ts:349](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L349)
 
 Get subscription statistics
 
@@ -200,7 +200,7 @@ Get subscription statistics
 
 > **getUserSubscription**(`userId`): `Promise`\<\{ `isActive`: `boolean`; `isTrial`: `boolean`; `plan`: [`SubscriptionPlan`](../interfaces/SubscriptionPlan.md); `subscription`: `any`; `willCancelAt?`: `undefined`; \} \| \{ `isActive`: `boolean`; `isTrial`: `boolean`; `plan`: [`SubscriptionPlan`](../interfaces/SubscriptionPlan.md); `subscription`: \{ \}; `willCancelAt`: `Date`; \}\>
 
-Defined in: [src/modules/billing/subscription.service.ts:186](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L186)
+Defined in: [src/modules/billing/subscription.service.ts:186](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L186)
 
 Get user's current subscription with caching
 
@@ -220,7 +220,7 @@ Get user's current subscription with caching
 
 > **hasAllFeatures**(`userId`, `featureIds`): `Promise`\<`boolean`\>
 
-Defined in: [src/modules/billing/subscription.service.ts:231](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L231)
+Defined in: [src/modules/billing/subscription.service.ts:231](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L231)
 
 Check if user has access to multiple features
 
@@ -244,7 +244,7 @@ Check if user has access to multiple features
 
 > **hasFeature**(`userId`, `featureId`): `Promise`\<`boolean`\>
 
-Defined in: [src/modules/billing/subscription.service.ts:220](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L220)
+Defined in: [src/modules/billing/subscription.service.ts:220](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L220)
 
 Check if user has access to a feature
 
@@ -268,7 +268,7 @@ Check if user has access to a feature
 
 > `private` **initializePlans**(): `void`
 
-Defined in: [src/modules/billing/subscription.service.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L45)
+Defined in: [src/modules/billing/subscription.service.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L45)
 
 #### Returns
 
@@ -280,4 +280,4 @@ Defined in: [src/modules/billing/subscription.service.ts:45](https://github.com/
 
 > `private` **plans**: `Map`\<`string`, [`SubscriptionPlan`](../interfaces/SubscriptionPlan.md)\>
 
-Defined in: [src/modules/billing/subscription.service.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/subscription.service.ts#L39)
+Defined in: [src/modules/billing/subscription.service.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/subscription.service.ts#L39)

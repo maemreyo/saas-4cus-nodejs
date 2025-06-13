@@ -6,7 +6,7 @@
 
 # Class: HealthAggregator
 
-Defined in: [src/infrastructure/monitoring/health-aggregator.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/monitoring/health-aggregator.ts#L45)
+Defined in: [src/infrastructure/monitoring/health-aggregator.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/monitoring/health-aggregator.ts#L45)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/infrastructure/monitoring/health-aggregator.ts:45](https://gith
 
 > `private` **checkDatabase**(): `Promise`\<\{ `details?`: `any`; `error?`: `string`; `responseTime?`: `number`; `status`: `"healthy"` \| `"degraded"` \| `"unhealthy"`; \}\>
 
-Defined in: [src/infrastructure/monitoring/health-aggregator.ts:108](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/monitoring/health-aggregator.ts#L108)
+Defined in: [src/infrastructure/monitoring/health-aggregator.ts:108](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/monitoring/health-aggregator.ts#L108)
 
 #### Returns
 
@@ -36,7 +36,7 @@ Defined in: [src/infrastructure/monitoring/health-aggregator.ts:108](https://git
 
 > `private` **checkElasticsearch**(): `Promise`\<\{ `details?`: `any`; `error?`: `string`; `responseTime?`: `number`; `status`: `"healthy"` \| `"degraded"` \| `"unhealthy"`; \}\>
 
-Defined in: [src/infrastructure/monitoring/health-aggregator.ts:188](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/monitoring/health-aggregator.ts#L188)
+Defined in: [src/infrastructure/monitoring/health-aggregator.ts:188](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/monitoring/health-aggregator.ts#L188)
 
 #### Returns
 
@@ -48,7 +48,7 @@ Defined in: [src/infrastructure/monitoring/health-aggregator.ts:188](https://git
 
 > `private` **checkExternalServices**(): `Promise`\<\{ `details?`: `any`; `error?`: `string`; `responseTime?`: `number`; `status`: `"healthy"` \| `"degraded"` \| `"unhealthy"`; \}\>
 
-Defined in: [src/infrastructure/monitoring/health-aggregator.ts:218](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/monitoring/health-aggregator.ts#L218)
+Defined in: [src/infrastructure/monitoring/health-aggregator.ts:218](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/monitoring/health-aggregator.ts#L218)
 
 #### Returns
 
@@ -60,7 +60,7 @@ Defined in: [src/infrastructure/monitoring/health-aggregator.ts:218](https://git
 
 > **checkHealth**(): `Promise`\<[`HealthCheckResult`](../interfaces/HealthCheckResult.md)\>
 
-Defined in: [src/infrastructure/monitoring/health-aggregator.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/monitoring/health-aggregator.ts#L46)
+Defined in: [src/infrastructure/monitoring/health-aggregator.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/monitoring/health-aggregator.ts#L46)
 
 #### Returns
 
@@ -72,7 +72,7 @@ Defined in: [src/infrastructure/monitoring/health-aggregator.ts:46](https://gith
 
 > `private` **checkQueues**(): `Promise`\<\{ `details?`: `any`; `error?`: `string`; `responseTime?`: `number`; `status`: `"healthy"` \| `"degraded"` \| `"unhealthy"`; \}\>
 
-Defined in: [src/infrastructure/monitoring/health-aggregator.ts:160](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/monitoring/health-aggregator.ts#L160)
+Defined in: [src/infrastructure/monitoring/health-aggregator.ts:160](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/monitoring/health-aggregator.ts#L160)
 
 #### Returns
 
@@ -84,7 +84,7 @@ Defined in: [src/infrastructure/monitoring/health-aggregator.ts:160](https://git
 
 > `private` **checkRedis**(): `Promise`\<\{ `details?`: `any`; `error?`: `string`; `responseTime?`: `number`; `status`: `"healthy"` \| `"degraded"` \| `"unhealthy"`; \}\>
 
-Defined in: [src/infrastructure/monitoring/health-aggregator.ts:131](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/monitoring/health-aggregator.ts#L131)
+Defined in: [src/infrastructure/monitoring/health-aggregator.ts:131](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/monitoring/health-aggregator.ts#L131)
 
 #### Returns
 
@@ -96,7 +96,7 @@ Defined in: [src/infrastructure/monitoring/health-aggregator.ts:131](https://git
 
 > **getLiveMetrics**(): `Promise`\<\{ `activeUsers`: `number`; `averageResponseTime`: `number`; `errorRate`: `number`; `requestsPerMinute`: `number`; \}\>
 
-Defined in: [src/infrastructure/monitoring/health-aggregator.ts:292](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/monitoring/health-aggregator.ts#L292)
+Defined in: [src/infrastructure/monitoring/health-aggregator.ts:292](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/monitoring/health-aggregator.ts#L292)
 
 #### Returns
 
@@ -108,7 +108,7 @@ Defined in: [src/infrastructure/monitoring/health-aggregator.ts:292](https://git
 
 > `private` **getSystemMetrics**(): `Promise`\<\{ `cpu`: \{ `cores`: `number`; `usage`: `number`; \}; `disk?`: \{ `free`: `number`; `percentage`: `number`; `total`: `number`; `used`: `number`; \}; `memory`: \{ `free`: `number`; `percentage`: `number`; `total`: `number`; `used`: `number`; \}; \}\>
 
-Defined in: [src/infrastructure/monitoring/health-aggregator.ts:259](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/monitoring/health-aggregator.ts#L259)
+Defined in: [src/infrastructure/monitoring/health-aggregator.ts:259](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/monitoring/health-aggregator.ts#L259)
 
 #### Returns
 

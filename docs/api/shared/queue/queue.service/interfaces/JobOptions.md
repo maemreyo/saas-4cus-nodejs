@@ -6,7 +6,7 @@
 
 # Interface: JobOptions
 
-Defined in: [src/shared/queue/queue.service.ts:7](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L7)
+Defined in: [src/shared/queue/queue.service.ts:7](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L7)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/shared/queue/queue.service.ts:7](https://github.com/maemreyo/sa
 
 > `optional` **attempts**: `number`
 
-Defined in: [src/shared/queue/queue.service.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L9)
+Defined in: [src/shared/queue/queue.service.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L9)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/shared/queue/queue.service.ts:9](https://github.com/maemreyo/sa
 
 > `optional` **backoff**: `object`
 
-Defined in: [src/shared/queue/queue.service.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L10)
+Defined in: [src/shared/queue/queue.service.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L10)
 
 #### delay
 
@@ -38,7 +38,15 @@ Defined in: [src/shared/queue/queue.service.ts:10](https://github.com/maemreyo/s
 
 > `optional` **delay**: `number`
 
-Defined in: [src/shared/queue/queue.service.ts:8](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L8)
+Defined in: [src/shared/queue/queue.service.ts:8](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L8)
+
+***
+
+### jobId?
+
+> `optional` **jobId**: `string`
+
+Defined in: [src/shared/queue/queue.service.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L22)
 
 ***
 
@@ -46,7 +54,7 @@ Defined in: [src/shared/queue/queue.service.ts:8](https://github.com/maemreyo/sa
 
 > `optional` **priority**: `number`
 
-Defined in: [src/shared/queue/queue.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L16)
+Defined in: [src/shared/queue/queue.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L16)
 
 ***
 
@@ -54,7 +62,7 @@ Defined in: [src/shared/queue/queue.service.ts:16](https://github.com/maemreyo/s
 
 > `optional` **removeOnComplete**: `number` \| `boolean`
 
-Defined in: [src/shared/queue/queue.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L14)
+Defined in: [src/shared/queue/queue.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L14)
 
 ***
 
@@ -62,7 +70,7 @@ Defined in: [src/shared/queue/queue.service.ts:14](https://github.com/maemreyo/s
 
 > `optional` **removeOnFail**: `number` \| `boolean`
 
-Defined in: [src/shared/queue/queue.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L15)
+Defined in: [src/shared/queue/queue.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L15)
 
 ***
 
@@ -70,7 +78,7 @@ Defined in: [src/shared/queue/queue.service.ts:15](https://github.com/maemreyo/s
 
 > `optional` **repeat**: `object`
 
-Defined in: [src/shared/queue/queue.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L17)
+Defined in: [src/shared/queue/queue.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L17)
 
 #### cron?
 

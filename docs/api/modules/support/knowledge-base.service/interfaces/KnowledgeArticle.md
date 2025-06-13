@@ -6,7 +6,7 @@
 
 # Interface: KnowledgeArticle
 
-Defined in: [src/modules/support/knowledge-base.service.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L9)
+Defined in: [src/modules/support/knowledge-base.service.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L9)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/support/knowledge-base.service.ts:9](https://github.com
 
 > **category**: `string`
 
-Defined in: [src/modules/support/knowledge-base.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L13)
+Defined in: [src/modules/support/knowledge-base.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L13)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/support/knowledge-base.service.ts:13](https://github.co
 
 > **content**: `string`
 
-Defined in: [src/modules/support/knowledge-base.service.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L12)
+Defined in: [src/modules/support/knowledge-base.service.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L12)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/support/knowledge-base.service.ts:12](https://github.co
 
 > **createdAt**: `Date`
 
-Defined in: [src/modules/support/knowledge-base.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L19)
+Defined in: [src/modules/support/knowledge-base.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L19)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/modules/support/knowledge-base.service.ts:19](https://github.co
 
 > **helpful**: `number`
 
-Defined in: [src/modules/support/knowledge-base.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L16)
+Defined in: [src/modules/support/knowledge-base.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L16)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/modules/support/knowledge-base.service.ts:16](https://github.co
 
 > **id**: `string`
 
-Defined in: [src/modules/support/knowledge-base.service.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L10)
+Defined in: [src/modules/support/knowledge-base.service.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L10)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [src/modules/support/knowledge-base.service.ts:10](https://github.co
 
 > **notHelpful**: `number`
 
-Defined in: [src/modules/support/knowledge-base.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L17)
+Defined in: [src/modules/support/knowledge-base.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L17)
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: [src/modules/support/knowledge-base.service.ts:17](https://github.co
 
 > **relatedTickets**: `string`[]
 
-Defined in: [src/modules/support/knowledge-base.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L18)
+Defined in: [src/modules/support/knowledge-base.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L18)
 
 ***
 
@@ -70,7 +70,7 @@ Defined in: [src/modules/support/knowledge-base.service.ts:18](https://github.co
 
 > **tags**: `string`[]
 
-Defined in: [src/modules/support/knowledge-base.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L14)
+Defined in: [src/modules/support/knowledge-base.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L14)
 
 ***
 
@@ -78,7 +78,7 @@ Defined in: [src/modules/support/knowledge-base.service.ts:14](https://github.co
 
 > **title**: `string`
 
-Defined in: [src/modules/support/knowledge-base.service.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L11)
+Defined in: [src/modules/support/knowledge-base.service.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L11)
 
 ***
 
@@ -86,7 +86,7 @@ Defined in: [src/modules/support/knowledge-base.service.ts:11](https://github.co
 
 > **updatedAt**: `Date`
 
-Defined in: [src/modules/support/knowledge-base.service.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L20)
+Defined in: [src/modules/support/knowledge-base.service.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L20)
 
 ***
 
@@ -94,4 +94,4 @@ Defined in: [src/modules/support/knowledge-base.service.ts:20](https://github.co
 
 > **viewCount**: `number`
 
-Defined in: [src/modules/support/knowledge-base.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/knowledge-base.service.ts#L15)
+Defined in: [src/modules/support/knowledge-base.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/knowledge-base.service.ts#L15)

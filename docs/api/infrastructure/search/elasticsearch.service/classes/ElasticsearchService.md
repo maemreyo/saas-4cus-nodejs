@@ -6,7 +6,7 @@
 
 # Class: ElasticsearchService
 
-Defined in: [src/infrastructure/search/elasticsearch.service.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/search/elasticsearch.service.ts#L9)
+Defined in: [src/infrastructure/search/elasticsearch.service.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/search/elasticsearch.service.ts#L9)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/infrastructure/search/elasticsearch.service.ts:9](https://githu
 
 > **new ElasticsearchService**(): `ElasticsearchService`
 
-Defined in: [src/infrastructure/search/elasticsearch.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/search/elasticsearch.service.ts#L13)
+Defined in: [src/infrastructure/search/elasticsearch.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/search/elasticsearch.service.ts#L13)
 
 #### Returns
 
@@ -26,7 +26,7 @@ Defined in: [src/infrastructure/search/elasticsearch.service.ts:13](https://gith
 
 > **bulk**(`params`): `Promise`\<`any`\>
 
-Defined in: [src/infrastructure/search/elasticsearch.service.ts:144](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/search/elasticsearch.service.ts#L144)
+Defined in: [src/infrastructure/search/elasticsearch.service.ts:144](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/search/elasticsearch.service.ts#L144)
 
 #### Parameters
 
@@ -44,7 +44,7 @@ Defined in: [src/infrastructure/search/elasticsearch.service.ts:144](https://git
 
 > **connect**(): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/search/elasticsearch.service.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/search/elasticsearch.service.ts#L28)
+Defined in: [src/infrastructure/search/elasticsearch.service.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/search/elasticsearch.service.ts#L28)
 
 #### Returns
 
@@ -56,7 +56,7 @@ Defined in: [src/infrastructure/search/elasticsearch.service.ts:28](https://gith
 
 > **createIndices**(): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/search/elasticsearch.service.ts:52](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/search/elasticsearch.service.ts#L52)
+Defined in: [src/infrastructure/search/elasticsearch.service.ts:52](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/search/elasticsearch.service.ts#L52)
 
 #### Returns
 
@@ -68,7 +68,7 @@ Defined in: [src/infrastructure/search/elasticsearch.service.ts:52](https://gith
 
 > **delete**(`params`): `Promise`\<`any`\>
 
-Defined in: [src/infrastructure/search/elasticsearch.service.ts:136](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/search/elasticsearch.service.ts#L136)
+Defined in: [src/infrastructure/search/elasticsearch.service.ts:136](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/search/elasticsearch.service.ts#L136)
 
 #### Parameters
 
@@ -86,7 +86,7 @@ Defined in: [src/infrastructure/search/elasticsearch.service.ts:136](https://git
 
 > **disconnect**(): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/search/elasticsearch.service.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/search/elasticsearch.service.ts#L46)
+Defined in: [src/infrastructure/search/elasticsearch.service.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/search/elasticsearch.service.ts#L46)
 
 #### Returns
 
@@ -98,7 +98,7 @@ Defined in: [src/infrastructure/search/elasticsearch.service.ts:46](https://gith
 
 > **getClient**(): `Client`
 
-Defined in: [src/infrastructure/search/elasticsearch.service.ts:152](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/search/elasticsearch.service.ts#L152)
+Defined in: [src/infrastructure/search/elasticsearch.service.ts:152](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/search/elasticsearch.service.ts#L152)
 
 #### Returns
 
@@ -110,7 +110,7 @@ Defined in: [src/infrastructure/search/elasticsearch.service.ts:152](https://git
 
 > **getConnectionStatus**(): `boolean`
 
-Defined in: [src/infrastructure/search/elasticsearch.service.ts:156](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/search/elasticsearch.service.ts#L156)
+Defined in: [src/infrastructure/search/elasticsearch.service.ts:156](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/search/elasticsearch.service.ts#L156)
 
 #### Returns
 
@@ -122,7 +122,7 @@ Defined in: [src/infrastructure/search/elasticsearch.service.ts:156](https://git
 
 > **index**(`params`): `Promise`\<`any`\>
 
-Defined in: [src/infrastructure/search/elasticsearch.service.ts:120](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/search/elasticsearch.service.ts#L120)
+Defined in: [src/infrastructure/search/elasticsearch.service.ts:120](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/search/elasticsearch.service.ts#L120)
 
 #### Parameters
 
@@ -140,7 +140,7 @@ Defined in: [src/infrastructure/search/elasticsearch.service.ts:120](https://git
 
 > **search**(`params`): `Promise`\<`any`\>
 
-Defined in: [src/infrastructure/search/elasticsearch.service.ts:112](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/search/elasticsearch.service.ts#L112)
+Defined in: [src/infrastructure/search/elasticsearch.service.ts:112](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/search/elasticsearch.service.ts#L112)
 
 #### Parameters
 
@@ -158,7 +158,7 @@ Defined in: [src/infrastructure/search/elasticsearch.service.ts:112](https://git
 
 > **update**(`params`): `Promise`\<`any`\>
 
-Defined in: [src/infrastructure/search/elasticsearch.service.ts:128](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/search/elasticsearch.service.ts#L128)
+Defined in: [src/infrastructure/search/elasticsearch.service.ts:128](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/search/elasticsearch.service.ts#L128)
 
 #### Parameters
 
@@ -176,7 +176,7 @@ Defined in: [src/infrastructure/search/elasticsearch.service.ts:128](https://git
 
 > `private` **client**: `Client`
 
-Defined in: [src/infrastructure/search/elasticsearch.service.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/search/elasticsearch.service.ts#L10)
+Defined in: [src/infrastructure/search/elasticsearch.service.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/search/elasticsearch.service.ts#L10)
 
 ***
 
@@ -184,4 +184,4 @@ Defined in: [src/infrastructure/search/elasticsearch.service.ts:10](https://gith
 
 > `private` **isConnected**: `boolean` = `false`
 
-Defined in: [src/infrastructure/search/elasticsearch.service.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/search/elasticsearch.service.ts#L11)
+Defined in: [src/infrastructure/search/elasticsearch.service.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/search/elasticsearch.service.ts#L11)

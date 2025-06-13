@@ -6,7 +6,7 @@
 
 # Class: QueueService
 
-Defined in: [src/shared/queue/queue.service.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L33)
+Defined in: [src/shared/queue/queue.service.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L38)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/shared/queue/queue.service.ts:33](https://github.com/maemreyo/s
 
 > **new QueueService**(): `QueueService`
 
-Defined in: [src/shared/queue/queue.service.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L38)
+Defined in: [src/shared/queue/queue.service.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L43)
 
 #### Returns
 
@@ -22,11 +22,43 @@ Defined in: [src/shared/queue/queue.service.ts:38](https://github.com/maemreyo/s
 
 ## Methods
 
+### add()
+
+> **add**\<`T`\>(`jobName`, `data`, `options?`): `Promise`\<`Job`\<`T`, `any`, `string`\>\>
+
+Defined in: [src/shared/queue/queue.service.ts:234](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L234)
+
+#### Type Parameters
+
+##### T
+
+`T` = `any`
+
+#### Parameters
+
+##### jobName
+
+`string`
+
+##### data
+
+`T`
+
+##### options?
+
+[`JobOptions`](../interfaces/JobOptions.md)
+
+#### Returns
+
+`Promise`\<`Job`\<`T`, `any`, `string`\>\>
+
+***
+
 ### addBulkJobs()
 
 > **addBulkJobs**\<`T`\>(`queueName`, `jobs`): `Promise`\<`Job`\<`T`, `any`, `string`\>[]\>
 
-Defined in: [src/shared/queue/queue.service.ts:208](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L208)
+Defined in: [src/shared/queue/queue.service.ts:274](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L274)
 
 #### Type Parameters
 
@@ -54,7 +86,7 @@ Defined in: [src/shared/queue/queue.service.ts:208](https://github.com/maemreyo/
 
 > **addJob**\<`T`\>(`queueName`, `jobName`, `data`, `options?`): `Promise`\<`Job`\<`T`, `any`, `string`\>\>
 
-Defined in: [src/shared/queue/queue.service.ts:173](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L173)
+Defined in: [src/shared/queue/queue.service.ts:198](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L198)
 
 #### Type Parameters
 
@@ -90,7 +122,7 @@ Defined in: [src/shared/queue/queue.service.ts:173](https://github.com/maemreyo/
 
 > **cleanQueue**(`queueName`, `grace`, `limit`, `status?`): `Promise`\<`string`[]\>
 
-Defined in: [src/shared/queue/queue.service.ts:307](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L307)
+Defined in: [src/shared/queue/queue.service.ts:373](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L373)
 
 #### Parameters
 
@@ -120,7 +152,7 @@ Defined in: [src/shared/queue/queue.service.ts:307](https://github.com/maemreyo/
 
 > **close**(): `Promise`\<`void`\>
 
-Defined in: [src/shared/queue/queue.service.ts:336](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L336)
+Defined in: [src/shared/queue/queue.service.ts:402](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L402)
 
 #### Returns
 
@@ -132,7 +164,7 @@ Defined in: [src/shared/queue/queue.service.ts:336](https://github.com/maemreyo/
 
 > **createQueue**(`name`): `Queue`
 
-Defined in: [src/shared/queue/queue.service.ts:57](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L57)
+Defined in: [src/shared/queue/queue.service.ts:62](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L62)
 
 #### Parameters
 
@@ -150,7 +182,7 @@ Defined in: [src/shared/queue/queue.service.ts:57](https://github.com/maemreyo/s
 
 > **getJob**(`queueName`, `jobId`): `Promise`\<`Job`\<`any`, `any`, `string`\>\>
 
-Defined in: [src/shared/queue/queue.service.ts:244](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L244)
+Defined in: [src/shared/queue/queue.service.ts:310](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L310)
 
 #### Parameters
 
@@ -172,7 +204,7 @@ Defined in: [src/shared/queue/queue.service.ts:244](https://github.com/maemreyo/
 
 > **getJobCounts**(`queueName`): `Promise`\<\{[`index`: `string`]: `number`; \}\>
 
-Defined in: [src/shared/queue/queue.service.ts:254](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L254)
+Defined in: [src/shared/queue/queue.service.ts:320](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L320)
 
 #### Parameters
 
@@ -190,7 +222,7 @@ Defined in: [src/shared/queue/queue.service.ts:254](https://github.com/maemreyo/
 
 > **getMetrics**(`queueName`): `Promise`\<\{ `completed`: `number`; `failed`: `number`; `queueName`: `string`; \}\>
 
-Defined in: [src/shared/queue/queue.service.ts:264](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L264)
+Defined in: [src/shared/queue/queue.service.ts:330](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L330)
 
 #### Parameters
 
@@ -208,7 +240,7 @@ Defined in: [src/shared/queue/queue.service.ts:264](https://github.com/maemreyo/
 
 > `private` **getProcessor**(`queueName`, `jobName`): [`JobProcessor`](../type-aliases/JobProcessor.md)\<`any`\>
 
-Defined in: [src/shared/queue/queue.service.ts:168](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L168)
+Defined in: [src/shared/queue/queue.service.ts:184](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L184)
 
 #### Parameters
 
@@ -230,7 +262,7 @@ Defined in: [src/shared/queue/queue.service.ts:168](https://github.com/maemreyo/
 
 > **getQueues**(): `string`[]
 
-Defined in: [src/shared/queue/queue.service.ts:346](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L346)
+Defined in: [src/shared/queue/queue.service.ts:412](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L412)
 
 #### Returns
 
@@ -242,7 +274,7 @@ Defined in: [src/shared/queue/queue.service.ts:346](https://github.com/maemreyo/
 
 > **healthCheck**(): `Promise`\<`Record`\<`string`, `any`\>\>
 
-Defined in: [src/shared/queue/queue.service.ts:351](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L351)
+Defined in: [src/shared/queue/queue.service.ts:417](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L417)
 
 #### Returns
 
@@ -254,7 +286,7 @@ Defined in: [src/shared/queue/queue.service.ts:351](https://github.com/maemreyo/
 
 > `private` **initializeDefaultQueues**(): `void`
 
-Defined in: [src/shared/queue/queue.service.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L42)
+Defined in: [src/shared/queue/queue.service.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L47)
 
 #### Returns
 
@@ -266,7 +298,7 @@ Defined in: [src/shared/queue/queue.service.ts:42](https://github.com/maemreyo/s
 
 > **obliterateQueue**(`queueName`): `Promise`\<`void`\>
 
-Defined in: [src/shared/queue/queue.service.ts:325](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L325)
+Defined in: [src/shared/queue/queue.service.ts:391](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L391)
 
 #### Parameters
 
@@ -284,7 +316,7 @@ Defined in: [src/shared/queue/queue.service.ts:325](https://github.com/maemreyo/
 
 > **pauseQueue**(`queueName`): `Promise`\<`void`\>
 
-Defined in: [src/shared/queue/queue.service.ts:285](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L285)
+Defined in: [src/shared/queue/queue.service.ts:351](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L351)
 
 #### Parameters
 
@@ -298,11 +330,55 @@ Defined in: [src/shared/queue/queue.service.ts:285](https://github.com/maemreyo/
 
 ***
 
+### process()
+
+> **process**\<`T`, `R`\>(`jobName`, `concurrencyOrProcessor`, `processor?`): `void`
+
+Defined in: [src/shared/queue/queue.service.ts:444](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L444)
+
+Register a processor for a specific job
+
+#### Type Parameters
+
+##### T
+
+`T` = `any`
+
+##### R
+
+`R` = `any`
+
+#### Parameters
+
+##### jobName
+
+`string`
+
+The name of the job (format: 'queueName:jobType')
+
+##### concurrencyOrProcessor
+
+The concurrency level or the job processor function
+
+`number` | [`JobProcessor`](../type-aliases/JobProcessor.md)\<`T`\>
+
+##### processor?
+
+[`JobProcessor`](../type-aliases/JobProcessor.md)\<`T`\>
+
+The job processor function (if concurrency is provided)
+
+#### Returns
+
+`void`
+
+***
+
 ### registerProcessor()
 
 > **registerProcessor**\<`T`\>(`queueName`, `jobName`, `processor`): `void`
 
-Defined in: [src/shared/queue/queue.service.ts:154](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L154)
+Defined in: [src/shared/queue/queue.service.ts:170](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L170)
 
 #### Type Parameters
 
@@ -330,11 +406,39 @@ Defined in: [src/shared/queue/queue.service.ts:154](https://github.com/maemreyo/
 
 ***
 
+### removeJobs()
+
+> **removeJobs**(`queueName`, `filter`): `Promise`\<`number`\>
+
+Defined in: [src/shared/queue/queue.service.ts:493](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L493)
+
+Remove jobs from a queue based on a filter
+
+#### Parameters
+
+##### queueName
+
+`string`
+
+The name of the queue
+
+##### filter
+
+[`JobFilter`](../interfaces/JobFilter.md)
+
+Filter criteria to match jobs
+
+#### Returns
+
+`Promise`\<`number`\>
+
+***
+
 ### resumeQueue()
 
 > **resumeQueue**(`queueName`): `Promise`\<`void`\>
 
-Defined in: [src/shared/queue/queue.service.ts:296](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L296)
+Defined in: [src/shared/queue/queue.service.ts:362](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L362)
 
 #### Parameters
 
@@ -352,7 +456,7 @@ Defined in: [src/shared/queue/queue.service.ts:296](https://github.com/maemreyo/
 
 > `private` **setupWorkerEvents**(`worker`, `queueName`): `void`
 
-Defined in: [src/shared/queue/queue.service.ts:111](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L111)
+Defined in: [src/shared/queue/queue.service.ts:127](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L127)
 
 #### Parameters
 
@@ -374,7 +478,7 @@ Defined in: [src/shared/queue/queue.service.ts:111](https://github.com/maemreyo/
 
 > `private` **processors**: `Map`\<`string`, `Map`\<`string`, [`JobProcessor`](../type-aliases/JobProcessor.md)\<`any`\>\>\>
 
-Defined in: [src/shared/queue/queue.service.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L36)
+Defined in: [src/shared/queue/queue.service.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L41)
 
 ***
 
@@ -382,7 +486,7 @@ Defined in: [src/shared/queue/queue.service.ts:36](https://github.com/maemreyo/s
 
 > `private` **queues**: `Map`\<`string`, `Queue`\<`any`, `any`, `string`, `any`, `any`, `string`\>\>
 
-Defined in: [src/shared/queue/queue.service.ts:34](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L34)
+Defined in: [src/shared/queue/queue.service.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L39)
 
 ***
 
@@ -390,4 +494,4 @@ Defined in: [src/shared/queue/queue.service.ts:34](https://github.com/maemreyo/s
 
 > `private` **workers**: `Map`\<`string`, `Worker`\<`any`, `any`, `string`\>\>
 
-Defined in: [src/shared/queue/queue.service.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/queue/queue.service.ts#L35)
+Defined in: [src/shared/queue/queue.service.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/queue/queue.service.ts#L40)

@@ -1,0 +1,131 @@
+[**modern-backend-template v2.0.0**](../../../README.md)
+
+***
+
+[modern-backend-template](../../../modules.md) / [shared/exceptions](../README.md) / AppError
+
+# Class: AppError
+
+Defined in: [src/shared/exceptions/index.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/exceptions/index.ts#L29)
+
+General application error
+This is a convenience class that can be used for general application errors
+with a custom status code
+
+## Extends
+
+- [`BaseException`](BaseException.md)
+
+## Constructors
+
+### Constructor
+
+> **new AppError**(`message`, `statusCode`, `details?`): `AppError`
+
+Defined in: [src/shared/exceptions/index.ts:30](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/exceptions/index.ts#L30)
+
+#### Parameters
+
+##### message
+
+`string`
+
+##### statusCode
+
+`number` = `500`
+
+##### details?
+
+`any`
+
+#### Returns
+
+`AppError`
+
+#### Overrides
+
+[`BaseException`](BaseException.md).[`constructor`](BaseException.md#constructor)
+
+## Methods
+
+### toJSON()
+
+> **toJSON**(): `object`
+
+Defined in: [src/shared/exceptions/index.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/exceptions/index.ts#L13)
+
+#### Returns
+
+`object`
+
+##### code
+
+> **code**: `string`
+
+##### details
+
+> **details**: `any`
+
+##### message
+
+> **message**: `string`
+
+##### name
+
+> **name**: `string`
+
+##### statusCode
+
+> **statusCode**: `number`
+
+#### Inherited from
+
+[`BaseException`](BaseException.md).[`toJSON`](BaseException.md#tojson)
+
+## Properties
+
+### code
+
+> **code**: `string`
+
+Defined in: [src/shared/exceptions/index.ts:5](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/exceptions/index.ts#L5)
+
+#### Inherited from
+
+[`BaseException`](BaseException.md).[`code`](BaseException.md#code)
+
+***
+
+### details?
+
+> `optional` **details**: `any`
+
+Defined in: [src/shared/exceptions/index.ts:6](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/exceptions/index.ts#L6)
+
+#### Inherited from
+
+[`BaseException`](BaseException.md).[`details`](BaseException.md#details)
+
+***
+
+### message
+
+> **message**: `string`
+
+Defined in: [src/shared/exceptions/index.ts:3](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/exceptions/index.ts#L3)
+
+#### Inherited from
+
+[`BaseException`](BaseException.md).[`message`](BaseException.md#message)
+
+***
+
+### statusCode
+
+> **statusCode**: `number`
+
+Defined in: [src/shared/exceptions/index.ts:4](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/exceptions/index.ts#L4)
+
+#### Inherited from
+
+[`BaseException`](BaseException.md).[`statusCode`](BaseException.md#statuscode)

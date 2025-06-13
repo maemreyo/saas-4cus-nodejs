@@ -6,7 +6,7 @@
 
 # Class: AdminController
 
-Defined in: [src/modules/admin/admin.controller.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L35)
+Defined in: [src/modules/admin/admin.controller.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L35)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/admin/admin.controller.ts:35](https://github.com/maemre
 
 > **new AdminController**(`adminUserService`, `adminMetricsService`, `adminModerationService`, `auditService`, `systemConfigService`, `subscriptionService`, `billingService`, `ticketService`, `featureService`, `announcementService`, `dataExportService`): `AdminController`
 
-Defined in: [src/modules/admin/admin.controller.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L36)
+Defined in: [src/modules/admin/admin.controller.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L36)
 
 #### Parameters
 
@@ -72,7 +72,7 @@ Defined in: [src/modules/admin/admin.controller.ts:36](https://github.com/maemre
 
 > **assignTicket**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:484](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L484)
+Defined in: [src/modules/admin/admin.controller.ts:484](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L484)
 
 Assign ticket to agent
 
@@ -96,7 +96,7 @@ Assign ticket to agent
 
 > **bulkModerateContent**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:269](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L269)
+Defined in: [src/modules/admin/admin.controller.ts:269](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L269)
 
 Bulk content moderation
 
@@ -120,7 +120,7 @@ Bulk content moderation
 
 > **bulkUserAction**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:103](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L103)
+Defined in: [src/modules/admin/admin.controller.ts:103](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L103)
 
 Perform bulk actions on users
 
@@ -144,7 +144,7 @@ Perform bulk actions on users
 
 > **createAnnouncement**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:527](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L527)
+Defined in: [src/modules/admin/admin.controller.ts:527](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L527)
 
 Create system announcement
 
@@ -168,7 +168,7 @@ Create system announcement
 
 > **exportData**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:572](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L572)
+Defined in: [src/modules/admin/admin.controller.ts:572](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L572)
 
 Export data
 
@@ -192,7 +192,7 @@ Export data
 
 > **generateComplianceReport**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:615](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L615)
+Defined in: [src/modules/admin/admin.controller.ts:615](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L615)
 
 Generate compliance report
 
@@ -216,7 +216,7 @@ Generate compliance report
 
 > **getAnnouncements**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:562](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L562)
+Defined in: [src/modules/admin/admin.controller.ts:562](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L562)
 
 Get active announcements
 
@@ -240,7 +240,7 @@ Get active announcements
 
 > **getAuditLogs**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:407](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L407)
+Defined in: [src/modules/admin/admin.controller.ts:407](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L407)
 
 Query audit logs
 
@@ -264,7 +264,7 @@ Query audit logs
 
 > **getContentReports**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:300](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L300)
+Defined in: [src/modules/admin/admin.controller.ts:300](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L300)
 
 Get content reports
 
@@ -288,7 +288,7 @@ Get content reports
 
 > **getFeatureUsage**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:504](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L504)
+Defined in: [src/modules/admin/admin.controller.ts:504](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L504)
 
 Get feature usage analytics
 
@@ -312,7 +312,7 @@ Get feature usage analytics
 
 > **getModerationRules**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:342](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L342)
+Defined in: [src/modules/admin/admin.controller.ts:342](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L342)
 
 Get moderation rules
 
@@ -336,7 +336,7 @@ Get moderation rules
 
 > **getModerationStats**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:325](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L325)
+Defined in: [src/modules/admin/admin.controller.ts:325](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L325)
 
 Get moderation statistics
 
@@ -360,7 +360,7 @@ Get moderation statistics
 
 > **getRealTimeMetrics**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:234](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L234)
+Defined in: [src/modules/admin/admin.controller.ts:234](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L234)
 
 Get real-time metrics
 
@@ -384,7 +384,7 @@ Get real-time metrics
 
 > **getRevenueAnalytics**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:436](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L436)
+Defined in: [src/modules/admin/admin.controller.ts:436](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L436)
 
 Get revenue analytics
 
@@ -408,7 +408,7 @@ Get revenue analytics
 
 > **getRevenueMetrics**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:202](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L202)
+Defined in: [src/modules/admin/admin.controller.ts:202](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L202)
 
 Get revenue metrics
 
@@ -432,7 +432,7 @@ Get revenue metrics
 
 > **getSystemConfig**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:374](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L374)
+Defined in: [src/modules/admin/admin.controller.ts:374](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L374)
 
 Get system configuration
 
@@ -456,7 +456,7 @@ Get system configuration
 
 > **getSystemHealth**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:222](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L222)
+Defined in: [src/modules/admin/admin.controller.ts:222](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L222)
 
 Get system health status
 
@@ -480,7 +480,7 @@ Get system health status
 
 > **getSystemMetrics**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:185](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L185)
+Defined in: [src/modules/admin/admin.controller.ts:185](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L185)
 
 Get comprehensive system metrics
 
@@ -504,7 +504,7 @@ Get comprehensive system metrics
 
 > **getTicketStats**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:472](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L472)
+Defined in: [src/modules/admin/admin.controller.ts:472](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L472)
 
 Get ticket statistics
 
@@ -528,7 +528,7 @@ Get ticket statistics
 
 > **getUsageMetrics**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:210](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L210)
+Defined in: [src/modules/admin/admin.controller.ts:210](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L210)
 
 Get usage metrics
 
@@ -552,7 +552,7 @@ Get usage metrics
 
 > **getUserActivity**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:137](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L137)
+Defined in: [src/modules/admin/admin.controller.ts:137](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L137)
 
 Get user activity timeline
 
@@ -576,7 +576,7 @@ Get user activity timeline
 
 > **getUserDetails**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:68](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L68)
+Defined in: [src/modules/admin/admin.controller.ts:68](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L68)
 
 Get detailed user information
 
@@ -600,7 +600,7 @@ Get detailed user information
 
 > **getUserStatistics**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:129](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L129)
+Defined in: [src/modules/admin/admin.controller.ts:129](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L129)
 
 Get user statistics
 
@@ -624,7 +624,7 @@ Get user statistics
 
 > **handleGDPRRequest**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:634](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L634)
+Defined in: [src/modules/admin/admin.controller.ts:634](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L634)
 
 Handle GDPR request
 
@@ -648,7 +648,7 @@ Handle GDPR request
 
 > **impersonateUser**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:154](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L154)
+Defined in: [src/modules/admin/admin.controller.ts:154](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L154)
 
 Impersonate user (for debugging)
 
@@ -672,7 +672,7 @@ Impersonate user (for debugging)
 
 > **processRefund**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:448](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L448)
+Defined in: [src/modules/admin/admin.controller.ts:448](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L448)
 
 Process refund
 
@@ -696,7 +696,7 @@ Process refund
 
 > **reviewContent**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:244](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L244)
+Defined in: [src/modules/admin/admin.controller.ts:244](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L244)
 
 Review content
 
@@ -720,7 +720,7 @@ Review content
 
 > **searchUsers**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L55)
+Defined in: [src/modules/admin/admin.controller.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L55)
 
 Search and list users
 
@@ -744,7 +744,7 @@ Search and list users
 
 > **updateModerationRule**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:350](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L350)
+Defined in: [src/modules/admin/admin.controller.ts:350](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L350)
 
 Update moderation rule
 
@@ -768,7 +768,7 @@ Update moderation rule
 
 > **updateSystemConfig**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:382](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L382)
+Defined in: [src/modules/admin/admin.controller.ts:382](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L382)
 
 Update system configuration
 
@@ -792,7 +792,7 @@ Update system configuration
 
 > **updateUser**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin.controller.ts:81](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L81)
+Defined in: [src/modules/admin/admin.controller.ts:81](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L81)
 
 Update user information
 
@@ -816,7 +816,7 @@ Update user information
 
 > `private` **adminMetricsService**: [`AdminMetricsService`](../../admin-metrics.service/classes/AdminMetricsService.md)
 
-Defined in: [src/modules/admin/admin.controller.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L38)
+Defined in: [src/modules/admin/admin.controller.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L38)
 
 ***
 
@@ -824,7 +824,7 @@ Defined in: [src/modules/admin/admin.controller.ts:38](https://github.com/maemre
 
 > `private` **adminModerationService**: [`AdminModerationService`](../../admin-moderation.service/classes/AdminModerationService.md)
 
-Defined in: [src/modules/admin/admin.controller.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L39)
+Defined in: [src/modules/admin/admin.controller.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L39)
 
 ***
 
@@ -832,7 +832,7 @@ Defined in: [src/modules/admin/admin.controller.ts:39](https://github.com/maemre
 
 > `private` **adminUserService**: [`AdminUserService`](../../admin-user.service/classes/AdminUserService.md)
 
-Defined in: [src/modules/admin/admin.controller.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L37)
+Defined in: [src/modules/admin/admin.controller.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L37)
 
 ***
 
@@ -840,7 +840,7 @@ Defined in: [src/modules/admin/admin.controller.ts:37](https://github.com/maemre
 
 > `private` **announcementService**: [`AnnouncementService`](../../announcement.service/classes/AnnouncementService.md)
 
-Defined in: [src/modules/admin/admin.controller.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L46)
+Defined in: [src/modules/admin/admin.controller.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L46)
 
 ***
 
@@ -848,7 +848,7 @@ Defined in: [src/modules/admin/admin.controller.ts:46](https://github.com/maemre
 
 > `private` **auditService**: [`AuditService`](../../../../shared/services/audit.service/classes/AuditService.md)
 
-Defined in: [src/modules/admin/admin.controller.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L40)
+Defined in: [src/modules/admin/admin.controller.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L40)
 
 ***
 
@@ -856,7 +856,7 @@ Defined in: [src/modules/admin/admin.controller.ts:40](https://github.com/maemre
 
 > `private` **billingService**: [`BillingService`](../../../billing/billing.service/classes/BillingService.md)
 
-Defined in: [src/modules/admin/admin.controller.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L43)
+Defined in: [src/modules/admin/admin.controller.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L43)
 
 ***
 
@@ -864,7 +864,7 @@ Defined in: [src/modules/admin/admin.controller.ts:43](https://github.com/maemre
 
 > `private` **dataExportService**: [`DataExportService`](../../data-export.service/classes/DataExportService.md)
 
-Defined in: [src/modules/admin/admin.controller.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L47)
+Defined in: [src/modules/admin/admin.controller.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L47)
 
 ***
 
@@ -872,7 +872,7 @@ Defined in: [src/modules/admin/admin.controller.ts:47](https://github.com/maemre
 
 > `private` **featureService**: [`FeatureService`](../../../features/feature.service/classes/FeatureService.md)
 
-Defined in: [src/modules/admin/admin.controller.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L45)
+Defined in: [src/modules/admin/admin.controller.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L45)
 
 ***
 
@@ -880,7 +880,7 @@ Defined in: [src/modules/admin/admin.controller.ts:45](https://github.com/maemre
 
 > `private` **subscriptionService**: [`SubscriptionService`](../../../billing/subscription.service/classes/SubscriptionService.md)
 
-Defined in: [src/modules/admin/admin.controller.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L42)
+Defined in: [src/modules/admin/admin.controller.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L42)
 
 ***
 
@@ -888,7 +888,7 @@ Defined in: [src/modules/admin/admin.controller.ts:42](https://github.com/maemre
 
 > `private` **systemConfigService**: [`SystemConfigService`](../../system-config.service/classes/SystemConfigService.md)
 
-Defined in: [src/modules/admin/admin.controller.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L41)
+Defined in: [src/modules/admin/admin.controller.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L41)
 
 ***
 
@@ -896,4 +896,4 @@ Defined in: [src/modules/admin/admin.controller.ts:41](https://github.com/maemre
 
 > `private` **ticketService**: [`TicketService`](../../../support/ticket.service/classes/TicketService.md)
 
-Defined in: [src/modules/admin/admin.controller.ts:44](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.controller.ts#L44)
+Defined in: [src/modules/admin/admin.controller.ts:44](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.controller.ts#L44)

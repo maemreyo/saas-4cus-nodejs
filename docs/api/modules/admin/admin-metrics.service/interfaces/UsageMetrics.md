@@ -6,7 +6,7 @@
 
 # Interface: UsageMetrics
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L55)
+Defined in: [src/modules/admin/admin-metrics.service.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L55)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:55](https://github.com/m
 
 > **api**: `object`
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:56](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L56)
+Defined in: [src/modules/admin/admin-metrics.service.ts:56](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L56)
 
 #### byEndpoint
 
@@ -38,7 +38,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:56](https://github.com/m
 
 > **features**: `object`
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:62](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L62)
+Defined in: [src/modules/admin/admin-metrics.service.ts:62](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L62)
 
 #### adoptionRate
 
@@ -54,7 +54,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:62](https://github.com/m
 
 > **storage**: `object`
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:66](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L66)
+Defined in: [src/modules/admin/admin-metrics.service.ts:66](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L66)
 
 #### byType
 

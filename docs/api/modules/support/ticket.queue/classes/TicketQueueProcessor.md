@@ -6,7 +6,7 @@
 
 # Class: TicketQueueProcessor
 
-Defined in: [src/modules/support/ticket.queue.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.queue.ts#L12)
+Defined in: [src/modules/support/ticket.queue.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.queue.ts#L12)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/support/ticket.queue.ts:12](https://github.com/maemreyo
 
 > **new TicketQueueProcessor**(`emailService`, `eventBus`): `TicketQueueProcessor`
 
-Defined in: [src/modules/support/ticket.queue.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.queue.ts#L13)
+Defined in: [src/modules/support/ticket.queue.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.queue.ts#L13)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [src/modules/support/ticket.queue.ts:13](https://github.com/maemreyo
 
 > **autoCloseInactiveTickets**(`job`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.queue.ts:186](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.queue.ts#L186)
+Defined in: [src/modules/support/ticket.queue.ts:186](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.queue.ts#L186)
 
 Auto-close inactive tickets
 
@@ -56,7 +56,7 @@ Auto-close inactive tickets
 
 > **checkFirstResponseSLA**(`job`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.queue.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.queue.ts#L43)
+Defined in: [src/modules/support/ticket.queue.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.queue.ts#L43)
 
 Check first response SLA
 
@@ -76,7 +76,7 @@ Check first response SLA
 
 > **checkResolutionSLA**(`job`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.queue.ts:119](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.queue.ts#L119)
+Defined in: [src/modules/support/ticket.queue.ts:119](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.queue.ts#L119)
 
 Check resolution SLA
 
@@ -96,7 +96,7 @@ Check resolution SLA
 
 > `private` **escalateTicket**(`ticketId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.queue.ts:532](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.queue.ts#L532)
+Defined in: [src/modules/support/ticket.queue.ts:532](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.queue.ts#L532)
 
 Escalate ticket
 
@@ -116,7 +116,7 @@ Escalate ticket
 
 > `private` **getManagementEmails**(): `Promise`\<`string`[]\>
 
-Defined in: [src/modules/support/ticket.queue.ts:597](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.queue.ts#L597)
+Defined in: [src/modules/support/ticket.queue.ts:597](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.queue.ts#L597)
 
 Get management emails
 
@@ -130,7 +130,7 @@ Get management emails
 
 > `private` **getSupportTeamEmails**(`categoryId?`): `Promise`\<`string`[]\>
 
-Defined in: [src/modules/support/ticket.queue.ts:580](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.queue.ts#L580)
+Defined in: [src/modules/support/ticket.queue.ts:580](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.queue.ts#L580)
 
 Get support team emails for category
 
@@ -150,7 +150,7 @@ Get support team emails for category
 
 > **notifyTicketAssigned**(`job`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.queue.ts:359](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.queue.ts#L359)
+Defined in: [src/modules/support/ticket.queue.ts:359](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.queue.ts#L359)
 
 Notify ticket assigned
 
@@ -170,7 +170,7 @@ Notify ticket assigned
 
 > **notifyTicketCreated**(`job`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.queue.ts:305](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.queue.ts#L305)
+Defined in: [src/modules/support/ticket.queue.ts:305](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.queue.ts#L305)
 
 Notify ticket created
 
@@ -190,7 +190,7 @@ Notify ticket created
 
 > **notifyTicketMessageAdded**(`job`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.queue.ts:394](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.queue.ts#L394)
+Defined in: [src/modules/support/ticket.queue.ts:394](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.queue.ts#L394)
 
 Notify ticket message added
 
@@ -210,7 +210,7 @@ Notify ticket message added
 
 > `private` **registerProcessors**(): `void`
 
-Defined in: [src/modules/support/ticket.queue.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.queue.ts#L20)
+Defined in: [src/modules/support/ticket.queue.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.queue.ts#L20)
 
 #### Returns
 
@@ -222,7 +222,7 @@ Defined in: [src/modules/support/ticket.queue.ts:20](https://github.com/maemreyo
 
 > **sendSatisfactionSurvey**(`job`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.queue.ts:497](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.queue.ts#L497)
+Defined in: [src/modules/support/ticket.queue.ts:497](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.queue.ts#L497)
 
 Send satisfaction survey
 
@@ -242,7 +242,7 @@ Send satisfaction survey
 
 > **sendTicketReminder**(`job`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.queue.ts:451](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.queue.ts#L451)
+Defined in: [src/modules/support/ticket.queue.ts:451](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.queue.ts#L451)
 
 Send ticket reminder
 
@@ -262,7 +262,7 @@ Send ticket reminder
 
 > `private` **emailService**: [`EmailService`](../../../../shared/services/email.service/classes/EmailService.md)
 
-Defined in: [src/modules/support/ticket.queue.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.queue.ts#L14)
+Defined in: [src/modules/support/ticket.queue.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.queue.ts#L14)
 
 ***
 
@@ -270,4 +270,4 @@ Defined in: [src/modules/support/ticket.queue.ts:14](https://github.com/maemreyo
 
 > `private` **eventBus**: [`EventBus`](../../../../shared/events/event-bus/classes/EventBus.md)
 
-Defined in: [src/modules/support/ticket.queue.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.queue.ts#L15)
+Defined in: [src/modules/support/ticket.queue.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.queue.ts#L15)

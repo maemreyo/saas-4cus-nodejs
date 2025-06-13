@@ -6,7 +6,7 @@
 
 # Class: TenantController
 
-Defined in: [src/modules/tenant/tenant.controller.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.controller.ts#L15)
+Defined in: [src/modules/tenant/tenant.controller.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.controller.ts#L15)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/tenant/tenant.controller.ts:15](https://github.com/maem
 
 > **new TenantController**(`tenantService`): `TenantController`
 
-Defined in: [src/modules/tenant/tenant.controller.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.controller.ts#L16)
+Defined in: [src/modules/tenant/tenant.controller.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.controller.ts#L16)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/tenant/tenant.controller.ts:16](https://github.com/maem
 
 > **acceptInvitation**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/tenant/tenant.controller.ts:155](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.controller.ts#L155)
+Defined in: [src/modules/tenant/tenant.controller.ts:155](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.controller.ts#L155)
 
 Accept invitation
 
@@ -56,7 +56,7 @@ Accept invitation
 
 > **createTenant**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/tenant/tenant.controller.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.controller.ts#L21)
+Defined in: [src/modules/tenant/tenant.controller.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.controller.ts#L21)
 
 Create new tenant
 
@@ -80,7 +80,7 @@ Create new tenant
 
 > **deleteTenant**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/tenant/tenant.controller.ts:98](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.controller.ts#L98)
+Defined in: [src/modules/tenant/tenant.controller.ts:98](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.controller.ts#L98)
 
 Delete tenant
 
@@ -104,7 +104,7 @@ Delete tenant
 
 > **getCurrentTenant**(`request`, `reply`): `Promise`\<`never`\>
 
-Defined in: [src/modules/tenant/tenant.controller.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.controller.ts#L39)
+Defined in: [src/modules/tenant/tenant.controller.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.controller.ts#L39)
 
 Get current tenant
 
@@ -128,7 +128,7 @@ Get current tenant
 
 > **getTenant**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/tenant/tenant.controller.ts:62](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.controller.ts#L62)
+Defined in: [src/modules/tenant/tenant.controller.ts:62](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.controller.ts#L62)
 
 Get tenant by ID
 
@@ -152,7 +152,7 @@ Get tenant by ID
 
 > **getTenantMembers**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/tenant/tenant.controller.ts:110](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.controller.ts#L110)
+Defined in: [src/modules/tenant/tenant.controller.ts:110](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.controller.ts#L110)
 
 Get tenant members
 
@@ -176,7 +176,7 @@ Get tenant members
 
 > **getTenantStats**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/tenant/tenant.controller.ts:237](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.controller.ts#L237)
+Defined in: [src/modules/tenant/tenant.controller.ts:237](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.controller.ts#L237)
 
 Get tenant statistics
 
@@ -200,7 +200,7 @@ Get tenant statistics
 
 > **getUserTenants**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/tenant/tenant.controller.ts:52](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.controller.ts#L52)
+Defined in: [src/modules/tenant/tenant.controller.ts:52](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.controller.ts#L52)
 
 Get user's tenants
 
@@ -224,7 +224,7 @@ Get user's tenants
 
 > **inviteMember**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/tenant/tenant.controller.ts:133](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.controller.ts#L133)
+Defined in: [src/modules/tenant/tenant.controller.ts:133](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.controller.ts#L133)
 
 Invite member
 
@@ -248,7 +248,7 @@ Invite member
 
 > **leaveTenant**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/tenant/tenant.controller.ts:206](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.controller.ts#L206)
+Defined in: [src/modules/tenant/tenant.controller.ts:206](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.controller.ts#L206)
 
 Leave tenant
 
@@ -272,7 +272,7 @@ Leave tenant
 
 > **removeMember**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/tenant/tenant.controller.ts:189](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.controller.ts#L189)
+Defined in: [src/modules/tenant/tenant.controller.ts:189](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.controller.ts#L189)
 
 Remove member
 
@@ -296,7 +296,7 @@ Remove member
 
 > **transferOwnership**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/tenant/tenant.controller.ts:218](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.controller.ts#L218)
+Defined in: [src/modules/tenant/tenant.controller.ts:218](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.controller.ts#L218)
 
 Transfer ownership
 
@@ -320,7 +320,7 @@ Transfer ownership
 
 > **updateMemberRole**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/tenant/tenant.controller.ts:170](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.controller.ts#L170)
+Defined in: [src/modules/tenant/tenant.controller.ts:170](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.controller.ts#L170)
 
 Update member role
 
@@ -344,7 +344,7 @@ Update member role
 
 > **updateTenant**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/tenant/tenant.controller.ts:76](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.controller.ts#L76)
+Defined in: [src/modules/tenant/tenant.controller.ts:76](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.controller.ts#L76)
 
 Update tenant
 
@@ -368,4 +368,4 @@ Update tenant
 
 > `private` **tenantService**: [`TenantService`](../../tenant.service/classes/TenantService.md)
 
-Defined in: [src/modules/tenant/tenant.controller.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.controller.ts#L16)
+Defined in: [src/modules/tenant/tenant.controller.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.controller.ts#L16)

@@ -6,7 +6,7 @@
 
 # Class: TicketEventHandlers
 
-Defined in: [src/modules/support/ticket.events.handlers.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.events.handlers.ts#L12)
+Defined in: [src/modules/support/ticket.events.handlers.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.events.handlers.ts#L12)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/support/ticket.events.handlers.ts:12](https://github.co
 
 > **new TicketEventHandlers**(`analyticsService`, `webhookService`): `TicketEventHandlers`
 
-Defined in: [src/modules/support/ticket.events.handlers.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.events.handlers.ts#L13)
+Defined in: [src/modules/support/ticket.events.handlers.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.events.handlers.ts#L13)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [src/modules/support/ticket.events.handlers.ts:13](https://github.co
 
 > `private` **createFollowUpTask**(`ticketId`, `rating`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.events.handlers.ts:292](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.events.handlers.ts#L292)
+Defined in: [src/modules/support/ticket.events.handlers.ts:292](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.events.handlers.ts#L292)
 
 #### Parameters
 
@@ -58,7 +58,7 @@ Defined in: [src/modules/support/ticket.events.handlers.ts:292](https://github.c
 
 > `private` **escalateToManagement**(`ticket`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.events.handlers.ts:276](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.events.handlers.ts#L276)
+Defined in: [src/modules/support/ticket.events.handlers.ts:276](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.events.handlers.ts#L276)
 
 #### Parameters
 
@@ -76,7 +76,7 @@ Defined in: [src/modules/support/ticket.events.handlers.ts:276](https://github.c
 
 > **handleSLABreached**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.events.handlers.ts:167](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.events.handlers.ts#L167)
+Defined in: [src/modules/support/ticket.events.handlers.ts:167](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.events.handlers.ts#L167)
 
 #### Parameters
 
@@ -94,7 +94,7 @@ Defined in: [src/modules/support/ticket.events.handlers.ts:167](https://github.c
 
 > **handleSLAWarning**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.events.handlers.ts:141](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.events.handlers.ts#L141)
+Defined in: [src/modules/support/ticket.events.handlers.ts:141](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.events.handlers.ts#L141)
 
 #### Parameters
 
@@ -112,7 +112,7 @@ Defined in: [src/modules/support/ticket.events.handlers.ts:141](https://github.c
 
 > **handleTicketAssigned**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.events.handlers.ts:95](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.events.handlers.ts#L95)
+Defined in: [src/modules/support/ticket.events.handlers.ts:95](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.events.handlers.ts#L95)
 
 #### Parameters
 
@@ -130,7 +130,7 @@ Defined in: [src/modules/support/ticket.events.handlers.ts:95](https://github.co
 
 > **handleTicketAutoClosed**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.events.handlers.ts:222](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.events.handlers.ts#L222)
+Defined in: [src/modules/support/ticket.events.handlers.ts:222](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.events.handlers.ts#L222)
 
 #### Parameters
 
@@ -148,7 +148,7 @@ Defined in: [src/modules/support/ticket.events.handlers.ts:222](https://github.c
 
 > **handleTicketClosed**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.events.handlers.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.events.handlers.ts#L55)
+Defined in: [src/modules/support/ticket.events.handlers.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.events.handlers.ts#L55)
 
 #### Parameters
 
@@ -166,7 +166,7 @@ Defined in: [src/modules/support/ticket.events.handlers.ts:55](https://github.co
 
 > **handleTicketCreated**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.events.handlers.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.events.handlers.ts#L19)
+Defined in: [src/modules/support/ticket.events.handlers.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.events.handlers.ts#L19)
 
 #### Parameters
 
@@ -184,7 +184,7 @@ Defined in: [src/modules/support/ticket.events.handlers.ts:19](https://github.co
 
 > **handleTicketEscalated**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.events.handlers.ts:208](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.events.handlers.ts#L208)
+Defined in: [src/modules/support/ticket.events.handlers.ts:208](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.events.handlers.ts#L208)
 
 #### Parameters
 
@@ -202,7 +202,7 @@ Defined in: [src/modules/support/ticket.events.handlers.ts:208](https://github.c
 
 > **handleTicketMessageAdded**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.events.handlers.ts:113](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.events.handlers.ts#L113)
+Defined in: [src/modules/support/ticket.events.handlers.ts:113](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.events.handlers.ts#L113)
 
 #### Parameters
 
@@ -220,7 +220,7 @@ Defined in: [src/modules/support/ticket.events.handlers.ts:113](https://github.c
 
 > **handleTicketRated**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.events.handlers.ts:185](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.events.handlers.ts#L185)
+Defined in: [src/modules/support/ticket.events.handlers.ts:185](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.events.handlers.ts#L185)
 
 #### Parameters
 
@@ -238,7 +238,7 @@ Defined in: [src/modules/support/ticket.events.handlers.ts:185](https://github.c
 
 > **handleTicketReopened**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.events.handlers.ts:87](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.events.handlers.ts#L87)
+Defined in: [src/modules/support/ticket.events.handlers.ts:87](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.events.handlers.ts#L87)
 
 #### Parameters
 
@@ -256,7 +256,7 @@ Defined in: [src/modules/support/ticket.events.handlers.ts:87](https://github.co
 
 > **handleTicketUpdated**(`payload`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.events.handlers.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.events.handlers.ts#L37)
+Defined in: [src/modules/support/ticket.events.handlers.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.events.handlers.ts#L37)
 
 #### Parameters
 
@@ -274,7 +274,7 @@ Defined in: [src/modules/support/ticket.events.handlers.ts:37](https://github.co
 
 > `private` **updateAgentWorkloadMetrics**(`agentId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.events.handlers.ts:236](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.events.handlers.ts#L236)
+Defined in: [src/modules/support/ticket.events.handlers.ts:236](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.events.handlers.ts#L236)
 
 #### Parameters
 
@@ -292,7 +292,7 @@ Defined in: [src/modules/support/ticket.events.handlers.ts:236](https://github.c
 
 > `private` **updateSatisfactionMetrics**(`rating`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.events.handlers.ts:268](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.events.handlers.ts#L268)
+Defined in: [src/modules/support/ticket.events.handlers.ts:268](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.events.handlers.ts#L268)
 
 #### Parameters
 
@@ -310,7 +310,7 @@ Defined in: [src/modules/support/ticket.events.handlers.ts:268](https://github.c
 
 > `private` **updateSLAMetrics**(`ticketId`, `slaType`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/ticket.events.handlers.ts:260](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.events.handlers.ts#L260)
+Defined in: [src/modules/support/ticket.events.handlers.ts:260](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.events.handlers.ts#L260)
 
 #### Parameters
 
@@ -332,7 +332,7 @@ Defined in: [src/modules/support/ticket.events.handlers.ts:260](https://github.c
 
 > `private` **analyticsService**: [`AnalyticsService`](../../../analytics/analytics.service/classes/AnalyticsService.md)
 
-Defined in: [src/modules/support/ticket.events.handlers.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.events.handlers.ts#L14)
+Defined in: [src/modules/support/ticket.events.handlers.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.events.handlers.ts#L14)
 
 ***
 
@@ -340,4 +340,4 @@ Defined in: [src/modules/support/ticket.events.handlers.ts:14](https://github.co
 
 > `private` **webhookService**: [`WebhookService`](../../../webhooks/webhook.service/classes/WebhookService.md)
 
-Defined in: [src/modules/support/ticket.events.handlers.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/ticket.events.handlers.ts#L15)
+Defined in: [src/modules/support/ticket.events.handlers.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/ticket.events.handlers.ts#L15)

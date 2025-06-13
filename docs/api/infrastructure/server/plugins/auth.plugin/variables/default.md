@@ -8,7 +8,7 @@
 
 > **default**: (`fastify`) => `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/server/plugins/auth.plugin.ts:30](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/server/plugins/auth.plugin.ts#L30)
+Defined in: [src/infrastructure/server/plugins/auth.plugin.ts:30](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/server/plugins/auth.plugin.ts#L30)
 
 ## Parameters
 

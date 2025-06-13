@@ -6,7 +6,7 @@
 
 # Interface: HealthCheckResult
 
-Defined in: [src/infrastructure/monitoring/health-aggregator.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/monitoring/health-aggregator.ts#L10)
+Defined in: [src/infrastructure/monitoring/health-aggregator.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/monitoring/health-aggregator.ts#L10)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/infrastructure/monitoring/health-aggregator.ts:10](https://gith
 
 > **checks**: `object`
 
-Defined in: [src/infrastructure/monitoring/health-aggregator.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/monitoring/health-aggregator.ts#L16)
+Defined in: [src/infrastructure/monitoring/health-aggregator.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/monitoring/health-aggregator.ts#L16)
 
 #### Index Signature
 
@@ -26,7 +26,7 @@ Defined in: [src/infrastructure/monitoring/health-aggregator.ts:16](https://gith
 
 > **environment**: `string`
 
-Defined in: [src/infrastructure/monitoring/health-aggregator.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/monitoring/health-aggregator.ts#L14)
+Defined in: [src/infrastructure/monitoring/health-aggregator.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/monitoring/health-aggregator.ts#L14)
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: [src/infrastructure/monitoring/health-aggregator.ts:14](https://gith
 
 > **status**: `"healthy"` \| `"degraded"` \| `"unhealthy"`
 
-Defined in: [src/infrastructure/monitoring/health-aggregator.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/monitoring/health-aggregator.ts#L11)
+Defined in: [src/infrastructure/monitoring/health-aggregator.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/monitoring/health-aggregator.ts#L11)
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: [src/infrastructure/monitoring/health-aggregator.ts:11](https://gith
 
 > **system**: `object`
 
-Defined in: [src/infrastructure/monitoring/health-aggregator.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/monitoring/health-aggregator.ts#L24)
+Defined in: [src/infrastructure/monitoring/health-aggregator.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/monitoring/health-aggregator.ts#L24)
 
 #### cpu
 
@@ -102,7 +102,7 @@ Defined in: [src/infrastructure/monitoring/health-aggregator.ts:24](https://gith
 
 > **timestamp**: `string`
 
-Defined in: [src/infrastructure/monitoring/health-aggregator.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/monitoring/health-aggregator.ts#L12)
+Defined in: [src/infrastructure/monitoring/health-aggregator.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/monitoring/health-aggregator.ts#L12)
 
 ***
 
@@ -110,7 +110,7 @@ Defined in: [src/infrastructure/monitoring/health-aggregator.ts:12](https://gith
 
 > **uptime**: `number`
 
-Defined in: [src/infrastructure/monitoring/health-aggregator.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/monitoring/health-aggregator.ts#L15)
+Defined in: [src/infrastructure/monitoring/health-aggregator.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/monitoring/health-aggregator.ts#L15)
 
 ***
 
@@ -118,4 +118,4 @@ Defined in: [src/infrastructure/monitoring/health-aggregator.ts:15](https://gith
 
 > **version**: `string`
 
-Defined in: [src/infrastructure/monitoring/health-aggregator.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/monitoring/health-aggregator.ts#L13)
+Defined in: [src/infrastructure/monitoring/health-aggregator.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/monitoring/health-aggregator.ts#L13)

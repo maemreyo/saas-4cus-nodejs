@@ -6,7 +6,7 @@
 
 # Interface: LogContext
 
-Defined in: [src/shared/logger/index.ts:7](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L7)
+Defined in: [src/shared/logger/index.ts:7](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L7)
 
 ## Indexable
 
@@ -18,7 +18,7 @@ Defined in: [src/shared/logger/index.ts:7](https://github.com/maemreyo/saas-4cus
 
 > `optional` **requestId**: `string`
 
-Defined in: [src/shared/logger/index.ts:8](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L8)
+Defined in: [src/shared/logger/index.ts:8](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L8)
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: [src/shared/logger/index.ts:8](https://github.com/maemreyo/saas-4cus
 
 > `optional` **spanId**: `string`
 
-Defined in: [src/shared/logger/index.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L12)
+Defined in: [src/shared/logger/index.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L12)
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: [src/shared/logger/index.ts:12](https://github.com/maemreyo/saas-4cu
 
 > `optional` **tenantId**: `string`
 
-Defined in: [src/shared/logger/index.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L10)
+Defined in: [src/shared/logger/index.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L10)
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: [src/shared/logger/index.ts:10](https://github.com/maemreyo/saas-4cu
 
 > `optional` **traceId**: `string`
 
-Defined in: [src/shared/logger/index.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L11)
+Defined in: [src/shared/logger/index.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L11)
 
 ***
 
@@ -50,4 +50,4 @@ Defined in: [src/shared/logger/index.ts:11](https://github.com/maemreyo/saas-4cu
 
 > `optional` **userId**: `string`
 
-Defined in: [src/shared/logger/index.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L9)
+Defined in: [src/shared/logger/index.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L9)

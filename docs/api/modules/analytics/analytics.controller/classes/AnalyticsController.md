@@ -6,7 +6,7 @@
 
 # Class: AnalyticsController
 
-Defined in: [src/modules/analytics/analytics.controller.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.controller.ts#L16)
+Defined in: [src/modules/analytics/analytics.controller.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.controller.ts#L16)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/analytics/analytics.controller.ts:16](https://github.co
 
 > **new AnalyticsController**(`analyticsService`, `reportService`): `AnalyticsController`
 
-Defined in: [src/modules/analytics/analytics.controller.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.controller.ts#L17)
+Defined in: [src/modules/analytics/analytics.controller.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.controller.ts#L17)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [src/modules/analytics/analytics.controller.ts:17](https://github.co
 
 > **generateReport**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/analytics/analytics.controller.ts:132](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.controller.ts#L132)
+Defined in: [src/modules/analytics/analytics.controller.ts:132](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.controller.ts#L132)
 
 Generate report
 
@@ -60,7 +60,7 @@ Generate report
 
 > **getCohortRetention**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/analytics/analytics.controller.ts:90](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.controller.ts#L90)
+Defined in: [src/modules/analytics/analytics.controller.ts:90](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.controller.ts#L90)
 
 Get cohort retention
 
@@ -84,7 +84,7 @@ Get cohort retention
 
 > **getDashboard**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/analytics/analytics.controller.ts:61](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.controller.ts#L61)
+Defined in: [src/modules/analytics/analytics.controller.ts:61](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.controller.ts#L61)
 
 Get dashboard metrics
 
@@ -108,7 +108,7 @@ Get dashboard metrics
 
 > **getFunnel**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/analytics/analytics.controller.ts:73](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.controller.ts#L73)
+Defined in: [src/modules/analytics/analytics.controller.ts:73](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.controller.ts#L73)
 
 Get funnel analytics
 
@@ -132,7 +132,7 @@ Get funnel analytics
 
 > **getUserJourney**(`request`, `reply`): `Promise`\<`never`\>
 
-Defined in: [src/modules/analytics/analytics.controller.ts:106](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.controller.ts#L106)
+Defined in: [src/modules/analytics/analytics.controller.ts:106](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.controller.ts#L106)
 
 Get user journey
 
@@ -156,7 +156,7 @@ Get user journey
 
 > **scheduleReport**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/analytics/analytics.controller.ts:158](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.controller.ts#L158)
+Defined in: [src/modules/analytics/analytics.controller.ts:158](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.controller.ts#L158)
 
 Schedule recurring report
 
@@ -180,7 +180,7 @@ Schedule recurring report
 
 > **trackEvent**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/analytics/analytics.controller.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.controller.ts#L25)
+Defined in: [src/modules/analytics/analytics.controller.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.controller.ts#L25)
 
 Track analytics event
 
@@ -204,7 +204,7 @@ Track analytics event
 
 > **trackPageView**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/analytics/analytics.controller.ts:49](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.controller.ts#L49)
+Defined in: [src/modules/analytics/analytics.controller.ts:49](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.controller.ts#L49)
 
 Track page view
 
@@ -228,7 +228,7 @@ Track page view
 
 > `private` **analyticsService**: [`AnalyticsService`](../../analytics.service/classes/AnalyticsService.md)
 
-Defined in: [src/modules/analytics/analytics.controller.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.controller.ts#L18)
+Defined in: [src/modules/analytics/analytics.controller.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.controller.ts#L18)
 
 ***
 
@@ -236,4 +236,4 @@ Defined in: [src/modules/analytics/analytics.controller.ts:18](https://github.co
 
 > `private` **reportService**: [`ReportService`](../../report.service/classes/ReportService.md)
 
-Defined in: [src/modules/analytics/analytics.controller.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.controller.ts#L19)
+Defined in: [src/modules/analytics/analytics.controller.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.controller.ts#L19)

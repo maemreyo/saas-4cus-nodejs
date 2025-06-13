@@ -6,7 +6,7 @@
 
 # Class: GenerateReportDTO
 
-Defined in: [src/modules/analytics/analytics.dto.ts:58](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.dto.ts#L58)
+Defined in: [src/modules/analytics/analytics.dto.ts:58](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.dto.ts#L58)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/analytics/analytics.dto.ts:58](https://github.com/maemr
 
 > `optional` **customQuery**: `any`
 
-Defined in: [src/modules/analytics/analytics.dto.ts:81](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.dto.ts#L81)
+Defined in: [src/modules/analytics/analytics.dto.ts:81](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.dto.ts#L81)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/analytics/analytics.dto.ts:81](https://github.com/maemr
 
 > `optional` **filters**: `object`
 
-Defined in: [src/modules/analytics/analytics.dto.ts:75](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.dto.ts#L75)
+Defined in: [src/modules/analytics/analytics.dto.ts:75](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.dto.ts#L75)
 
 #### dateRange?
 
@@ -56,7 +56,7 @@ Defined in: [src/modules/analytics/analytics.dto.ts:75](https://github.com/maemr
 
 > **format**: `"csv"` \| `"json"` \| `"pdf"`
 
-Defined in: [src/modules/analytics/analytics.dto.ts:73](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.dto.ts#L73)
+Defined in: [src/modules/analytics/analytics.dto.ts:73](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.dto.ts#L73)
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: [src/modules/analytics/analytics.dto.ts:73](https://github.com/maemr
 
 > `optional` **recipients**: `string`[]
 
-Defined in: [src/modules/analytics/analytics.dto.ts:74](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.dto.ts#L74)
+Defined in: [src/modules/analytics/analytics.dto.ts:74](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.dto.ts#L74)
 
 ***
 
@@ -72,7 +72,7 @@ Defined in: [src/modules/analytics/analytics.dto.ts:74](https://github.com/maemr
 
 > `static` **schema**: `ZodObject`\<\{ `customQuery`: `ZodOptional`\<`ZodAny`\>; `filters`: `ZodOptional`\<`ZodObject`\<\{ `dateRange`: `ZodOptional`\<`ZodNumber`\>; `endDate`: `ZodOptional`\<`ZodString`\>; `startDate`: `ZodOptional`\<`ZodString`\>; `tenantId`: `ZodOptional`\<`ZodString`\>; \}, `"strip"`, `ZodTypeAny`, \{ `dateRange?`: `number`; `endDate?`: `string`; `startDate?`: `string`; `tenantId?`: `string`; \}, \{ `dateRange?`: `number`; `endDate?`: `string`; `startDate?`: `string`; `tenantId?`: `string`; \}\>\>; `format`: `ZodEnum`\<\[`"pdf"`, `"csv"`, `"json"`\]\>; `recipients`: `ZodOptional`\<`ZodArray`\<`ZodString`, `"many"`\>\>; `type`: `ZodEnum`\<\[`"dashboard"`, `"revenue"`, `"users"`, `"custom"`\]\>; \}, `"strip"`, `ZodTypeAny`, \{ `customQuery?`: `any`; `filters?`: \{ `dateRange?`: `number`; `endDate?`: `string`; `startDate?`: `string`; `tenantId?`: `string`; \}; `format?`: `"csv"` \| `"json"` \| `"pdf"`; `recipients?`: `string`[]; `type?`: `"custom"` \| `"revenue"` \| `"users"` \| `"dashboard"`; \}, \{ `customQuery?`: `any`; `filters?`: \{ `dateRange?`: `number`; `endDate?`: `string`; `startDate?`: `string`; `tenantId?`: `string`; \}; `format?`: `"csv"` \| `"json"` \| `"pdf"`; `recipients?`: `string`[]; `type?`: `"custom"` \| `"revenue"` \| `"users"` \| `"dashboard"`; \}\>
 
-Defined in: [src/modules/analytics/analytics.dto.ts:59](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.dto.ts#L59)
+Defined in: [src/modules/analytics/analytics.dto.ts:59](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.dto.ts#L59)
 
 ***
 
@@ -80,4 +80,4 @@ Defined in: [src/modules/analytics/analytics.dto.ts:59](https://github.com/maemr
 
 > **type**: `"custom"` \| `"revenue"` \| `"users"` \| `"dashboard"`
 
-Defined in: [src/modules/analytics/analytics.dto.ts:72](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.dto.ts#L72)
+Defined in: [src/modules/analytics/analytics.dto.ts:72](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.dto.ts#L72)

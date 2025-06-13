@@ -6,7 +6,7 @@
 
 # Interface: ExportResult
 
-Defined in: [src/modules/admin/data-export.service.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/data-export.service.ts#L27)
+Defined in: [src/modules/admin/data-export.service.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/data-export.service.ts#L27)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/admin/data-export.service.ts:27](https://github.com/mae
 
 > `optional` **completedAt**: `Date`
 
-Defined in: [src/modules/admin/data-export.service.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/data-export.service.ts#L35)
+Defined in: [src/modules/admin/data-export.service.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/data-export.service.ts#L35)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/admin/data-export.service.ts:35](https://github.com/mae
 
 > **createdAt**: `Date`
 
-Defined in: [src/modules/admin/data-export.service.ts:34](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/data-export.service.ts#L34)
+Defined in: [src/modules/admin/data-export.service.ts:34](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/data-export.service.ts#L34)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/admin/data-export.service.ts:34](https://github.com/mae
 
 > `optional` **error**: `string`
 
-Defined in: [src/modules/admin/data-export.service.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/data-export.service.ts#L33)
+Defined in: [src/modules/admin/data-export.service.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/data-export.service.ts#L33)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/modules/admin/data-export.service.ts:33](https://github.com/mae
 
 > `optional` **filename**: `string`
 
-Defined in: [src/modules/admin/data-export.service.ts:31](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/data-export.service.ts#L31)
+Defined in: [src/modules/admin/data-export.service.ts:31](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/data-export.service.ts#L31)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/modules/admin/data-export.service.ts:31](https://github.com/mae
 
 > **id**: `string`
 
-Defined in: [src/modules/admin/data-export.service.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/data-export.service.ts#L28)
+Defined in: [src/modules/admin/data-export.service.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/data-export.service.ts#L28)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [src/modules/admin/data-export.service.ts:28](https://github.com/mae
 
 > `optional` **size**: `number`
 
-Defined in: [src/modules/admin/data-export.service.ts:32](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/data-export.service.ts#L32)
+Defined in: [src/modules/admin/data-export.service.ts:32](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/data-export.service.ts#L32)
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: [src/modules/admin/data-export.service.ts:32](https://github.com/mae
 
 > **status**: `"completed"` \| `"failed"` \| `"processing"`
 
-Defined in: [src/modules/admin/data-export.service.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/data-export.service.ts#L29)
+Defined in: [src/modules/admin/data-export.service.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/data-export.service.ts#L29)
 
 ***
 
@@ -70,4 +70,4 @@ Defined in: [src/modules/admin/data-export.service.ts:29](https://github.com/mae
 
 > `optional` **url**: `string`
 
-Defined in: [src/modules/admin/data-export.service.ts:30](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/data-export.service.ts#L30)
+Defined in: [src/modules/admin/data-export.service.ts:30](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/data-export.service.ts#L30)

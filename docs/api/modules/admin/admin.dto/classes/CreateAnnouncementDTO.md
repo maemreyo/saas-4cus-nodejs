@@ -6,7 +6,7 @@
 
 # Class: CreateAnnouncementDTO
 
-Defined in: [src/modules/admin/admin.dto.ts:207](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.dto.ts#L207)
+Defined in: [src/modules/admin/admin.dto.ts:207](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.dto.ts#L207)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/admin/admin.dto.ts:207](https://github.com/maemreyo/saa
 
 > **content**: `string`
 
-Defined in: [src/modules/admin/admin.dto.ts:221](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.dto.ts#L221)
+Defined in: [src/modules/admin/admin.dto.ts:221](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.dto.ts#L221)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/admin/admin.dto.ts:221](https://github.com/maemreyo/saa
 
 > `optional` **createdBy**: `string`
 
-Defined in: [src/modules/admin/admin.dto.ts:229](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.dto.ts#L229)
+Defined in: [src/modules/admin/admin.dto.ts:229](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.dto.ts#L229)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [src/modules/admin/admin.dto.ts:229](https://github.com/maemreyo/saa
 
 > `optional` **dismissible**: `boolean` = `true`
 
-Defined in: [src/modules/admin/admin.dto.ts:228](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.dto.ts#L228)
+Defined in: [src/modules/admin/admin.dto.ts:228](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.dto.ts#L228)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [src/modules/admin/admin.dto.ts:228](https://github.com/maemreyo/saa
 
 > `optional` **endDate**: `string`
 
-Defined in: [src/modules/admin/admin.dto.ts:227](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.dto.ts#L227)
+Defined in: [src/modules/admin/admin.dto.ts:227](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.dto.ts#L227)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [src/modules/admin/admin.dto.ts:227](https://github.com/maemreyo/saa
 
 > `static` **schema**: `ZodObject`\<\{ `content`: `ZodString`; `dismissible`: `ZodDefault`\<`ZodBoolean`\>; `endDate`: `ZodOptional`\<`ZodString`\>; `startDate`: `ZodOptional`\<`ZodString`\>; `targetAudience`: `ZodDefault`\<`ZodEnum`\<\[`"all"`, `"users"`, `"admins"`, `"specific"`\]\>\>; `targetTenantIds`: `ZodOptional`\<`ZodArray`\<`ZodString`, `"many"`\>\>; `targetUserIds`: `ZodOptional`\<`ZodArray`\<`ZodString`, `"many"`\>\>; `title`: `ZodString`; `type`: `ZodEnum`\<\[`"info"`, `"warning"`, `"critical"`, `"maintenance"`\]\>; \}, `"strip"`, `ZodTypeAny`, \{ `content?`: `string`; `dismissible?`: `boolean`; `endDate?`: `string`; `startDate?`: `string`; `targetAudience?`: `"users"` \| `"all"` \| `"admins"` \| `"specific"`; `targetTenantIds?`: `string`[]; `targetUserIds?`: `string`[]; `title?`: `string`; `type?`: `"info"` \| `"critical"` \| `"warning"` \| `"maintenance"`; \}, \{ `content?`: `string`; `dismissible?`: `boolean`; `endDate?`: `string`; `startDate?`: `string`; `targetAudience?`: `"users"` \| `"all"` \| `"admins"` \| `"specific"`; `targetTenantIds?`: `string`[]; `targetUserIds?`: `string`[]; `title?`: `string`; `type?`: `"info"` \| `"critical"` \| `"warning"` \| `"maintenance"`; \}\>
 
-Defined in: [src/modules/admin/admin.dto.ts:208](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.dto.ts#L208)
+Defined in: [src/modules/admin/admin.dto.ts:208](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.dto.ts#L208)
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: [src/modules/admin/admin.dto.ts:208](https://github.com/maemreyo/saa
 
 > `optional` **startDate**: `string`
 
-Defined in: [src/modules/admin/admin.dto.ts:226](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.dto.ts#L226)
+Defined in: [src/modules/admin/admin.dto.ts:226](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.dto.ts#L226)
 
 ***
 
@@ -72,7 +72,7 @@ Defined in: [src/modules/admin/admin.dto.ts:226](https://github.com/maemreyo/saa
 
 > `optional` **targetAudience**: `"users"` \| `"all"` \| `"admins"` \| `"specific"` = `'all'`
 
-Defined in: [src/modules/admin/admin.dto.ts:223](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.dto.ts#L223)
+Defined in: [src/modules/admin/admin.dto.ts:223](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.dto.ts#L223)
 
 ***
 
@@ -80,7 +80,7 @@ Defined in: [src/modules/admin/admin.dto.ts:223](https://github.com/maemreyo/saa
 
 > `optional` **targetTenantIds**: `string`[]
 
-Defined in: [src/modules/admin/admin.dto.ts:225](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.dto.ts#L225)
+Defined in: [src/modules/admin/admin.dto.ts:225](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.dto.ts#L225)
 
 ***
 
@@ -88,7 +88,7 @@ Defined in: [src/modules/admin/admin.dto.ts:225](https://github.com/maemreyo/saa
 
 > `optional` **targetUserIds**: `string`[]
 
-Defined in: [src/modules/admin/admin.dto.ts:224](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.dto.ts#L224)
+Defined in: [src/modules/admin/admin.dto.ts:224](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.dto.ts#L224)
 
 ***
 
@@ -96,7 +96,7 @@ Defined in: [src/modules/admin/admin.dto.ts:224](https://github.com/maemreyo/saa
 
 > **title**: `string`
 
-Defined in: [src/modules/admin/admin.dto.ts:220](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.dto.ts#L220)
+Defined in: [src/modules/admin/admin.dto.ts:220](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.dto.ts#L220)
 
 ***
 
@@ -104,4 +104,4 @@ Defined in: [src/modules/admin/admin.dto.ts:220](https://github.com/maemreyo/saa
 
 > **type**: `"info"` \| `"critical"` \| `"warning"` \| `"maintenance"`
 
-Defined in: [src/modules/admin/admin.dto.ts:222](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.dto.ts#L222)
+Defined in: [src/modules/admin/admin.dto.ts:222](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.dto.ts#L222)

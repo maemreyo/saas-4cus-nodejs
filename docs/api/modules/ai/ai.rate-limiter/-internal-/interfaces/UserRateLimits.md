@@ -6,7 +6,7 @@
 
 # Interface: UserRateLimits
 
-Defined in: [src/modules/ai/ai.rate-limiter.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.rate-limiter.ts#L18)
+Defined in: [src/modules/ai/ai.rate-limiter.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.rate-limiter.ts#L18)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/ai/ai.rate-limiter.ts:18](https://github.com/maemreyo/s
 
 > **audio**: `object`
 
-Defined in: [src/modules/ai/ai.rate-limiter.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.rate-limiter.ts#L23)
+Defined in: [src/modules/ai/ai.rate-limiter.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.rate-limiter.ts#L23)
 
 #### max
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/ai/ai.rate-limiter.ts:23](https://github.com/maemreyo/s
 
 > **chat**: `object`
 
-Defined in: [src/modules/ai/ai.rate-limiter.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.rate-limiter.ts#L20)
+Defined in: [src/modules/ai/ai.rate-limiter.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.rate-limiter.ts#L20)
 
 #### max
 
@@ -46,7 +46,7 @@ Defined in: [src/modules/ai/ai.rate-limiter.ts:20](https://github.com/maemreyo/s
 
 > **completion**: `object`
 
-Defined in: [src/modules/ai/ai.rate-limiter.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.rate-limiter.ts#L19)
+Defined in: [src/modules/ai/ai.rate-limiter.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.rate-limiter.ts#L19)
 
 #### max
 
@@ -62,7 +62,7 @@ Defined in: [src/modules/ai/ai.rate-limiter.ts:19](https://github.com/maemreyo/s
 
 > **embedding**: `object`
 
-Defined in: [src/modules/ai/ai.rate-limiter.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.rate-limiter.ts#L21)
+Defined in: [src/modules/ai/ai.rate-limiter.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.rate-limiter.ts#L21)
 
 #### max
 
@@ -78,7 +78,7 @@ Defined in: [src/modules/ai/ai.rate-limiter.ts:21](https://github.com/maemreyo/s
 
 > **image**: `object`
 
-Defined in: [src/modules/ai/ai.rate-limiter.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.rate-limiter.ts#L22)
+Defined in: [src/modules/ai/ai.rate-limiter.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.rate-limiter.ts#L22)
 
 #### max
 

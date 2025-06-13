@@ -6,7 +6,7 @@
 
 # Interface: ContentReport
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L11)
+Defined in: [src/modules/admin/admin-moderation.service.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L11)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:11](https://github.co
 
 > `optional` **action**: `string`
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L21)
+Defined in: [src/modules/admin/admin-moderation.service.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L21)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:21](https://github.co
 
 > **createdAt**: `Date`
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L22)
+Defined in: [src/modules/admin/admin-moderation.service.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L22)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:22](https://github.co
 
 > `optional` **description**: `string`
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L17)
+Defined in: [src/modules/admin/admin-moderation.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L17)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:17](https://github.co
 
 > **entityId**: `string`
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L14)
+Defined in: [src/modules/admin/admin-moderation.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L14)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:14](https://github.co
 
 > **entityType**: `string`
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L13)
+Defined in: [src/modules/admin/admin-moderation.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L13)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:13](https://github.co
 
 > **id**: `string`
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L12)
+Defined in: [src/modules/admin/admin-moderation.service.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L12)
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:12](https://github.co
 
 > **reason**: `string`
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L16)
+Defined in: [src/modules/admin/admin-moderation.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L16)
 
 ***
 
@@ -70,7 +70,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:16](https://github.co
 
 > **reportedBy**: `string`
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L15)
+Defined in: [src/modules/admin/admin-moderation.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L15)
 
 ***
 
@@ -78,7 +78,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:15](https://github.co
 
 > `optional` **reviewedAt**: `Date`
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L20)
+Defined in: [src/modules/admin/admin-moderation.service.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L20)
 
 ***
 
@@ -86,7 +86,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:20](https://github.co
 
 > `optional` **reviewedBy**: `string`
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L19)
+Defined in: [src/modules/admin/admin-moderation.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L19)
 
 ***
 
@@ -94,4 +94,4 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:19](https://github.co
 
 > **status**: `"pending"` \| `"resolved"` \| `"reviewed"` \| `"dismissed"`
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L18)
+Defined in: [src/modules/admin/admin-moderation.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L18)

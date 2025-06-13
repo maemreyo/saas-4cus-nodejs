@@ -6,7 +6,7 @@
 
 # Interface: CompletionOptions
 
-Defined in: [src/modules/ai/models/model.types.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L40)
+Defined in: [src/modules/ai/models/model.types.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L40)
 
 ## Extended by
 
@@ -18,7 +18,7 @@ Defined in: [src/modules/ai/models/model.types.ts:40](https://github.com/maemrey
 
 > `optional` **frequencyPenalty**: `number`
 
-Defined in: [src/modules/ai/models/model.types.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L45)
+Defined in: [src/modules/ai/models/model.types.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L45)
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: [src/modules/ai/models/model.types.ts:45](https://github.com/maemrey
 
 > `optional` **maxTokens**: `number`
 
-Defined in: [src/modules/ai/models/model.types.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L43)
+Defined in: [src/modules/ai/models/model.types.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L43)
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: [src/modules/ai/models/model.types.ts:43](https://github.com/maemrey
 
 > `optional` **model**: `string`
 
-Defined in: [src/modules/ai/models/model.types.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L41)
+Defined in: [src/modules/ai/models/model.types.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L41)
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: [src/modules/ai/models/model.types.ts:41](https://github.com/maemrey
 
 > `optional` **presencePenalty**: `number`
 
-Defined in: [src/modules/ai/models/model.types.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L46)
+Defined in: [src/modules/ai/models/model.types.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L46)
 
 ***
 
@@ -50,7 +50,7 @@ Defined in: [src/modules/ai/models/model.types.ts:46](https://github.com/maemrey
 
 > `optional` **stop**: `string`[]
 
-Defined in: [src/modules/ai/models/model.types.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L47)
+Defined in: [src/modules/ai/models/model.types.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L47)
 
 ***
 
@@ -58,7 +58,7 @@ Defined in: [src/modules/ai/models/model.types.ts:47](https://github.com/maemrey
 
 > `optional` **stream**: `boolean`
 
-Defined in: [src/modules/ai/models/model.types.ts:49](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L49)
+Defined in: [src/modules/ai/models/model.types.ts:49](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L49)
 
 ***
 
@@ -66,7 +66,7 @@ Defined in: [src/modules/ai/models/model.types.ts:49](https://github.com/maemrey
 
 > `optional` **systemPrompt**: `string`
 
-Defined in: [src/modules/ai/models/model.types.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L48)
+Defined in: [src/modules/ai/models/model.types.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L48)
 
 ***
 
@@ -74,7 +74,7 @@ Defined in: [src/modules/ai/models/model.types.ts:48](https://github.com/maemrey
 
 > `optional` **temperature**: `number`
 
-Defined in: [src/modules/ai/models/model.types.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L42)
+Defined in: [src/modules/ai/models/model.types.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L42)
 
 ***
 
@@ -82,7 +82,7 @@ Defined in: [src/modules/ai/models/model.types.ts:42](https://github.com/maemrey
 
 > `optional` **topP**: `number`
 
-Defined in: [src/modules/ai/models/model.types.ts:44](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L44)
+Defined in: [src/modules/ai/models/model.types.ts:44](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L44)
 
 ***
 
@@ -90,4 +90,4 @@ Defined in: [src/modules/ai/models/model.types.ts:44](https://github.com/maemrey
 
 > `optional` **user**: `string`
 
-Defined in: [src/modules/ai/models/model.types.ts:50](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L50)
+Defined in: [src/modules/ai/models/model.types.ts:50](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L50)

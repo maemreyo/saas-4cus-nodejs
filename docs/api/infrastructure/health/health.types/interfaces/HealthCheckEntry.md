@@ -6,7 +6,7 @@
 
 # Interface: HealthCheckEntry
 
-Defined in: [src/infrastructure/health/health.types.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/health/health.types.ts#L29)
+Defined in: [src/infrastructure/health/health.types.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/health/health.types.ts#L29)
 
 Health check registry entry
 
@@ -16,7 +16,7 @@ Health check registry entry
 
 > **check**: [`HealthCheckFn`](../type-aliases/HealthCheckFn.md)
 
-Defined in: [src/infrastructure/health/health.types.ts:31](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/health/health.types.ts#L31)
+Defined in: [src/infrastructure/health/health.types.ts:31](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/health/health.types.ts#L31)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [src/infrastructure/health/health.types.ts:31](https://github.com/ma
 
 > `optional` **description**: `string`
 
-Defined in: [src/infrastructure/health/health.types.ts:32](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/health/health.types.ts#L32)
+Defined in: [src/infrastructure/health/health.types.ts:32](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/health/health.types.ts#L32)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/infrastructure/health/health.types.ts:32](https://github.com/ma
 
 > **name**: `string`
 
-Defined in: [src/infrastructure/health/health.types.ts:30](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/health/health.types.ts#L30)
+Defined in: [src/infrastructure/health/health.types.ts:30](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/health/health.types.ts#L30)
 
 ***
 
@@ -40,4 +40,4 @@ Defined in: [src/infrastructure/health/health.types.ts:30](https://github.com/ma
 
 > `optional` **tags**: `string`[]
 
-Defined in: [src/infrastructure/health/health.types.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/health/health.types.ts#L33)
+Defined in: [src/infrastructure/health/health.types.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/health/health.types.ts#L33)

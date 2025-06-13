@@ -6,7 +6,7 @@
 
 # Interface: EmbeddingResult
 
-Defined in: [src/modules/ai/models/model.types.ts:110](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L110)
+Defined in: [src/modules/ai/models/model.types.ts:110](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L110)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/ai/models/model.types.ts:110](https://github.com/maemre
 
 > `optional` **cached**: `boolean`
 
-Defined in: [src/modules/ai/models/model.types.ts:115](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L115)
+Defined in: [src/modules/ai/models/model.types.ts:115](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L115)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/ai/models/model.types.ts:115](https://github.com/maemre
 
 > **embedding**: `number`[]
 
-Defined in: [src/modules/ai/models/model.types.ts:112](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L112)
+Defined in: [src/modules/ai/models/model.types.ts:112](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L112)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/ai/models/model.types.ts:112](https://github.com/maemre
 
 > **id**: `string`
 
-Defined in: [src/modules/ai/models/model.types.ts:111](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L111)
+Defined in: [src/modules/ai/models/model.types.ts:111](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L111)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/modules/ai/models/model.types.ts:111](https://github.com/maemre
 
 > **model**: `string`
 
-Defined in: [src/modules/ai/models/model.types.ts:113](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L113)
+Defined in: [src/modules/ai/models/model.types.ts:113](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L113)
 
 ***
 
@@ -46,4 +46,4 @@ Defined in: [src/modules/ai/models/model.types.ts:113](https://github.com/maemre
 
 > **usage**: [`TokenUsage`](TokenUsage.md)
 
-Defined in: [src/modules/ai/models/model.types.ts:114](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L114)
+Defined in: [src/modules/ai/models/model.types.ts:114](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L114)

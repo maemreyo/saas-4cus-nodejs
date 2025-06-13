@@ -6,7 +6,7 @@
 
 # Interface: RegisterDTO
 
-Defined in: [src/modules/auth/auth.service.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L26)
+Defined in: [src/modules/auth/auth.service.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L26)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/auth/auth.service.ts:26](https://github.com/maemreyo/sa
 
 > **email**: `string`
 
-Defined in: [src/modules/auth/auth.service.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L27)
+Defined in: [src/modules/auth/auth.service.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L27)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/auth/auth.service.ts:27](https://github.com/maemreyo/sa
 
 > `optional` **firstName**: `string`
 
-Defined in: [src/modules/auth/auth.service.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L29)
+Defined in: [src/modules/auth/auth.service.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L29)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/auth/auth.service.ts:29](https://github.com/maemreyo/sa
 
 > `optional` **lastName**: `string`
 
-Defined in: [src/modules/auth/auth.service.ts:30](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L30)
+Defined in: [src/modules/auth/auth.service.ts:30](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L30)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/modules/auth/auth.service.ts:30](https://github.com/maemreyo/sa
 
 > **password**: `string`
 
-Defined in: [src/modules/auth/auth.service.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L28)
+Defined in: [src/modules/auth/auth.service.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L28)
 
 ***
 
@@ -46,4 +46,4 @@ Defined in: [src/modules/auth/auth.service.ts:28](https://github.com/maemreyo/sa
 
 > `optional` **username**: `string`
 
-Defined in: [src/modules/auth/auth.service.ts:31](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.service.ts#L31)
+Defined in: [src/modules/auth/auth.service.ts:31](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.service.ts#L31)

@@ -6,7 +6,7 @@
 
 # Class: AiHealthCheck
 
-Defined in: [src/modules/ai/ai.health.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.health.ts#L19)
+Defined in: [src/modules/ai/ai.health.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.health.ts#L19)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/ai/ai.health.ts:19](https://github.com/maemreyo/saas-4c
 
 > **new AiHealthCheck**(`healthService`, `aiService`, `cacheService`): `AiHealthCheck`
 
-Defined in: [src/modules/ai/ai.health.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.health.ts#L20)
+Defined in: [src/modules/ai/ai.health.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.health.ts#L20)
 
 #### Parameters
 
@@ -40,7 +40,7 @@ Defined in: [src/modules/ai/ai.health.ts:20](https://github.com/maemreyo/saas-4c
 
 > `private` **calculateOverallStatus**(`statuses`): [`HealthStatus`](../../../../infrastructure/health/health.types/enumerations/HealthStatus.md)
 
-Defined in: [src/modules/ai/ai.health.ts:270](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.health.ts#L270)
+Defined in: [src/modules/ai/ai.health.ts:270](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.health.ts#L270)
 
 #### Parameters
 
@@ -58,7 +58,7 @@ Defined in: [src/modules/ai/ai.health.ts:270](https://github.com/maemreyo/saas-4
 
 > `private` **createProviderInstance**(`providerName`): `Promise`\<[`OpenAIProvider`](../../providers/openai.provider/classes/OpenAIProvider.md) \| [`MockProvider`](../../providers/mock.provider/classes/MockProvider.md) \| [`AnthropicProvider`](../../providers/anthropic.provider/classes/AnthropicProvider.md) \| [`GoogleAIProvider`](../../providers/google-ai.provider/classes/GoogleAIProvider.md) \| [`OllamaProvider`](../../providers/ollama.provider/classes/OllamaProvider.md)\>
 
-Defined in: [src/modules/ai/ai.health.ts:156](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.health.ts#L156)
+Defined in: [src/modules/ai/ai.health.ts:156](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.health.ts#L156)
 
 #### Parameters
 
@@ -76,7 +76,7 @@ Defined in: [src/modules/ai/ai.health.ts:156](https://github.com/maemreyo/saas-4
 
 > **getHealthSummary**(): `Promise`\<\{ `cache`: [`HealthCheckResult`](../../../../infrastructure/health/health.types/interfaces/HealthCheckResult.md); `providers`: `object`[]; `service`: [`HealthCheckResult`](../../../../infrastructure/health/health.types/interfaces/HealthCheckResult.md); `stats`: \{ `errorRate`: `number`; `today`: \{ `avgLatency`: `number`; `cost`: `number`; `requests`: `number`; `tokens`: `number`; \}; \}; `status`: [`HealthStatus`](../../../../infrastructure/health/health.types/enumerations/HealthStatus.md); `timestamp`: `string`; `usage`: [`HealthCheckResult`](../../../../infrastructure/health/health.types/interfaces/HealthCheckResult.md); \}\>
 
-Defined in: [src/modules/ai/ai.health.ts:189](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.health.ts#L189)
+Defined in: [src/modules/ai/ai.health.ts:189](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.health.ts#L189)
 
 #### Returns
 
@@ -88,7 +88,7 @@ Defined in: [src/modules/ai/ai.health.ts:189](https://github.com/maemreyo/saas-4
 
 > **register**(): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.health.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.health.ts#L26)
+Defined in: [src/modules/ai/ai.health.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.health.ts#L26)
 
 #### Returns
 
@@ -100,7 +100,7 @@ Defined in: [src/modules/ai/ai.health.ts:26](https://github.com/maemreyo/saas-4c
 
 > `private` **registerProviderHealthChecks**(): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.health.ts:106](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.health.ts#L106)
+Defined in: [src/modules/ai/ai.health.ts:106](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.health.ts#L106)
 
 #### Returns
 
@@ -112,7 +112,7 @@ Defined in: [src/modules/ai/ai.health.ts:106](https://github.com/maemreyo/saas-4
 
 > `private` **aiService**: [`AiService`](../../ai.service/classes/AiService.md)
 
-Defined in: [src/modules/ai/ai.health.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.health.ts#L22)
+Defined in: [src/modules/ai/ai.health.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.health.ts#L22)
 
 ***
 
@@ -120,7 +120,7 @@ Defined in: [src/modules/ai/ai.health.ts:22](https://github.com/maemreyo/saas-4c
 
 > `private` **cacheService**: [`AiCacheService`](../../ai.cache/classes/AiCacheService.md)
 
-Defined in: [src/modules/ai/ai.health.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.health.ts#L23)
+Defined in: [src/modules/ai/ai.health.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.health.ts#L23)
 
 ***
 
@@ -128,4 +128,4 @@ Defined in: [src/modules/ai/ai.health.ts:23](https://github.com/maemreyo/saas-4c
 
 > `private` **healthService**: [`HealthService`](../../../../infrastructure/health/health.service/classes/HealthService.md)
 
-Defined in: [src/modules/ai/ai.health.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.health.ts#L21)
+Defined in: [src/modules/ai/ai.health.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.health.ts#L21)

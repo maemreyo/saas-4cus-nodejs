@@ -6,7 +6,7 @@
 
 # Interface: ModelPricing
 
-Defined in: [src/modules/ai/models/model.types.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L23)
+Defined in: [src/modules/ai/models/model.types.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L23)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/ai/models/model.types.ts:23](https://github.com/maemrey
 
 > **completionPricePerMillion**: `number`
 
-Defined in: [src/modules/ai/models/model.types.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L25)
+Defined in: [src/modules/ai/models/model.types.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L25)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/ai/models/model.types.ts:25](https://github.com/maemrey
 
 > **currency**: `string`
 
-Defined in: [src/modules/ai/models/model.types.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L26)
+Defined in: [src/modules/ai/models/model.types.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L26)
 
 ***
 
@@ -30,4 +30,4 @@ Defined in: [src/modules/ai/models/model.types.ts:26](https://github.com/maemrey
 
 > **promptPricePerMillion**: `number`
 
-Defined in: [src/modules/ai/models/model.types.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L24)
+Defined in: [src/modules/ai/models/model.types.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L24)

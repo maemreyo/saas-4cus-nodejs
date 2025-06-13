@@ -6,7 +6,7 @@
 
 # Interface: RevenueMetrics
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L40)
+Defined in: [src/modules/admin/admin-metrics.service.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L40)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:40](https://github.com/m
 
 > **arr**: `number`
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L43)
+Defined in: [src/modules/admin/admin-metrics.service.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L43)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:43](https://github.com/m
 
 > **averageRevenuePerUser**: `number`
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:44](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L44)
+Defined in: [src/modules/admin/admin-metrics.service.ts:44](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L44)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:44](https://github.com/m
 
 > **byPlan**: `object`[]
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L45)
+Defined in: [src/modules/admin/admin-metrics.service.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L45)
 
 #### count
 
@@ -50,7 +50,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:45](https://github.com/m
 
 > **churnRate**: `number`
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L46)
+Defined in: [src/modules/admin/admin-metrics.service.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L46)
 
 ***
 
@@ -58,7 +58,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:46](https://github.com/m
 
 > **growth**: `object`
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L48)
+Defined in: [src/modules/admin/admin-metrics.service.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L48)
 
 #### daily
 
@@ -78,7 +78,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:48](https://github.com/m
 
 > **ltv**: `number`
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L47)
+Defined in: [src/modules/admin/admin-metrics.service.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L47)
 
 ***
 
@@ -86,7 +86,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:47](https://github.com/m
 
 > **mrr**: `number`
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L42)
+Defined in: [src/modules/admin/admin-metrics.service.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L42)
 
 ***
 
@@ -94,4 +94,4 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:42](https://github.com/m
 
 > **total**: `number`
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L41)
+Defined in: [src/modules/admin/admin-metrics.service.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L41)

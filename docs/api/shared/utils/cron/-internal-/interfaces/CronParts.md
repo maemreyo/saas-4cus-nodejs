@@ -6,7 +6,7 @@
 
 # Interface: CronParts
 
-Defined in: [src/shared/utils/cron.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/utils/cron.ts#L33)
+Defined in: [src/shared/utils/cron.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/utils/cron.ts#L33)
 
 Cron expression parts
 
@@ -16,7 +16,7 @@ Cron expression parts
 
 > **dayOfMonth**: `string`
 
-Defined in: [src/shared/utils/cron.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/utils/cron.ts#L36)
+Defined in: [src/shared/utils/cron.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/utils/cron.ts#L36)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [src/shared/utils/cron.ts:36](https://github.com/maemreyo/saas-4cus-
 
 > **dayOfWeek**: `string`
 
-Defined in: [src/shared/utils/cron.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/utils/cron.ts#L38)
+Defined in: [src/shared/utils/cron.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/utils/cron.ts#L38)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/shared/utils/cron.ts:38](https://github.com/maemreyo/saas-4cus-
 
 > **hour**: `string`
 
-Defined in: [src/shared/utils/cron.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/utils/cron.ts#L35)
+Defined in: [src/shared/utils/cron.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/utils/cron.ts#L35)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [src/shared/utils/cron.ts:35](https://github.com/maemreyo/saas-4cus-
 
 > **minute**: `string`
 
-Defined in: [src/shared/utils/cron.ts:34](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/utils/cron.ts#L34)
+Defined in: [src/shared/utils/cron.ts:34](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/utils/cron.ts#L34)
 
 ***
 
@@ -48,4 +48,4 @@ Defined in: [src/shared/utils/cron.ts:34](https://github.com/maemreyo/saas-4cus-
 
 > **month**: `string`
 
-Defined in: [src/shared/utils/cron.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/utils/cron.ts#L37)
+Defined in: [src/shared/utils/cron.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/utils/cron.ts#L37)

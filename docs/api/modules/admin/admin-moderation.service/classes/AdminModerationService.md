@@ -6,7 +6,7 @@
 
 # Class: AdminModerationService
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:60](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L60)
+Defined in: [src/modules/admin/admin-moderation.service.ts:60](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L60)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:60](https://github.co
 
 > **new AdminModerationService**(`eventBus`, `auditService`, `emailService`, `notificationService`): `AdminModerationService`
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:63](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L63)
+Defined in: [src/modules/admin/admin-moderation.service.ts:63](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L63)
 
 #### Parameters
 
@@ -44,7 +44,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:63](https://github.co
 
 > `private` **approveContent**(`entityType`, `entityId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:596](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L596)
+Defined in: [src/modules/admin/admin-moderation.service.ts:596](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L596)
 
 #### Parameters
 
@@ -66,7 +66,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:596](https://github.c
 
 > **bulkModerate**(`adminId`, `items`, `action`, `reason?`): `Promise`\<\{ `failed`: `object`[]; `succeeded`: `string`[]; \}\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:193](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L193)
+Defined in: [src/modules/admin/admin-moderation.service.ts:193](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L193)
 
 Bulk content moderation
 
@@ -98,7 +98,7 @@ Bulk content moderation
 
 > `private` **checkCCPACompliance**(): `Promise`\<`boolean`\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:672](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L672)
+Defined in: [src/modules/admin/admin-moderation.service.ts:672](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L672)
 
 #### Returns
 
@@ -110,7 +110,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:672](https://github.c
 
 > **checkContent**(`content`): `Promise`\<\{ `passed`: `boolean`; `violations`: `object`[]; \}\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:420](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L420)
+Defined in: [src/modules/admin/admin-moderation.service.ts:420](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L420)
 
 Check content against moderation rules
 
@@ -130,7 +130,7 @@ Check content against moderation rules
 
 > `private` **checkCOPPACompliance**(): `Promise`\<`boolean`\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:665](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L665)
+Defined in: [src/modules/admin/admin-moderation.service.ts:665](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L665)
 
 #### Returns
 
@@ -142,7 +142,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:665](https://github.c
 
 > `private` **checkGDPRCompliance**(): `Promise`\<`boolean`\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:656](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L656)
+Defined in: [src/modules/admin/admin-moderation.service.ts:656](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L656)
 
 #### Returns
 
@@ -154,7 +154,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:656](https://github.c
 
 > `private` **deleteContent**(`entityType`, `entityId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:601](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L601)
+Defined in: [src/modules/admin/admin-moderation.service.ts:601](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L601)
 
 #### Parameters
 
@@ -176,7 +176,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:601](https://github.c
 
 > `private` **exportUserData**(`userId`): `Promise`\<\{ `exportedAt`: `Date`; `format`: `string`; `userData`: \{ `auditLogs`: `object`[]; `files`: `object`[]; `notifications`: `object`[]; `projects`: `object`[]; `sessions`: `object`[]; `tickets`: `object`[]; \}; \}\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:679](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L679)
+Defined in: [src/modules/admin/admin-moderation.service.ts:679](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L679)
 
 #### Parameters
 
@@ -194,7 +194,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:679](https://github.c
 
 > `private` **exportUserDataPortable**(`userId`): `Promise`\<\{ `exportedAt`: `Date`; `format`: `string`; `schema`: `string`; `userData`: \{ `auditLogs`: `object`[]; `files`: `object`[]; `notifications`: `object`[]; `projects`: `object`[]; `sessions`: `object`[]; `tickets`: `object`[]; \}; \}\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:724](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L724)
+Defined in: [src/modules/admin/admin-moderation.service.ts:724](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L724)
 
 #### Parameters
 
@@ -212,7 +212,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:724](https://github.c
 
 > `private` **flagContent**(`entityType`, `entityId`, `reason?`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:591](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L591)
+Defined in: [src/modules/admin/admin-moderation.service.ts:591](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L591)
 
 #### Parameters
 
@@ -238,7 +238,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:591](https://github.c
 
 > `private` **formatReport**(`auditLog`): [`ContentReport`](../interfaces/ContentReport.md)
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:642](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L642)
+Defined in: [src/modules/admin/admin-moderation.service.ts:642](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L642)
 
 #### Parameters
 
@@ -256,7 +256,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:642](https://github.c
 
 > **generateComplianceReport**(`startDate`, `endDate`): `Promise`\<[`ComplianceReport`](../interfaces/ComplianceReport.md)\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:479](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L479)
+Defined in: [src/modules/admin/admin-moderation.service.ts:479](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L479)
 
 Generate compliance report
 
@@ -280,7 +280,7 @@ Generate compliance report
 
 > `private` **getContentEntity**(`entityType`, `entityId`): `Promise`\<`any`\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:551](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L551)
+Defined in: [src/modules/admin/admin-moderation.service.ts:551](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L551)
 
 #### Parameters
 
@@ -302,7 +302,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:551](https://github.c
 
 > **getContentReports**(`filters?`, `pagination?`): `Promise`\<\{ `pagination`: \{ `limit`: `number`; `page`: `number`; `pages`: `number`; `total`: `number`; \}; `reports`: [`ContentReport`](../interfaces/ContentReport.md)[]; \}\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:243](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L243)
+Defined in: [src/modules/admin/admin-moderation.service.ts:243](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L243)
 
 Get content reports
 
@@ -350,7 +350,7 @@ Get content reports
 
 > **getModerationRules**(): [`ModerationRule`](../interfaces/ModerationRule.md)[]
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:394](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L394)
+Defined in: [src/modules/admin/admin-moderation.service.ts:394](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L394)
 
 Get/update moderation rules
 
@@ -364,7 +364,7 @@ Get/update moderation rules
 
 > **getModerationStats**(`startDate?`, `endDate?`): `Promise`\<\{ `byAction`: \{ `approve`: `number`; `flag`: `number`; `reject`: `number`; \}; `summary`: \{ `approved`: `number`; `averageResolutionTime`: `number`; `flagged`: `number`; `pending`: `number`; `rejected`: `number`; `total`: `number`; \}; `topReviewers`: `object`[]; \}\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:295](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L295)
+Defined in: [src/modules/admin/admin-moderation.service.ts:295](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L295)
 
 Get moderation statistics
 
@@ -388,7 +388,7 @@ Get moderation statistics
 
 > **handleDataRequest**(`userId`, `requestType`): `Promise`\<\{ `exportedAt`: `Date`; `format`: `string`; `userData`: \{ `auditLogs`: `object`[]; `files`: `object`[]; `notifications`: `object`[]; `projects`: `object`[]; `sessions`: `object`[]; `tickets`: `object`[]; \}; \} \| \{ `deletionDate`: `Date`; `scheduled`: `boolean`; \}\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:531](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L531)
+Defined in: [src/modules/admin/admin-moderation.service.ts:531](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L531)
 
 Handle user data request (GDPR)
 
@@ -412,7 +412,7 @@ Handle user data request (GDPR)
 
 > `private` **initializeModerationRules**(): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:75](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L75)
+Defined in: [src/modules/admin/admin-moderation.service.ts:75](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L75)
 
 Initialize default moderation rules
 
@@ -426,7 +426,7 @@ Initialize default moderation rules
 
 > `private` **notifyContentDecision**(`userId`, `entityType`, `entityId`, `decision`, `reason?`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:621](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L621)
+Defined in: [src/modules/admin/admin-moderation.service.ts:621](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L621)
 
 #### Parameters
 
@@ -460,7 +460,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:621](https://github.c
 
 > `private` **rejectContent**(`entityType`, `entityId`, `reason?`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:570](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L570)
+Defined in: [src/modules/admin/admin-moderation.service.ts:570](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L570)
 
 #### Parameters
 
@@ -486,7 +486,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:570](https://github.c
 
 > **reviewContent**(`adminId`, `entityType`, `entityId`, `decision`, `reason?`, `notes?`): `Promise`\<\{ `decision`: `"flag"` \| `"approve"` \| `"reject"`; `entityId`: `string`; `entityType`: `string`; `notes`: `string`; `reason`: `string`; `reviewedAt`: `Date`; `reviewedBy`: `string`; \}\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:117](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L117)
+Defined in: [src/modules/admin/admin-moderation.service.ts:117](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L117)
 
 Review content for violations
 
@@ -526,7 +526,7 @@ Review content for violations
 
 > `private` **scheduleUserDeletion**(`userId`): `Promise`\<\{ `deletionDate`: `Date`; `scheduled`: `boolean`; \}\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:706](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L706)
+Defined in: [src/modules/admin/admin-moderation.service.ts:706](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L706)
 
 #### Parameters
 
@@ -544,7 +544,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:706](https://github.c
 
 > **updateModerationRule**(`ruleId`, `updates`): `Promise`\<[`ModerationRule`](../interfaces/ModerationRule.md)\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:399](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L399)
+Defined in: [src/modules/admin/admin-moderation.service.ts:399](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L399)
 
 #### Parameters
 
@@ -566,7 +566,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:399](https://github.c
 
 > `private` **auditService**: [`AuditService`](../../../../shared/services/audit.service/classes/AuditService.md)
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:65](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L65)
+Defined in: [src/modules/admin/admin-moderation.service.ts:65](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L65)
 
 ***
 
@@ -574,7 +574,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:65](https://github.co
 
 > `private` **emailService**: [`EmailService`](../../../../shared/services/email.service/classes/EmailService.md)
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:66](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L66)
+Defined in: [src/modules/admin/admin-moderation.service.ts:66](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L66)
 
 ***
 
@@ -582,7 +582,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:66](https://github.co
 
 > `private` **eventBus**: [`EventBus`](../../../../shared/events/event-bus/classes/EventBus.md)
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:64](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L64)
+Defined in: [src/modules/admin/admin-moderation.service.ts:64](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L64)
 
 ***
 
@@ -590,7 +590,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:64](https://github.co
 
 > `private` **moderationRules**: `Map`\<`string`, [`ModerationRule`](../interfaces/ModerationRule.md)\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:61](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L61)
+Defined in: [src/modules/admin/admin-moderation.service.ts:61](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L61)
 
 ***
 
@@ -598,4 +598,4 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:61](https://github.co
 
 > `private` **notificationService**: [`NotificationService`](../../../notification/notification.service/classes/NotificationService.md)
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:67](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L67)
+Defined in: [src/modules/admin/admin-moderation.service.ts:67](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L67)

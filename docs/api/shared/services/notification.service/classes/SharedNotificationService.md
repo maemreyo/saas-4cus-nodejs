@@ -6,7 +6,7 @@
 
 # Class: SharedNotificationService
 
-Defined in: [src/shared/services/notification.service.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/notification.service.ts#L28)
+Defined in: [src/shared/services/notification.service.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/notification.service.ts#L28)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/shared/services/notification.service.ts:28](https://github.com/
 
 > `private` **createNotificationRecord**(`data`): `Promise`\<`void`\>
 
-Defined in: [src/shared/services/notification.service.ts:168](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/notification.service.ts#L168)
+Defined in: [src/shared/services/notification.service.ts:168](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/notification.service.ts#L168)
 
 Create notification record in database
 
@@ -44,7 +44,7 @@ Create notification record in database
 
 > **getUnreadCount**(`userId`): `Promise`\<`number`\>
 
-Defined in: [src/shared/services/notification.service.ts:261](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/notification.service.ts#L261)
+Defined in: [src/shared/services/notification.service.ts:261](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/notification.service.ts#L261)
 
 Get unread notification count for a user
 
@@ -64,7 +64,7 @@ Get unread notification count for a user
 
 > **markAllAsRead**(`userId`): `Promise`\<`void`\>
 
-Defined in: [src/shared/services/notification.service.ts:232](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/notification.service.ts#L232)
+Defined in: [src/shared/services/notification.service.ts:232](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/notification.service.ts#L232)
 
 Mark all notifications as read for a user
 
@@ -84,7 +84,7 @@ Mark all notifications as read for a user
 
 > **markAsRead**(`notificationId`, `userId`): `Promise`\<`void`\>
 
-Defined in: [src/shared/services/notification.service.ts:202](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/notification.service.ts#L202)
+Defined in: [src/shared/services/notification.service.ts:202](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/notification.service.ts#L202)
 
 Mark notification as read
 
@@ -108,7 +108,7 @@ Mark notification as read
 
 > **send**(`data`): `Promise`\<`void`\>
 
-Defined in: [src/shared/services/notification.service.ts:32](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/notification.service.ts#L32)
+Defined in: [src/shared/services/notification.service.ts:32](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/notification.service.ts#L32)
 
 Send notification to a specific user
 
@@ -128,7 +128,7 @@ Send notification to a specific user
 
 > **sendBulk**(`userIds`, `data`): `Promise`\<`void`\>
 
-Defined in: [src/shared/services/notification.service.ts:82](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/notification.service.ts#L82)
+Defined in: [src/shared/services/notification.service.ts:82](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/notification.service.ts#L82)
 
 Send notification to multiple users
 
@@ -152,7 +152,7 @@ Send notification to multiple users
 
 > **sendToAdmins**(`data`): `Promise`\<`void`\>
 
-Defined in: [src/shared/services/notification.service.ts:93](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/notification.service.ts#L93)
+Defined in: [src/shared/services/notification.service.ts:93](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/notification.service.ts#L93)
 
 Send notification to all admin users
 
@@ -172,7 +172,7 @@ Send notification to all admin users
 
 > **sendToTenant**(`tenantId`, `data`, `filter?`): `Promise`\<`void`\>
 
-Defined in: [src/shared/services/notification.service.ts:130](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/notification.service.ts#L130)
+Defined in: [src/shared/services/notification.service.ts:130](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/notification.service.ts#L130)
 
 Send notification to tenant members
 

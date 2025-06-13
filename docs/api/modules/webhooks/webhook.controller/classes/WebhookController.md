@@ -6,7 +6,7 @@
 
 # Class: WebhookController
 
-Defined in: [src/modules/webhooks/webhook.controller.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.controller.ts#L13)
+Defined in: [src/modules/webhooks/webhook.controller.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.controller.ts#L13)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/webhooks/webhook.controller.ts:13](https://github.com/m
 
 > **new WebhookController**(`webhookService`): `WebhookController`
 
-Defined in: [src/modules/webhooks/webhook.controller.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.controller.ts#L14)
+Defined in: [src/modules/webhooks/webhook.controller.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.controller.ts#L14)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/webhooks/webhook.controller.ts:14](https://github.com/m
 
 > **createWebhook**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/webhooks/webhook.controller.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.controller.ts#L19)
+Defined in: [src/modules/webhooks/webhook.controller.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.controller.ts#L19)
 
 Create webhook endpoint
 
@@ -56,7 +56,7 @@ Create webhook endpoint
 
 > **deleteWebhook**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/webhooks/webhook.controller.ts:95](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.controller.ts#L95)
+Defined in: [src/modules/webhooks/webhook.controller.ts:95](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.controller.ts#L95)
 
 Delete webhook endpoint
 
@@ -80,7 +80,7 @@ Delete webhook endpoint
 
 > **getAvailableEvents**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/webhooks/webhook.controller.ts:187](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.controller.ts#L187)
+Defined in: [src/modules/webhooks/webhook.controller.ts:187](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.controller.ts#L187)
 
 Get available webhook events
 
@@ -104,7 +104,7 @@ Get available webhook events
 
 > **getWebhook**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/webhooks/webhook.controller.ts:58](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.controller.ts#L58)
+Defined in: [src/modules/webhooks/webhook.controller.ts:58](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.controller.ts#L58)
 
 Get webhook endpoint
 
@@ -128,7 +128,7 @@ Get webhook endpoint
 
 > **getWebhookEvents**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/webhooks/webhook.controller.ts:146](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.controller.ts#L146)
+Defined in: [src/modules/webhooks/webhook.controller.ts:146](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.controller.ts#L146)
 
 Get webhook events/deliveries
 
@@ -152,7 +152,7 @@ Get webhook events/deliveries
 
 > **getWebhookStats**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/webhooks/webhook.controller.ts:128](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.controller.ts#L128)
+Defined in: [src/modules/webhooks/webhook.controller.ts:128](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.controller.ts#L128)
 
 Get webhook statistics
 
@@ -176,7 +176,7 @@ Get webhook statistics
 
 > **listWebhooks**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/webhooks/webhook.controller.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.controller.ts#L38)
+Defined in: [src/modules/webhooks/webhook.controller.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.controller.ts#L38)
 
 List webhook endpoints
 
@@ -200,7 +200,7 @@ List webhook endpoints
 
 > **replayDelivery**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/webhooks/webhook.controller.ts:172](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.controller.ts#L172)
+Defined in: [src/modules/webhooks/webhook.controller.ts:172](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.controller.ts#L172)
 
 Replay webhook delivery
 
@@ -224,7 +224,7 @@ Replay webhook delivery
 
 > **testWebhook**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/webhooks/webhook.controller.ts:110](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.controller.ts#L110)
+Defined in: [src/modules/webhooks/webhook.controller.ts:110](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.controller.ts#L110)
 
 Test webhook endpoint
 
@@ -248,7 +248,7 @@ Test webhook endpoint
 
 > **updateWebhook**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/webhooks/webhook.controller.ts:73](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.controller.ts#L73)
+Defined in: [src/modules/webhooks/webhook.controller.ts:73](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.controller.ts#L73)
 
 Update webhook endpoint
 
@@ -272,4 +272,4 @@ Update webhook endpoint
 
 > `private` **webhookService**: [`WebhookService`](../../webhook.service/classes/WebhookService.md)
 
-Defined in: [src/modules/webhooks/webhook.controller.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.controller.ts#L14)
+Defined in: [src/modules/webhooks/webhook.controller.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.controller.ts#L14)

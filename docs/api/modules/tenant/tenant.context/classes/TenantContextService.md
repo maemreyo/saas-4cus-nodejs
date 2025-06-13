@@ -6,7 +6,7 @@
 
 # Class: TenantContextService
 
-Defined in: [src/modules/tenant/tenant.context.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.context.ts#L13)
+Defined in: [src/modules/tenant/tenant.context.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.context.ts#L13)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/tenant/tenant.context.ts:13](https://github.com/maemrey
 
 > **clear**(): `void`
 
-Defined in: [src/modules/tenant/tenant.context.ts:85](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.context.ts#L85)
+Defined in: [src/modules/tenant/tenant.context.ts:85](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.context.ts#L85)
 
 Clear tenant context
 
@@ -38,7 +38,7 @@ Clear tenant context
 
 > **get**(): [`TenantContext`](../interfaces/TenantContext.md)
 
-Defined in: [src/modules/tenant/tenant.context.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.context.ts#L26)
+Defined in: [src/modules/tenant/tenant.context.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.context.ts#L26)
 
 Get current tenant context
 
@@ -52,7 +52,7 @@ Get current tenant context
 
 > **getTenantId**(): `string`
 
-Defined in: [src/modules/tenant/tenant.context.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.context.ts#L33)
+Defined in: [src/modules/tenant/tenant.context.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.context.ts#L33)
 
 Get current tenant ID
 
@@ -66,7 +66,7 @@ Get current tenant ID
 
 > **require**(): [`TenantContext`](../interfaces/TenantContext.md)
 
-Defined in: [src/modules/tenant/tenant.context.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.context.ts#L40)
+Defined in: [src/modules/tenant/tenant.context.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.context.ts#L40)
 
 Require tenant context
 
@@ -80,7 +80,7 @@ Require tenant context
 
 > **run**\<`T`\>(`context`, `fn`): `T`
 
-Defined in: [src/modules/tenant/tenant.context.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.context.ts#L19)
+Defined in: [src/modules/tenant/tenant.context.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.context.ts#L19)
 
 Run code with tenant context
 
@@ -110,7 +110,7 @@ Run code with tenant context
 
 > **setMemberRole**(`role`): `void`
 
-Defined in: [src/modules/tenant/tenant.context.ts:69](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.context.ts#L69)
+Defined in: [src/modules/tenant/tenant.context.ts:69](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.context.ts#L69)
 
 Set member role in tenant
 
@@ -130,7 +130,7 @@ Set member role in tenant
 
 > **setTenant**(`tenant`): `void`
 
-Defined in: [src/modules/tenant/tenant.context.ts:51](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.context.ts#L51)
+Defined in: [src/modules/tenant/tenant.context.ts:51](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.context.ts#L51)
 
 Set tenant information
 
@@ -160,4 +160,4 @@ Set tenant information
 
 > `private` **storage**: `AsyncLocalStorage`\<[`TenantContext`](../interfaces/TenantContext.md)\>
 
-Defined in: [src/modules/tenant/tenant.context.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.context.ts#L14)
+Defined in: [src/modules/tenant/tenant.context.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.context.ts#L14)

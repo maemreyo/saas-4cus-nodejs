@@ -6,7 +6,7 @@
 
 # Class: FastifyServer
 
-Defined in: [src/infrastructure/server/fastify.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/server/fastify.ts#L22)
+Defined in: [src/infrastructure/server/fastify.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/server/fastify.ts#L22)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/infrastructure/server/fastify.ts:22](https://github.com/maemrey
 
 > **new FastifyServer**(): `FastifyServer`
 
-Defined in: [src/infrastructure/server/fastify.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/server/fastify.ts#L25)
+Defined in: [src/infrastructure/server/fastify.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/server/fastify.ts#L25)
 
 #### Returns
 
@@ -26,7 +26,7 @@ Defined in: [src/infrastructure/server/fastify.ts:25](https://github.com/maemrey
 
 > **getApp**(): `FastifyInstance`
 
-Defined in: [src/infrastructure/server/fastify.ts:306](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/server/fastify.ts#L306)
+Defined in: [src/infrastructure/server/fastify.ts:306](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/server/fastify.ts#L306)
 
 #### Returns
 
@@ -38,7 +38,7 @@ Defined in: [src/infrastructure/server/fastify.ts:306](https://github.com/maemre
 
 > **initialize**(): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/server/fastify.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/server/fastify.ts#L36)
+Defined in: [src/infrastructure/server/fastify.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/server/fastify.ts#L36)
 
 #### Returns
 
@@ -50,7 +50,7 @@ Defined in: [src/infrastructure/server/fastify.ts:36](https://github.com/maemrey
 
 > `private` **registerErrorHandlers**(): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/server/fastify.ts:229](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/server/fastify.ts#L229)
+Defined in: [src/infrastructure/server/fastify.ts:229](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/server/fastify.ts#L229)
 
 #### Returns
 
@@ -62,7 +62,7 @@ Defined in: [src/infrastructure/server/fastify.ts:229](https://github.com/maemre
 
 > `private` **registerMiddleware**(): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/server/fastify.ts:148](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/server/fastify.ts#L148)
+Defined in: [src/infrastructure/server/fastify.ts:148](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/server/fastify.ts#L148)
 
 #### Returns
 
@@ -74,7 +74,7 @@ Defined in: [src/infrastructure/server/fastify.ts:148](https://github.com/maemre
 
 > `private` **registerPlugins**(): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/server/fastify.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/server/fastify.ts#L43)
+Defined in: [src/infrastructure/server/fastify.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/server/fastify.ts#L43)
 
 #### Returns
 
@@ -86,7 +86,7 @@ Defined in: [src/infrastructure/server/fastify.ts:43](https://github.com/maemrey
 
 > `private` **registerRoutes**(): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/server/fastify.ts:194](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/server/fastify.ts#L194)
+Defined in: [src/infrastructure/server/fastify.ts:194](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/server/fastify.ts#L194)
 
 #### Returns
 
@@ -98,7 +98,7 @@ Defined in: [src/infrastructure/server/fastify.ts:194](https://github.com/maemre
 
 > **start**(): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/server/fastify.ts:281](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/server/fastify.ts#L281)
+Defined in: [src/infrastructure/server/fastify.ts:281](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/server/fastify.ts#L281)
 
 #### Returns
 
@@ -110,7 +110,7 @@ Defined in: [src/infrastructure/server/fastify.ts:281](https://github.com/maemre
 
 > **stop**(): `Promise`\<`void`\>
 
-Defined in: [src/infrastructure/server/fastify.ts:301](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/server/fastify.ts#L301)
+Defined in: [src/infrastructure/server/fastify.ts:301](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/server/fastify.ts#L301)
 
 #### Returns
 
@@ -122,4 +122,4 @@ Defined in: [src/infrastructure/server/fastify.ts:301](https://github.com/maemre
 
 > `private` **app**: `FastifyInstance`
 
-Defined in: [src/infrastructure/server/fastify.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/server/fastify.ts#L23)
+Defined in: [src/infrastructure/server/fastify.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/server/fastify.ts#L23)

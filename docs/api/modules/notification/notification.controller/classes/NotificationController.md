@@ -6,7 +6,7 @@
 
 # Class: NotificationController
 
-Defined in: [src/modules/notification/notification.controller.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.controller.ts#L12)
+Defined in: [src/modules/notification/notification.controller.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.controller.ts#L12)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/notification/notification.controller.ts:12](https://git
 
 > **new NotificationController**(`notificationService`): `NotificationController`
 
-Defined in: [src/modules/notification/notification.controller.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.controller.ts#L13)
+Defined in: [src/modules/notification/notification.controller.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.controller.ts#L13)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/notification/notification.controller.ts:13](https://git
 
 > **createNotification**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/notification/notification.controller.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.controller.ts#L45)
+Defined in: [src/modules/notification/notification.controller.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.controller.ts#L45)
 
 Create notification (internal/admin use)
 
@@ -56,7 +56,7 @@ Create notification (internal/admin use)
 
 > **deleteNotification**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/notification/notification.controller.ts:102](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.controller.ts#L102)
+Defined in: [src/modules/notification/notification.controller.ts:102](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.controller.ts#L102)
 
 Delete notification
 
@@ -80,7 +80,7 @@ Delete notification
 
 > **getNotifications**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/notification/notification.controller.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.controller.ts#L18)
+Defined in: [src/modules/notification/notification.controller.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.controller.ts#L18)
 
 Get user notifications
 
@@ -104,7 +104,7 @@ Get user notifications
 
 > **getPreferences**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/notification/notification.controller.ts:119](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.controller.ts#L119)
+Defined in: [src/modules/notification/notification.controller.ts:119](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.controller.ts#L119)
 
 Get notification preferences
 
@@ -128,7 +128,7 @@ Get notification preferences
 
 > **getStatistics**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/notification/notification.controller.ts:146](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.controller.ts#L146)
+Defined in: [src/modules/notification/notification.controller.ts:146](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.controller.ts#L146)
 
 Get notification statistics
 
@@ -152,7 +152,7 @@ Get notification statistics
 
 > **getUnreadCount**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/notification/notification.controller.ts:156](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.controller.ts#L156)
+Defined in: [src/modules/notification/notification.controller.ts:156](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.controller.ts#L156)
 
 Get unread count
 
@@ -176,7 +176,7 @@ Get unread count
 
 > **markAsRead**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/notification/notification.controller.ts:62](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.controller.ts#L62)
+Defined in: [src/modules/notification/notification.controller.ts:62](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.controller.ts#L62)
 
 Mark notification as read
 
@@ -200,7 +200,7 @@ Mark notification as read
 
 > **markMultipleAsRead**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/notification/notification.controller.ts:79](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.controller.ts#L79)
+Defined in: [src/modules/notification/notification.controller.ts:79](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.controller.ts#L79)
 
 Mark multiple notifications as read
 
@@ -224,7 +224,7 @@ Mark multiple notifications as read
 
 > **updatePreferences**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/notification/notification.controller.ts:129](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.controller.ts#L129)
+Defined in: [src/modules/notification/notification.controller.ts:129](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.controller.ts#L129)
 
 Update notification preferences
 
@@ -248,4 +248,4 @@ Update notification preferences
 
 > `private` **notificationService**: [`NotificationService`](../../notification.service/classes/NotificationService.md)
 
-Defined in: [src/modules/notification/notification.controller.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.controller.ts#L13)
+Defined in: [src/modules/notification/notification.controller.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.controller.ts#L13)

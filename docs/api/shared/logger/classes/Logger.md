@@ -6,7 +6,7 @@
 
 # Class: Logger
 
-Defined in: [src/shared/logger/index.ts:133](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L133)
+Defined in: [src/shared/logger/index.ts:133](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L133)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/shared/logger/index.ts:133](https://github.com/maemreyo/saas-4c
 
 > **new Logger**(): `Logger`
 
-Defined in: [src/shared/logger/index.ts:137](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L137)
+Defined in: [src/shared/logger/index.ts:137](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L137)
 
 #### Returns
 
@@ -26,7 +26,7 @@ Defined in: [src/shared/logger/index.ts:137](https://github.com/maemreyo/saas-4c
 
 > **audit**(`action`, `data`): `void`
 
-Defined in: [src/shared/logger/index.ts:208](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L208)
+Defined in: [src/shared/logger/index.ts:208](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L208)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [src/shared/logger/index.ts:208](https://github.com/maemreyo/saas-4c
 
 > **child**(`context`): `Logger`
 
-Defined in: [src/shared/logger/index.ts:142](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L142)
+Defined in: [src/shared/logger/index.ts:142](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L142)
 
 #### Parameters
 
@@ -66,7 +66,7 @@ Defined in: [src/shared/logger/index.ts:142](https://github.com/maemreyo/saas-4c
 
 > **debug**(`msg`, `data?`): `void`
 
-Defined in: [src/shared/logger/index.ts:175](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L175)
+Defined in: [src/shared/logger/index.ts:175](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L175)
 
 #### Parameters
 
@@ -88,7 +88,7 @@ Defined in: [src/shared/logger/index.ts:175](https://github.com/maemreyo/saas-4c
 
 > **error**(`msg`, `error?`, `data?`): `void`
 
-Defined in: [src/shared/logger/index.ts:159](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L159)
+Defined in: [src/shared/logger/index.ts:159](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L159)
 
 #### Parameters
 
@@ -114,7 +114,7 @@ Defined in: [src/shared/logger/index.ts:159](https://github.com/maemreyo/saas-4c
 
 > **fatal**(`msg`, `data?`): `void`
 
-Defined in: [src/shared/logger/index.ts:155](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L155)
+Defined in: [src/shared/logger/index.ts:155](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L155)
 
 #### Parameters
 
@@ -136,7 +136,7 @@ Defined in: [src/shared/logger/index.ts:155](https://github.com/maemreyo/saas-4c
 
 > **forRequest**(`requestId?`): `Logger`
 
-Defined in: [src/shared/logger/index.ts:150](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L150)
+Defined in: [src/shared/logger/index.ts:150](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L150)
 
 #### Parameters
 
@@ -154,7 +154,7 @@ Defined in: [src/shared/logger/index.ts:150](https://github.com/maemreyo/saas-4c
 
 > **getPino**(): `Logger`
 
-Defined in: [src/shared/logger/index.ts:242](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L242)
+Defined in: [src/shared/logger/index.ts:242](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L242)
 
 #### Returns
 
@@ -166,7 +166,7 @@ Defined in: [src/shared/logger/index.ts:242](https://github.com/maemreyo/saas-4c
 
 > **info**(`msg`, `data?`): `void`
 
-Defined in: [src/shared/logger/index.ts:171](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L171)
+Defined in: [src/shared/logger/index.ts:171](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L171)
 
 #### Parameters
 
@@ -188,7 +188,7 @@ Defined in: [src/shared/logger/index.ts:171](https://github.com/maemreyo/saas-4c
 
 > **metric**(`name`, `value`, `tags?`): `void`
 
-Defined in: [src/shared/logger/index.ts:230](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L230)
+Defined in: [src/shared/logger/index.ts:230](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L230)
 
 #### Parameters
 
@@ -214,7 +214,7 @@ Defined in: [src/shared/logger/index.ts:230](https://github.com/maemreyo/saas-4c
 
 > **security**(`event`, `data`): `void`
 
-Defined in: [src/shared/logger/index.ts:219](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L219)
+Defined in: [src/shared/logger/index.ts:219](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L219)
 
 #### Parameters
 
@@ -236,7 +236,7 @@ Defined in: [src/shared/logger/index.ts:219](https://github.com/maemreyo/saas-4c
 
 > **time**(`label`): () => `void`
 
-Defined in: [src/shared/logger/index.ts:184](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L184)
+Defined in: [src/shared/logger/index.ts:184](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L184)
 
 #### Parameters
 
@@ -258,7 +258,7 @@ Defined in: [src/shared/logger/index.ts:184](https://github.com/maemreyo/saas-4c
 
 > **timeAsync**\<`T`\>(`label`, `fn`): `Promise`\<`T`\>
 
-Defined in: [src/shared/logger/index.ts:193](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L193)
+Defined in: [src/shared/logger/index.ts:193](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L193)
 
 #### Type Parameters
 
@@ -286,7 +286,7 @@ Defined in: [src/shared/logger/index.ts:193](https://github.com/maemreyo/saas-4c
 
 > **trace**(`msg`, `data?`): `void`
 
-Defined in: [src/shared/logger/index.ts:179](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L179)
+Defined in: [src/shared/logger/index.ts:179](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L179)
 
 #### Parameters
 
@@ -308,7 +308,7 @@ Defined in: [src/shared/logger/index.ts:179](https://github.com/maemreyo/saas-4c
 
 > **warn**(`msg`, `data?`): `void`
 
-Defined in: [src/shared/logger/index.ts:167](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L167)
+Defined in: [src/shared/logger/index.ts:167](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L167)
 
 #### Parameters
 
@@ -330,7 +330,7 @@ Defined in: [src/shared/logger/index.ts:167](https://github.com/maemreyo/saas-4c
 
 > `private` **context**: [`LogContext`](../interfaces/LogContext.md) = `{}`
 
-Defined in: [src/shared/logger/index.ts:135](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L135)
+Defined in: [src/shared/logger/index.ts:135](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L135)
 
 ***
 
@@ -338,4 +338,4 @@ Defined in: [src/shared/logger/index.ts:135](https://github.com/maemreyo/saas-4c
 
 > `private` **logger**: `Logger`
 
-Defined in: [src/shared/logger/index.ts:134](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/logger/index.ts#L134)
+Defined in: [src/shared/logger/index.ts:134](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/logger/index.ts#L134)

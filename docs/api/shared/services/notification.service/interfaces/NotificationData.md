@@ -6,7 +6,7 @@
 
 # Interface: NotificationData
 
-Defined in: [src/shared/services/notification.service.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/notification.service.ts#L12)
+Defined in: [src/shared/services/notification.service.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/notification.service.ts#L12)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/shared/services/notification.service.ts:12](https://github.com/
 
 > `optional` **channel**: `"push"` \| `"email"` \| `"all"` \| `"in-app"`
 
-Defined in: [src/shared/services/notification.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/notification.service.ts#L18)
+Defined in: [src/shared/services/notification.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/notification.service.ts#L18)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/shared/services/notification.service.ts:18](https://github.com/
 
 > `optional` **data**: `Record`\<`string`, `any`\>
 
-Defined in: [src/shared/services/notification.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/notification.service.ts#L17)
+Defined in: [src/shared/services/notification.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/notification.service.ts#L17)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/shared/services/notification.service.ts:17](https://github.com/
 
 > **message**: `string`
 
-Defined in: [src/shared/services/notification.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/notification.service.ts#L16)
+Defined in: [src/shared/services/notification.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/notification.service.ts#L16)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/shared/services/notification.service.ts:16](https://github.com/
 
 > `optional` **priority**: `"urgent"` \| `"high"` \| `"medium"` \| `"low"`
 
-Defined in: [src/shared/services/notification.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/notification.service.ts#L19)
+Defined in: [src/shared/services/notification.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/notification.service.ts#L19)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/shared/services/notification.service.ts:19](https://github.com/
 
 > `optional` **severity**: `"error"` \| `"info"` \| `"warning"`
 
-Defined in: [src/shared/services/notification.service.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/notification.service.ts#L20)
+Defined in: [src/shared/services/notification.service.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/notification.service.ts#L20)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [src/shared/services/notification.service.ts:20](https://github.com/
 
 > **title**: `string`
 
-Defined in: [src/shared/services/notification.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/notification.service.ts#L15)
+Defined in: [src/shared/services/notification.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/notification.service.ts#L15)
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: [src/shared/services/notification.service.ts:15](https://github.com/
 
 > **type**: `string`
 
-Defined in: [src/shared/services/notification.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/notification.service.ts#L14)
+Defined in: [src/shared/services/notification.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/notification.service.ts#L14)
 
 ***
 
@@ -70,4 +70,4 @@ Defined in: [src/shared/services/notification.service.ts:14](https://github.com/
 
 > `optional` **userId**: `string`
 
-Defined in: [src/shared/services/notification.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/notification.service.ts#L13)
+Defined in: [src/shared/services/notification.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/notification.service.ts#L13)

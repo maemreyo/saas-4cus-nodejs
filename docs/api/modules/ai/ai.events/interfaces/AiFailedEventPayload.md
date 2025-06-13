@@ -6,7 +6,7 @@
 
 # Interface: AiFailedEventPayload
 
-Defined in: [src/modules/ai/ai.events.ts:80](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.events.ts#L80)
+Defined in: [src/modules/ai/ai.events.ts:80](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.events.ts#L80)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [src/modules/ai/ai.events.ts:80](https://github.com/maemreyo/saas-4c
 
 > **error**: `string`
 
-Defined in: [src/modules/ai/ai.events.ts:81](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.events.ts#L81)
+Defined in: [src/modules/ai/ai.events.ts:81](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.events.ts#L81)
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: [src/modules/ai/ai.events.ts:81](https://github.com/maemreyo/saas-4c
 
 > **errorCode**: `string`
 
-Defined in: [src/modules/ai/ai.events.ts:82](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.events.ts#L82)
+Defined in: [src/modules/ai/ai.events.ts:82](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.events.ts#L82)
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: [src/modules/ai/ai.events.ts:82](https://github.com/maemreyo/saas-4c
 
 > `optional` **metadata**: `Record`\<`string`, `any`\>
 
-Defined in: [src/modules/ai/ai.events.ts:68](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.events.ts#L68)
+Defined in: [src/modules/ai/ai.events.ts:68](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.events.ts#L68)
 
 #### Inherited from
 
@@ -46,7 +46,7 @@ Defined in: [src/modules/ai/ai.events.ts:68](https://github.com/maemreyo/saas-4c
 
 > **model**: `string`
 
-Defined in: [src/modules/ai/ai.events.ts:65](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.events.ts#L65)
+Defined in: [src/modules/ai/ai.events.ts:65](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.events.ts#L65)
 
 #### Inherited from
 
@@ -58,7 +58,7 @@ Defined in: [src/modules/ai/ai.events.ts:65](https://github.com/maemreyo/saas-4c
 
 > **operation**: `"completion"` \| `"chat"` \| `"embedding"` \| `"image"` \| `"audio"`
 
-Defined in: [src/modules/ai/ai.events.ts:67](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.events.ts#L67)
+Defined in: [src/modules/ai/ai.events.ts:67](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.events.ts#L67)
 
 #### Inherited from
 
@@ -70,7 +70,7 @@ Defined in: [src/modules/ai/ai.events.ts:67](https://github.com/maemreyo/saas-4c
 
 > **provider**: `string`
 
-Defined in: [src/modules/ai/ai.events.ts:66](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.events.ts#L66)
+Defined in: [src/modules/ai/ai.events.ts:66](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.events.ts#L66)
 
 #### Inherited from
 
@@ -82,7 +82,7 @@ Defined in: [src/modules/ai/ai.events.ts:66](https://github.com/maemreyo/saas-4c
 
 > **requestId**: `string`
 
-Defined in: [src/modules/ai/ai.events.ts:64](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.events.ts#L64)
+Defined in: [src/modules/ai/ai.events.ts:64](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.events.ts#L64)
 
 #### Inherited from
 
@@ -94,7 +94,7 @@ Defined in: [src/modules/ai/ai.events.ts:64](https://github.com/maemreyo/saas-4c
 
 > `optional` **statusCode**: `number`
 
-Defined in: [src/modules/ai/ai.events.ts:83](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.events.ts#L83)
+Defined in: [src/modules/ai/ai.events.ts:83](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.events.ts#L83)
 
 ***
 
@@ -102,7 +102,7 @@ Defined in: [src/modules/ai/ai.events.ts:83](https://github.com/maemreyo/saas-4c
 
 > `optional` **tenantId**: `string`
 
-Defined in: [src/modules/ai/ai.events.ts:59](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.events.ts#L59)
+Defined in: [src/modules/ai/ai.events.ts:59](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.events.ts#L59)
 
 #### Inherited from
 
@@ -114,7 +114,7 @@ Defined in: [src/modules/ai/ai.events.ts:59](https://github.com/maemreyo/saas-4c
 
 > **timestamp**: `Date`
 
-Defined in: [src/modules/ai/ai.events.ts:60](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.events.ts#L60)
+Defined in: [src/modules/ai/ai.events.ts:60](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.events.ts#L60)
 
 #### Inherited from
 
@@ -126,7 +126,7 @@ Defined in: [src/modules/ai/ai.events.ts:60](https://github.com/maemreyo/saas-4c
 
 > **userId**: `string`
 
-Defined in: [src/modules/ai/ai.events.ts:58](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.events.ts#L58)
+Defined in: [src/modules/ai/ai.events.ts:58](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.events.ts#L58)
 
 #### Inherited from
 

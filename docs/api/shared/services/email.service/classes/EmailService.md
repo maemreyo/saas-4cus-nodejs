@@ -6,7 +6,7 @@
 
 # Class: EmailService
 
-Defined in: [src/shared/services/email.service.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L33)
+Defined in: [src/shared/services/email.service.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L33)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/shared/services/email.service.ts:33](https://github.com/maemrey
 
 > **new EmailService**(`queueService`): `EmailService`
 
-Defined in: [src/shared/services/email.service.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L37)
+Defined in: [src/shared/services/email.service.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L37)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/shared/services/email.service.ts:37](https://github.com/maemrey
 
 > `private` **loadTemplates**(): `Promise`\<`void`\>
 
-Defined in: [src/shared/services/email.service.ts:51](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L51)
+Defined in: [src/shared/services/email.service.ts:51](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L51)
 
 #### Returns
 
@@ -44,7 +44,7 @@ Defined in: [src/shared/services/email.service.ts:51](https://github.com/maemrey
 
 > **queue**(`options`, `delay?`): `Promise`\<`void`\>
 
-Defined in: [src/shared/services/email.service.ts:149](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L149)
+Defined in: [src/shared/services/email.service.ts:149](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L149)
 
 #### Parameters
 
@@ -66,7 +66,7 @@ Defined in: [src/shared/services/email.service.ts:149](https://github.com/maemre
 
 > `private` **renderTemplate**(`template`, `context`): `string`
 
-Defined in: [src/shared/services/email.service.ts:207](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L207)
+Defined in: [src/shared/services/email.service.ts:207](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L207)
 
 #### Parameters
 
@@ -88,7 +88,7 @@ Defined in: [src/shared/services/email.service.ts:207](https://github.com/maemre
 
 > **send**(`options`): `Promise`\<`void`\>
 
-Defined in: [src/shared/services/email.service.ts:109](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L109)
+Defined in: [src/shared/services/email.service.ts:109](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L109)
 
 #### Parameters
 
@@ -106,7 +106,7 @@ Defined in: [src/shared/services/email.service.ts:109](https://github.com/maemre
 
 > **send2FAEnabledEmail**(`email`, `backupCodes`): `Promise`\<`void`\>
 
-Defined in: [src/shared/services/email.service.ts:194](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L194)
+Defined in: [src/shared/services/email.service.ts:194](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L194)
 
 #### Parameters
 
@@ -128,7 +128,7 @@ Defined in: [src/shared/services/email.service.ts:194](https://github.com/maemre
 
 > **sendPasswordChangedEmail**(`email`): `Promise`\<`void`\>
 
-Defined in: [src/shared/services/email.service.ts:183](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L183)
+Defined in: [src/shared/services/email.service.ts:183](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L183)
 
 #### Parameters
 
@@ -146,7 +146,7 @@ Defined in: [src/shared/services/email.service.ts:183](https://github.com/maemre
 
 > **sendPasswordResetEmail**(`email`, `token`): `Promise`\<`void`\>
 
-Defined in: [src/shared/services/email.service.ts:169](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L169)
+Defined in: [src/shared/services/email.service.ts:169](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L169)
 
 #### Parameters
 
@@ -168,7 +168,7 @@ Defined in: [src/shared/services/email.service.ts:169](https://github.com/maemre
 
 > **sendVerificationEmail**(`email`, `token`): `Promise`\<`void`\>
 
-Defined in: [src/shared/services/email.service.ts:154](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L154)
+Defined in: [src/shared/services/email.service.ts:154](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L154)
 
 #### Parameters
 
@@ -190,7 +190,7 @@ Defined in: [src/shared/services/email.service.ts:154](https://github.com/maemre
 
 > **verify**(): `Promise`\<`boolean`\>
 
-Defined in: [src/shared/services/email.service.ts:214](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L214)
+Defined in: [src/shared/services/email.service.ts:214](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L214)
 
 #### Returns
 
@@ -202,7 +202,7 @@ Defined in: [src/shared/services/email.service.ts:214](https://github.com/maemre
 
 > `private` **queueService**: [`QueueService`](../../../queue/queue.service/classes/QueueService.md)
 
-Defined in: [src/shared/services/email.service.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L37)
+Defined in: [src/shared/services/email.service.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L37)
 
 ***
 
@@ -210,7 +210,7 @@ Defined in: [src/shared/services/email.service.ts:37](https://github.com/maemrey
 
 > `private` **templates**: `Map`\<`string`, [`EmailTemplate`](../-internal-/interfaces/EmailTemplate.md)\>
 
-Defined in: [src/shared/services/email.service.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L35)
+Defined in: [src/shared/services/email.service.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L35)
 
 ***
 
@@ -218,4 +218,4 @@ Defined in: [src/shared/services/email.service.ts:35](https://github.com/maemrey
 
 > `private` **transporter**: `Transporter`
 
-Defined in: [src/shared/services/email.service.ts:34](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/services/email.service.ts#L34)
+Defined in: [src/shared/services/email.service.ts:34](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/services/email.service.ts#L34)

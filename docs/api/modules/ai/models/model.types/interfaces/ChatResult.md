@@ -6,7 +6,7 @@
 
 # Interface: ChatResult
 
-Defined in: [src/modules/ai/models/model.types.ts:106](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L106)
+Defined in: [src/modules/ai/models/model.types.ts:106](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L106)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [src/modules/ai/models/model.types.ts:106](https://github.com/maemre
 
 > `optional` **cached**: `boolean`
 
-Defined in: [src/modules/ai/models/model.types.ts:103](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L103)
+Defined in: [src/modules/ai/models/model.types.ts:103](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L103)
 
 #### Inherited from
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/ai/models/model.types.ts:103](https://github.com/maemre
 
 > **finishReason**: `"length"` \| `"stop"` \| `"content_filter"` \| `"function_call"`
 
-Defined in: [src/modules/ai/models/model.types.ts:102](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L102)
+Defined in: [src/modules/ai/models/model.types.ts:102](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L102)
 
 #### Inherited from
 
@@ -42,7 +42,7 @@ Defined in: [src/modules/ai/models/model.types.ts:102](https://github.com/maemre
 
 > **id**: `string`
 
-Defined in: [src/modules/ai/models/model.types.ts:98](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L98)
+Defined in: [src/modules/ai/models/model.types.ts:98](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L98)
 
 #### Inherited from
 
@@ -54,7 +54,7 @@ Defined in: [src/modules/ai/models/model.types.ts:98](https://github.com/maemrey
 
 > **message**: [`ChatMessage`](ChatMessage.md)
 
-Defined in: [src/modules/ai/models/model.types.ts:107](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L107)
+Defined in: [src/modules/ai/models/model.types.ts:107](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L107)
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: [src/modules/ai/models/model.types.ts:107](https://github.com/maemre
 
 > **model**: `string`
 
-Defined in: [src/modules/ai/models/model.types.ts:100](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L100)
+Defined in: [src/modules/ai/models/model.types.ts:100](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L100)
 
 #### Inherited from
 
@@ -74,7 +74,7 @@ Defined in: [src/modules/ai/models/model.types.ts:100](https://github.com/maemre
 
 > **text**: `string`
 
-Defined in: [src/modules/ai/models/model.types.ts:99](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L99)
+Defined in: [src/modules/ai/models/model.types.ts:99](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L99)
 
 #### Inherited from
 
@@ -86,7 +86,7 @@ Defined in: [src/modules/ai/models/model.types.ts:99](https://github.com/maemrey
 
 > **usage**: [`TokenUsage`](TokenUsage.md)
 
-Defined in: [src/modules/ai/models/model.types.ts:101](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L101)
+Defined in: [src/modules/ai/models/model.types.ts:101](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L101)
 
 #### Inherited from
 

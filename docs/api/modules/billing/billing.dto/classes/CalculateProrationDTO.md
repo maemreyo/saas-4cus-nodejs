@@ -6,7 +6,7 @@
 
 # Class: CalculateProrationDTO
 
-Defined in: [src/modules/billing/billing.dto.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.dto.ts#L39)
+Defined in: [src/modules/billing/billing.dto.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.dto.ts#L39)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/billing/billing.dto.ts:39](https://github.com/maemreyo/
 
 > **newPlanId**: `string`
 
-Defined in: [src/modules/billing/billing.dto.ts:44](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.dto.ts#L44)
+Defined in: [src/modules/billing/billing.dto.ts:44](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.dto.ts#L44)
 
 ***
 
@@ -32,4 +32,4 @@ Defined in: [src/modules/billing/billing.dto.ts:44](https://github.com/maemreyo/
 
 > `static` **schema**: `ZodObject`\<\{ `newPlanId`: `ZodString`; \}, `"strip"`, `ZodTypeAny`, \{ `newPlanId?`: `string`; \}, \{ `newPlanId?`: `string`; \}\>
 
-Defined in: [src/modules/billing/billing.dto.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/billing/billing.dto.ts#L40)
+Defined in: [src/modules/billing/billing.dto.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/billing/billing.dto.ts#L40)

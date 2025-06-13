@@ -6,7 +6,7 @@
 
 # Class: TrackEventDTO
 
-Defined in: [src/modules/analytics/analytics.dto.ts:3](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.dto.ts#L3)
+Defined in: [src/modules/analytics/analytics.dto.ts:3](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.dto.ts#L3)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/analytics/analytics.dto.ts:3](https://github.com/maemre
 
 > `optional` **deviceId**: `string`
 
-Defined in: [src/modules/analytics/analytics.dto.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.dto.ts#L21)
+Defined in: [src/modules/analytics/analytics.dto.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.dto.ts#L21)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/analytics/analytics.dto.ts:21](https://github.com/maemr
 
 > **event**: `string`
 
-Defined in: [src/modules/analytics/analytics.dto.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.dto.ts#L18)
+Defined in: [src/modules/analytics/analytics.dto.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.dto.ts#L18)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [src/modules/analytics/analytics.dto.ts:18](https://github.com/maemr
 
 > `optional` **properties**: `Record`\<`string`, `any`\>
 
-Defined in: [src/modules/analytics/analytics.dto.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.dto.ts#L19)
+Defined in: [src/modules/analytics/analytics.dto.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.dto.ts#L19)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [src/modules/analytics/analytics.dto.ts:19](https://github.com/maemr
 
 > `static` **schema**: `ZodObject`\<\{ `deviceId`: `ZodOptional`\<`ZodString`\>; `event`: `ZodString`; `properties`: `ZodOptional`\<`ZodRecord`\<`ZodString`, `ZodAny`\>\>; `sessionId`: `ZodOptional`\<`ZodString`\>; `utm`: `ZodOptional`\<`ZodObject`\<\{ `campaign`: `ZodOptional`\<`ZodString`\>; `content`: `ZodOptional`\<`ZodString`\>; `medium`: `ZodOptional`\<`ZodString`\>; `source`: `ZodOptional`\<`ZodString`\>; `term`: `ZodOptional`\<`ZodString`\>; \}, `"strip"`, `ZodTypeAny`, \{ `campaign?`: `string`; `content?`: `string`; `medium?`: `string`; `source?`: `string`; `term?`: `string`; \}, \{ `campaign?`: `string`; `content?`: `string`; `medium?`: `string`; `source?`: `string`; `term?`: `string`; \}\>\>; \}, `"strip"`, `ZodTypeAny`, \{ `deviceId?`: `string`; `event?`: `string`; `properties?`: `Record`\<`string`, `any`\>; `sessionId?`: `string`; `utm?`: \{ `campaign?`: `string`; `content?`: `string`; `medium?`: `string`; `source?`: `string`; `term?`: `string`; \}; \}, \{ `deviceId?`: `string`; `event?`: `string`; `properties?`: `Record`\<`string`, `any`\>; `sessionId?`: `string`; `utm?`: \{ `campaign?`: `string`; `content?`: `string`; `medium?`: `string`; `source?`: `string`; `term?`: `string`; \}; \}\>
 
-Defined in: [src/modules/analytics/analytics.dto.ts:4](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.dto.ts#L4)
+Defined in: [src/modules/analytics/analytics.dto.ts:4](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.dto.ts#L4)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [src/modules/analytics/analytics.dto.ts:4](https://github.com/maemre
 
 > `optional` **sessionId**: `string`
 
-Defined in: [src/modules/analytics/analytics.dto.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.dto.ts#L20)
+Defined in: [src/modules/analytics/analytics.dto.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.dto.ts#L20)
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: [src/modules/analytics/analytics.dto.ts:20](https://github.com/maemr
 
 > `optional` **utm**: `object`
 
-Defined in: [src/modules/analytics/analytics.dto.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.dto.ts#L22)
+Defined in: [src/modules/analytics/analytics.dto.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.dto.ts#L22)
 
 #### campaign?
 

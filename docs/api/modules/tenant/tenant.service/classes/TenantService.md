@@ -6,7 +6,7 @@
 
 # Class: TenantService
 
-Defined in: [src/modules/tenant/tenant.service.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L39)
+Defined in: [src/modules/tenant/tenant.service.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L39)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/tenant/tenant.service.ts:39](https://github.com/maemrey
 
 > **new TenantService**(`eventBus`, `emailService`): `TenantService`
 
-Defined in: [src/modules/tenant/tenant.service.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L40)
+Defined in: [src/modules/tenant/tenant.service.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L40)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [src/modules/tenant/tenant.service.ts:40](https://github.com/maemrey
 
 > **acceptInvitation**(`token`, `userId`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/tenant/tenant.service.ts:380](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L380)
+Defined in: [src/modules/tenant/tenant.service.ts:380](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L380)
 
 Accept invitation
 
@@ -60,7 +60,7 @@ Accept invitation
 
 > **checkTenantPermission**(`tenantId`, `userId`, `allowedRoles?`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/tenant/tenant.service.ts:662](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L662)
+Defined in: [src/modules/tenant/tenant.service.ts:662](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L662)
 
 Check tenant permission
 
@@ -88,7 +88,7 @@ Check tenant permission
 
 > `private` **clearTenantCache**(`tenantId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/tenant/tenant.service.ts:690](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L690)
+Defined in: [src/modules/tenant/tenant.service.ts:690](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L690)
 
 Clear tenant cache
 
@@ -108,7 +108,7 @@ Clear tenant cache
 
 > **createTenant**(`options`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/tenant/tenant.service.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L48)
+Defined in: [src/modules/tenant/tenant.service.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L48)
 
 Create a new tenant
 
@@ -128,7 +128,7 @@ Create a new tenant
 
 > **deleteTenant**(`tenantId`, `userId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/tenant/tenant.service.ts:197](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L197)
+Defined in: [src/modules/tenant/tenant.service.ts:197](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L197)
 
 Delete tenant (soft delete)
 
@@ -152,7 +152,7 @@ Delete tenant (soft delete)
 
 > **getMember**(`tenantId`, `userId`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/tenant/tenant.service.ts:138](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L138)
+Defined in: [src/modules/tenant/tenant.service.ts:138](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L138)
 
 Get tenant member
 
@@ -176,7 +176,7 @@ Get tenant member
 
 > **getTenant**(`tenantId`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/tenant/tenant.service.ts:108](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L108)
+Defined in: [src/modules/tenant/tenant.service.ts:108](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L108)
 
 Get tenant by ID
 
@@ -196,7 +196,7 @@ Get tenant by ID
 
 > **getTenantBySlug**(`slug`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/tenant/tenant.service.ts:123](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L123)
+Defined in: [src/modules/tenant/tenant.service.ts:123](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L123)
 
 Get tenant by slug
 
@@ -216,7 +216,7 @@ Get tenant by slug
 
 > **getTenantMembers**(`tenantId`, `userId`, `options?`): `Promise`\<\{ `members`: `object` & `object`[]; `total`: `number`; \}\>
 
-Defined in: [src/modules/tenant/tenant.service.ts:248](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L248)
+Defined in: [src/modules/tenant/tenant.service.ts:248](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L248)
 
 Get tenant members
 
@@ -254,7 +254,7 @@ Get tenant members
 
 > **getTenantStats**(`tenantId`, `userId`): `Promise`\<`any`\>
 
-Defined in: [src/modules/tenant/tenant.service.ts:697](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L697)
+Defined in: [src/modules/tenant/tenant.service.ts:697](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L697)
 
 Get tenant statistics
 
@@ -278,7 +278,7 @@ Get tenant statistics
 
 > **getUserTenants**(`userId`): `Promise`\<`object`[]\>
 
-Defined in: [src/modules/tenant/tenant.service.ts:224](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L224)
+Defined in: [src/modules/tenant/tenant.service.ts:224](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L224)
 
 Get user's tenants
 
@@ -298,7 +298,7 @@ Get user's tenants
 
 > **inviteMember**(`tenantId`, `inviterId`, `options`): `Promise`\<`void`\>
 
-Defined in: [src/modules/tenant/tenant.service.ts:296](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L296)
+Defined in: [src/modules/tenant/tenant.service.ts:296](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L296)
 
 Invite member to tenant
 
@@ -326,7 +326,7 @@ Invite member to tenant
 
 > **leaveTenant**(`tenantId`, `userId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/tenant/tenant.service.ts:556](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L556)
+Defined in: [src/modules/tenant/tenant.service.ts:556](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L556)
 
 Leave tenant
 
@@ -350,7 +350,7 @@ Leave tenant
 
 > **removeMember**(`tenantId`, `memberId`, `removedBy`): `Promise`\<`void`\>
 
-Defined in: [src/modules/tenant/tenant.service.ts:503](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L503)
+Defined in: [src/modules/tenant/tenant.service.ts:503](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L503)
 
 Remove member from tenant
 
@@ -378,7 +378,7 @@ Remove member from tenant
 
 > **transferOwnership**(`tenantId`, `currentOwnerId`, `newOwnerId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/tenant/tenant.service.ts:596](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L596)
+Defined in: [src/modules/tenant/tenant.service.ts:596](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L596)
 
 Transfer ownership
 
@@ -406,7 +406,7 @@ Transfer ownership
 
 > **updateMemberRole**(`tenantId`, `memberId`, `newRole`, `updatedBy`): `Promise`\<`void`\>
 
-Defined in: [src/modules/tenant/tenant.service.ts:441](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L441)
+Defined in: [src/modules/tenant/tenant.service.ts:441](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L441)
 
 Update member role
 
@@ -438,7 +438,7 @@ Update member role
 
 > **updateTenant**(`tenantId`, `userId`, `options`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/tenant/tenant.service.ts:152](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L152)
+Defined in: [src/modules/tenant/tenant.service.ts:152](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L152)
 
 Update tenant
 
@@ -466,7 +466,7 @@ Update tenant
 
 > `private` **emailService**: [`EmailService`](../../../../shared/services/email.service/classes/EmailService.md)
 
-Defined in: [src/modules/tenant/tenant.service.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L42)
+Defined in: [src/modules/tenant/tenant.service.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L42)
 
 ***
 
@@ -474,4 +474,4 @@ Defined in: [src/modules/tenant/tenant.service.ts:42](https://github.com/maemrey
 
 > `private` **eventBus**: [`EventBus`](../../../../shared/events/event-bus/classes/EventBus.md)
 
-Defined in: [src/modules/tenant/tenant.service.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L41)
+Defined in: [src/modules/tenant/tenant.service.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L41)

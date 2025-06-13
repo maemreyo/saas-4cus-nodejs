@@ -6,7 +6,7 @@
 
 # Class: AnnouncementService
 
-Defined in: [src/modules/admin/announcement.service.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L42)
+Defined in: [src/modules/admin/announcement.service.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L42)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/admin/announcement.service.ts:42](https://github.com/ma
 
 > **new AnnouncementService**(`eventBus`, `notificationService`, `emailService`): `AnnouncementService`
 
-Defined in: [src/modules/admin/announcement.service.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L46)
+Defined in: [src/modules/admin/announcement.service.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L46)
 
 #### Parameters
 
@@ -40,7 +40,7 @@ Defined in: [src/modules/admin/announcement.service.ts:46](https://github.com/ma
 
 > `private` **clearAnnouncementCache**(): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/announcement.service.ts:540](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L540)
+Defined in: [src/modules/admin/announcement.service.ts:540](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L540)
 
 #### Returns
 
@@ -52,7 +52,7 @@ Defined in: [src/modules/admin/announcement.service.ts:540](https://github.com/m
 
 > **create**(`data`): `Promise`\<[`Announcement`](../interfaces/Announcement.md)\>
 
-Defined in: [src/modules/admin/announcement.service.ts:56](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L56)
+Defined in: [src/modules/admin/announcement.service.ts:56](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L56)
 
 Create a new announcement
 
@@ -130,7 +130,7 @@ Create a new announcement
 
 > **delete**(`announcementId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/announcement.service.ts:290](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L290)
+Defined in: [src/modules/admin/announcement.service.ts:290](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L290)
 
 Delete announcement
 
@@ -150,7 +150,7 @@ Delete announcement
 
 > **dismiss**(`announcementId`, `userId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/announcement.service.ts:327](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L327)
+Defined in: [src/modules/admin/announcement.service.ts:327](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L327)
 
 Dismiss announcement
 
@@ -174,7 +174,7 @@ Dismiss announcement
 
 > `private` **distributeAnnouncement**(`announcement`, `options?`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/announcement.service.ts:390](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L390)
+Defined in: [src/modules/admin/announcement.service.ts:390](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L390)
 
 Distribute announcement to users
 
@@ -204,7 +204,7 @@ Distribute announcement to users
 
 > `private` **generateAnnouncementId**(): `string`
 
-Defined in: [src/modules/admin/announcement.service.ts:494](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L494)
+Defined in: [src/modules/admin/announcement.service.ts:494](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L494)
 
 #### Returns
 
@@ -216,7 +216,7 @@ Defined in: [src/modules/admin/announcement.service.ts:494](https://github.com/m
 
 > **getActive**(): `Promise`\<[`Announcement`](../interfaces/Announcement.md)[]\>
 
-Defined in: [src/modules/admin/announcement.service.ts:218](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L218)
+Defined in: [src/modules/admin/announcement.service.ts:218](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L218)
 
 Get all active announcements
 
@@ -230,7 +230,7 @@ Get all active announcements
 
 > **getActiveForUser**(`userId`, `options?`): `Promise`\<[`Announcement`](../interfaces/Announcement.md)[]\>
 
-Defined in: [src/modules/admin/announcement.service.ts:136](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L136)
+Defined in: [src/modules/admin/announcement.service.ts:136](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L136)
 
 Get active announcements for a user
 
@@ -260,7 +260,7 @@ Get active announcements for a user
 
 > `private` **getColorByType**(`type`): `string`
 
-Defined in: [src/modules/admin/announcement.service.ts:518](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L518)
+Defined in: [src/modules/admin/announcement.service.ts:518](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L518)
 
 #### Parameters
 
@@ -278,7 +278,7 @@ Defined in: [src/modules/admin/announcement.service.ts:518](https://github.com/m
 
 > `private` **getIconByType**(`type`): `string`
 
-Defined in: [src/modules/admin/announcement.service.ts:508](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L508)
+Defined in: [src/modules/admin/announcement.service.ts:508](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L508)
 
 #### Parameters
 
@@ -296,7 +296,7 @@ Defined in: [src/modules/admin/announcement.service.ts:508](https://github.com/m
 
 > `private` **getPriorityByType**(`type`): `number`
 
-Defined in: [src/modules/admin/announcement.service.ts:498](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L498)
+Defined in: [src/modules/admin/announcement.service.ts:498](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L498)
 
 #### Parameters
 
@@ -314,7 +314,7 @@ Defined in: [src/modules/admin/announcement.service.ts:498](https://github.com/m
 
 > **getStatistics**(`announcementId`): `Promise`\<\{ `ctaClicks`: `number`; `dismissals`: `number`; `totalViews`: `number`; `uniqueViews`: `number`; `viewsByDay`: `object`[]; \}\>
 
-Defined in: [src/modules/admin/announcement.service.ts:348](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L348)
+Defined in: [src/modules/admin/announcement.service.ts:348](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L348)
 
 Get announcement statistics
 
@@ -334,7 +334,7 @@ Get announcement statistics
 
 > `private` **getTargetUsers**(`announcement`): `Promise`\<`object`[]\>
 
-Defined in: [src/modules/admin/announcement.service.ts:447](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L447)
+Defined in: [src/modules/admin/announcement.service.ts:447](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L447)
 
 Get users targeted by announcement
 
@@ -354,7 +354,7 @@ Get users targeted by announcement
 
 > `private` **mapAnnouncementTypeToNotificationType**(`type`): `"CRITICAL"` \| `"SUCCESS"` \| `"INFO"` \| `"WARNING"` \| `"ERROR"` \| `"ALERT"`
 
-Defined in: [src/modules/admin/announcement.service.ts:528](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L528)
+Defined in: [src/modules/admin/announcement.service.ts:528](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L528)
 
 #### Parameters
 
@@ -372,7 +372,7 @@ Defined in: [src/modules/admin/announcement.service.ts:528](https://github.com/m
 
 > **markAsViewed**(`announcementId`, `userId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/announcement.service.ts:308](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L308)
+Defined in: [src/modules/admin/announcement.service.ts:308](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L308)
 
 Mark announcement as viewed
 
@@ -396,7 +396,7 @@ Mark announcement as viewed
 
 > **schedule**(`announcement`, `scheduledFor`): `Promise`\<`void`\>
 
-Defined in: [src/modules/admin/announcement.service.ts:369](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L369)
+Defined in: [src/modules/admin/announcement.service.ts:369](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L369)
 
 Schedule announcement
 
@@ -420,7 +420,7 @@ Schedule announcement
 
 > **update**(`announcementId`, `updates`): `Promise`\<[`Announcement`](../interfaces/Announcement.md)\>
 
-Defined in: [src/modules/admin/announcement.service.ts:249](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L249)
+Defined in: [src/modules/admin/announcement.service.ts:249](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L249)
 
 Update announcement
 
@@ -444,7 +444,7 @@ Update announcement
 
 > `private` `readonly` **CACHE\_KEY**: `"announcements:active"` = `'announcements:active'`
 
-Defined in: [src/modules/admin/announcement.service.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L43)
+Defined in: [src/modules/admin/announcement.service.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L43)
 
 ***
 
@@ -452,7 +452,7 @@ Defined in: [src/modules/admin/announcement.service.ts:43](https://github.com/ma
 
 > `private` `readonly` **CACHE\_TTL**: `300` = `300`
 
-Defined in: [src/modules/admin/announcement.service.ts:44](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L44)
+Defined in: [src/modules/admin/announcement.service.ts:44](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L44)
 
 ***
 
@@ -460,7 +460,7 @@ Defined in: [src/modules/admin/announcement.service.ts:44](https://github.com/ma
 
 > `private` **emailService**: [`EmailService`](../../../../shared/services/email.service/classes/EmailService.md)
 
-Defined in: [src/modules/admin/announcement.service.ts:49](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L49)
+Defined in: [src/modules/admin/announcement.service.ts:49](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L49)
 
 ***
 
@@ -468,7 +468,7 @@ Defined in: [src/modules/admin/announcement.service.ts:49](https://github.com/ma
 
 > `private` **eventBus**: [`EventBus`](../../../../shared/events/event-bus/classes/EventBus.md)
 
-Defined in: [src/modules/admin/announcement.service.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L47)
+Defined in: [src/modules/admin/announcement.service.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L47)
 
 ***
 
@@ -476,4 +476,4 @@ Defined in: [src/modules/admin/announcement.service.ts:47](https://github.com/ma
 
 > `private` **notificationService**: [`NotificationService`](../../../notification/notification.service/classes/NotificationService.md)
 
-Defined in: [src/modules/admin/announcement.service.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L48)
+Defined in: [src/modules/admin/announcement.service.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L48)

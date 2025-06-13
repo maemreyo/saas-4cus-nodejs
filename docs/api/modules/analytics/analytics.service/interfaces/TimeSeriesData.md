@@ -6,7 +6,7 @@
 
 # Interface: TimeSeriesData
 
-Defined in: [src/modules/analytics/analytics.service.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L37)
+Defined in: [src/modules/analytics/analytics.service.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L37)
 
 ## Indexable
 
@@ -18,7 +18,7 @@ Defined in: [src/modules/analytics/analytics.service.ts:37](https://github.com/m
 
 > **date**: `Date`
 
-Defined in: [src/modules/analytics/analytics.service.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L38)
+Defined in: [src/modules/analytics/analytics.service.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L38)
 
 ***
 
@@ -26,4 +26,4 @@ Defined in: [src/modules/analytics/analytics.service.ts:38](https://github.com/m
 
 > **value**: `number`
 
-Defined in: [src/modules/analytics/analytics.service.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.service.ts#L39)
+Defined in: [src/modules/analytics/analytics.service.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.service.ts#L39)

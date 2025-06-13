@@ -6,7 +6,7 @@
 
 # Class: CreateFeatureDTO
 
-Defined in: [src/modules/features/feature.dto.ts:3](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L3)
+Defined in: [src/modules/features/feature.dto.ts:3](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L3)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/features/feature.dto.ts:3](https://github.com/maemreyo/
 
 > `optional` **category**: `string`
 
-Defined in: [src/modules/features/feature.dto.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L14)
+Defined in: [src/modules/features/feature.dto.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L14)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/features/feature.dto.ts:14](https://github.com/maemreyo
 
 > `optional` **description**: `string`
 
-Defined in: [src/modules/features/feature.dto.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L13)
+Defined in: [src/modules/features/feature.dto.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L13)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [src/modules/features/feature.dto.ts:13](https://github.com/maemreyo
 
 > **key**: `string`
 
-Defined in: [src/modules/features/feature.dto.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L12)
+Defined in: [src/modules/features/feature.dto.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L12)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [src/modules/features/feature.dto.ts:12](https://github.com/maemreyo
 
 > **name**: `string`
 
-Defined in: [src/modules/features/feature.dto.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L11)
+Defined in: [src/modules/features/feature.dto.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L11)
 
 ***
 
@@ -56,4 +56,4 @@ Defined in: [src/modules/features/feature.dto.ts:11](https://github.com/maemreyo
 
 > `static` **schema**: `ZodObject`\<\{ `category`: `ZodOptional`\<`ZodString`\>; `description`: `ZodOptional`\<`ZodString`\>; `key`: `ZodString`; `name`: `ZodString`; \}, `"strip"`, `ZodTypeAny`, \{ `category?`: `string`; `description?`: `string`; `key?`: `string`; `name?`: `string`; \}, \{ `category?`: `string`; `description?`: `string`; `key?`: `string`; `name?`: `string`; \}\>
 
-Defined in: [src/modules/features/feature.dto.ts:4](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/features/feature.dto.ts#L4)
+Defined in: [src/modules/features/feature.dto.ts:4](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/features/feature.dto.ts#L4)

@@ -6,7 +6,7 @@
 
 # Class: BadRequestException
 
-Defined in: [src/shared/exceptions/index.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/exceptions/index.ts#L24)
+Defined in: [src/shared/exceptions/index.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/exceptions/index.ts#L35)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [src/shared/exceptions/index.ts:24](https://github.com/maemreyo/saas
 
 > **new BadRequestException**(`message`, `details?`): `BadRequestException`
 
-Defined in: [src/shared/exceptions/index.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/exceptions/index.ts#L25)
+Defined in: [src/shared/exceptions/index.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/exceptions/index.ts#L36)
 
 #### Parameters
 
@@ -44,7 +44,7 @@ Defined in: [src/shared/exceptions/index.ts:25](https://github.com/maemreyo/saas
 
 > **toJSON**(): `object`
 
-Defined in: [src/shared/exceptions/index.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/exceptions/index.ts#L13)
+Defined in: [src/shared/exceptions/index.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/exceptions/index.ts#L13)
 
 #### Returns
 
@@ -80,7 +80,7 @@ Defined in: [src/shared/exceptions/index.ts:13](https://github.com/maemreyo/saas
 
 > **code**: `string`
 
-Defined in: [src/shared/exceptions/index.ts:5](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/exceptions/index.ts#L5)
+Defined in: [src/shared/exceptions/index.ts:5](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/exceptions/index.ts#L5)
 
 #### Inherited from
 
@@ -92,7 +92,7 @@ Defined in: [src/shared/exceptions/index.ts:5](https://github.com/maemreyo/saas-
 
 > `optional` **details**: `any`
 
-Defined in: [src/shared/exceptions/index.ts:6](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/exceptions/index.ts#L6)
+Defined in: [src/shared/exceptions/index.ts:6](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/exceptions/index.ts#L6)
 
 #### Inherited from
 
@@ -104,7 +104,7 @@ Defined in: [src/shared/exceptions/index.ts:6](https://github.com/maemreyo/saas-
 
 > **message**: `string`
 
-Defined in: [src/shared/exceptions/index.ts:3](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/exceptions/index.ts#L3)
+Defined in: [src/shared/exceptions/index.ts:3](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/exceptions/index.ts#L3)
 
 #### Inherited from
 
@@ -116,7 +116,7 @@ Defined in: [src/shared/exceptions/index.ts:3](https://github.com/maemreyo/saas-
 
 > **statusCode**: `number`
 
-Defined in: [src/shared/exceptions/index.ts:4](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/exceptions/index.ts#L4)
+Defined in: [src/shared/exceptions/index.ts:4](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/exceptions/index.ts#L4)
 
 #### Inherited from
 

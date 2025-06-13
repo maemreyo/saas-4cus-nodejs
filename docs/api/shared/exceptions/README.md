@@ -8,6 +8,7 @@
 
 ## Classes
 
+- [AppError](classes/AppError.md)
 - [BadRequestException](classes/BadRequestException.md)
 - [BaseException](classes/BaseException.md)
 - [ConflictException](classes/ConflictException.md)

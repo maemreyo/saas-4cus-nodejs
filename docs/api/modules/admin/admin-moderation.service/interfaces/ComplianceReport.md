@@ -6,7 +6,7 @@
 
 # Interface: ComplianceReport
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L38)
+Defined in: [src/modules/admin/admin-moderation.service.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L38)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:38](https://github.co
 
 > **byAction**: `Record`\<`string`, `number`\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:50](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L50)
+Defined in: [src/modules/admin/admin-moderation.service.ts:50](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L50)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:50](https://github.co
 
 > **byType**: `Record`\<`string`, `number`\>
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:49](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L49)
+Defined in: [src/modules/admin/admin-moderation.service.ts:49](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L49)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:49](https://github.co
 
 > **compliance**: `object`
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:52](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L52)
+Defined in: [src/modules/admin/admin-moderation.service.ts:52](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L52)
 
 #### ccpa
 
@@ -50,7 +50,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:52](https://github.co
 
 > **period**: `object`
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L39)
+Defined in: [src/modules/admin/admin-moderation.service.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L39)
 
 #### end
 
@@ -66,7 +66,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:39](https://github.co
 
 > **summary**: `object`
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L43)
+Defined in: [src/modules/admin/admin-moderation.service.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L43)
 
 #### averageResolutionTime
 
@@ -90,7 +90,7 @@ Defined in: [src/modules/admin/admin-moderation.service.ts:43](https://github.co
 
 > **topReporters**: `object`[]
 
-Defined in: [src/modules/admin/admin-moderation.service.ts:51](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-moderation.service.ts#L51)
+Defined in: [src/modules/admin/admin-moderation.service.ts:51](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-moderation.service.ts#L51)
 
 #### count
 

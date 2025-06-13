@@ -6,7 +6,7 @@
 
 # Interface: UpdateTenantOptions
 
-Defined in: [src/modules/tenant/tenant.service.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L22)
+Defined in: [src/modules/tenant/tenant.service.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L22)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/tenant/tenant.service.ts:22](https://github.com/maemrey
 
 > `optional` **description**: `string`
 
-Defined in: [src/modules/tenant/tenant.service.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L25)
+Defined in: [src/modules/tenant/tenant.service.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L25)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/tenant/tenant.service.ts:25](https://github.com/maemrey
 
 > `optional` **logo**: `string`
 
-Defined in: [src/modules/tenant/tenant.service.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L26)
+Defined in: [src/modules/tenant/tenant.service.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L26)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/tenant/tenant.service.ts:26](https://github.com/maemrey
 
 > `optional` **metadata**: `Record`\<`string`, `any`\>
 
-Defined in: [src/modules/tenant/tenant.service.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L28)
+Defined in: [src/modules/tenant/tenant.service.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L28)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/modules/tenant/tenant.service.ts:28](https://github.com/maemrey
 
 > `optional` **name**: `string`
 
-Defined in: [src/modules/tenant/tenant.service.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L23)
+Defined in: [src/modules/tenant/tenant.service.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L23)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/modules/tenant/tenant.service.ts:23](https://github.com/maemrey
 
 > `optional` **settings**: `Record`\<`string`, `any`\>
 
-Defined in: [src/modules/tenant/tenant.service.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L27)
+Defined in: [src/modules/tenant/tenant.service.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L27)
 
 ***
 
@@ -54,4 +54,4 @@ Defined in: [src/modules/tenant/tenant.service.ts:27](https://github.com/maemrey
 
 > `optional` **slug**: `string`
 
-Defined in: [src/modules/tenant/tenant.service.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.service.ts#L24)
+Defined in: [src/modules/tenant/tenant.service.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.service.ts#L24)

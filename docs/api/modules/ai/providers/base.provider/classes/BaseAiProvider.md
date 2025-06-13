@@ -6,7 +6,7 @@
 
 # Class: `abstract` BaseAiProvider
 
-Defined in: [src/modules/ai/providers/base.provider.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L19)
+Defined in: [src/modules/ai/providers/base.provider.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L19)
 
 ## Extended by
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:19](https://github.com/ma
 
 > **new BaseAiProvider**(`name`, `config`): `BaseAiProvider`
 
-Defined in: [src/modules/ai/providers/base.provider.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L23)
+Defined in: [src/modules/ai/providers/base.provider.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L23)
 
 #### Parameters
 
@@ -44,7 +44,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:23](https://github.com/ma
 
 > `protected` **calculateCost**(`promptTokens`, `completionTokens`, `pricePerMillionPrompt`, `pricePerMillionCompletion`): `number`
 
-Defined in: [src/modules/ai/providers/base.provider.ts:172](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L172)
+Defined in: [src/modules/ai/providers/base.provider.ts:172](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L172)
 
 #### Parameters
 
@@ -74,7 +74,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:172](https://github.com/m
 
 > `abstract` **chat**(`messages`, `options?`): `Promise`\<[`ChatResult`](../../../models/model.types/interfaces/ChatResult.md)\>
 
-Defined in: [src/modules/ai/providers/base.provider.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L35)
+Defined in: [src/modules/ai/providers/base.provider.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L35)
 
 #### Parameters
 
@@ -96,7 +96,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:35](https://github.com/ma
 
 > `abstract` **complete**(`prompt`, `options?`): `Promise`\<[`CompletionResult`](../../../models/model.types/interfaces/CompletionResult.md)\>
 
-Defined in: [src/modules/ai/providers/base.provider.ts:30](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L30)
+Defined in: [src/modules/ai/providers/base.provider.ts:30](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L30)
 
 #### Parameters
 
@@ -118,7 +118,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:30](https://github.com/ma
 
 > `protected` **createError**(`message`, `code`, `statusCode?`, `details?`): [`AiError`](../../../models/model.types/interfaces/AiError.md)
 
-Defined in: [src/modules/ai/providers/base.provider.ts:70](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L70)
+Defined in: [src/modules/ai/providers/base.provider.ts:70](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L70)
 
 #### Parameters
 
@@ -148,7 +148,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:70](https://github.com/ma
 
 > `abstract` **embed**(`text`, `options?`): `Promise`\<[`EmbeddingResult`](../../../models/model.types/interfaces/EmbeddingResult.md) \| [`EmbeddingResult`](../../../models/model.types/interfaces/EmbeddingResult.md)[]\>
 
-Defined in: [src/modules/ai/providers/base.provider.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L40)
+Defined in: [src/modules/ai/providers/base.provider.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L40)
 
 #### Parameters
 
@@ -170,7 +170,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:40](https://github.com/ma
 
 > `protected` **estimateTokens**(`text`): `number`
 
-Defined in: [src/modules/ai/providers/base.provider.ts:184](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L184)
+Defined in: [src/modules/ai/providers/base.provider.ts:184](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L184)
 
 #### Parameters
 
@@ -188,7 +188,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:184](https://github.com/m
 
 > `abstract` **generateImage**(`options`): `Promise`\<[`ImageResult`](../../../models/model.types/interfaces/ImageResult.md)\>
 
-Defined in: [src/modules/ai/providers/base.provider.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L45)
+Defined in: [src/modules/ai/providers/base.provider.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L45)
 
 #### Parameters
 
@@ -206,7 +206,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:45](https://github.com/ma
 
 > `protected` **getHeaders**(): `Record`\<`string`, `string`\>
 
-Defined in: [src/modules/ai/providers/base.provider.ts:122](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L122)
+Defined in: [src/modules/ai/providers/base.provider.ts:122](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L122)
 
 #### Returns
 
@@ -218,7 +218,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:122](https://github.com/m
 
 > **getName**(): `string`
 
-Defined in: [src/modules/ai/providers/base.provider.ts:189](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L189)
+Defined in: [src/modules/ai/providers/base.provider.ts:189](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L189)
 
 #### Returns
 
@@ -230,7 +230,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:189](https://github.com/m
 
 > `abstract` **isAvailable**(): `Promise`\<`boolean`\>
 
-Defined in: [src/modules/ai/providers/base.provider.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L28)
+Defined in: [src/modules/ai/providers/base.provider.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L28)
 
 #### Returns
 
@@ -242,7 +242,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:28](https://github.com/ma
 
 > `protected` **makeRequest**\<`T`\>(`url`, `options`): `Promise`\<`T`\>
 
-Defined in: [src/modules/ai/providers/base.provider.ts:129](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L129)
+Defined in: [src/modules/ai/providers/base.provider.ts:129](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L129)
 
 #### Type Parameters
 
@@ -270,7 +270,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:129](https://github.com/m
 
 > **streamChat**(`messages`, `options`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/providers/base.provider.ts:62](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L62)
+Defined in: [src/modules/ai/providers/base.provider.ts:62](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L62)
 
 #### Parameters
 
@@ -292,7 +292,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:62](https://github.com/ma
 
 > **streamComplete**(`prompt`, `options`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/providers/base.provider.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L55)
+Defined in: [src/modules/ai/providers/base.provider.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L55)
 
 #### Parameters
 
@@ -314,7 +314,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:55](https://github.com/ma
 
 > `abstract` **transcribeAudio**(`audioBuffer`, `options?`): `Promise`\<[`AudioResult`](../../../models/model.types/interfaces/AudioResult.md)\>
 
-Defined in: [src/modules/ai/providers/base.provider.ts:49](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L49)
+Defined in: [src/modules/ai/providers/base.provider.ts:49](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L49)
 
 #### Parameters
 
@@ -336,7 +336,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:49](https://github.com/ma
 
 > `protected` **validateApiKey**(): `void`
 
-Defined in: [src/modules/ai/providers/base.provider.ts:112](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L112)
+Defined in: [src/modules/ai/providers/base.provider.ts:112](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L112)
 
 #### Returns
 
@@ -348,7 +348,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:112](https://github.com/m
 
 > `protected` **withRetry**\<`T`\>(`operation`, `maxRetries`, `delay`): `Promise`\<`T`\>
 
-Defined in: [src/modules/ai/providers/base.provider.ts:84](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L84)
+Defined in: [src/modules/ai/providers/base.provider.ts:84](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L84)
 
 #### Type Parameters
 
@@ -380,7 +380,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:84](https://github.com/ma
 
 > `protected` **config**: [`ProviderConfig`](../../../models/model.types/interfaces/ProviderConfig.md)
 
-Defined in: [src/modules/ai/providers/base.provider.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L21)
+Defined in: [src/modules/ai/providers/base.provider.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L21)
 
 ***
 
@@ -388,4 +388,4 @@ Defined in: [src/modules/ai/providers/base.provider.ts:21](https://github.com/ma
 
 > `protected` **name**: `string`
 
-Defined in: [src/modules/ai/providers/base.provider.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L20)
+Defined in: [src/modules/ai/providers/base.provider.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L20)

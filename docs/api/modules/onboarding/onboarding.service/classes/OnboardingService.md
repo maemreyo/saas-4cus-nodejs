@@ -6,7 +6,7 @@
 
 # Class: OnboardingService
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L46)
+Defined in: [src/modules/onboarding/onboarding.service.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L46)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/onboarding/onboarding.service.ts:46](https://github.com
 
 > **new OnboardingService**(`eventBus`, `analyticsService`): `OnboardingService`
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:49](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L49)
+Defined in: [src/modules/onboarding/onboarding.service.ts:49](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L49)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [src/modules/onboarding/onboarding.service.ts:49](https://github.com
 
 > `private` **calculateProgress**(`flowId`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:622](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L622)
+Defined in: [src/modules/onboarding/onboarding.service.ts:622](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L622)
 
 Calculate onboarding progress
 
@@ -56,7 +56,7 @@ Calculate onboarding progress
 
 > `private` **checkRequiredStepsCompleted**(`flowId`): `Promise`\<`boolean`\>
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:607](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L607)
+Defined in: [src/modules/onboarding/onboarding.service.ts:607](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L607)
 
 Check if all required steps are completed
 
@@ -76,7 +76,7 @@ Check if all required steps are completed
 
 > `private` **completeOnboarding**(`userId`, `flowId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:571](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L571)
+Defined in: [src/modules/onboarding/onboarding.service.ts:571](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L571)
 
 Complete onboarding flow
 
@@ -100,7 +100,7 @@ Complete onboarding flow
 
 > **completeStep**(`userId`, `stepId`, `data?`): `Promise`\<`void`\>
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:299](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L299)
+Defined in: [src/modules/onboarding/onboarding.service.ts:299](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L299)
 
 Complete onboarding step
 
@@ -128,7 +128,7 @@ Complete onboarding step
 
 > **getChecklist**(`userId`): `Promise`\<\{ `items`: `object`[]; `progress`: `number`; \}\>
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:484](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L484)
+Defined in: [src/modules/onboarding/onboarding.service.ts:484](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L484)
 
 Get onboarding checklist
 
@@ -148,7 +148,7 @@ Get onboarding checklist
 
 > **getHints**(`userId`, `page`): `Promise`\<`object`[]\>
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:522](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L522)
+Defined in: [src/modules/onboarding/onboarding.service.ts:522](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L522)
 
 Get onboarding hints/tooltips
 
@@ -172,7 +172,7 @@ Get onboarding hints/tooltips
 
 > **getOnboardingAnalytics**(`options`): `Promise`\<\{ `dropoffFunnel`: `object`[]; `overview`: \{ `averageCompletion`: `number`; `averageDuration`: `number`; `totalCompleted`: `number`; `totalSkipped`: `number`; `totalStarted`: `number`; \}; `stepAnalytics`: `object`[]; \}\>
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:656](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L656)
+Defined in: [src/modules/onboarding/onboarding.service.ts:656](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L656)
 
 Get onboarding analytics
 
@@ -198,7 +198,7 @@ Get onboarding analytics
 
 > **getProgress**(`userId`): `Promise`\<\{ `flow`: \{ \}; `progress`: \{ \}; `steps`: `object`[]; \}\>
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:265](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L265)
+Defined in: [src/modules/onboarding/onboarding.service.ts:265](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L265)
 
 Get user's onboarding progress
 
@@ -218,7 +218,7 @@ Get user's onboarding progress
 
 > `private` **initializeFlowTemplates**(): `void`
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:59](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L59)
+Defined in: [src/modules/onboarding/onboarding.service.ts:59](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L59)
 
 Initialize onboarding flow templates
 
@@ -232,7 +232,7 @@ Initialize onboarding flow templates
 
 > **skipOnboarding**(`userId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:443](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L443)
+Defined in: [src/modules/onboarding/onboarding.service.ts:443](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L443)
 
 Skip entire onboarding
 
@@ -252,7 +252,7 @@ Skip entire onboarding
 
 > **skipStep**(`userId`, `stepId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:394](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L394)
+Defined in: [src/modules/onboarding/onboarding.service.ts:394](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L394)
 
 Skip onboarding step
 
@@ -276,7 +276,7 @@ Skip onboarding step
 
 > **startOnboarding**(`userId`, `flowId`, `context?`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:189](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L189)
+Defined in: [src/modules/onboarding/onboarding.service.ts:189](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L189)
 
 Start onboarding for user
 
@@ -304,7 +304,7 @@ Start onboarding for user
 
 > `private` **analyticsService**: [`AnalyticsService`](../../../analytics/analytics.service/classes/AnalyticsService.md)
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:51](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L51)
+Defined in: [src/modules/onboarding/onboarding.service.ts:51](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L51)
 
 ***
 
@@ -312,7 +312,7 @@ Defined in: [src/modules/onboarding/onboarding.service.ts:51](https://github.com
 
 > `private` **eventBus**: [`EventBus`](../../../../shared/events/event-bus/classes/EventBus.md)
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:50](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L50)
+Defined in: [src/modules/onboarding/onboarding.service.ts:50](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L50)
 
 ***
 
@@ -320,4 +320,4 @@ Defined in: [src/modules/onboarding/onboarding.service.ts:50](https://github.com
 
 > `private` **flowTemplates**: `Map`\<`string`, [`OnboardingFlowTemplate`](../interfaces/OnboardingFlowTemplate.md)\>
 
-Defined in: [src/modules/onboarding/onboarding.service.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/onboarding/onboarding.service.ts#L47)
+Defined in: [src/modules/onboarding/onboarding.service.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/onboarding/onboarding.service.ts#L47)

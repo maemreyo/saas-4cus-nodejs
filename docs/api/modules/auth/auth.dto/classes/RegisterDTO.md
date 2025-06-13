@@ -6,7 +6,7 @@
 
 # Class: RegisterDTO
 
-Defined in: [src/modules/auth/auth.dto.ts:4](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.dto.ts#L4)
+Defined in: [src/modules/auth/auth.dto.ts:4](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.dto.ts#L4)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/auth/auth.dto.ts:4](https://github.com/maemreyo/saas-4c
 
 > **email**: `string`
 
-Defined in: [src/modules/auth/auth.dto.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.dto.ts#L13)
+Defined in: [src/modules/auth/auth.dto.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.dto.ts#L13)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/auth/auth.dto.ts:13](https://github.com/maemreyo/saas-4
 
 > `optional` **firstName**: `string`
 
-Defined in: [src/modules/auth/auth.dto.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.dto.ts#L15)
+Defined in: [src/modules/auth/auth.dto.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.dto.ts#L15)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [src/modules/auth/auth.dto.ts:15](https://github.com/maemreyo/saas-4
 
 > `optional` **lastName**: `string`
 
-Defined in: [src/modules/auth/auth.dto.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.dto.ts#L16)
+Defined in: [src/modules/auth/auth.dto.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.dto.ts#L16)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [src/modules/auth/auth.dto.ts:16](https://github.com/maemreyo/saas-4
 
 > **password**: `string`
 
-Defined in: [src/modules/auth/auth.dto.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.dto.ts#L14)
+Defined in: [src/modules/auth/auth.dto.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.dto.ts#L14)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [src/modules/auth/auth.dto.ts:14](https://github.com/maemreyo/saas-4
 
 > `static` **schema**: `ZodObject`\<\{ `email`: `ZodString`; `firstName`: `ZodOptional`\<`ZodString`\>; `lastName`: `ZodOptional`\<`ZodString`\>; `password`: `ZodString`; `username`: `ZodOptional`\<`ZodString`\>; \}, `"strip"`, `ZodTypeAny`, \{ `email?`: `string`; `firstName?`: `string`; `lastName?`: `string`; `password?`: `string`; `username?`: `string`; \}, \{ `email?`: `string`; `firstName?`: `string`; `lastName?`: `string`; `password?`: `string`; `username?`: `string`; \}\>
 
-Defined in: [src/modules/auth/auth.dto.ts:5](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.dto.ts#L5)
+Defined in: [src/modules/auth/auth.dto.ts:5](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.dto.ts#L5)
 
 ***
 
@@ -64,4 +64,4 @@ Defined in: [src/modules/auth/auth.dto.ts:5](https://github.com/maemreyo/saas-4c
 
 > `optional` **username**: `string`
 
-Defined in: [src/modules/auth/auth.dto.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.dto.ts#L17)
+Defined in: [src/modules/auth/auth.dto.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.dto.ts#L17)

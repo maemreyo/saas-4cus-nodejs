@@ -6,7 +6,7 @@
 
 # Interface: UserSearchOptions
 
-Defined in: [src/modules/admin/admin-user.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L17)
+Defined in: [src/modules/admin/admin-user.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L17)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/admin/admin-user.service.ts:17](https://github.com/maem
 
 > `optional` **createdAfter**: `string`
 
-Defined in: [src/modules/admin/admin-user.service.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L24)
+Defined in: [src/modules/admin/admin-user.service.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L24)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/admin/admin-user.service.ts:24](https://github.com/maem
 
 > `optional` **createdBefore**: `string`
 
-Defined in: [src/modules/admin/admin-user.service.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L25)
+Defined in: [src/modules/admin/admin-user.service.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L25)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/admin/admin-user.service.ts:25](https://github.com/maem
 
 > `optional` **email**: `string`
 
-Defined in: [src/modules/admin/admin-user.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L19)
+Defined in: [src/modules/admin/admin-user.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L19)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/modules/admin/admin-user.service.ts:19](https://github.com/maem
 
 > `optional` **limit**: `number`
 
-Defined in: [src/modules/admin/admin-user.service.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L27)
+Defined in: [src/modules/admin/admin-user.service.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L27)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/modules/admin/admin-user.service.ts:27](https://github.com/maem
 
 > `optional` **order**: `"asc"` \| `"desc"`
 
-Defined in: [src/modules/admin/admin-user.service.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L29)
+Defined in: [src/modules/admin/admin-user.service.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L29)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [src/modules/admin/admin-user.service.ts:29](https://github.com/maem
 
 > `optional` **page**: `number`
 
-Defined in: [src/modules/admin/admin-user.service.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L26)
+Defined in: [src/modules/admin/admin-user.service.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L26)
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: [src/modules/admin/admin-user.service.ts:26](https://github.com/maem
 
 > `optional` **query**: `string`
 
-Defined in: [src/modules/admin/admin-user.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L18)
+Defined in: [src/modules/admin/admin-user.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L18)
 
 ***
 
@@ -70,7 +70,7 @@ Defined in: [src/modules/admin/admin-user.service.ts:18](https://github.com/maem
 
 > `optional` **role**: `UserRole`
 
-Defined in: [src/modules/admin/admin-user.service.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L21)
+Defined in: [src/modules/admin/admin-user.service.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L21)
 
 ***
 
@@ -78,7 +78,7 @@ Defined in: [src/modules/admin/admin-user.service.ts:21](https://github.com/maem
 
 > `optional` **sort**: `"createdAt"` \| `"lastLoginAt"` \| `"loginCount"`
 
-Defined in: [src/modules/admin/admin-user.service.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L28)
+Defined in: [src/modules/admin/admin-user.service.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L28)
 
 ***
 
@@ -86,7 +86,7 @@ Defined in: [src/modules/admin/admin-user.service.ts:28](https://github.com/maem
 
 > `optional` **status**: `UserStatus`
 
-Defined in: [src/modules/admin/admin-user.service.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L20)
+Defined in: [src/modules/admin/admin-user.service.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L20)
 
 ***
 
@@ -94,7 +94,7 @@ Defined in: [src/modules/admin/admin-user.service.ts:20](https://github.com/maem
 
 > `optional` **tenantId**: `string`
 
-Defined in: [src/modules/admin/admin-user.service.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L23)
+Defined in: [src/modules/admin/admin-user.service.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L23)
 
 ***
 
@@ -102,4 +102,4 @@ Defined in: [src/modules/admin/admin-user.service.ts:23](https://github.com/maem
 
 > `optional` **verified**: `boolean`
 
-Defined in: [src/modules/admin/admin-user.service.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-user.service.ts#L22)
+Defined in: [src/modules/admin/admin-user.service.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-user.service.ts#L22)

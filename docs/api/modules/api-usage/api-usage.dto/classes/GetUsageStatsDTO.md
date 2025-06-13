@@ -6,7 +6,7 @@
 
 # Class: GetUsageStatsDTO
 
-Defined in: [src/modules/api-usage/api-usage.dto.ts:3](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.dto.ts#L3)
+Defined in: [src/modules/api-usage/api-usage.dto.ts:3](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.dto.ts#L3)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/api-usage/api-usage.dto.ts:3](https://github.com/maemre
 
 > `optional` **endDate**: `string`
 
-Defined in: [src/modules/api-usage/api-usage.dto.ts:5](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.dto.ts#L5)
+Defined in: [src/modules/api-usage/api-usage.dto.ts:5](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.dto.ts#L5)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/api-usage/api-usage.dto.ts:5](https://github.com/maemre
 
 > `optional` **groupBy**: `"month"` \| `"hour"` \| `"day"`
 
-Defined in: [src/modules/api-usage/api-usage.dto.ts:6](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.dto.ts#L6)
+Defined in: [src/modules/api-usage/api-usage.dto.ts:6](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.dto.ts#L6)
 
 ***
 
@@ -40,4 +40,4 @@ Defined in: [src/modules/api-usage/api-usage.dto.ts:6](https://github.com/maemre
 
 > `optional` **startDate**: `string`
 
-Defined in: [src/modules/api-usage/api-usage.dto.ts:4](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.dto.ts#L4)
+Defined in: [src/modules/api-usage/api-usage.dto.ts:4](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.dto.ts#L4)

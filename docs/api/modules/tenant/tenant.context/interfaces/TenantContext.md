@@ -6,7 +6,7 @@
 
 # Interface: TenantContext
 
-Defined in: [src/modules/tenant/tenant.context.ts:4](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.context.ts#L4)
+Defined in: [src/modules/tenant/tenant.context.ts:4](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.context.ts#L4)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/tenant/tenant.context.ts:4](https://github.com/maemreyo
 
 > `optional` **role**: `string`
 
-Defined in: [src/modules/tenant/tenant.context.ts:7](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.context.ts#L7)
+Defined in: [src/modules/tenant/tenant.context.ts:7](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.context.ts#L7)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/tenant/tenant.context.ts:7](https://github.com/maemreyo
 
 > **tenantId**: `string`
 
-Defined in: [src/modules/tenant/tenant.context.ts:5](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.context.ts#L5)
+Defined in: [src/modules/tenant/tenant.context.ts:5](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.context.ts#L5)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/tenant/tenant.context.ts:5](https://github.com/maemreyo
 
 > `optional` **tenantName**: `string`
 
-Defined in: [src/modules/tenant/tenant.context.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.context.ts#L9)
+Defined in: [src/modules/tenant/tenant.context.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.context.ts#L9)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/modules/tenant/tenant.context.ts:9](https://github.com/maemreyo
 
 > `optional` **tenantSlug**: `string`
 
-Defined in: [src/modules/tenant/tenant.context.ts:8](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.context.ts#L8)
+Defined in: [src/modules/tenant/tenant.context.ts:8](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.context.ts#L8)
 
 ***
 
@@ -46,4 +46,4 @@ Defined in: [src/modules/tenant/tenant.context.ts:8](https://github.com/maemreyo
 
 > `optional` **userId**: `string`
 
-Defined in: [src/modules/tenant/tenant.context.ts:6](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.context.ts#L6)
+Defined in: [src/modules/tenant/tenant.context.ts:6](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.context.ts#L6)

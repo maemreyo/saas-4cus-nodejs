@@ -6,7 +6,7 @@
 
 # Class: ApiUsageController
 
-Defined in: [src/modules/api-usage/api-usage.controller.ts:8](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.controller.ts#L8)
+Defined in: [src/modules/api-usage/api-usage.controller.ts:8](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.controller.ts#L8)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/api-usage/api-usage.controller.ts:8](https://github.com
 
 > **new ApiUsageController**(`apiUsageService`): `ApiUsageController`
 
-Defined in: [src/modules/api-usage/api-usage.controller.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.controller.ts#L9)
+Defined in: [src/modules/api-usage/api-usage.controller.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.controller.ts#L9)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/api-usage/api-usage.controller.ts:9](https://github.com
 
 > **exportUsageData**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.controller.ts:105](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.controller.ts#L105)
+Defined in: [src/modules/api-usage/api-usage.controller.ts:105](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.controller.ts#L105)
 
 Export usage data
 
@@ -56,7 +56,7 @@ Export usage data
 
 > **getEndpointAnalytics**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.controller.ts:82](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.controller.ts#L82)
+Defined in: [src/modules/api-usage/api-usage.controller.ts:82](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.controller.ts#L82)
 
 Get endpoint analytics
 
@@ -80,7 +80,7 @@ Get endpoint analytics
 
 > **getHealthStatus**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.controller.ts:127](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.controller.ts#L127)
+Defined in: [src/modules/api-usage/api-usage.controller.ts:127](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.controller.ts#L127)
 
 Get API health status
 
@@ -104,7 +104,7 @@ Get API health status
 
 > **getRateLimit**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.controller.ts:59](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.controller.ts#L59)
+Defined in: [src/modules/api-usage/api-usage.controller.ts:59](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.controller.ts#L59)
 
 Get current rate limit info
 
@@ -128,7 +128,7 @@ Get current rate limit info
 
 > **getSystemMetrics**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.controller.ts:157](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.controller.ts#L157)
+Defined in: [src/modules/api-usage/api-usage.controller.ts:157](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.controller.ts#L157)
 
 Get system-wide API metrics (admin only)
 
@@ -152,7 +152,7 @@ Get system-wide API metrics (admin only)
 
 > **getTopUsers**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.controller.ts:138](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.controller.ts#L138)
+Defined in: [src/modules/api-usage/api-usage.controller.ts:138](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.controller.ts#L138)
 
 Get top users by API usage (admin only)
 
@@ -176,7 +176,7 @@ Get top users by API usage (admin only)
 
 > **getUsageQuota**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.controller.ts:71](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.controller.ts#L71)
+Defined in: [src/modules/api-usage/api-usage.controller.ts:71](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.controller.ts#L71)
 
 Get usage quota
 
@@ -200,7 +200,7 @@ Get usage quota
 
 > **getUsageStats**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.controller.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.controller.ts#L14)
+Defined in: [src/modules/api-usage/api-usage.controller.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.controller.ts#L14)
 
 Get usage statistics
 
@@ -224,7 +224,7 @@ Get usage statistics
 
 > **getUsageTimeSeries**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/api-usage/api-usage.controller.ts:34](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.controller.ts#L34)
+Defined in: [src/modules/api-usage/api-usage.controller.ts:34](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.controller.ts#L34)
 
 Get usage time series
 
@@ -248,4 +248,4 @@ Get usage time series
 
 > `private` **apiUsageService**: [`ApiUsageService`](../../api-usage.service/classes/ApiUsageService.md)
 
-Defined in: [src/modules/api-usage/api-usage.controller.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.controller.ts#L9)
+Defined in: [src/modules/api-usage/api-usage.controller.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.controller.ts#L9)

@@ -6,7 +6,7 @@
 
 # Class: ListWebhooksDTO
 
-Defined in: [src/modules/webhooks/webhook.dto.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.dto.ts#L26)
+Defined in: [src/modules/webhooks/webhook.dto.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.dto.ts#L26)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/webhooks/webhook.dto.ts:26](https://github.com/maemreyo
 
 > `optional` **event**: `string`
 
-Defined in: [src/modules/webhooks/webhook.dto.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.dto.ts#L29)
+Defined in: [src/modules/webhooks/webhook.dto.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.dto.ts#L29)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/webhooks/webhook.dto.ts:29](https://github.com/maemreyo
 
 > `optional` **limit**: `number` = `50`
 
-Defined in: [src/modules/webhooks/webhook.dto.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.dto.ts#L27)
+Defined in: [src/modules/webhooks/webhook.dto.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.dto.ts#L27)
 
 ***
 
@@ -40,4 +40,4 @@ Defined in: [src/modules/webhooks/webhook.dto.ts:27](https://github.com/maemreyo
 
 > `optional` **offset**: `number` = `0`
 
-Defined in: [src/modules/webhooks/webhook.dto.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/webhooks/webhook.dto.ts#L28)
+Defined in: [src/modules/webhooks/webhook.dto.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/webhooks/webhook.dto.ts#L28)

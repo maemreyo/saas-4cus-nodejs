@@ -6,7 +6,7 @@
 
 # Interface: EnvRequirement
 
-Defined in: [src/infrastructure/config/env-validator.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/config/env-validator.ts#L10)
+Defined in: [src/infrastructure/config/env-validator.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/config/env-validator.ts#L10)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/infrastructure/config/env-validator.ts:10](https://github.com/m
 
 > **description**: `string`
 
-Defined in: [src/infrastructure/config/env-validator.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/config/env-validator.ts#L13)
+Defined in: [src/infrastructure/config/env-validator.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/config/env-validator.ts#L13)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/infrastructure/config/env-validator.ts:13](https://github.com/m
 
 > `optional` **example**: `string`
 
-Defined in: [src/infrastructure/config/env-validator.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/config/env-validator.ts#L14)
+Defined in: [src/infrastructure/config/env-validator.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/config/env-validator.ts#L14)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/infrastructure/config/env-validator.ts:14](https://github.com/m
 
 > **key**: `string`
 
-Defined in: [src/infrastructure/config/env-validator.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/config/env-validator.ts#L11)
+Defined in: [src/infrastructure/config/env-validator.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/config/env-validator.ts#L11)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/infrastructure/config/env-validator.ts:11](https://github.com/m
 
 > **required**: `boolean`
 
-Defined in: [src/infrastructure/config/env-validator.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/config/env-validator.ts#L12)
+Defined in: [src/infrastructure/config/env-validator.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/config/env-validator.ts#L12)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/infrastructure/config/env-validator.ts:12](https://github.com/m
 
 > `optional` **validator**: (`value`) => `boolean`
 
-Defined in: [src/infrastructure/config/env-validator.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/config/env-validator.ts#L15)
+Defined in: [src/infrastructure/config/env-validator.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/config/env-validator.ts#L15)
 
 #### Parameters
 

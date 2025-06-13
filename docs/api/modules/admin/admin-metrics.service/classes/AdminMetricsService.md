@@ -6,7 +6,7 @@
 
 # Class: AdminMetricsService
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:74](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L74)
+Defined in: [src/modules/admin/admin-metrics.service.ts:74](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L74)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:74](https://github.com/m
 
 > `private` **calculateRevenueGrowth**(`invoices`, `periods`): `Promise`\<`Record`\<`string`, `number`\>\>
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:567](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L567)
+Defined in: [src/modules/admin/admin-metrics.service.ts:567](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L567)
 
 #### Parameters
 
@@ -46,7 +46,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:567](https://github.com/
 
 > `private` **checkDatabaseHealth**(): `Promise`\<`boolean`\>
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:727](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L727)
+Defined in: [src/modules/admin/admin-metrics.service.ts:727](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L727)
 
 #### Returns
 
@@ -58,7 +58,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:727](https://github.com/
 
 > `private` **checkQueueHealth**(): `Promise`\<`boolean`\>
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:747](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L747)
+Defined in: [src/modules/admin/admin-metrics.service.ts:747](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L747)
 
 #### Returns
 
@@ -70,7 +70,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:747](https://github.com/
 
 > `private` **checkRedisHealth**(): `Promise`\<`boolean`\>
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:737](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L737)
+Defined in: [src/modules/admin/admin-metrics.service.ts:737](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L737)
 
 #### Returns
 
@@ -82,7 +82,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:737](https://github.com/
 
 > `private` **getApiUsageMetrics**(`startDate`): `Promise`\<\{ `byEndpoint`: `object`[]; `errorsByEndpoint`: `object`[]; `totalCalls`: `number`; `uniqueUsers`: `number`; \}\>
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:593](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L593)
+Defined in: [src/modules/admin/admin-metrics.service.ts:593](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L593)
 
 #### Parameters
 
@@ -100,7 +100,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:593](https://github.com/
 
 > `private` **getApiUsageTrend**(`dates`): `Promise`\<`any`[]\>
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:488](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L488)
+Defined in: [src/modules/admin/admin-metrics.service.ts:488](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L488)
 
 #### Parameters
 
@@ -118,7 +118,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:488](https://github.com/
 
 > `private` **getAverageQueryTime**(): `Promise`\<`number`\>
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:764](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L764)
+Defined in: [src/modules/admin/admin-metrics.service.ts:764](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L764)
 
 #### Returns
 
@@ -130,7 +130,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:764](https://github.com/
 
 > `private` **getErrorRate**(): `Promise`\<`number`\>
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:770](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L770)
+Defined in: [src/modules/admin/admin-metrics.service.ts:770](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L770)
 
 #### Returns
 
@@ -142,7 +142,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:770](https://github.com/
 
 > `private` **getErrorTrend**(`dates`): `Promise`\<`any`[]\>
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:507](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L507)
+Defined in: [src/modules/admin/admin-metrics.service.ts:507](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L507)
 
 #### Parameters
 
@@ -160,7 +160,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:507](https://github.com/
 
 > `private` **getFeatureUsageMetrics**(`startDate`): `Promise`\<\{ `adoptionRate`: `Record`\<`string`, `number`\>; `byFeature`: `object`[]; \}\>
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:646](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L646)
+Defined in: [src/modules/admin/admin-metrics.service.ts:646](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L646)
 
 #### Parameters
 
@@ -178,7 +178,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:646](https://github.com/
 
 > **getHealthMetrics**(): `Promise`\<\{ `errors`: \{ `errorRate`: `number`; `last1Hour`: `number`; \}; `performance`: \{ `averageQueryTime`: `number`; `slowQueries`: `number`; \}; `services`: \{ `database`: `string`; `queue`: `string`; `redis`: `string`; \}; `status`: `string`; `timestamp`: `Date`; \}\>
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:232](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L232)
+Defined in: [src/modules/admin/admin-metrics.service.ts:232](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L232)
 
 Get system health metrics
 
@@ -192,7 +192,7 @@ Get system health metrics
 
 > `private` **getOverviewMetrics**(`dateRange`): `Promise`\<\{ `activeSubscriptions`: `number`; `activeUsers`: `number`; `avgResponseTime`: `number`; `mrr`: `number`; `openTickets`: `number`; `totalRevenue`: `number`; `totalTickets`: `number`; `totalUsers`: `number`; \}\>
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:328](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L328)
+Defined in: [src/modules/admin/admin-metrics.service.ts:328](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L328)
 
 #### Parameters
 
@@ -216,7 +216,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:328](https://github.com/
 
 > `private` **getPerformanceMetrics**(): `Promise`\<\{ `averageResponseTime`: `number`; `cpu`: `number`; `errorRate`: `number`; `memory`: \{ `percentage`: `number`; `total`: `number`; `used`: `number`; \}; `requestsPerMinute`: `number`; `uptime`: `number`; \}\>
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:394](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L394)
+Defined in: [src/modules/admin/admin-metrics.service.ts:394](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L394)
 
 #### Returns
 
@@ -228,7 +228,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:394](https://github.com/
 
 > **getRealTimeMetrics**(): `Promise`\<\{ `activeUsers`: `number`; `averageResponseTime`: `number`; `errorRate`: `number`; `errorsPerMinute`: `number`; `recentEndpoints`: `object`[]; `requestsPerMinute`: `number`; `timestamp`: `Date`; \}\>
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:272](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L272)
+Defined in: [src/modules/admin/admin-metrics.service.ts:272](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L272)
 
 Get real-time metrics
 
@@ -242,7 +242,7 @@ Get real-time metrics
 
 > `private` **getRevenueByPlan**(): `Promise`\<`object`[]\>
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:527](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L527)
+Defined in: [src/modules/admin/admin-metrics.service.ts:527](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L527)
 
 #### Returns
 
@@ -254,7 +254,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:527](https://github.com/
 
 > `private` **getRevenueGrowthTrend**(`dates`): `Promise`\<`any`[]\>
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:464](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L464)
+Defined in: [src/modules/admin/admin-metrics.service.ts:464](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L464)
 
 #### Parameters
 
@@ -272,7 +272,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:464](https://github.com/
 
 > **getRevenueMetrics**(): `Promise`\<[`RevenueMetrics`](../interfaces/RevenueMetrics.md)\>
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:107](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L107)
+Defined in: [src/modules/admin/admin-metrics.service.ts:107](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L107)
 
 Get revenue metrics
 
@@ -286,7 +286,7 @@ Get revenue metrics
 
 > `private` **getSlowQueries**(): `Promise`\<`any`[]\>
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:758](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L758)
+Defined in: [src/modules/admin/admin-metrics.service.ts:758](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L758)
 
 #### Returns
 
@@ -298,7 +298,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:758](https://github.com/
 
 > `private` **getStorageMetrics**(): `Promise`\<\{ `byType`: `Record`\<`string`, \{ `count`: `number`; `size`: `number`; \}\>; `totalFiles`: `number`; `totalSize`: `number`; \}\>
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:697](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L697)
+Defined in: [src/modules/admin/admin-metrics.service.ts:697](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L697)
 
 #### Returns
 
@@ -310,7 +310,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:697](https://github.com/
 
 > **getSystemMetrics**(`startDate?`, `endDate?`): `Promise`\<[`SystemMetrics`](../interfaces/SystemMetrics.md)\>
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:81](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L81)
+Defined in: [src/modules/admin/admin-metrics.service.ts:81](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L81)
 
 Get comprehensive system metrics
 
@@ -334,7 +334,7 @@ Get comprehensive system metrics
 
 > `private` **getTrendMetrics**(`dateRange`): `Promise`\<\{ `apiUsage`: `any`[]; `errorTrend`: `any`[]; `revenueGrowth`: `any`[]; `userGrowth`: `any`[]; \}\>
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:425](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L425)
+Defined in: [src/modules/admin/admin-metrics.service.ts:425](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L425)
 
 #### Parameters
 
@@ -358,7 +358,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:425](https://github.com/
 
 > **getUsageMetrics**(`days`): `Promise`\<[`UsageMetrics`](../interfaces/UsageMetrics.md)\>
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:213](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L213)
+Defined in: [src/modules/admin/admin-metrics.service.ts:213](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L213)
 
 Get API and feature usage metrics
 
@@ -378,7 +378,7 @@ Get API and feature usage metrics
 
 > `private` **getUserGrowthTrend**(`dates`): `Promise`\<`any`[]\>
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:448](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L448)
+Defined in: [src/modules/admin/admin-metrics.service.ts:448](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L448)
 
 #### Parameters
 
@@ -396,7 +396,7 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:448](https://github.com/
 
 > `private` **groupEndpointActivity**(`apiCalls`): `object`[]
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:788](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L788)
+Defined in: [src/modules/admin/admin-metrics.service.ts:788](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L788)
 
 #### Parameters
 
@@ -414,4 +414,4 @@ Defined in: [src/modules/admin/admin-metrics.service.ts:788](https://github.com/
 
 > `private` `readonly` **CACHE\_TTL**: `300` = `300`
 
-Defined in: [src/modules/admin/admin-metrics.service.ts:75](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin-metrics.service.ts#L75)
+Defined in: [src/modules/admin/admin-metrics.service.ts:75](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin-metrics.service.ts#L75)

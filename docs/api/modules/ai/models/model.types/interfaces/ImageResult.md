@@ -6,7 +6,7 @@
 
 # Interface: ImageResult
 
-Defined in: [src/modules/ai/models/model.types.ts:118](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L118)
+Defined in: [src/modules/ai/models/model.types.ts:118](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L118)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/ai/models/model.types.ts:118](https://github.com/maemre
 
 > `optional` **cached**: `boolean`
 
-Defined in: [src/modules/ai/models/model.types.ts:126](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L126)
+Defined in: [src/modules/ai/models/model.types.ts:126](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L126)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/ai/models/model.types.ts:126](https://github.com/maemre
 
 > **id**: `string`
 
-Defined in: [src/modules/ai/models/model.types.ts:119](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L119)
+Defined in: [src/modules/ai/models/model.types.ts:119](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L119)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/ai/models/model.types.ts:119](https://github.com/maemre
 
 > **images**: `object`[]
 
-Defined in: [src/modules/ai/models/model.types.ts:120](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L120)
+Defined in: [src/modules/ai/models/model.types.ts:120](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L120)
 
 #### b64Json?
 
@@ -50,4 +50,4 @@ Defined in: [src/modules/ai/models/model.types.ts:120](https://github.com/maemre
 
 > **model**: `string`
 
-Defined in: [src/modules/ai/models/model.types.ts:125](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L125)
+Defined in: [src/modules/ai/models/model.types.ts:125](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L125)

@@ -8,4 +8,4 @@
 
 > `const` **UpdateTemplateSchema**: `ZodObject`\<\{ `category`: `ZodOptional`\<`ZodOptional`\<`ZodString`\>\>; `description`: `ZodOptional`\<`ZodOptional`\<`ZodString`\>\>; `isPublic`: `ZodOptional`\<`ZodDefault`\<`ZodBoolean`\>\>; `name`: `ZodOptional`\<`ZodString`\>; `prompt`: `ZodOptional`\<`ZodString`\>; `variables`: `ZodOptional`\<`ZodOptional`\<`ZodRecord`\<`ZodString`, `ZodString`\>\>\>; \}, `"strip"`, `ZodTypeAny`, \{ `category?`: `string`; `description?`: `string`; `isPublic?`: `boolean`; `name?`: `string`; `prompt?`: `string`; `variables?`: `Record`\<`string`, `string`\>; \}, \{ `category?`: `string`; `description?`: `string`; `isPublic?`: `boolean`; `name?`: `string`; `prompt?`: `string`; `variables?`: `Record`\<`string`, `string`\>; \}\>
 
-Defined in: [src/modules/ai/ai.dto.ts:256](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.dto.ts#L256)
+Defined in: [src/modules/ai/ai.dto.ts:256](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.dto.ts#L256)

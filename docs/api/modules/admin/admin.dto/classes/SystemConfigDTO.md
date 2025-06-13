@@ -6,7 +6,7 @@
 
 # Class: SystemConfigDTO
 
-Defined in: [src/modules/admin/admin.dto.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.dto.ts#L45)
+Defined in: [src/modules/admin/admin.dto.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.dto.ts#L45)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/admin/admin.dto.ts:45](https://github.com/maemreyo/saas
 
 > `optional` **features**: `object`
 
-Defined in: [src/modules/admin/admin.dto.ts:77](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.dto.ts#L77)
+Defined in: [src/modules/admin/admin.dto.ts:77](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.dto.ts#L77)
 
 #### emailVerification?
 
@@ -48,7 +48,7 @@ Defined in: [src/modules/admin/admin.dto.ts:77](https://github.com/maemreyo/saas
 
 > `optional` **limits**: `object`
 
-Defined in: [src/modules/admin/admin.dto.ts:83](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.dto.ts#L83)
+Defined in: [src/modules/admin/admin.dto.ts:83](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.dto.ts#L83)
 
 #### apiRateLimit?
 
@@ -72,7 +72,7 @@ Defined in: [src/modules/admin/admin.dto.ts:83](https://github.com/maemreyo/saas
 
 > `optional` **maintenance**: `object`
 
-Defined in: [src/modules/admin/admin.dto.ts:72](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.dto.ts#L72)
+Defined in: [src/modules/admin/admin.dto.ts:72](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.dto.ts#L72)
 
 #### allowedIps?
 
@@ -92,7 +92,7 @@ Defined in: [src/modules/admin/admin.dto.ts:72](https://github.com/maemreyo/saas
 
 > `static` **schema**: `ZodObject`\<\{ `features`: `ZodOptional`\<`ZodObject`\<\{ `emailVerification`: `ZodOptional`\<`ZodBoolean`\>; `oauth`: `ZodOptional`\<`ZodBoolean`\>; `registration`: `ZodOptional`\<`ZodBoolean`\>; `twoFactorAuth`: `ZodOptional`\<`ZodBoolean`\>; \}, `"strip"`, `ZodTypeAny`, \{ `emailVerification?`: `boolean`; `oauth?`: `boolean`; `registration?`: `boolean`; `twoFactorAuth?`: `boolean`; \}, \{ `emailVerification?`: `boolean`; `oauth?`: `boolean`; `registration?`: `boolean`; `twoFactorAuth?`: `boolean`; \}\>\>; `limits`: `ZodOptional`\<`ZodObject`\<\{ `apiRateLimit`: `ZodOptional`\<`ZodNumber`\>; `maxFileSize`: `ZodOptional`\<`ZodNumber`\>; `maxProjectsPerUser`: `ZodOptional`\<`ZodNumber`\>; `maxUsersPerTenant`: `ZodOptional`\<`ZodNumber`\>; \}, `"strip"`, `ZodTypeAny`, \{ `apiRateLimit?`: `number`; `maxFileSize?`: `number`; `maxProjectsPerUser?`: `number`; `maxUsersPerTenant?`: `number`; \}, \{ `apiRateLimit?`: `number`; `maxFileSize?`: `number`; `maxProjectsPerUser?`: `number`; `maxUsersPerTenant?`: `number`; \}\>\>; `maintenance`: `ZodOptional`\<`ZodObject`\<\{ `allowedIps`: `ZodOptional`\<`ZodArray`\<`ZodString`, `"many"`\>\>; `enabled`: `ZodBoolean`; `message`: `ZodOptional`\<`ZodString`\>; \}, `"strip"`, `ZodTypeAny`, \{ `allowedIps?`: `string`[]; `enabled?`: `boolean`; `message?`: `string`; \}, \{ `allowedIps?`: `string`[]; `enabled?`: `boolean`; `message?`: `string`; \}\>\>; `security`: `ZodOptional`\<`ZodObject`\<\{ `lockoutDuration`: `ZodOptional`\<`ZodNumber`\>; `maxLoginAttempts`: `ZodOptional`\<`ZodNumber`\>; `passwordMinLength`: `ZodOptional`\<`ZodNumber`\>; `sessionTimeout`: `ZodOptional`\<`ZodNumber`\>; \}, `"strip"`, `ZodTypeAny`, \{ `lockoutDuration?`: `number`; `maxLoginAttempts?`: `number`; `passwordMinLength?`: `number`; `sessionTimeout?`: `number`; \}, \{ `lockoutDuration?`: `number`; `maxLoginAttempts?`: `number`; `passwordMinLength?`: `number`; `sessionTimeout?`: `number`; \}\>\>; \}, `"strip"`, `ZodTypeAny`, \{ `features?`: \{ `emailVerification?`: `boolean`; `oauth?`: `boolean`; `registration?`: `boolean`; `twoFactorAuth?`: `boolean`; \}; `limits?`: \{ `apiRateLimit?`: `number`; `maxFileSize?`: `number`; `maxProjectsPerUser?`: `number`; `maxUsersPerTenant?`: `number`; \}; `maintenance?`: \{ `allowedIps?`: `string`[]; `enabled?`: `boolean`; `message?`: `string`; \}; `security?`: \{ `lockoutDuration?`: `number`; `maxLoginAttempts?`: `number`; `passwordMinLength?`: `number`; `sessionTimeout?`: `number`; \}; \}, \{ `features?`: \{ `emailVerification?`: `boolean`; `oauth?`: `boolean`; `registration?`: `boolean`; `twoFactorAuth?`: `boolean`; \}; `limits?`: \{ `apiRateLimit?`: `number`; `maxFileSize?`: `number`; `maxProjectsPerUser?`: `number`; `maxUsersPerTenant?`: `number`; \}; `maintenance?`: \{ `allowedIps?`: `string`[]; `enabled?`: `boolean`; `message?`: `string`; \}; `security?`: \{ `lockoutDuration?`: `number`; `maxLoginAttempts?`: `number`; `passwordMinLength?`: `number`; `sessionTimeout?`: `number`; \}; \}\>
 
-Defined in: [src/modules/admin/admin.dto.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.dto.ts#L46)
+Defined in: [src/modules/admin/admin.dto.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.dto.ts#L46)
 
 ***
 
@@ -100,7 +100,7 @@ Defined in: [src/modules/admin/admin.dto.ts:46](https://github.com/maemreyo/saas
 
 > `optional` **security**: `object`
 
-Defined in: [src/modules/admin/admin.dto.ts:89](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/admin.dto.ts#L89)
+Defined in: [src/modules/admin/admin.dto.ts:89](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/admin.dto.ts#L89)
 
 #### lockoutDuration?
 

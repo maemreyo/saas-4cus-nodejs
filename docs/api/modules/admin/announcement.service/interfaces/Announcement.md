@@ -6,7 +6,7 @@
 
 # Interface: Announcement
 
-Defined in: [src/modules/admin/announcement.service.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L11)
+Defined in: [src/modules/admin/announcement.service.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L11)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/admin/announcement.service.ts:11](https://github.com/ma
 
 > `optional` **color**: `string`
 
-Defined in: [src/modules/admin/announcement.service.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L26)
+Defined in: [src/modules/admin/announcement.service.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L26)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/admin/announcement.service.ts:26](https://github.com/ma
 
 > **content**: `string`
 
-Defined in: [src/modules/admin/announcement.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L14)
+Defined in: [src/modules/admin/announcement.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L14)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/admin/announcement.service.ts:14](https://github.com/ma
 
 > **createdAt**: `Date`
 
-Defined in: [src/modules/admin/announcement.service.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L28)
+Defined in: [src/modules/admin/announcement.service.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L28)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/modules/admin/announcement.service.ts:28](https://github.com/ma
 
 > **createdBy**: `string`
 
-Defined in: [src/modules/admin/announcement.service.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L27)
+Defined in: [src/modules/admin/announcement.service.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L27)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/modules/admin/announcement.service.ts:27](https://github.com/ma
 
 > `optional` **ctaText**: `string`
 
-Defined in: [src/modules/admin/announcement.service.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L23)
+Defined in: [src/modules/admin/announcement.service.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L23)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [src/modules/admin/announcement.service.ts:23](https://github.com/ma
 
 > `optional` **ctaUrl**: `string`
 
-Defined in: [src/modules/admin/announcement.service.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L24)
+Defined in: [src/modules/admin/announcement.service.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L24)
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: [src/modules/admin/announcement.service.ts:24](https://github.com/ma
 
 > **dismissible**: `boolean`
 
-Defined in: [src/modules/admin/announcement.service.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L22)
+Defined in: [src/modules/admin/announcement.service.ts:22](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L22)
 
 ***
 
@@ -70,7 +70,7 @@ Defined in: [src/modules/admin/announcement.service.ts:22](https://github.com/ma
 
 > `optional` **endDate**: `Date`
 
-Defined in: [src/modules/admin/announcement.service.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L21)
+Defined in: [src/modules/admin/announcement.service.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L21)
 
 ***
 
@@ -78,7 +78,7 @@ Defined in: [src/modules/admin/announcement.service.ts:21](https://github.com/ma
 
 > `optional` **icon**: `string`
 
-Defined in: [src/modules/admin/announcement.service.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L25)
+Defined in: [src/modules/admin/announcement.service.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L25)
 
 ***
 
@@ -86,7 +86,7 @@ Defined in: [src/modules/admin/announcement.service.ts:25](https://github.com/ma
 
 > **id**: `string`
 
-Defined in: [src/modules/admin/announcement.service.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L12)
+Defined in: [src/modules/admin/announcement.service.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L12)
 
 ***
 
@@ -94,7 +94,7 @@ Defined in: [src/modules/admin/announcement.service.ts:12](https://github.com/ma
 
 > `optional` **metadata**: `any`
 
-Defined in: [src/modules/admin/announcement.service.ts:30](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L30)
+Defined in: [src/modules/admin/announcement.service.ts:30](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L30)
 
 ***
 
@@ -102,7 +102,7 @@ Defined in: [src/modules/admin/announcement.service.ts:30](https://github.com/ma
 
 > **priority**: `number`
 
-Defined in: [src/modules/admin/announcement.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L19)
+Defined in: [src/modules/admin/announcement.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L19)
 
 ***
 
@@ -110,7 +110,7 @@ Defined in: [src/modules/admin/announcement.service.ts:19](https://github.com/ma
 
 > `optional` **startDate**: `Date`
 
-Defined in: [src/modules/admin/announcement.service.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L20)
+Defined in: [src/modules/admin/announcement.service.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L20)
 
 ***
 
@@ -118,7 +118,7 @@ Defined in: [src/modules/admin/announcement.service.ts:20](https://github.com/ma
 
 > **targetAudience**: `"users"` \| `"all"` \| `"admins"` \| `"specific"`
 
-Defined in: [src/modules/admin/announcement.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L16)
+Defined in: [src/modules/admin/announcement.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L16)
 
 ***
 
@@ -126,7 +126,7 @@ Defined in: [src/modules/admin/announcement.service.ts:16](https://github.com/ma
 
 > `optional` **targetTenantIds**: `string`[]
 
-Defined in: [src/modules/admin/announcement.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L18)
+Defined in: [src/modules/admin/announcement.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L18)
 
 ***
 
@@ -134,7 +134,7 @@ Defined in: [src/modules/admin/announcement.service.ts:18](https://github.com/ma
 
 > `optional` **targetUserIds**: `string`[]
 
-Defined in: [src/modules/admin/announcement.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L17)
+Defined in: [src/modules/admin/announcement.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L17)
 
 ***
 
@@ -142,7 +142,7 @@ Defined in: [src/modules/admin/announcement.service.ts:17](https://github.com/ma
 
 > **title**: `string`
 
-Defined in: [src/modules/admin/announcement.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L13)
+Defined in: [src/modules/admin/announcement.service.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L13)
 
 ***
 
@@ -150,7 +150,7 @@ Defined in: [src/modules/admin/announcement.service.ts:13](https://github.com/ma
 
 > **type**: `"info"` \| `"critical"` \| `"warning"` \| `"maintenance"`
 
-Defined in: [src/modules/admin/announcement.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L15)
+Defined in: [src/modules/admin/announcement.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L15)
 
 ***
 
@@ -158,4 +158,4 @@ Defined in: [src/modules/admin/announcement.service.ts:15](https://github.com/ma
 
 > **updatedAt**: `Date`
 
-Defined in: [src/modules/admin/announcement.service.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/announcement.service.ts#L29)
+Defined in: [src/modules/admin/announcement.service.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/announcement.service.ts#L29)

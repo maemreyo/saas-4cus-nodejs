@@ -6,7 +6,7 @@
 
 # Class: ApiUsageQueueProcessor
 
-Defined in: [src/modules/api-usage/api-usage.queue.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.queue.ts#L12)
+Defined in: [src/modules/api-usage/api-usage.queue.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.queue.ts#L12)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/api-usage/api-usage.queue.ts:12](https://github.com/mae
 
 > **new ApiUsageQueueProcessor**(`apiUsageService`): `ApiUsageQueueProcessor`
 
-Defined in: [src/modules/api-usage/api-usage.queue.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.queue.ts#L13)
+Defined in: [src/modules/api-usage/api-usage.queue.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.queue.ts#L13)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/api-usage/api-usage.queue.ts:13](https://github.com/mae
 
 > **processAggregateMetrics**(`job`): `Promise`\<\{ `aggregated`: `number`; `timestamp`: `number`; `timeWindow`: `any`; \}\>
 
-Defined in: [src/modules/api-usage/api-usage.queue.ts:80](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.queue.ts#L80)
+Defined in: [src/modules/api-usage/api-usage.queue.ts:80](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.queue.ts#L80)
 
 Process metrics aggregation
 
@@ -52,7 +52,7 @@ Process metrics aggregation
 
 > **processCheckAlerts**(`job`): `Promise`\<\{ `usersChecked`: `number`; `warningsSent`: `number`; \}\>
 
-Defined in: [src/modules/api-usage/api-usage.queue.ts:166](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.queue.ts#L166)
+Defined in: [src/modules/api-usage/api-usage.queue.ts:166](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.queue.ts#L166)
 
 Process alert checking
 
@@ -72,7 +72,7 @@ Process alert checking
 
 > **processCleanup**(`job`): `Promise`\<\{ `cutoffDate`: `Date`; `deleted`: `number`; \}\>
 
-Defined in: [src/modules/api-usage/api-usage.queue.ts:252](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.queue.ts#L252)
+Defined in: [src/modules/api-usage/api-usage.queue.ts:252](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.queue.ts#L252)
 
 Process cleanup of old data
 
@@ -92,7 +92,7 @@ Process cleanup of old data
 
 > **processGenerateReport**(`job`): `Promise`\<\{ `fileUrl`: `string`; `size`: `number`; \}\>
 
-Defined in: [src/modules/api-usage/api-usage.queue.ts:288](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.queue.ts#L288)
+Defined in: [src/modules/api-usage/api-usage.queue.ts:288](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.queue.ts#L288)
 
 Process report generation
 
@@ -112,7 +112,7 @@ Process report generation
 
 > **processHealthCheck**(`job`): `Promise`\<\{ `health`: \{ `issues`: `string`[]; `metrics`: \{ `activeEndpoints`: `number`; `averageResponseTime`: `number`; `errorRate`: `number`; `requestsPerMinute`: `number`; \}; `status`: `"healthy"` \| `"degraded"` \| `"unhealthy"`; \}; `timestamp`: `number`; \}\>
 
-Defined in: [src/modules/api-usage/api-usage.queue.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.queue.ts#L40)
+Defined in: [src/modules/api-usage/api-usage.queue.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.queue.ts#L40)
 
 Process health check
 
@@ -132,7 +132,7 @@ Process health check
 
 > **processResetQuotas**(`job`): `Promise`\<\{ `message`: `string`; `resetAt?`: `undefined`; \} \| \{ `message`: `string`; `resetAt`: `Date`; \}\>
 
-Defined in: [src/modules/api-usage/api-usage.queue.ts:215](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.queue.ts#L215)
+Defined in: [src/modules/api-usage/api-usage.queue.ts:215](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.queue.ts#L215)
 
 Process quota resets
 
@@ -152,7 +152,7 @@ Process quota resets
 
 > `private` **registerProcessors**(): `void`
 
-Defined in: [src/modules/api-usage/api-usage.queue.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.queue.ts#L17)
+Defined in: [src/modules/api-usage/api-usage.queue.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.queue.ts#L17)
 
 #### Returns
 
@@ -164,4 +164,4 @@ Defined in: [src/modules/api-usage/api-usage.queue.ts:17](https://github.com/mae
 
 > `private` **apiUsageService**: [`ApiUsageService`](../../api-usage.service/classes/ApiUsageService.md)
 
-Defined in: [src/modules/api-usage/api-usage.queue.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.queue.ts#L13)
+Defined in: [src/modules/api-usage/api-usage.queue.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.queue.ts#L13)

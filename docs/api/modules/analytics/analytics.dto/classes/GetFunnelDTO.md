@@ -6,7 +6,7 @@
 
 # Class: GetFunnelDTO
 
-Defined in: [src/modules/analytics/analytics.dto.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.dto.ts#L36)
+Defined in: [src/modules/analytics/analytics.dto.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.dto.ts#L36)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/analytics/analytics.dto.ts:36](https://github.com/maemr
 
 > `optional` **endDate**: `string`
 
-Defined in: [src/modules/analytics/analytics.dto.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.dto.ts#L47)
+Defined in: [src/modules/analytics/analytics.dto.ts:47](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.dto.ts#L47)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/analytics/analytics.dto.ts:47](https://github.com/maemr
 
 > `optional` **groupBy**: `string`
 
-Defined in: [src/modules/analytics/analytics.dto.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.dto.ts#L48)
+Defined in: [src/modules/analytics/analytics.dto.ts:48](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.dto.ts#L48)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [src/modules/analytics/analytics.dto.ts:48](https://github.com/maemr
 
 > `static` **schema**: `ZodObject`\<\{ `endDate`: `ZodOptional`\<`ZodString`\>; `groupBy`: `ZodOptional`\<`ZodString`\>; `startDate`: `ZodOptional`\<`ZodString`\>; `steps`: `ZodArray`\<`ZodString`, `"many"`\>; `tenantId`: `ZodOptional`\<`ZodString`\>; \}, `"strip"`, `ZodTypeAny`, \{ `endDate?`: `string`; `groupBy?`: `string`; `startDate?`: `string`; `steps?`: `string`[]; `tenantId?`: `string`; \}, \{ `endDate?`: `string`; `groupBy?`: `string`; `startDate?`: `string`; `steps?`: `string`[]; `tenantId?`: `string`; \}\>
 
-Defined in: [src/modules/analytics/analytics.dto.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.dto.ts#L37)
+Defined in: [src/modules/analytics/analytics.dto.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.dto.ts#L37)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [src/modules/analytics/analytics.dto.ts:37](https://github.com/maemr
 
 > `optional` **startDate**: `string`
 
-Defined in: [src/modules/analytics/analytics.dto.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.dto.ts#L46)
+Defined in: [src/modules/analytics/analytics.dto.ts:46](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.dto.ts#L46)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [src/modules/analytics/analytics.dto.ts:46](https://github.com/maemr
 
 > **steps**: `string`[]
 
-Defined in: [src/modules/analytics/analytics.dto.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.dto.ts#L45)
+Defined in: [src/modules/analytics/analytics.dto.ts:45](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.dto.ts#L45)
 
 ***
 
@@ -64,4 +64,4 @@ Defined in: [src/modules/analytics/analytics.dto.ts:45](https://github.com/maemr
 
 > `optional` **tenantId**: `string`
 
-Defined in: [src/modules/analytics/analytics.dto.ts:49](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/analytics.dto.ts#L49)
+Defined in: [src/modules/analytics/analytics.dto.ts:49](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/analytics.dto.ts#L49)

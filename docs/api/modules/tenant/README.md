@@ -25,6 +25,30 @@ Re-exports [CreateTenantDTO](tenant.dto/classes/CreateTenantDTO.md)
 
 ***
 
+### getTenantId
+
+Re-exports [getTenantId](tenant.utils/functions/getTenantId.md)
+
+***
+
+### getTenantInfo
+
+Re-exports [getTenantInfo](tenant.utils/functions/getTenantInfo.md)
+
+***
+
+### getUserId
+
+Re-exports [getUserId](tenant.utils/functions/getUserId.md)
+
+***
+
+### getUserInfo
+
+Re-exports [getUserInfo](tenant.utils/functions/getUserInfo.md)
+
+***
+
 ### InviteMemberDTO
 
 Re-exports [InviteMemberDTO](tenant.dto/classes/InviteMemberDTO.md)

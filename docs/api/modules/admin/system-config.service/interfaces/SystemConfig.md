@@ -6,7 +6,7 @@
 
 # Interface: SystemConfig
 
-Defined in: [src/modules/admin/system-config.service.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L9)
+Defined in: [src/modules/admin/system-config.service.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L9)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/admin/system-config.service.ts:9](https://github.com/ma
 
 > **billing**: `object`
 
-Defined in: [src/modules/admin/system-config.service.ts:62](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L62)
+Defined in: [src/modules/admin/system-config.service.ts:62](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L62)
 
 #### allowDiscounts
 
@@ -58,7 +58,7 @@ Defined in: [src/modules/admin/system-config.service.ts:62](https://github.com/m
 
 > **email**: `object`
 
-Defined in: [src/modules/admin/system-config.service.ts:49](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L49)
+Defined in: [src/modules/admin/system-config.service.ts:49](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L49)
 
 #### dailyLimit
 
@@ -106,7 +106,7 @@ Defined in: [src/modules/admin/system-config.service.ts:49](https://github.com/m
 
 > **features**: `object`
 
-Defined in: [src/modules/admin/system-config.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L17)
+Defined in: [src/modules/admin/system-config.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L17)
 
 #### apiAccess
 
@@ -142,7 +142,7 @@ Defined in: [src/modules/admin/system-config.service.ts:17](https://github.com/m
 
 > **integrations**: `object`
 
-Defined in: [src/modules/admin/system-config.service.ts:73](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L73)
+Defined in: [src/modules/admin/system-config.service.ts:73](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L73)
 
 #### analytics
 
@@ -218,7 +218,7 @@ Defined in: [src/modules/admin/system-config.service.ts:73](https://github.com/m
 
 > **limits**: `object`
 
-Defined in: [src/modules/admin/system-config.service.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L26)
+Defined in: [src/modules/admin/system-config.service.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L26)
 
 #### apiRateLimit
 
@@ -254,7 +254,7 @@ Defined in: [src/modules/admin/system-config.service.ts:26](https://github.com/m
 
 > **maintenance**: `object`
 
-Defined in: [src/modules/admin/system-config.service.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L10)
+Defined in: [src/modules/admin/system-config.service.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L10)
 
 #### allowedIps?
 
@@ -282,7 +282,7 @@ Defined in: [src/modules/admin/system-config.service.ts:10](https://github.com/m
 
 > **security**: `object`
 
-Defined in: [src/modules/admin/system-config.service.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L35)
+Defined in: [src/modules/admin/system-config.service.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L35)
 
 #### allowedIps?
 
@@ -338,7 +338,7 @@ Defined in: [src/modules/admin/system-config.service.ts:35](https://github.com/m
 
 > **ui**: `object`
 
-Defined in: [src/modules/admin/system-config.service.ts:96](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/admin/system-config.service.ts#L96)
+Defined in: [src/modules/admin/system-config.service.ts:96](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/admin/system-config.service.ts#L96)
 
 #### customCss?
 

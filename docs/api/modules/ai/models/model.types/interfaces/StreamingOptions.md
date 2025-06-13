@@ -6,7 +6,7 @@
 
 # Interface: StreamingOptions
 
-Defined in: [src/modules/ai/models/model.types.ts:152](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L152)
+Defined in: [src/modules/ai/models/model.types.ts:152](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L152)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/ai/models/model.types.ts:152](https://github.com/maemre
 
 > `optional` **onComplete**: (`result`) => `void`
 
-Defined in: [src/modules/ai/models/model.types.ts:154](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L154)
+Defined in: [src/modules/ai/models/model.types.ts:154](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L154)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/ai/models/model.types.ts:154](https://github.com/maemre
 
 > `optional` **onError**: (`error`) => `void`
 
-Defined in: [src/modules/ai/models/model.types.ts:155](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L155)
+Defined in: [src/modules/ai/models/model.types.ts:155](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L155)
 
 #### Parameters
 
@@ -50,7 +50,7 @@ Defined in: [src/modules/ai/models/model.types.ts:155](https://github.com/maemre
 
 > `optional` **onToken**: (`token`) => `void`
 
-Defined in: [src/modules/ai/models/model.types.ts:153](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L153)
+Defined in: [src/modules/ai/models/model.types.ts:153](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L153)
 
 #### Parameters
 

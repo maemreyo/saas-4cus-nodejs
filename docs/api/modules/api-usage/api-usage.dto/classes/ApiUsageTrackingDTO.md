@@ -6,7 +6,7 @@
 
 # Class: ApiUsageTrackingDTO
 
-Defined in: [src/modules/api-usage/api-usage.dto.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.dto.ts#L42)
+Defined in: [src/modules/api-usage/api-usage.dto.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.dto.ts#L42)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/api-usage/api-usage.dto.ts:42](https://github.com/maemr
 
 > **endpoint**: `string`
 
-Defined in: [src/modules/api-usage/api-usage.dto.ts:53](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.dto.ts#L53)
+Defined in: [src/modules/api-usage/api-usage.dto.ts:53](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.dto.ts#L53)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/api-usage/api-usage.dto.ts:53](https://github.com/maemr
 
 > `optional` **ipAddress**: `string`
 
-Defined in: [src/modules/api-usage/api-usage.dto.ts:57](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.dto.ts#L57)
+Defined in: [src/modules/api-usage/api-usage.dto.ts:57](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.dto.ts#L57)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [src/modules/api-usage/api-usage.dto.ts:57](https://github.com/maemr
 
 > `optional` **metadata**: `Record`\<`string`, `any`\>
 
-Defined in: [src/modules/api-usage/api-usage.dto.ts:59](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.dto.ts#L59)
+Defined in: [src/modules/api-usage/api-usage.dto.ts:59](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.dto.ts#L59)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [src/modules/api-usage/api-usage.dto.ts:59](https://github.com/maemr
 
 > **method**: `string`
 
-Defined in: [src/modules/api-usage/api-usage.dto.ts:54](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.dto.ts#L54)
+Defined in: [src/modules/api-usage/api-usage.dto.ts:54](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.dto.ts#L54)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [src/modules/api-usage/api-usage.dto.ts:54](https://github.com/maemr
 
 > **responseTime**: `number`
 
-Defined in: [src/modules/api-usage/api-usage.dto.ts:56](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.dto.ts#L56)
+Defined in: [src/modules/api-usage/api-usage.dto.ts:56](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.dto.ts#L56)
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: [src/modules/api-usage/api-usage.dto.ts:56](https://github.com/maemr
 
 > `static` **schema**: `ZodObject`\<\{ `endpoint`: `ZodString`; `ipAddress`: `ZodOptional`\<`ZodString`\>; `metadata`: `ZodOptional`\<`ZodRecord`\<`ZodString`, `ZodAny`\>\>; `method`: `ZodEnum`\<\[`"GET"`, `"POST"`, `"PUT"`, `"DELETE"`, `"PATCH"`, `"HEAD"`, `"OPTIONS"`\]\>; `responseTime`: `ZodNumber`; `statusCode`: `ZodNumber`; `userAgent`: `ZodOptional`\<`ZodString`\>; \}, `"strip"`, `ZodTypeAny`, \{ `endpoint?`: `string`; `ipAddress?`: `string`; `metadata?`: `Record`\<`string`, `any`\>; `method?`: `"GET"` \| `"POST"` \| `"PUT"` \| `"DELETE"` \| `"PATCH"` \| `"OPTIONS"` \| `"HEAD"`; `responseTime?`: `number`; `statusCode?`: `number`; `userAgent?`: `string`; \}, \{ `endpoint?`: `string`; `ipAddress?`: `string`; `metadata?`: `Record`\<`string`, `any`\>; `method?`: `"GET"` \| `"POST"` \| `"PUT"` \| `"DELETE"` \| `"PATCH"` \| `"OPTIONS"` \| `"HEAD"`; `responseTime?`: `number`; `statusCode?`: `number`; `userAgent?`: `string`; \}\>
 
-Defined in: [src/modules/api-usage/api-usage.dto.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.dto.ts#L43)
+Defined in: [src/modules/api-usage/api-usage.dto.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.dto.ts#L43)
 
 ***
 
@@ -72,7 +72,7 @@ Defined in: [src/modules/api-usage/api-usage.dto.ts:43](https://github.com/maemr
 
 > **statusCode**: `number`
 
-Defined in: [src/modules/api-usage/api-usage.dto.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.dto.ts#L55)
+Defined in: [src/modules/api-usage/api-usage.dto.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.dto.ts#L55)
 
 ***
 
@@ -80,4 +80,4 @@ Defined in: [src/modules/api-usage/api-usage.dto.ts:55](https://github.com/maemr
 
 > `optional` **userAgent**: `string`
 
-Defined in: [src/modules/api-usage/api-usage.dto.ts:58](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.dto.ts#L58)
+Defined in: [src/modules/api-usage/api-usage.dto.ts:58](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.dto.ts#L58)

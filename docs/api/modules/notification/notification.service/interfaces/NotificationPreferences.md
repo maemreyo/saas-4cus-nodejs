@@ -6,7 +6,7 @@
 
 # Interface: NotificationPreferences
 
-Defined in: [src/modules/notification/notification.service.ts:31](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.service.ts#L31)
+Defined in: [src/modules/notification/notification.service.ts:31](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.service.ts#L31)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/notification/notification.service.ts:31](https://github
 
 > **email**: `boolean`
 
-Defined in: [src/modules/notification/notification.service.ts:32](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.service.ts#L32)
+Defined in: [src/modules/notification/notification.service.ts:32](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.service.ts#L32)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/notification/notification.service.ts:32](https://github
 
 > **frequency**: `"daily"` \| `"weekly"` \| `"immediate"` \| `"hourly"`
 
-Defined in: [src/modules/notification/notification.service.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.service.ts#L36)
+Defined in: [src/modules/notification/notification.service.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.service.ts#L36)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/notification/notification.service.ts:36](https://github
 
 > **inApp**: `boolean`
 
-Defined in: [src/modules/notification/notification.service.ts:34](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.service.ts#L34)
+Defined in: [src/modules/notification/notification.service.ts:34](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.service.ts#L34)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/modules/notification/notification.service.ts:34](https://github
 
 > **push**: `boolean`
 
-Defined in: [src/modules/notification/notification.service.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.service.ts#L33)
+Defined in: [src/modules/notification/notification.service.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.service.ts#L33)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/modules/notification/notification.service.ts:33](https://github
 
 > `optional` **quietHours**: `object`
 
-Defined in: [src/modules/notification/notification.service.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.service.ts#L37)
+Defined in: [src/modules/notification/notification.service.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.service.ts#L37)
 
 #### end
 
@@ -62,4 +62,4 @@ Defined in: [src/modules/notification/notification.service.ts:37](https://github
 
 > **sms**: `boolean`
 
-Defined in: [src/modules/notification/notification.service.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/notification/notification.service.ts#L35)
+Defined in: [src/modules/notification/notification.service.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/notification/notification.service.ts#L35)

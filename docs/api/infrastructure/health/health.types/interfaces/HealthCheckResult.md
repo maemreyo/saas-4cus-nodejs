@@ -6,7 +6,7 @@
 
 # Interface: HealthCheckResult
 
-Defined in: [src/infrastructure/health/health.types.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/health/health.types.ts#L13)
+Defined in: [src/infrastructure/health/health.types.ts:13](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/health/health.types.ts#L13)
 
 Health check result interface
 
@@ -16,7 +16,7 @@ Health check result interface
 
 > `optional` **details**: `Record`\<`string`, `any`\>
 
-Defined in: [src/infrastructure/health/health.types.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/health/health.types.ts#L16)
+Defined in: [src/infrastructure/health/health.types.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/health/health.types.ts#L16)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [src/infrastructure/health/health.types.ts:16](https://github.com/ma
 
 > `optional` **error**: `string`
 
-Defined in: [src/infrastructure/health/health.types.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/health/health.types.ts#L17)
+Defined in: [src/infrastructure/health/health.types.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/health/health.types.ts#L17)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/infrastructure/health/health.types.ts:17](https://github.com/ma
 
 > **message**: `string`
 
-Defined in: [src/infrastructure/health/health.types.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/health/health.types.ts#L15)
+Defined in: [src/infrastructure/health/health.types.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/health/health.types.ts#L15)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [src/infrastructure/health/health.types.ts:15](https://github.com/ma
 
 > **status**: [`HealthStatus`](../enumerations/HealthStatus.md)
 
-Defined in: [src/infrastructure/health/health.types.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/health/health.types.ts#L14)
+Defined in: [src/infrastructure/health/health.types.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/health/health.types.ts#L14)
 
 ***
 
@@ -48,4 +48,4 @@ Defined in: [src/infrastructure/health/health.types.ts:14](https://github.com/ma
 
 > `optional` **timestamp**: `string`
 
-Defined in: [src/infrastructure/health/health.types.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/health/health.types.ts#L18)
+Defined in: [src/infrastructure/health/health.types.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/health/health.types.ts#L18)

@@ -6,7 +6,7 @@
 
 # Class: OllamaProvider
 
-Defined in: [src/modules/ai/providers/ollama.provider.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/ollama.provider.ts#L23)
+Defined in: [src/modules/ai/providers/ollama.provider.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/ollama.provider.ts#L23)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [src/modules/ai/providers/ollama.provider.ts:23](https://github.com/
 
 > **new OllamaProvider**(`config`): `OllamaProvider`
 
-Defined in: [src/modules/ai/providers/ollama.provider.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/ollama.provider.ts#L26)
+Defined in: [src/modules/ai/providers/ollama.provider.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/ollama.provider.ts#L26)
 
 #### Parameters
 
@@ -40,7 +40,7 @@ Defined in: [src/modules/ai/providers/ollama.provider.ts:26](https://github.com/
 
 > `protected` **calculateCost**(`promptTokens`, `completionTokens`, `pricePerMillionPrompt`, `pricePerMillionCompletion`): `number`
 
-Defined in: [src/modules/ai/providers/base.provider.ts:172](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L172)
+Defined in: [src/modules/ai/providers/base.provider.ts:172](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L172)
 
 #### Parameters
 
@@ -74,7 +74,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:172](https://github.com/m
 
 > **chat**(`messages`, `options`): `Promise`\<[`ChatResult`](../../../models/model.types/interfaces/ChatResult.md)\>
 
-Defined in: [src/modules/ai/providers/ollama.provider.ts:85](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/ollama.provider.ts#L85)
+Defined in: [src/modules/ai/providers/ollama.provider.ts:85](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/ollama.provider.ts#L85)
 
 #### Parameters
 
@@ -100,7 +100,7 @@ Defined in: [src/modules/ai/providers/ollama.provider.ts:85](https://github.com/
 
 > **complete**(`prompt`, `options`): `Promise`\<[`CompletionResult`](../../../models/model.types/interfaces/CompletionResult.md)\>
 
-Defined in: [src/modules/ai/providers/ollama.provider.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/ollama.provider.ts#L42)
+Defined in: [src/modules/ai/providers/ollama.provider.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/ollama.provider.ts#L42)
 
 #### Parameters
 
@@ -126,7 +126,7 @@ Defined in: [src/modules/ai/providers/ollama.provider.ts:42](https://github.com/
 
 > `protected` **createError**(`message`, `code`, `statusCode?`, `details?`): [`AiError`](../../../models/model.types/interfaces/AiError.md)
 
-Defined in: [src/modules/ai/providers/base.provider.ts:70](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L70)
+Defined in: [src/modules/ai/providers/base.provider.ts:70](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L70)
 
 #### Parameters
 
@@ -160,7 +160,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:70](https://github.com/ma
 
 > **embed**(`text`, `options`): `Promise`\<[`EmbeddingResult`](../../../models/model.types/interfaces/EmbeddingResult.md) \| [`EmbeddingResult`](../../../models/model.types/interfaces/EmbeddingResult.md)[]\>
 
-Defined in: [src/modules/ai/providers/ollama.provider.ts:137](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/ollama.provider.ts#L137)
+Defined in: [src/modules/ai/providers/ollama.provider.ts:137](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/ollama.provider.ts#L137)
 
 #### Parameters
 
@@ -186,7 +186,7 @@ Defined in: [src/modules/ai/providers/ollama.provider.ts:137](https://github.com
 
 > `protected` **estimateTokens**(`text`): `number`
 
-Defined in: [src/modules/ai/providers/base.provider.ts:184](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L184)
+Defined in: [src/modules/ai/providers/base.provider.ts:184](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L184)
 
 #### Parameters
 
@@ -208,7 +208,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:184](https://github.com/m
 
 > **generateImage**(`options`): `Promise`\<[`ImageResult`](../../../models/model.types/interfaces/ImageResult.md)\>
 
-Defined in: [src/modules/ai/providers/ollama.provider.ts:177](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/ollama.provider.ts#L177)
+Defined in: [src/modules/ai/providers/ollama.provider.ts:177](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/ollama.provider.ts#L177)
 
 #### Parameters
 
@@ -230,7 +230,7 @@ Defined in: [src/modules/ai/providers/ollama.provider.ts:177](https://github.com
 
 > `protected` **getHeaders**(): `Record`\<`string`, `string`\>
 
-Defined in: [src/modules/ai/providers/base.provider.ts:122](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L122)
+Defined in: [src/modules/ai/providers/base.provider.ts:122](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L122)
 
 #### Returns
 
@@ -246,7 +246,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:122](https://github.com/m
 
 > **getName**(): `string`
 
-Defined in: [src/modules/ai/providers/base.provider.ts:189](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L189)
+Defined in: [src/modules/ai/providers/base.provider.ts:189](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L189)
 
 #### Returns
 
@@ -262,7 +262,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:189](https://github.com/m
 
 > **isAvailable**(): `Promise`\<`boolean`\>
 
-Defined in: [src/modules/ai/providers/ollama.provider.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/ollama.provider.ts#L33)
+Defined in: [src/modules/ai/providers/ollama.provider.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/ollama.provider.ts#L33)
 
 #### Returns
 
@@ -278,7 +278,7 @@ Defined in: [src/modules/ai/providers/ollama.provider.ts:33](https://github.com/
 
 > `protected` **makeRequest**\<`T`\>(`url`, `options`): `Promise`\<`T`\>
 
-Defined in: [src/modules/ai/providers/base.provider.ts:129](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L129)
+Defined in: [src/modules/ai/providers/base.provider.ts:129](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L129)
 
 #### Type Parameters
 
@@ -310,7 +310,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:129](https://github.com/m
 
 > **streamChat**(`messages`, `options`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/providers/ollama.provider.ts:200](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/ollama.provider.ts#L200)
+Defined in: [src/modules/ai/providers/ollama.provider.ts:200](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/ollama.provider.ts#L200)
 
 #### Parameters
 
@@ -336,7 +336,7 @@ Defined in: [src/modules/ai/providers/ollama.provider.ts:200](https://github.com
 
 > **streamComplete**(`prompt`, `options`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/providers/ollama.provider.ts:266](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/ollama.provider.ts#L266)
+Defined in: [src/modules/ai/providers/ollama.provider.ts:266](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/ollama.provider.ts#L266)
 
 #### Parameters
 
@@ -362,7 +362,7 @@ Defined in: [src/modules/ai/providers/ollama.provider.ts:266](https://github.com
 
 > **transcribeAudio**(`audioBuffer`, `options?`): `Promise`\<[`AudioResult`](../../../models/model.types/interfaces/AudioResult.md)\>
 
-Defined in: [src/modules/ai/providers/ollama.provider.ts:188](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/ollama.provider.ts#L188)
+Defined in: [src/modules/ai/providers/ollama.provider.ts:188](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/ollama.provider.ts#L188)
 
 #### Parameters
 
@@ -388,7 +388,7 @@ Defined in: [src/modules/ai/providers/ollama.provider.ts:188](https://github.com
 
 > `protected` **validateApiKey**(): `void`
 
-Defined in: [src/modules/ai/providers/base.provider.ts:112](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L112)
+Defined in: [src/modules/ai/providers/base.provider.ts:112](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L112)
 
 #### Returns
 
@@ -404,7 +404,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:112](https://github.com/m
 
 > `protected` **withRetry**\<`T`\>(`operation`, `maxRetries`, `delay`): `Promise`\<`T`\>
 
-Defined in: [src/modules/ai/providers/base.provider.ts:84](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L84)
+Defined in: [src/modules/ai/providers/base.provider.ts:84](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L84)
 
 #### Type Parameters
 
@@ -440,7 +440,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:84](https://github.com/ma
 
 > `private` **client**: `Ollama`
 
-Defined in: [src/modules/ai/providers/ollama.provider.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/ollama.provider.ts#L24)
+Defined in: [src/modules/ai/providers/ollama.provider.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/ollama.provider.ts#L24)
 
 ***
 
@@ -448,7 +448,7 @@ Defined in: [src/modules/ai/providers/ollama.provider.ts:24](https://github.com/
 
 > `protected` **config**: [`ProviderConfig`](../../../models/model.types/interfaces/ProviderConfig.md)
 
-Defined in: [src/modules/ai/providers/base.provider.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L21)
+Defined in: [src/modules/ai/providers/base.provider.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L21)
 
 #### Inherited from
 
@@ -460,7 +460,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:21](https://github.com/ma
 
 > `protected` **name**: `string`
 
-Defined in: [src/modules/ai/providers/base.provider.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L20)
+Defined in: [src/modules/ai/providers/base.provider.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L20)
 
 #### Inherited from
 

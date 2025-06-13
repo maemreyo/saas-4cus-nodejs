@@ -6,7 +6,7 @@
 
 # Class: RateTicketDTO
 
-Defined in: [src/modules/support/support.dto.ts:109](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L109)
+Defined in: [src/modules/support/support.dto.ts:109](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L109)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/support/support.dto.ts:109](https://github.com/maemreyo
 
 > `optional` **comment**: `string`
 
-Defined in: [src/modules/support/support.dto.ts:116](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L116)
+Defined in: [src/modules/support/support.dto.ts:116](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L116)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/support/support.dto.ts:116](https://github.com/maemreyo
 
 > **rating**: `number`
 
-Defined in: [src/modules/support/support.dto.ts:115](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L115)
+Defined in: [src/modules/support/support.dto.ts:115](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L115)
 
 ***
 
@@ -40,4 +40,4 @@ Defined in: [src/modules/support/support.dto.ts:115](https://github.com/maemreyo
 
 > `static` **schema**: `ZodObject`\<\{ `comment`: `ZodOptional`\<`ZodString`\>; `rating`: `ZodNumber`; \}, `"strip"`, `ZodTypeAny`, \{ `comment?`: `string`; `rating?`: `number`; \}, \{ `comment?`: `string`; `rating?`: `number`; \}\>
 
-Defined in: [src/modules/support/support.dto.ts:110](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L110)
+Defined in: [src/modules/support/support.dto.ts:110](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L110)

@@ -6,7 +6,7 @@
 
 # Interface: CacheStats
 
-Defined in: [src/infrastructure/cache/redis.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L14)
+Defined in: [src/infrastructure/cache/redis.service.ts:14](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L14)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:14](https://github.com/ma
 
 > **deletes**: `number`
 
-Defined in: [src/infrastructure/cache/redis.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L18)
+Defined in: [src/infrastructure/cache/redis.service.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L18)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:18](https://github.com/ma
 
 > **errors**: `number`
 
-Defined in: [src/infrastructure/cache/redis.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L19)
+Defined in: [src/infrastructure/cache/redis.service.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L19)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:19](https://github.com/ma
 
 > **hits**: `number`
 
-Defined in: [src/infrastructure/cache/redis.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L15)
+Defined in: [src/infrastructure/cache/redis.service.ts:15](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L15)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:15](https://github.com/ma
 
 > **misses**: `number`
 
-Defined in: [src/infrastructure/cache/redis.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L16)
+Defined in: [src/infrastructure/cache/redis.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L16)
 
 ***
 
@@ -46,4 +46,4 @@ Defined in: [src/infrastructure/cache/redis.service.ts:16](https://github.com/ma
 
 > **sets**: `number`
 
-Defined in: [src/infrastructure/cache/redis.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L17)
+Defined in: [src/infrastructure/cache/redis.service.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L17)

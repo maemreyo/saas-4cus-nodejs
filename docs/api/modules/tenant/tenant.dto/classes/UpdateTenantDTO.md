@@ -6,7 +6,7 @@
 
 # Class: UpdateTenantDTO
 
-Defined in: [src/modules/tenant/tenant.dto.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.dto.ts#L23)
+Defined in: [src/modules/tenant/tenant.dto.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.dto.ts#L23)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/tenant/tenant.dto.ts:23](https://github.com/maemreyo/sa
 
 > `optional` **description**: `string`
 
-Defined in: [src/modules/tenant/tenant.dto.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.dto.ts#L39)
+Defined in: [src/modules/tenant/tenant.dto.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.dto.ts#L39)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/tenant/tenant.dto.ts:39](https://github.com/maemreyo/sa
 
 > `optional` **logo**: `string`
 
-Defined in: [src/modules/tenant/tenant.dto.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.dto.ts#L40)
+Defined in: [src/modules/tenant/tenant.dto.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.dto.ts#L40)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [src/modules/tenant/tenant.dto.ts:40](https://github.com/maemreyo/sa
 
 > `optional` **name**: `string`
 
-Defined in: [src/modules/tenant/tenant.dto.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.dto.ts#L37)
+Defined in: [src/modules/tenant/tenant.dto.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.dto.ts#L37)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [src/modules/tenant/tenant.dto.ts:37](https://github.com/maemreyo/sa
 
 > `static` **schema**: `ZodObject`\<\{ `description`: `ZodOptional`\<`ZodString`\>; `logo`: `ZodOptional`\<`ZodString`\>; `name`: `ZodOptional`\<`ZodString`\>; `settings`: `ZodOptional`\<`ZodRecord`\<`ZodString`, `ZodAny`\>\>; `slug`: `ZodOptional`\<`ZodString`\>; \}, `"strip"`, `ZodTypeAny`, \{ `description?`: `string`; `logo?`: `string`; `name?`: `string`; `settings?`: `Record`\<`string`, `any`\>; `slug?`: `string`; \}, \{ `description?`: `string`; `logo?`: `string`; `name?`: `string`; `settings?`: `Record`\<`string`, `any`\>; `slug?`: `string`; \}\>
 
-Defined in: [src/modules/tenant/tenant.dto.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.dto.ts#L24)
+Defined in: [src/modules/tenant/tenant.dto.ts:24](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.dto.ts#L24)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [src/modules/tenant/tenant.dto.ts:24](https://github.com/maemreyo/sa
 
 > `optional` **settings**: `Record`\<`string`, `any`\>
 
-Defined in: [src/modules/tenant/tenant.dto.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.dto.ts#L41)
+Defined in: [src/modules/tenant/tenant.dto.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.dto.ts#L41)
 
 ***
 
@@ -64,4 +64,4 @@ Defined in: [src/modules/tenant/tenant.dto.ts:41](https://github.com/maemreyo/sa
 
 > `optional` **slug**: `string`
 
-Defined in: [src/modules/tenant/tenant.dto.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/tenant.dto.ts#L38)
+Defined in: [src/modules/tenant/tenant.dto.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/tenant.dto.ts#L38)

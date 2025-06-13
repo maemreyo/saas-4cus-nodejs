@@ -6,7 +6,7 @@
 
 # Class: AiCacheService
 
-Defined in: [src/modules/ai/ai.cache.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.cache.ts#L27)
+Defined in: [src/modules/ai/ai.cache.ts:27](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.cache.ts#L27)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/ai/ai.cache.ts:27](https://github.com/maemreyo/saas-4cu
 
 > **clear**(`type?`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.cache.ts:334](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.cache.ts#L334)
+Defined in: [src/modules/ai/ai.cache.ts:334](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.cache.ts#L334)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [src/modules/ai/ai.cache.ts:334](https://github.com/maemreyo/saas-4c
 
 > `private` **generateKey**(`type`, `input`, `options`, `userId?`): `string`
 
-Defined in: [src/modules/ai/ai.cache.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.cache.ts#L38)
+Defined in: [src/modules/ai/ai.cache.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.cache.ts#L38)
 
 #### Parameters
 
@@ -72,7 +72,7 @@ Defined in: [src/modules/ai/ai.cache.ts:38](https://github.com/maemreyo/saas-4cu
 
 > **getChat**(`messages`, `options`, `userId?`): `Promise`\<[`ChatResult`](../../models/model.types/interfaces/ChatResult.md)\>
 
-Defined in: [src/modules/ai/ai.cache.ts:126](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.cache.ts#L126)
+Defined in: [src/modules/ai/ai.cache.ts:126](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.cache.ts#L126)
 
 #### Parameters
 
@@ -98,7 +98,7 @@ Defined in: [src/modules/ai/ai.cache.ts:126](https://github.com/maemreyo/saas-4c
 
 > **getCompletion**(`prompt`, `options`, `userId?`): `Promise`\<[`CompletionResult`](../../models/model.types/interfaces/CompletionResult.md)\>
 
-Defined in: [src/modules/ai/ai.cache.ts:64](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.cache.ts#L64)
+Defined in: [src/modules/ai/ai.cache.ts:64](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.cache.ts#L64)
 
 #### Parameters
 
@@ -124,7 +124,7 @@ Defined in: [src/modules/ai/ai.cache.ts:64](https://github.com/maemreyo/saas-4cu
 
 > **getEmbedding**(`text`, `options`, `userId?`): `Promise`\<[`EmbeddingResult`](../../models/model.types/interfaces/EmbeddingResult.md)\>
 
-Defined in: [src/modules/ai/ai.cache.ts:188](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.cache.ts#L188)
+Defined in: [src/modules/ai/ai.cache.ts:188](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.cache.ts#L188)
 
 #### Parameters
 
@@ -150,7 +150,7 @@ Defined in: [src/modules/ai/ai.cache.ts:188](https://github.com/maemreyo/saas-4c
 
 > **getImage**(`options`, `userId?`): `Promise`\<[`ImageResult`](../../models/model.types/interfaces/ImageResult.md)\>
 
-Defined in: [src/modules/ai/ai.cache.ts:242](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.cache.ts#L242)
+Defined in: [src/modules/ai/ai.cache.ts:242](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.cache.ts#L242)
 
 #### Parameters
 
@@ -172,7 +172,7 @@ Defined in: [src/modules/ai/ai.cache.ts:242](https://github.com/maemreyo/saas-4c
 
 > **getStats**(): `Promise`\<\{ `hitRate`: `number`; `hits`: `number`; `misses`: `number`; `size`: `number`; \}\>
 
-Defined in: [src/modules/ai/ai.cache.ts:293](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.cache.ts#L293)
+Defined in: [src/modules/ai/ai.cache.ts:293](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.cache.ts#L293)
 
 #### Returns
 
@@ -184,7 +184,7 @@ Defined in: [src/modules/ai/ai.cache.ts:293](https://github.com/maemreyo/saas-4c
 
 > **setChat**(`messages`, `options`, `result`, `userId?`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.cache.ts:163](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.cache.ts#L163)
+Defined in: [src/modules/ai/ai.cache.ts:163](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.cache.ts#L163)
 
 #### Parameters
 
@@ -214,7 +214,7 @@ Defined in: [src/modules/ai/ai.cache.ts:163](https://github.com/maemreyo/saas-4c
 
 > **setCompletion**(`prompt`, `options`, `result`, `userId?`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.cache.ts:101](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.cache.ts#L101)
+Defined in: [src/modules/ai/ai.cache.ts:101](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.cache.ts#L101)
 
 #### Parameters
 
@@ -244,7 +244,7 @@ Defined in: [src/modules/ai/ai.cache.ts:101](https://github.com/maemreyo/saas-4c
 
 > **setEmbedding**(`text`, `options`, `result`, `userId?`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.cache.ts:217](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.cache.ts#L217)
+Defined in: [src/modules/ai/ai.cache.ts:217](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.cache.ts#L217)
 
 #### Parameters
 
@@ -274,7 +274,7 @@ Defined in: [src/modules/ai/ai.cache.ts:217](https://github.com/maemreyo/saas-4c
 
 > **setImage**(`options`, `result`, `userId?`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.cache.ts:270](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.cache.ts#L270)
+Defined in: [src/modules/ai/ai.cache.ts:270](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.cache.ts#L270)
 
 #### Parameters
 
@@ -300,7 +300,7 @@ Defined in: [src/modules/ai/ai.cache.ts:270](https://github.com/maemreyo/saas-4c
 
 > **warmUp**(`commonRequests`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/ai.cache.ts:349](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.cache.ts#L349)
+Defined in: [src/modules/ai/ai.cache.ts:349](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.cache.ts#L349)
 
 #### Parameters
 
@@ -318,7 +318,7 @@ Defined in: [src/modules/ai/ai.cache.ts:349](https://github.com/maemreyo/saas-4c
 
 > `private` **config**: [`CacheConfig`](../-internal-/interfaces/CacheConfig.md)
 
-Defined in: [src/modules/ai/ai.cache.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.cache.ts#L28)
+Defined in: [src/modules/ai/ai.cache.ts:28](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.cache.ts#L28)
 
 ***
 
@@ -326,4 +326,4 @@ Defined in: [src/modules/ai/ai.cache.ts:28](https://github.com/maemreyo/saas-4cu
 
 > `private` **namespace**: `string` = `'ai:cache'`
 
-Defined in: [src/modules/ai/ai.cache.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.cache.ts#L35)
+Defined in: [src/modules/ai/ai.cache.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/ai.cache.ts#L35)

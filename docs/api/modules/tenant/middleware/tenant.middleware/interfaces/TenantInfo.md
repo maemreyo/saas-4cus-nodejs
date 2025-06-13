@@ -6,7 +6,7 @@
 
 # Interface: TenantInfo
 
-Defined in: [src/modules/tenant/middleware/tenant.middleware.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/middleware/tenant.middleware.ts#L9)
+Defined in: [src/modules/tenant/middleware/tenant.middleware.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/middleware/tenant.middleware.ts#L9)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/tenant/middleware/tenant.middleware.ts:9](https://githu
 
 > **id**: `string`
 
-Defined in: [src/modules/tenant/middleware/tenant.middleware.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/middleware/tenant.middleware.ts#L10)
+Defined in: [src/modules/tenant/middleware/tenant.middleware.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/middleware/tenant.middleware.ts#L10)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/tenant/middleware/tenant.middleware.ts:10](https://gith
 
 > **name**: `string`
 
-Defined in: [src/modules/tenant/middleware/tenant.middleware.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/middleware/tenant.middleware.ts#L12)
+Defined in: [src/modules/tenant/middleware/tenant.middleware.ts:12](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/middleware/tenant.middleware.ts#L12)
 
 ***
 
@@ -30,4 +30,4 @@ Defined in: [src/modules/tenant/middleware/tenant.middleware.ts:12](https://gith
 
 > **slug**: `string`
 
-Defined in: [src/modules/tenant/middleware/tenant.middleware.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/tenant/middleware/tenant.middleware.ts#L11)
+Defined in: [src/modules/tenant/middleware/tenant.middleware.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/tenant/middleware/tenant.middleware.ts#L11)

@@ -6,7 +6,7 @@
 
 # Interface: CacheOptions
 
-Defined in: [src/infrastructure/cache/redis.service.ts:7](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L7)
+Defined in: [src/infrastructure/cache/redis.service.ts:7](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L7)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:7](https://github.com/mae
 
 > `optional` **compress**: `boolean`
 
-Defined in: [src/infrastructure/cache/redis.service.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L10)
+Defined in: [src/infrastructure/cache/redis.service.ts:10](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L10)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:10](https://github.com/ma
 
 > `optional` **namespace**: `string`
 
-Defined in: [src/infrastructure/cache/redis.service.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L11)
+Defined in: [src/infrastructure/cache/redis.service.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L11)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/infrastructure/cache/redis.service.ts:11](https://github.com/ma
 
 > `optional` **tags**: `string`[]
 
-Defined in: [src/infrastructure/cache/redis.service.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L9)
+Defined in: [src/infrastructure/cache/redis.service.ts:9](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L9)
 
 ***
 
@@ -38,4 +38,4 @@ Defined in: [src/infrastructure/cache/redis.service.ts:9](https://github.com/mae
 
 > `optional` **ttl**: `number`
 
-Defined in: [src/infrastructure/cache/redis.service.ts:8](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/infrastructure/cache/redis.service.ts#L8)
+Defined in: [src/infrastructure/cache/redis.service.ts:8](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/infrastructure/cache/redis.service.ts#L8)

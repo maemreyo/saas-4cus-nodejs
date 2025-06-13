@@ -6,7 +6,7 @@
 
 # Class: UpdateTicketDTO
 
-Defined in: [src/modules/support/support.dto.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L25)
+Defined in: [src/modules/support/support.dto.ts:25](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L25)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/support/support.dto.ts:25](https://github.com/maemreyo/
 
 > `optional` **assignedToId**: `string`
 
-Defined in: [src/modules/support/support.dto.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L43)
+Defined in: [src/modules/support/support.dto.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L43)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/support/support.dto.ts:43](https://github.com/maemreyo/
 
 > `optional` **categoryId**: `string`
 
-Defined in: [src/modules/support/support.dto.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L42)
+Defined in: [src/modules/support/support.dto.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L42)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [src/modules/support/support.dto.ts:42](https://github.com/maemreyo/
 
 > `optional` **description**: `string`
 
-Defined in: [src/modules/support/support.dto.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L38)
+Defined in: [src/modules/support/support.dto.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L38)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [src/modules/support/support.dto.ts:38](https://github.com/maemreyo/
 
 > `optional` **priority**: `TicketPriority`
 
-Defined in: [src/modules/support/support.dto.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L40)
+Defined in: [src/modules/support/support.dto.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L40)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [src/modules/support/support.dto.ts:40](https://github.com/maemreyo/
 
 > `static` **schema**: `ZodObject`\<\{ `assignedToId`: `ZodOptional`\<`ZodNullable`\<`ZodString`\>\>; `categoryId`: `ZodOptional`\<`ZodNullable`\<`ZodString`\>\>; `description`: `ZodOptional`\<`ZodString`\>; `priority`: `ZodOptional`\<`ZodNativeEnum`\<\{ \}\>\>; `status`: `ZodOptional`\<`ZodNativeEnum`\<\{ \}\>\>; `subject`: `ZodOptional`\<`ZodString`\>; `tags`: `ZodOptional`\<`ZodArray`\<`ZodString`, `"many"`\>\>; `type`: `ZodOptional`\<`ZodNativeEnum`\<\{ \}\>\>; \}, `"strip"`, `ZodTypeAny`, \{ `assignedToId?`: `string`; `categoryId?`: `string`; `description?`: `string`; `priority?`: `"LOW"` \| `"MEDIUM"` \| `"HIGH"` \| `"URGENT"` \| `"CRITICAL"`; `status?`: `"OPEN"` \| `"IN_PROGRESS"` \| `"WAITING_FOR_CUSTOMER"` \| `"WAITING_FOR_SUPPORT"` \| `"RESOLVED"` \| `"CLOSED"` \| `"CANCELLED"`; `subject?`: `string`; `tags?`: `string`[]; `type?`: `"GENERAL_INQUIRY"` \| `"TECHNICAL_ISSUE"` \| `"BUG_REPORT"` \| `"FEATURE_REQUEST"` \| `"BILLING_ISSUE"` \| `"ACCOUNT_ISSUE"` \| `"OTHER"`; \}, \{ `assignedToId?`: `string`; `categoryId?`: `string`; `description?`: `string`; `priority?`: `"LOW"` \| `"MEDIUM"` \| `"HIGH"` \| `"URGENT"` \| `"CRITICAL"`; `status?`: `"OPEN"` \| `"IN_PROGRESS"` \| `"WAITING_FOR_CUSTOMER"` \| `"WAITING_FOR_SUPPORT"` \| `"RESOLVED"` \| `"CLOSED"` \| `"CANCELLED"`; `subject?`: `string`; `tags?`: `string`[]; `type?`: `"GENERAL_INQUIRY"` \| `"TECHNICAL_ISSUE"` \| `"BUG_REPORT"` \| `"FEATURE_REQUEST"` \| `"BILLING_ISSUE"` \| `"ACCOUNT_ISSUE"` \| `"OTHER"`; \}\>
 
-Defined in: [src/modules/support/support.dto.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L26)
+Defined in: [src/modules/support/support.dto.ts:26](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L26)
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: [src/modules/support/support.dto.ts:26](https://github.com/maemreyo/
 
 > `optional` **status**: `TicketStatus`
 
-Defined in: [src/modules/support/support.dto.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L41)
+Defined in: [src/modules/support/support.dto.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L41)
 
 ***
 
@@ -72,7 +72,7 @@ Defined in: [src/modules/support/support.dto.ts:41](https://github.com/maemreyo/
 
 > `optional` **subject**: `string`
 
-Defined in: [src/modules/support/support.dto.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L37)
+Defined in: [src/modules/support/support.dto.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L37)
 
 ***
 
@@ -80,7 +80,7 @@ Defined in: [src/modules/support/support.dto.ts:37](https://github.com/maemreyo/
 
 > `optional` **tags**: `string`[]
 
-Defined in: [src/modules/support/support.dto.ts:44](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L44)
+Defined in: [src/modules/support/support.dto.ts:44](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L44)
 
 ***
 
@@ -88,4 +88,4 @@ Defined in: [src/modules/support/support.dto.ts:44](https://github.com/maemreyo/
 
 > `optional` **type**: `TicketType`
 
-Defined in: [src/modules/support/support.dto.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/support.dto.ts#L39)
+Defined in: [src/modules/support/support.dto.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/support.dto.ts#L39)

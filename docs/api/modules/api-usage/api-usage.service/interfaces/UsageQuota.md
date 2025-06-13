@@ -6,7 +6,7 @@
 
 # Interface: UsageQuota
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L37)
+Defined in: [src/modules/api-usage/api-usage.service.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L37)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/api-usage/api-usage.service.ts:37](https://github.com/m
 
 > **limit**: `number`
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L39)
+Defined in: [src/modules/api-usage/api-usage.service.ts:39](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L39)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/api-usage/api-usage.service.ts:39](https://github.com/m
 
 > **percentage**: `number`
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L42)
+Defined in: [src/modules/api-usage/api-usage.service.ts:42](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L42)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/modules/api-usage/api-usage.service.ts:42](https://github.com/m
 
 > **remaining**: `number`
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L41)
+Defined in: [src/modules/api-usage/api-usage.service.ts:41](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L41)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/modules/api-usage/api-usage.service.ts:41](https://github.com/m
 
 > **resetAt**: `Date`
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L43)
+Defined in: [src/modules/api-usage/api-usage.service.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L43)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/modules/api-usage/api-usage.service.ts:43](https://github.com/m
 
 > **resource**: `string`
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L38)
+Defined in: [src/modules/api-usage/api-usage.service.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L38)
 
 ***
 
@@ -54,4 +54,4 @@ Defined in: [src/modules/api-usage/api-usage.service.ts:38](https://github.com/m
 
 > **used**: `number`
 
-Defined in: [src/modules/api-usage/api-usage.service.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/api-usage/api-usage.service.ts#L40)
+Defined in: [src/modules/api-usage/api-usage.service.ts:40](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/api-usage/api-usage.service.ts#L40)

@@ -6,7 +6,7 @@
 
 # Class: MockProvider
 
-Defined in: [src/modules/ai/providers/mock.provider.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/mock.provider.ts#L19)
+Defined in: [src/modules/ai/providers/mock.provider.ts:19](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/mock.provider.ts#L19)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [src/modules/ai/providers/mock.provider.ts:19](https://github.com/ma
 
 > **new MockProvider**(`config`): `MockProvider`
 
-Defined in: [src/modules/ai/providers/mock.provider.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/mock.provider.ts#L23)
+Defined in: [src/modules/ai/providers/mock.provider.ts:23](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/mock.provider.ts#L23)
 
 #### Parameters
 
@@ -40,7 +40,7 @@ Defined in: [src/modules/ai/providers/mock.provider.ts:23](https://github.com/ma
 
 > `protected` **calculateCost**(`promptTokens`, `completionTokens`, `pricePerMillionPrompt`, `pricePerMillionCompletion`): `number`
 
-Defined in: [src/modules/ai/providers/base.provider.ts:172](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L172)
+Defined in: [src/modules/ai/providers/base.provider.ts:172](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L172)
 
 #### Parameters
 
@@ -74,7 +74,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:172](https://github.com/m
 
 > `private` **calculateMockUsage**(`prompt`, `completion`): `object`
 
-Defined in: [src/modules/ai/providers/mock.provider.ts:245](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/mock.provider.ts#L245)
+Defined in: [src/modules/ai/providers/mock.provider.ts:245](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/mock.provider.ts#L245)
 
 #### Parameters
 
@@ -108,7 +108,7 @@ Defined in: [src/modules/ai/providers/mock.provider.ts:245](https://github.com/m
 
 > **chat**(`messages`, `options`): `Promise`\<[`ChatResult`](../../../models/model.types/interfaces/ChatResult.md)\>
 
-Defined in: [src/modules/ai/providers/mock.provider.ts:58](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/mock.provider.ts#L58)
+Defined in: [src/modules/ai/providers/mock.provider.ts:58](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/mock.provider.ts#L58)
 
 #### Parameters
 
@@ -134,7 +134,7 @@ Defined in: [src/modules/ai/providers/mock.provider.ts:58](https://github.com/ma
 
 > **complete**(`prompt`, `options`): `Promise`\<[`CompletionResult`](../../../models/model.types/interfaces/CompletionResult.md)\>
 
-Defined in: [src/modules/ai/providers/mock.provider.ts:34](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/mock.provider.ts#L34)
+Defined in: [src/modules/ai/providers/mock.provider.ts:34](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/mock.provider.ts#L34)
 
 #### Parameters
 
@@ -160,7 +160,7 @@ Defined in: [src/modules/ai/providers/mock.provider.ts:34](https://github.com/ma
 
 > `protected` **createError**(`message`, `code`, `statusCode?`, `details?`): [`AiError`](../../../models/model.types/interfaces/AiError.md)
 
-Defined in: [src/modules/ai/providers/base.provider.ts:70](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L70)
+Defined in: [src/modules/ai/providers/base.provider.ts:70](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L70)
 
 #### Parameters
 
@@ -194,7 +194,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:70](https://github.com/ma
 
 > **embed**(`text`, `options`): `Promise`\<[`EmbeddingResult`](../../../models/model.types/interfaces/EmbeddingResult.md) \| [`EmbeddingResult`](../../../models/model.types/interfaces/EmbeddingResult.md)[]\>
 
-Defined in: [src/modules/ai/providers/mock.provider.ts:90](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/mock.provider.ts#L90)
+Defined in: [src/modules/ai/providers/mock.provider.ts:90](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/mock.provider.ts#L90)
 
 #### Parameters
 
@@ -220,7 +220,7 @@ Defined in: [src/modules/ai/providers/mock.provider.ts:90](https://github.com/ma
 
 > `protected` **estimateTokens**(`text`): `number`
 
-Defined in: [src/modules/ai/providers/base.provider.ts:184](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L184)
+Defined in: [src/modules/ai/providers/base.provider.ts:184](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L184)
 
 #### Parameters
 
@@ -242,7 +242,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:184](https://github.com/m
 
 > **generateImage**(`options`): `Promise`\<[`ImageResult`](../../../models/model.types/interfaces/ImageResult.md)\>
 
-Defined in: [src/modules/ai/providers/mock.provider.ts:118](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/mock.provider.ts#L118)
+Defined in: [src/modules/ai/providers/mock.provider.ts:118](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/mock.provider.ts#L118)
 
 #### Parameters
 
@@ -264,7 +264,7 @@ Defined in: [src/modules/ai/providers/mock.provider.ts:118](https://github.com/m
 
 > `private` **generateMockEmbedding**(`dimensions`): `number`[]
 
-Defined in: [src/modules/ai/providers/mock.provider.ts:241](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/mock.provider.ts#L241)
+Defined in: [src/modules/ai/providers/mock.provider.ts:241](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/mock.provider.ts#L241)
 
 #### Parameters
 
@@ -282,7 +282,7 @@ Defined in: [src/modules/ai/providers/mock.provider.ts:241](https://github.com/m
 
 > `private` **generateMockResponse**(`prompt`, `options`): `string`
 
-Defined in: [src/modules/ai/providers/mock.provider.ts:225](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/mock.provider.ts#L225)
+Defined in: [src/modules/ai/providers/mock.provider.ts:225](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/mock.provider.ts#L225)
 
 #### Parameters
 
@@ -304,7 +304,7 @@ Defined in: [src/modules/ai/providers/mock.provider.ts:225](https://github.com/m
 
 > `protected` **getHeaders**(): `Record`\<`string`, `string`\>
 
-Defined in: [src/modules/ai/providers/base.provider.ts:122](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L122)
+Defined in: [src/modules/ai/providers/base.provider.ts:122](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L122)
 
 #### Returns
 
@@ -320,7 +320,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:122](https://github.com/m
 
 > **getName**(): `string`
 
-Defined in: [src/modules/ai/providers/base.provider.ts:189](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L189)
+Defined in: [src/modules/ai/providers/base.provider.ts:189](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L189)
 
 #### Returns
 
@@ -336,7 +336,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:189](https://github.com/m
 
 > **isAvailable**(): `Promise`\<`boolean`\>
 
-Defined in: [src/modules/ai/providers/mock.provider.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/mock.provider.ts#L29)
+Defined in: [src/modules/ai/providers/mock.provider.ts:29](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/mock.provider.ts#L29)
 
 #### Returns
 
@@ -352,7 +352,7 @@ Defined in: [src/modules/ai/providers/mock.provider.ts:29](https://github.com/ma
 
 > `protected` **makeRequest**\<`T`\>(`url`, `options`): `Promise`\<`T`\>
 
-Defined in: [src/modules/ai/providers/base.provider.ts:129](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L129)
+Defined in: [src/modules/ai/providers/base.provider.ts:129](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L129)
 
 #### Type Parameters
 
@@ -384,7 +384,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:129](https://github.com/m
 
 > `private` **simulateDelay**(`ms?`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/providers/mock.provider.ts:221](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/mock.provider.ts#L221)
+Defined in: [src/modules/ai/providers/mock.provider.ts:221](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/mock.provider.ts#L221)
 
 #### Parameters
 
@@ -402,7 +402,7 @@ Defined in: [src/modules/ai/providers/mock.provider.ts:221](https://github.com/m
 
 > **streamChat**(`messages`, `options`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/providers/mock.provider.ts:166](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/mock.provider.ts#L166)
+Defined in: [src/modules/ai/providers/mock.provider.ts:166](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/mock.provider.ts#L166)
 
 #### Parameters
 
@@ -428,7 +428,7 @@ Defined in: [src/modules/ai/providers/mock.provider.ts:166](https://github.com/m
 
 > **streamComplete**(`prompt`, `options`): `Promise`\<`void`\>
 
-Defined in: [src/modules/ai/providers/mock.provider.ts:207](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/mock.provider.ts#L207)
+Defined in: [src/modules/ai/providers/mock.provider.ts:207](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/mock.provider.ts#L207)
 
 #### Parameters
 
@@ -454,7 +454,7 @@ Defined in: [src/modules/ai/providers/mock.provider.ts:207](https://github.com/m
 
 > **transcribeAudio**(`audioBuffer`, `options`): `Promise`\<[`AudioResult`](../../../models/model.types/interfaces/AudioResult.md)\>
 
-Defined in: [src/modules/ai/providers/mock.provider.ts:143](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/mock.provider.ts#L143)
+Defined in: [src/modules/ai/providers/mock.provider.ts:143](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/mock.provider.ts#L143)
 
 #### Parameters
 
@@ -480,7 +480,7 @@ Defined in: [src/modules/ai/providers/mock.provider.ts:143](https://github.com/m
 
 > `protected` **validateApiKey**(): `void`
 
-Defined in: [src/modules/ai/providers/base.provider.ts:112](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L112)
+Defined in: [src/modules/ai/providers/base.provider.ts:112](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L112)
 
 #### Returns
 
@@ -496,7 +496,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:112](https://github.com/m
 
 > `protected` **withRetry**\<`T`\>(`operation`, `maxRetries`, `delay`): `Promise`\<`T`\>
 
-Defined in: [src/modules/ai/providers/base.provider.ts:84](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L84)
+Defined in: [src/modules/ai/providers/base.provider.ts:84](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L84)
 
 #### Type Parameters
 
@@ -532,7 +532,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:84](https://github.com/ma
 
 > `protected` **config**: [`ProviderConfig`](../../../models/model.types/interfaces/ProviderConfig.md)
 
-Defined in: [src/modules/ai/providers/base.provider.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L21)
+Defined in: [src/modules/ai/providers/base.provider.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L21)
 
 #### Inherited from
 
@@ -544,7 +544,7 @@ Defined in: [src/modules/ai/providers/base.provider.ts:21](https://github.com/ma
 
 > `private` **delay**: `number`
 
-Defined in: [src/modules/ai/providers/mock.provider.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/mock.provider.ts#L20)
+Defined in: [src/modules/ai/providers/mock.provider.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/mock.provider.ts#L20)
 
 ***
 
@@ -552,7 +552,7 @@ Defined in: [src/modules/ai/providers/mock.provider.ts:20](https://github.com/ma
 
 > `protected` **name**: `string`
 
-Defined in: [src/modules/ai/providers/base.provider.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/base.provider.ts#L20)
+Defined in: [src/modules/ai/providers/base.provider.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/base.provider.ts#L20)
 
 #### Inherited from
 
@@ -564,4 +564,4 @@ Defined in: [src/modules/ai/providers/base.provider.ts:20](https://github.com/ma
 
 > `private` **shouldFail**: `boolean`
 
-Defined in: [src/modules/ai/providers/mock.provider.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/providers/mock.provider.ts#L21)
+Defined in: [src/modules/ai/providers/mock.provider.ts:21](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/providers/mock.provider.ts#L21)

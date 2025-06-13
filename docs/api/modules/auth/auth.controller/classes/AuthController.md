@@ -6,7 +6,7 @@
 
 # Class: AuthController
 
-Defined in: [src/modules/auth/auth.controller.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.controller.ts#L17)
+Defined in: [src/modules/auth/auth.controller.ts:17](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.controller.ts#L17)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/auth/auth.controller.ts:17](https://github.com/maemreyo
 
 > **new AuthController**(`authService`): `AuthController`
 
-Defined in: [src/modules/auth/auth.controller.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.controller.ts#L18)
+Defined in: [src/modules/auth/auth.controller.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.controller.ts#L18)
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: [src/modules/auth/auth.controller.ts:18](https://github.com/maemreyo
 
 > **disable2FA**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/auth/auth.controller.ts:154](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.controller.ts#L154)
+Defined in: [src/modules/auth/auth.controller.ts:154](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.controller.ts#L154)
 
 #### Parameters
 
@@ -54,7 +54,7 @@ Defined in: [src/modules/auth/auth.controller.ts:154](https://github.com/maemrey
 
 > **enable2FA**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/auth/auth.controller.ts:136](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.controller.ts#L136)
+Defined in: [src/modules/auth/auth.controller.ts:136](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.controller.ts#L136)
 
 #### Parameters
 
@@ -76,7 +76,7 @@ Defined in: [src/modules/auth/auth.controller.ts:136](https://github.com/maemrey
 
 > **forgotPassword**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/auth/auth.controller.ts:88](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.controller.ts#L88)
+Defined in: [src/modules/auth/auth.controller.ts:88](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.controller.ts#L88)
 
 #### Parameters
 
@@ -98,7 +98,7 @@ Defined in: [src/modules/auth/auth.controller.ts:88](https://github.com/maemreyo
 
 > **getCurrentUser**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/auth/auth.controller.ts:114](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.controller.ts#L114)
+Defined in: [src/modules/auth/auth.controller.ts:114](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.controller.ts#L114)
 
 #### Parameters
 
@@ -120,7 +120,7 @@ Defined in: [src/modules/auth/auth.controller.ts:114](https://github.com/maemrey
 
 > **googleAuth**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/auth/auth.controller.ts:162](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.controller.ts#L162)
+Defined in: [src/modules/auth/auth.controller.ts:162](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.controller.ts#L162)
 
 #### Parameters
 
@@ -142,7 +142,7 @@ Defined in: [src/modules/auth/auth.controller.ts:162](https://github.com/maemrey
 
 > **googleCallback**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/auth/auth.controller.ts:167](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.controller.ts#L167)
+Defined in: [src/modules/auth/auth.controller.ts:167](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.controller.ts#L167)
 
 #### Parameters
 
@@ -164,7 +164,7 @@ Defined in: [src/modules/auth/auth.controller.ts:167](https://github.com/maemrey
 
 > **login**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/auth/auth.controller.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.controller.ts#L38)
+Defined in: [src/modules/auth/auth.controller.ts:38](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.controller.ts#L38)
 
 #### Parameters
 
@@ -186,7 +186,7 @@ Defined in: [src/modules/auth/auth.controller.ts:38](https://github.com/maemreyo
 
 > **logout**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/auth/auth.controller.ts:79](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.controller.ts#L79)
+Defined in: [src/modules/auth/auth.controller.ts:79](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.controller.ts#L79)
 
 #### Parameters
 
@@ -208,7 +208,7 @@ Defined in: [src/modules/auth/auth.controller.ts:79](https://github.com/maemreyo
 
 > **refreshToken**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/auth/auth.controller.ts:69](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.controller.ts#L69)
+Defined in: [src/modules/auth/auth.controller.ts:69](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.controller.ts#L69)
 
 #### Parameters
 
@@ -230,7 +230,7 @@ Defined in: [src/modules/auth/auth.controller.ts:69](https://github.com/maemreyo
 
 > **register**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/auth/auth.controller.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.controller.ts#L20)
+Defined in: [src/modules/auth/auth.controller.ts:20](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.controller.ts#L20)
 
 #### Parameters
 
@@ -252,7 +252,7 @@ Defined in: [src/modules/auth/auth.controller.ts:20](https://github.com/maemreyo
 
 > **resetPassword**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/auth/auth.controller.ts:97](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.controller.ts#L97)
+Defined in: [src/modules/auth/auth.controller.ts:97](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.controller.ts#L97)
 
 #### Parameters
 
@@ -274,7 +274,7 @@ Defined in: [src/modules/auth/auth.controller.ts:97](https://github.com/maemreyo
 
 > **verify2FA**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/auth/auth.controller.ts:145](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.controller.ts#L145)
+Defined in: [src/modules/auth/auth.controller.ts:145](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.controller.ts#L145)
 
 #### Parameters
 
@@ -296,7 +296,7 @@ Defined in: [src/modules/auth/auth.controller.ts:145](https://github.com/maemrey
 
 > **verifyEmail**(`request`, `reply`): `Promise`\<`void`\>
 
-Defined in: [src/modules/auth/auth.controller.ts:106](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.controller.ts#L106)
+Defined in: [src/modules/auth/auth.controller.ts:106](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.controller.ts#L106)
 
 #### Parameters
 
@@ -318,4 +318,4 @@ Defined in: [src/modules/auth/auth.controller.ts:106](https://github.com/maemrey
 
 > `private` **authService**: [`AuthService`](../../auth.service/classes/AuthService.md)
 
-Defined in: [src/modules/auth/auth.controller.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/auth/auth.controller.ts#L18)
+Defined in: [src/modules/auth/auth.controller.ts:18](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/auth/auth.controller.ts#L18)

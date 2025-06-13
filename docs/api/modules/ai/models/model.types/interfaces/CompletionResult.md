@@ -6,7 +6,7 @@
 
 # Interface: CompletionResult
 
-Defined in: [src/modules/ai/models/model.types.ts:97](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L97)
+Defined in: [src/modules/ai/models/model.types.ts:97](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L97)
 
 ## Extended by
 
@@ -18,7 +18,7 @@ Defined in: [src/modules/ai/models/model.types.ts:97](https://github.com/maemrey
 
 > `optional` **cached**: `boolean`
 
-Defined in: [src/modules/ai/models/model.types.ts:103](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L103)
+Defined in: [src/modules/ai/models/model.types.ts:103](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L103)
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: [src/modules/ai/models/model.types.ts:103](https://github.com/maemre
 
 > **finishReason**: `"length"` \| `"stop"` \| `"content_filter"` \| `"function_call"`
 
-Defined in: [src/modules/ai/models/model.types.ts:102](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L102)
+Defined in: [src/modules/ai/models/model.types.ts:102](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L102)
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: [src/modules/ai/models/model.types.ts:102](https://github.com/maemre
 
 > **id**: `string`
 
-Defined in: [src/modules/ai/models/model.types.ts:98](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L98)
+Defined in: [src/modules/ai/models/model.types.ts:98](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L98)
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: [src/modules/ai/models/model.types.ts:98](https://github.com/maemrey
 
 > **model**: `string`
 
-Defined in: [src/modules/ai/models/model.types.ts:100](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L100)
+Defined in: [src/modules/ai/models/model.types.ts:100](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L100)
 
 ***
 
@@ -50,7 +50,7 @@ Defined in: [src/modules/ai/models/model.types.ts:100](https://github.com/maemre
 
 > **text**: `string`
 
-Defined in: [src/modules/ai/models/model.types.ts:99](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L99)
+Defined in: [src/modules/ai/models/model.types.ts:99](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L99)
 
 ***
 
@@ -58,4 +58,4 @@ Defined in: [src/modules/ai/models/model.types.ts:99](https://github.com/maemrey
 
 > **usage**: [`TokenUsage`](TokenUsage.md)
 
-Defined in: [src/modules/ai/models/model.types.ts:101](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L101)
+Defined in: [src/modules/ai/models/model.types.ts:101](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L101)

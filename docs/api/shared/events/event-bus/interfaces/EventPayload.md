@@ -6,7 +6,7 @@
 
 # Interface: EventPayload
 
-Defined in: [src/shared/events/event-bus.ts:6](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/events/event-bus.ts#L6)
+Defined in: [src/shared/events/event-bus.ts:6](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/events/event-bus.ts#L6)
 
 ## Indexable
 
@@ -18,4 +18,4 @@ Defined in: [src/shared/events/event-bus.ts:6](https://github.com/maemreyo/saas-
 
 > **timestamp**: `Date`
 
-Defined in: [src/shared/events/event-bus.ts:7](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/shared/events/event-bus.ts#L7)
+Defined in: [src/shared/events/event-bus.ts:7](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/shared/events/event-bus.ts#L7)

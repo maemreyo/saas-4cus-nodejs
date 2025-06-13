@@ -6,7 +6,7 @@
 
 # Interface: ChatMessage
 
-Defined in: [src/modules/ai/models/model.types.ts:53](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L53)
+Defined in: [src/modules/ai/models/model.types.ts:53](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L53)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/ai/models/model.types.ts:53](https://github.com/maemrey
 
 > **content**: `string`
 
-Defined in: [src/modules/ai/models/model.types.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L55)
+Defined in: [src/modules/ai/models/model.types.ts:55](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L55)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/modules/ai/models/model.types.ts:55](https://github.com/maemrey
 
 > `optional` **functionCall**: `object`
 
-Defined in: [src/modules/ai/models/model.types.ts:57](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L57)
+Defined in: [src/modules/ai/models/model.types.ts:57](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L57)
 
 #### arguments
 
@@ -38,7 +38,7 @@ Defined in: [src/modules/ai/models/model.types.ts:57](https://github.com/maemrey
 
 > `optional` **name**: `string`
 
-Defined in: [src/modules/ai/models/model.types.ts:56](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L56)
+Defined in: [src/modules/ai/models/model.types.ts:56](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L56)
 
 ***
 
@@ -46,4 +46,4 @@ Defined in: [src/modules/ai/models/model.types.ts:56](https://github.com/maemrey
 
 > **role**: `"function"` \| `"user"` \| `"system"` \| `"assistant"`
 
-Defined in: [src/modules/ai/models/model.types.ts:54](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/models/model.types.ts#L54)
+Defined in: [src/modules/ai/models/model.types.ts:54](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/ai/models/model.types.ts#L54)

@@ -6,7 +6,7 @@
 
 # Class: ReportService
 
-Defined in: [src/modules/analytics/report.service.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L33)
+Defined in: [src/modules/analytics/report.service.ts:33](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L33)
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: [src/modules/analytics/report.service.ts:33](https://github.com/maem
 
 > **new ReportService**(`analyticsService`, `emailService`, `storageService`): `ReportService`
 
-Defined in: [src/modules/analytics/report.service.ts:34](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L34)
+Defined in: [src/modules/analytics/report.service.ts:34](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L34)
 
 #### Parameters
 
@@ -40,7 +40,7 @@ Defined in: [src/modules/analytics/report.service.ts:34](https://github.com/maem
 
 > `private` **addPDFContent**(`doc`, `data`): `void`
 
-Defined in: [src/modules/analytics/report.service.ts:428](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L428)
+Defined in: [src/modules/analytics/report.service.ts:428](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L428)
 
 Add PDF content based on data
 
@@ -64,7 +64,7 @@ Add PDF content based on data
 
 > `private` **flattenDataForCSV**(`data`): `any`[]
 
-Defined in: [src/modules/analytics/report.service.ts:456](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L456)
+Defined in: [src/modules/analytics/report.service.ts:456](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L456)
 
 Flatten nested data for CSV export
 
@@ -84,7 +84,7 @@ Flatten nested data for CSV export
 
 > `private` **generateCSV**(`data`): `Promise`\<`Buffer`\<`ArrayBufferLike`\>\>
 
-Defined in: [src/modules/analytics/report.service.ts:439](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L439)
+Defined in: [src/modules/analytics/report.service.ts:439](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L439)
 
 Generate CSV report
 
@@ -104,7 +104,7 @@ Generate CSV report
 
 > `private` **generatePDF**(`data`, `type`): `Promise`\<`Buffer`\<`ArrayBufferLike`\>\>
 
-Defined in: [src/modules/analytics/report.service.ts:404](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L404)
+Defined in: [src/modules/analytics/report.service.ts:404](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L404)
 
 Generate PDF report
 
@@ -128,7 +128,7 @@ Generate PDF report
 
 > **generateReport**(`options`): `Promise`\<\{ `filename`: `string`; `size`: `number`; `url`: `string`; \}\>
 
-Defined in: [src/modules/analytics/report.service.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L43)
+Defined in: [src/modules/analytics/report.service.ts:43](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L43)
 
 Generate report
 
@@ -148,7 +148,7 @@ Generate report
 
 > `private` **getCustomReportData**(`query`): `Promise`\<`any`\>
 
-Defined in: [src/modules/analytics/report.service.ts:395](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L395)
+Defined in: [src/modules/analytics/report.service.ts:395](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L395)
 
 Get custom report data
 
@@ -168,7 +168,7 @@ Get custom report data
 
 > `private` **getDashboardReportData**(`filters?`): `Promise`\<`any`\>
 
-Defined in: [src/modules/analytics/report.service.ts:179](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L179)
+Defined in: [src/modules/analytics/report.service.ts:179](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L179)
 
 Get dashboard report data
 
@@ -188,7 +188,7 @@ Get dashboard report data
 
 > `private` **getRevenueByPlan**(`tenantId?`): `Promise`\<`any`[]\>
 
-Defined in: [src/modules/analytics/report.service.ts:494](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L494)
+Defined in: [src/modules/analytics/report.service.ts:494](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L494)
 
 Helper method to get revenue by plan
 
@@ -208,7 +208,7 @@ Helper method to get revenue by plan
 
 > `private` **getRevenueReportData**(`filters?`): `Promise`\<`any`\>
 
-Defined in: [src/modules/analytics/report.service.ts:195](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L195)
+Defined in: [src/modules/analytics/report.service.ts:195](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L195)
 
 Get revenue report data
 
@@ -228,7 +228,7 @@ Get revenue report data
 
 > `private` **getUsersReportData**(`filters?`): `Promise`\<`any`\>
 
-Defined in: [src/modules/analytics/report.service.ts:280](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L280)
+Defined in: [src/modules/analytics/report.service.ts:280](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L280)
 
 Get users report data
 
@@ -248,7 +248,7 @@ Get users report data
 
 > **scheduleReport**(`options`): `Promise`\<`string`\>
 
-Defined in: [src/modules/analytics/report.service.ts:133](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L133)
+Defined in: [src/modules/analytics/report.service.ts:133](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L133)
 
 Schedule recurring report
 
@@ -268,7 +268,7 @@ Schedule recurring report
 
 > `private` **sendReportEmail**(`recipients`, `report`): `Promise`\<`void`\>
 
-Defined in: [src/modules/analytics/report.service.ts:473](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L473)
+Defined in: [src/modules/analytics/report.service.ts:473](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L473)
 
 Send report email
 
@@ -302,7 +302,7 @@ Send report email
 
 > `private` **analyticsService**: [`AnalyticsService`](../../analytics.service/classes/AnalyticsService.md)
 
-Defined in: [src/modules/analytics/report.service.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L35)
+Defined in: [src/modules/analytics/report.service.ts:35](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L35)
 
 ***
 
@@ -310,7 +310,7 @@ Defined in: [src/modules/analytics/report.service.ts:35](https://github.com/maem
 
 > `private` **emailService**: [`EmailService`](../../../../shared/services/email.service/classes/EmailService.md)
 
-Defined in: [src/modules/analytics/report.service.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L36)
+Defined in: [src/modules/analytics/report.service.ts:36](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L36)
 
 ***
 
@@ -318,4 +318,4 @@ Defined in: [src/modules/analytics/report.service.ts:36](https://github.com/maem
 
 > `private` **storageService**: [`StorageService`](../../../../shared/services/storage.service/classes/StorageService.md)
 
-Defined in: [src/modules/analytics/report.service.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/analytics/report.service.ts#L37)
+Defined in: [src/modules/analytics/report.service.ts:37](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/analytics/report.service.ts#L37)

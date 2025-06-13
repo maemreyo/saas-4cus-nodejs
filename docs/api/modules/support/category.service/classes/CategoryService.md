@@ -6,7 +6,7 @@
 
 # Class: CategoryService
 
-Defined in: [src/modules/support/category.service.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/category.service.ts#L11)
+Defined in: [src/modules/support/category.service.ts:11](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/category.service.ts#L11)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [src/modules/support/category.service.ts:11](https://github.com/maem
 
 > **createCategory**(`data`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/support/category.service.ts:98](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/category.service.ts#L98)
+Defined in: [src/modules/support/category.service.ts:98](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/category.service.ts#L98)
 
 Create category
 
@@ -44,7 +44,7 @@ Create category
 
 > **deleteCategory**(`categoryId`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/category.service.ts:210](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/category.service.ts#L210)
+Defined in: [src/modules/support/category.service.ts:210](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/category.service.ts#L210)
 
 Delete category
 
@@ -64,7 +64,7 @@ Delete category
 
 > **getCategories**(`includeInactive`): `Promise`\<`object`[]\>
 
-Defined in: [src/modules/support/category.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/category.service.ts#L16)
+Defined in: [src/modules/support/category.service.ts:16](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/category.service.ts#L16)
 
 Get all categories
 
@@ -84,7 +84,7 @@ Get all categories
 
 > **getCategory**(`categoryId`): `Promise`\<`object` & `object`\>
 
-Defined in: [src/modules/support/category.service.ts:56](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/category.service.ts#L56)
+Defined in: [src/modules/support/category.service.ts:56](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/category.service.ts#L56)
 
 Get category by ID
 
@@ -104,7 +104,7 @@ Get category by ID
 
 > **getCategoryBySlug**(`slug`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/support/category.service.ts:78](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/category.service.ts#L78)
+Defined in: [src/modules/support/category.service.ts:78](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/category.service.ts#L78)
 
 Get category by slug
 
@@ -124,7 +124,7 @@ Get category by slug
 
 > **getPopularCategories**(`limit`): `Promise`\<`object`[]\>
 
-Defined in: [src/modules/support/category.service.ts:282](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/category.service.ts#L282)
+Defined in: [src/modules/support/category.service.ts:282](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/category.service.ts#L282)
 
 Get popular categories
 
@@ -144,7 +144,7 @@ Get popular categories
 
 > **reorderCategories**(`categoryOrders`): `Promise`\<`void`\>
 
-Defined in: [src/modules/support/category.service.ts:262](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/category.service.ts#L262)
+Defined in: [src/modules/support/category.service.ts:262](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/category.service.ts#L262)
 
 Reorder categories
 
@@ -164,7 +164,7 @@ Reorder categories
 
 > **toggleCategoryStatus**(`categoryId`): `Promise`\<\{ \}\>
 
-Defined in: [src/modules/support/category.service.ts:238](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/category.service.ts#L238)
+Defined in: [src/modules/support/category.service.ts:238](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/category.service.ts#L238)
 
 Toggle category status
 
@@ -184,7 +184,7 @@ Toggle category status
 
 > **updateCategory**(`categoryId`, `updates`): `Promise`\<`object` & `object`\>
 
-Defined in: [src/modules/support/category.service.ts:144](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/support/category.service.ts#L144)
+Defined in: [src/modules/support/category.service.ts:144](https://github.com/maemreyo/saas-4cus-nodejs/blob/2a5b3f3aa11335dfa561e80e1feabb8e6084261e/src/modules/support/category.service.ts#L144)
 
 Update category
 

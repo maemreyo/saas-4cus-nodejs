@@ -15,18 +15,21 @@ interface JWTPayload {
   permissions?: string[];
 }
 
-// Extended FastifyRequest with user
-// Use declaration merging instead of interface extension to avoid type conflicts
-export interface AuthRequest extends FastifyRequest {
-  user?: {
-    id: string; // Mapped from sub
-    email: string;
-    role: UserRole;
-    tenantId?: string;
-    permissions?: string[];
-    sessionId?: string;
-  };
+// Define our custom user type
+export interface AuthUser {
+  id: string; // Mapped from sub
+  email: string;
+  role: UserRole;
+  tenantId?: string;
+  permissions?: string[];
+  sessionId?: string;
 }
+
+// We'll use type assertion instead of declaration merging
+// to avoid conflicts with existing declarations
+
+// Create a type alias for convenience
+export type AuthRequest = FastifyRequest;
 
 /**
  * Require authentication middleware
@@ -48,7 +51,6 @@ export async function requireAuth(request: FastifyRequest, reply: FastifyReply):
 
     // Map JWT payload to user object
     // Note: 'sub' is mapped to 'id', and role string is cast to UserRole enum
-    // Use type assertion to bypass type checking
     (request as any).user = {
       id: payload.sub,
       email: payload.email,
@@ -56,7 +58,7 @@ export async function requireAuth(request: FastifyRequest, reply: FastifyReply):
       tenantId: payload.tenantId,
       permissions: payload.permissions,
       sessionId: payload.sessionId
-    };
+    } as AuthUser;
   } catch (error) {
     logger.error('Authentication failed', error as Error);
     if (error instanceof UnauthorizedException) {
@@ -72,14 +74,22 @@ export async function requireAuth(request: FastifyRequest, reply: FastifyReply):
  */
 export function requireRole(...roles: UserRole[]) {
   return async function (request: FastifyRequest, reply: FastifyReply): Promise<void> {
-    // First ensure user is authenticated
-    const authRequest = request as unknown as AuthRequest;
-    if (!authRequest.user) {
-      await requireAuth(request, reply);
-    }
+    try {
+      // First ensure user is authenticated
+      if (!(request as any).user) {
+        await requireAuth(request, reply);
+      }
 
-    if (!authRequest.user || !roles.includes(authRequest.user.role)) {
-      throw new ForbiddenException('Insufficient permissions');
+      // Check if user has required role
+      const userRole = (request as any).user.role as UserRole;
+      if (!roles.includes(userRole)) {
+        throw new ForbiddenException('Insufficient permissions');
+      }
+    } catch (error) {
+      if (error instanceof ForbiddenException) {
+        throw error;
+      }
+      throw new ForbiddenException('Role check failed');
     }
   };
 }
@@ -90,17 +100,24 @@ export function requireRole(...roles: UserRole[]) {
  */
 export function requirePermission(...permissions: string[]) {
   return async function (request: FastifyRequest, reply: FastifyReply): Promise<void> {
-    // First ensure user is authenticated
-    const authRequest = request as unknown as AuthRequest;
-    if (!authRequest.user) {
-      await requireAuth(request, reply);
-    }
+    try {
+      // First ensure user is authenticated
+      if (!(request as any).user) {
+        await requireAuth(request, reply);
+      }
 
-    const userPermissions = authRequest.user?.permissions || [];
-    const hasPermission = permissions.every(permission => userPermissions.includes(permission));
+      // Check if user has all required permissions
+      const userPermissions = (request as any).user.permissions || [];
+      const hasPermission = permissions.every(permission => userPermissions.includes(permission));
 
-    if (!hasPermission) {
-      throw new ForbiddenException('Insufficient permissions');
+      if (!hasPermission) {
+        throw new ForbiddenException('Insufficient permissions');
+      }
+    } catch (error) {
+      if (error instanceof ForbiddenException) {
+        throw error;
+      }
+      throw new ForbiddenException('Permission check failed');
     }
   };
 }
@@ -126,7 +143,7 @@ export async function optionalAuth(request: FastifyRequest, reply: FastifyReply)
         tenantId: payload.tenantId,
         permissions: payload.permissions,
         sessionId: payload.sessionId
-      };
+      } as AuthUser;
     }
   } catch (error) {
     // Ignore errors for optional auth

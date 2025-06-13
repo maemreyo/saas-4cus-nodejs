@@ -2,19 +2,21 @@ import { FastifyRequest, FastifyReply } from 'fastify';
 import { Container } from 'typedi';
 import { ForbiddenException, NotFoundException } from '@shared/exceptions';
 import { logger } from '@shared/logger';
-import { AuthRequest } from '@modules/auth/middleware/auth.middleware';
 import { TenantService } from '../tenant.service';
 import { TenantContextService } from '../tenant.context';
 
-// Extended request with tenant
-export interface TenantRequest extends AuthRequest {
-  tenant?: {
-    id: string;
-    slug: string;
-    name: string;
-  };
-  tenantRole?: string;
+// Define tenant information
+export interface TenantInfo {
+  id: string;
+  slug: string;
+  name: string;
 }
+
+// We'll use type assertion instead of declaration merging
+// to avoid conflicts with existing declarations
+
+// Create a type alias for convenience
+export type TenantRequest = FastifyRequest;
 
 /**
  * Check tenant middleware
@@ -63,12 +65,11 @@ export async function checkTenant(
     });
 
     // Set tenant in request
-    const tenantRequest = request as unknown as TenantRequest;
-    tenantRequest.tenant = {
+    (request as any).tenant = {
       id: tenant.id,
       slug: tenant.slug,
       name: tenant.name
-    };
+    } as TenantInfo;
 
     // Log for debugging
     logger.debug('Tenant context set', {
@@ -95,8 +96,7 @@ export async function requireTenant(
   await checkTenant(request, reply);
 
   // Verify tenant is set
-  const tenantRequest = request as unknown as TenantRequest;
-  if (!tenantRequest.tenant) {
+  if (!(request as any).tenant) {
     throw new ForbiddenException('Tenant ID or slug is required');
   }
 }
@@ -109,28 +109,26 @@ export async function requireTenantMembership(
   request: FastifyRequest,
   reply: FastifyReply
 ): Promise<void> {
-  const tenantRequest = request as unknown as TenantRequest;
-
   // Ensure tenant context is set
-  if (!tenantRequest.tenant) {
+  if (!(request as any).tenant) {
     await requireTenant(request, reply);
   }
 
   // Ensure user is authenticated
-  if (!tenantRequest.user) {
+  if (!(request as any).user) {
     throw new ForbiddenException('Authentication required');
   }
 
   // Check membership
   const tenantService = Container.get(TenantService);
-  const member = await tenantService.getMember(tenantRequest.tenant!.id, tenantRequest.user.id);
+  const member = await tenantService.getMember((request as any).tenant.id, (request as any).user.id);
 
   if (!member) {
     throw new ForbiddenException('You are not a member of this tenant');
   }
 
   // Set role in request
-  tenantRequest.tenantRole = member.role;
+  (request as any).tenantRole = member.role;
 
   // Set role in context
   const tenantContext = Container.get(TenantContextService);
@@ -138,8 +136,8 @@ export async function requireTenantMembership(
 
   // Log for debugging
   logger.debug('Tenant membership verified', {
-    userId: tenantRequest.user.id,
-    tenantId: tenantRequest.tenant.id,
+    userId: (request as any).user.id,
+    tenantId: (request as any).tenant.id,
     role: member.role
   });
 }

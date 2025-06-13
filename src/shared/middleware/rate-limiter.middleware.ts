@@ -60,9 +60,9 @@ export function rateLimiter(options: Partial<RateLimitOptions> = {}) {
       else if (authRequest.user) {
         key = `${key}:user:${authRequest.user.id}`;
 
-        if (tenantRequest.tenant) {
-          key = `${key}:tenant:${tenantRequest.tenant.id}`;
-        }
+        // if (tenantRequest.tenant) {
+        //   key = `${key}:tenant:${tenantRequest.tenant.id}`;
+        // }
       }
 
       // TODO: Implement actual rate limiting logic

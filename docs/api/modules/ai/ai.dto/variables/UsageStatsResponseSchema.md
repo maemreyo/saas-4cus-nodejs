@@ -1,0 +1,11 @@
+[**modern-backend-template v2.0.0**](../../../../README.md)
+
+***
+
+[modern-backend-template](../../../../modules.md) / [modules/ai/ai.dto](../README.md) / UsageStatsResponseSchema
+
+# Variable: UsageStatsResponseSchema
+
+> `const` **UsageStatsResponseSchema**: `ZodObject`\<\{ `averageLatency`: `ZodNumber`; `byModel`: `ZodRecord`\<`ZodString`, `ZodObject`\<\{ `cost`: `ZodNumber`; `requests`: `ZodNumber`; `tokens`: `ZodNumber`; \}, `"strip"`, `ZodTypeAny`, \{ `cost?`: `number`; `requests?`: `number`; `tokens?`: `number`; \}, \{ `cost?`: `number`; `requests?`: `number`; `tokens?`: `number`; \}\>\>; `byProvider`: `ZodRecord`\<`ZodString`, `ZodObject`\<\{ `cost`: `ZodNumber`; `requests`: `ZodNumber`; `tokens`: `ZodNumber`; \}, `"strip"`, `ZodTypeAny`, \{ `cost?`: `number`; `requests?`: `number`; `tokens?`: `number`; \}, \{ `cost?`: `number`; `requests?`: `number`; `tokens?`: `number`; \}\>\>; `cacheHitRate`: `ZodNumber`; `timeSeries`: `ZodArray`\<`ZodObject`\<\{ `cost`: `ZodNumber`; `date`: `ZodString`; `requests`: `ZodNumber`; `tokens`: `ZodNumber`; \}, `"strip"`, `ZodTypeAny`, \{ `cost?`: `number`; `date?`: `string`; `requests?`: `number`; `tokens?`: `number`; \}, \{ `cost?`: `number`; `date?`: `string`; `requests?`: `number`; `tokens?`: `number`; \}\>, `"many"`\>; `totalCost`: `ZodNumber`; `totalRequests`: `ZodNumber`; `totalTokens`: `ZodNumber`; \}, `"strip"`, `ZodTypeAny`, \{ `averageLatency?`: `number`; `byModel?`: `Record`\<`string`, \{ `cost?`: `number`; `requests?`: `number`; `tokens?`: `number`; \}\>; `byProvider?`: `Record`\<`string`, \{ `cost?`: `number`; `requests?`: `number`; `tokens?`: `number`; \}\>; `cacheHitRate?`: `number`; `timeSeries?`: `object`[]; `totalCost?`: `number`; `totalRequests?`: `number`; `totalTokens?`: `number`; \}, \{ `averageLatency?`: `number`; `byModel?`: `Record`\<`string`, \{ `cost?`: `number`; `requests?`: `number`; `tokens?`: `number`; \}\>; `byProvider?`: `Record`\<`string`, \{ `cost?`: `number`; `requests?`: `number`; `tokens?`: `number`; \}\>; `cacheHitRate?`: `number`; `timeSeries?`: `object`[]; `totalCost?`: `number`; `totalRequests?`: `number`; `totalTokens?`: `number`; \}\>
+
+Defined in: [src/modules/ai/ai.dto.ts:218](https://github.com/maemreyo/saas-4cus-nodejs/blob/1a77de11cd6eaefe66c31c7f5de281673fc25ce5/src/modules/ai/ai.dto.ts#L218)

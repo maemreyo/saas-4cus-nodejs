@@ -3,6 +3,7 @@
 import { Injectable } from '@/shared/decorators';
 import { QueueService } from '@/shared/queue/queue.service';
 import { PrismaService } from '@/infrastructure/database/prisma.service';
+import { RedisService } from '@/infrastructure/cache/redis.service';
 import { EmailDeliveryService } from '../services/email-delivery.service';
 import { EmailCampaignService } from '../services/email-campaign.service';
 import { EmailAutomationService } from '../services/email-automation.service';
@@ -11,6 +12,7 @@ import { ABTestingService } from '../services/ab-testing.service';
 import { EventBus } from '@/shared/events/event-bus';
 import { logger } from '@/shared/logger';
 import { Job } from 'bull';
+import { Container } from 'typedi';
 import {
   EmailCampaignStatus,
   EmailDeliveryStatus
@@ -303,7 +305,7 @@ export class EmailMarketingQueue {
       const listService = new emailListService(
         this.prisma,
         this.eventBus,
-        this.queue.redis,
+        Container.get(RedisService), // Get RedisService from Container
         {} as any // EmailService would be injected properly
       );
 

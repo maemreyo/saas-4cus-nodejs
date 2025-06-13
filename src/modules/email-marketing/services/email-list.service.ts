@@ -34,9 +34,18 @@ export class EmailListService {
   async createList(tenantId: string, data: CreateEmailListDTO): Promise<EmailList> {
     const list = await this.prisma.client.emailList.create({
       data: {
-        tenantId,
-        ...data,
+        tenant: { connect: { id: tenantId } }, // Use relation instead of direct tenantId
+        name: data.name,
+        description: data.description || null,
         status: EmailListStatus.ACTIVE,
+        doubleOptIn: data.doubleOptIn ?? false,
+        welcomeEmailId: data.welcomeEmailId || null,
+        confirmationPageUrl: data.confirmationPageUrl || null,
+        defaultFromName: data.defaultFromName || null,
+        defaultFromEmail: data.defaultFromEmail || null,
+        defaultReplyTo: data.defaultReplyTo || null,
+        customFields: data.customFields || null,
+        metadata: data.metadata || null,
       },
     });
 
@@ -967,9 +976,9 @@ export class EmailListService {
       },
     });
 
-    const totalOpens = campaignStats.reduce((sum, stat) => sum + stat.opens, 0);
-    const totalClicks = campaignStats.reduce((sum, stat) => sum + stat.clicks, 0);
-    const totalSent = campaignStats.reduce((sum, stat) => sum + stat.sent, 0);
+    const totalOpens = campaignStats.reduce((sum, stat) => sum + stat.openCount, 0);
+    const totalClicks = campaignStats.reduce((sum, stat) => sum + stat.clickCount, 0);
+    const totalSent = campaignStats.reduce((sum, stat) => sum + stat.sentCount, 0);
 
     // Get subscriber sources
     const sources = await this.prisma.client.emailListSubscriber.groupBy({

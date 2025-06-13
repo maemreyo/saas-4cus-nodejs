@@ -1355,6 +1355,21 @@ enum EmailAutomationStatus {
   CANCELLED
 }
 
+enum EmailAutomationDelayUnit {
+  MINUTES
+  HOURS
+  DAYS
+}
+
+enum EmailAutomationAction {
+  SEND_EMAIL
+  WAIT
+  CONDITION
+  TAG
+  UNTAG
+  WEBHOOK
+}
+
 enum EmailEngagementLevel {
   HIGH
   MEDIUM
@@ -1752,14 +1767,18 @@ model EmailAutomationStep {
   order Int
 
   // Timing
-  delayAmount Int    @default(0)
-  delayUnit   String @default("hours") // minutes, hours, days
+  delayAmount Int                     @default(0)
+  delayUnit   EmailAutomationDelayUnit @default(HOURS)
 
   // Content
   templateId  String?
   subject     String  @db.VarChar(500)
   htmlContent String  @db.Text
   textContent String? @db.Text
+
+  // Action
+  action       EmailAutomationAction @default(SEND_EMAIL)
+  actionConfig Json?                 @db.JsonB
 
   // Conditions
   conditions Json? @db.JsonB

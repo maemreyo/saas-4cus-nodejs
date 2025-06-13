@@ -275,7 +275,7 @@ export class EmailDeliveryService {
           'X-Campaign-ID': campaign.id,
           'X-Recipient-ID': recipient.id,
           'List-Unsubscribe': this.generateUnsubscribeHeader(
-            campaign.list?.id || '',
+            campaign.listId || '',
             recipient.subscriber.email
           )
         }

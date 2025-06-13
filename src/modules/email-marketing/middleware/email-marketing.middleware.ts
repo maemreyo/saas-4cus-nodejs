@@ -3,8 +3,9 @@ import { RedisService } from '@/infrastructure/cache/redis.service';
 import { PrismaService } from '@/infrastructure/database/prisma.service';
 import { AppError } from '@/shared/exceptions';
 import { getTenantId } from '@/modules/tenant/tenant.utils';
-import { container } from '@/infrastructure/container';
+import { Container } from 'typedi';
 import { z } from 'zod';
+import { EmailCampaignStatus } from '@prisma/client';
 
 /**
  * Rate limit for email sending
@@ -17,7 +18,7 @@ export function emailSendRateLimit(
     request: FastifyRequest,
     reply: FastifyReply
   ): Promise<void> {
-    const redis = container.resolve(RedisService);
+    const redis = Container.get(RedisService);
     const tenantId = getTenantId(request);
 
     const key = `email-rate-limit:${tenantId}:${Math.floor(Date.now() / windowMs)}`;
@@ -44,7 +45,7 @@ export async function checkDailyEmailQuota(
   request: FastifyRequest,
   reply: FastifyReply
 ): Promise<void> {
-  const redis = container.resolve(RedisService);
+  const redis = Container.get(RedisService);
   const tenantId = getTenantId(request);
 
   // Get tenant's daily limit from database or config
@@ -68,24 +69,28 @@ export async function trackEmailUsage(
   request: FastifyRequest,
   reply: FastifyReply
 ): Promise<void> {
-  // Hook to track after response
-  reply.addHook('onSend', async (req, rep, payload) => {
-    const redis = container.resolve(RedisService);
-    const tenantId = getTenantId(request);
+  // Track after response
+  const tenantId = getTenantId(request);
+  const redis = Container.get(RedisService);
 
+  // Set up tracking after response is sent
+  request.raw.on('end', () => {
     // Only track on successful sends
-    if (rep.statusCode >= 200 && rep.statusCode < 300) {
+    if (reply.statusCode >= 200 && reply.statusCode < 300) {
       const dailyKey = `email-daily-quota:${tenantId}:${new Date().toISOString().split('T')[0]}`;
       const monthlyKey = `email-monthly-quota:${tenantId}:${new Date().toISOString().slice(0, 7)}`;
 
-      await Promise.all([
+      // Use Promise.all but don't await in the callback
+      Promise.all([
         redis.increment(dailyKey),
         redis.increment(monthlyKey)
-      ]);
-
-      // Set expiry
-      await redis.expire(dailyKey, 86400); // 24 hours
-      await redis.expire(monthlyKey, 2592000); // 30 days
+      ]).then(() => {
+        // Set expiry after increment
+        redis.expire(dailyKey, 86400); // 24 hours
+        redis.expire(monthlyKey, 2592000); // 30 days
+      }).catch(err => {
+        console.error('Error tracking email usage:', err);
+      });
     }
   });
 }
@@ -97,26 +102,33 @@ export async function checkSubscriberLimit(
   request: FastifyRequest,
   reply: FastifyReply
 ): Promise<void> {
-  const prisma = container.resolve(PrismaService);
+  const prisma = Container.get(PrismaService);
   const tenantId = getTenantId(request);
 
   // Get tenant's plan limits
   const tenant = await prisma.client.tenant.findUnique({
     where: { id: tenantId },
-    include: {
-      subscription: {
-        include: {
-          plan: true
-        }
-      }
+    select: {
+      id: true,
+      subscriptionId: true
     }
   });
 
-  if (!tenant?.subscription?.plan) {
+  if (!tenant?.subscriptionId) {
     return; // No limits if no subscription
   }
 
-  const planLimits = tenant.subscription.plan.features as any;
+  // Get subscription details
+  const subscription = await prisma.client.subscription.findUnique({
+    where: { id: tenant.subscriptionId },
+    include: { plan: true }
+  });
+
+  if (!subscription?.plan) {
+    return; // No limits if no plan
+  }
+
+  const planLimits = subscription.plan.features as any;
   const maxSubscribers = planLimits?.maxSubscribers || Infinity;
 
   if (maxSubscribers !== Infinity) {
@@ -144,7 +156,7 @@ export function validateCampaignOwnership() {
     request: FastifyRequest,
     reply: FastifyReply
   ): Promise<void> {
-    const prisma = container.resolve(PrismaService);
+    const prisma = Container.get(PrismaService);
     const tenantId = getTenantId(request);
     const campaignId = (request.params as any)?.campaignId;
 
@@ -173,7 +185,7 @@ export function validateAutomationOwnership() {
     request: FastifyRequest,
     reply: FastifyReply
   ): Promise<void> {
-    const prisma = container.resolve(PrismaService);
+    const prisma = Container.get(PrismaService);
     const tenantId = getTenantId(request);
     const automationId = (request.params as any)?.automationId;
 
@@ -202,7 +214,7 @@ export function validateTemplateOwnership() {
     request: FastifyRequest,
     reply: FastifyReply
   ): Promise<void> {
-    const prisma = container.resolve(PrismaService);
+    const prisma = Container.get(PrismaService);
     const tenantId = getTenantId(request);
     const templateId = (request.params as any)?.templateId;
 
@@ -231,7 +243,7 @@ export function validateListOwnership() {
     request: FastifyRequest,
     reply: FastifyReply
   ): Promise<void> {
-    const prisma = container.resolve(PrismaService);
+    const prisma = Container.get(PrismaService);
     const tenantId = getTenantId(request);
     const listId = (request.params as any)?.listId;
 
@@ -259,7 +271,7 @@ export async function checkCampaignSendPermission(
   request: FastifyRequest,
   reply: FastifyReply
 ): Promise<void> {
-  const prisma = container.resolve(PrismaService);
+  const prisma = Container.get(PrismaService);
   const tenantId = getTenantId(request);
   const campaignId = (request.params as any)?.campaignId;
 
@@ -279,17 +291,17 @@ export async function checkCampaignSendPermission(
   }
 
   // Check if campaign is in sendable state
-  if (campaign.status === 'sent') {
+  if (campaign.status === EmailCampaignStatus.SENT) {
     throw new AppError('Campaign has already been sent', 400);
   }
 
-  if (campaign.status === 'archived') {
+  if (campaign.status === EmailCampaignStatus.ARCHIVED) {
     throw new AppError('Cannot send archived campaign', 400);
   }
 
   // Check if campaign has required fields
-  if (!campaign.subject || !campaign.content) {
-    throw new AppError('Campaign missing required fields (subject, content)', 400);
+  if (!campaign.subject || !campaign.htmlContent) {
+    throw new AppError('Campaign missing required fields (subject, htmlContent)', 400);
   }
 }
 
@@ -301,7 +313,7 @@ export function antiSpamCheck(limit: number = 5, windowMs: number = 3600000) {
     request: FastifyRequest,
     reply: FastifyReply
   ): Promise<void> {
-    const redis = container.resolve(RedisService);
+    const redis = Container.get(RedisService);
     const ip = request.ip;
 
     const key = `anti-spam:${ip}:${Math.floor(Date.now() / windowMs)}`;
@@ -346,12 +358,12 @@ export async function checkSuppressionList(
   request: FastifyRequest,
   reply: FastifyReply
 ): Promise<void> {
-  const prisma = container.resolve(PrismaService);
+  const prisma = Container.get(PrismaService);
   const tenantId = getTenantId(request);
   const body = request.body as any;
 
   if (body.email) {
-    const suppressed = await prisma.client.emailSuppression.findFirst({
+    const suppressed = await prisma.client.emailUnsubscribe.findFirst({
       where: {
         tenantId,
         email: body.email.toLowerCase()

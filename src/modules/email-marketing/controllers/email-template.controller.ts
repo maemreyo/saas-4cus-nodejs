@@ -157,7 +157,7 @@ export class EmailTemplateController {
     const tenantId = getTenantId(request);
     const { templateId, data } = renderTemplateSchema.parse(request.body);
 
-    const rendered = await this.templateService.renderTemplate(tenantId, templateId, data);
+    const rendered = await this.templateService.renderTemplate(templateId, data, tenantId);
 
     reply.send({
       success: true,

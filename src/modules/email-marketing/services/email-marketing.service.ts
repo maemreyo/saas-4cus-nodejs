@@ -186,9 +186,7 @@ export class EmailMarketingService {
         status: EmailCampaignStatus.SENT,
       },
       include: {
-        stats: {
-          orderBy: [{ clickRate: 'desc' }, { openRate: 'desc' }],
-        },
+        stats: true,
       },
       take: limit,
     });

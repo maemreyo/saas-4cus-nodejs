@@ -121,7 +121,17 @@ export class EmailCampaignService {
 
     // Create A/B test variants if configured
     if (data.isABTest && data.abTestConfig?.variants) {
-      await this.abTestingService.createVariants(campaign.id, data.abTestConfig.variants);
+      // Ensure variants have required properties
+      const validVariants = data.abTestConfig.variants.map(variant => ({
+        name: variant.name || 'Untitled Variant',
+        weight: variant.weight || 50,
+        subject: variant.subject,
+        fromName: variant.fromName,
+        preheader: variant.preheader || undefined,
+        htmlContent: variant.content || undefined, // Map content to htmlContent
+        textContent: undefined
+      }));
+      await this.abTestingService.createVariants(campaign.id, validVariants);
     }
 
     await this.eventBus.emit('email.campaign.created', {
@@ -511,10 +521,13 @@ export class EmailCampaignService {
 
     const { id, createdAt, updatedAt, sentAt, completedAt, status, stats, ...campaignData } = original;
 
+    // Remove status from campaignData to avoid conflict
+    const { status: _, ...cleanCampaignData } = campaignData;
+
     const duplicate = await this.createCampaign(tenantId, {
-      ...campaignData,
+      ...cleanCampaignData,
       name: name || `${original.name} (Copy)`,
-      status: EmailCampaignStatus.DRAFT,
+      // status will be set to DRAFT in createCampaign
     });
 
     await this.eventBus.emit('email.campaign.duplicated', {

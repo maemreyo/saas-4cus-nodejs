@@ -88,11 +88,18 @@ export class EmailTemplateService {
 
     const template = await this.prisma.client.emailTemplate.create({
       data: {
-        tenantId,
-        ...data,
+        tenant: { connect: { id: tenantId } }, // Use relation instead of direct tenantId
+        name: data.name,
+        description: data.description || null,
+        category: data.category || null,
+        subject: data.subject,
+        preheader: data.preheader || null,
         htmlContent: processedHtml,
-        thumbnail,
+        textContent: data.textContent || null,
         variables: data.variables || this.extractVariables(processedHtml),
+        thumbnail: thumbnail || null,
+        isPublic: data.isPublic || false,
+        metadata: data.metadata || null,
       },
     });
 
@@ -283,12 +290,19 @@ export class EmailTemplateService {
   async cloneTemplate(tenantId: string, templateId: string, name?: string): Promise<EmailTemplate> {
     const original = await this.getTemplate(tenantId, templateId);
 
-    const { id, createdAt, updatedAt, ...templateData } = original;
-
+    // Extract only the fields needed for CreateTemplateDTO
     const clone = await this.createTemplate(tenantId, {
-      ...templateData,
       name: name || `${original.name} (Copy)`,
+      description: original.description || undefined,
+      category: original.category || undefined,
+      subject: original.subject,
+      preheader: original.preheader || undefined,
+      htmlContent: original.htmlContent,
+      textContent: original.textContent || undefined,
+      variables: original.variables as any[] || [],
+      thumbnail: original.thumbnail || undefined,
       isPublic: false, // Clones are private by default
+      metadata: original.metadata ? JSON.parse(JSON.stringify(original.metadata)) : undefined,
     });
 
     await this.eventBus.emit('email.template.cloned', {
@@ -577,7 +591,7 @@ export class EmailTemplateService {
       select: {
         id: true,
         name: true,
-        isActive: true,
+        active: true,
       },
     });
 
@@ -608,7 +622,7 @@ export class EmailTemplateService {
       automations: automations.map(a => ({
         id: a.id,
         name: a.name,
-        active: a.isActive,
+        active: a.active,
       })),
       performance: {
         opens: totalOpens,

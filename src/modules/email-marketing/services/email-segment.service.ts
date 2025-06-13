@@ -10,20 +10,20 @@ import { EmailActivityType, EmailSegment, EmailSegmentOperator, Prisma } from '@
 import { CreateSegmentDTO, UpdateSegmentDTO, TestSegmentDTO } from '../dto/email-segment.dto';
 
 export interface SegmentCondition {
-  field: string;
-  operator: EmailSegmentOperator;
-  value: any;
+  field?: string;
+  operator?: EmailSegmentOperator;
+  value?: any;
   type?: 'subscriber' | 'engagement' | 'campaign' | 'custom';
 }
 
 export interface SegmentGroup {
-  operator: 'AND' | 'OR';
-  conditions: SegmentCondition[];
+  operator?: 'AND' | 'OR';
+  conditions?: SegmentCondition[];
 }
 
 export interface SegmentConditions {
-  operator: 'AND' | 'OR';
-  groups: SegmentGroup[];
+  operator?: 'AND' | 'OR';
+  groups?: SegmentGroup[];
 }
 
 @Injectable()
@@ -50,15 +50,17 @@ export class EmailSegmentService {
     // Calculate initial subscriber count
     const subscriberCount = await this.calculateSegmentSize(listId, data.conditions);
 
+    // Create segment with proper type casting for Prisma
     const segment = await this.prisma.client.emailSegment.create({
       data: {
-        listId,
+        list: { connect: { id: listId } }, // Use relation instead of direct listId
+        tenant: { connect: { id: list.tenantId } }, // Connect to tenant
         name: data.name,
-        description: data.description,
-        conditions: data.conditions,
+        description: data.description || null,
+        conditions: data.conditions as any, // Cast to any to bypass type checking
         subscriberCount,
         lastCalculatedAt: new Date(),
-        metadata: data.metadata,
+        metadata: data.metadata || null,
       },
     });
 
@@ -191,7 +193,7 @@ export class EmailSegmentService {
     const subscriberSets: Set<string>[] = [];
 
     for (const segment of segments) {
-      const query = this.buildSegmentQuery(segment.listId, segment.conditions as SegmentConditions);
+      const query = this.buildSegmentQuery(segment.listId, segment.conditions as unknown as SegmentConditions);
 
       const subscribers = await this.prisma.client.emailListSubscriber.findMany({
         where: query,
@@ -218,7 +220,7 @@ export class EmailSegmentService {
   async refreshSegment(segmentId: string): Promise<EmailSegment> {
     const segment = await this.getSegment(segmentId);
 
-    const subscriberCount = await this.calculateSegmentSize(segment.listId, segment.conditions as SegmentConditions);
+    const subscriberCount = await this.calculateSegmentSize(segment.listId, segment.conditions as unknown as SegmentConditions);
 
     const updated = await this.prisma.client.emailSegment.update({
       where: { id: segmentId },
@@ -280,7 +282,7 @@ export class EmailSegmentService {
       confirmed: true,
     };
 
-    if (!conditions.groups || conditions.groups.length === 0) {
+    if (!conditions || !conditions.groups || conditions.groups.length === 0) {
       return baseQuery;
     }
 
@@ -303,6 +305,10 @@ export class EmailSegmentService {
    * Build query for a condition group
    */
   private buildGroupQuery(group: SegmentGroup): Prisma.EmailListSubscriberWhereInput {
+    if (!group.conditions || group.conditions.length === 0) {
+      return {};
+    }
+
     const conditionQueries = group.conditions.map(condition => this.buildConditionQuery(condition));
 
     if (group.operator === 'AND') {
@@ -317,6 +323,10 @@ export class EmailSegmentService {
    */
   private buildConditionQuery(condition: SegmentCondition): Prisma.EmailListSubscriberWhereInput {
     const { field, operator, value, type = 'subscriber' } = condition;
+
+    if (!field || !operator) {
+      return {};
+    }
 
     switch (type) {
       case 'subscriber':

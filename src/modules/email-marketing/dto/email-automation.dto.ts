@@ -1,7 +1,13 @@
 // DTOs for email automation
 
 import { z } from 'zod';
-import { EmailAutomationTrigger, EmailAutomationStatus, EmailSegmentOperator } from '@prisma/client';
+import {
+  EmailAutomationTrigger,
+  EmailAutomationStatus,
+  EmailSegmentOperator,
+  EmailAutomationDelayUnit,
+  EmailAutomationAction
+} from '@prisma/client';
 
 // Create Automation
 export const createAutomationSchema = z.object({
@@ -21,7 +27,7 @@ export const createAutomationStepSchema = z.object({
   name: z.string().min(1).max(255),
   order: z.number().min(0),
   delayAmount: z.number().min(0).default(0),
-  delayUnit: z.enum(['minutes', 'hours', 'days']).default('hours'),
+  delayUnit: z.nativeEnum(EmailAutomationDelayUnit).default(EmailAutomationDelayUnit.HOURS),
   templateId: z.string().optional(),
   subject: z.string().min(1).max(500),
   htmlContent: z.string().min(1),
@@ -30,7 +36,10 @@ export const createAutomationStepSchema = z.object({
     field: z.string(),
     operator: z.nativeEnum(EmailSegmentOperator),
     value: z.any()
-  })).optional()
+  })).optional(),
+  action: z.nativeEnum(EmailAutomationAction).default(EmailAutomationAction.SEND_EMAIL),
+  actionConfig: z.record(z.any()).optional(),
+  metadata: z.record(z.any()).optional()
 });
 
 export type CreateAutomationStepDTO = z.infer<typeof createAutomationStepSchema>;

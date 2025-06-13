@@ -242,7 +242,7 @@ export class EmailCampaignController {
     const tenantId = getTenantId(request);
     const { campaignId } = request.params;
 
-    const analytics = await this.analytics.getCampaignAnalytics(tenantId, campaignId);
+    const analytics = await this.analytics.getCampaignAnalytics(campaignId, {});
 
     reply.send({
       success: true,

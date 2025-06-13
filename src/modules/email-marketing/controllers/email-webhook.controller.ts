@@ -68,7 +68,7 @@ export class EmailWebhookController {
 
     const events = request.body;
     const batchEvents: Array<{
-      type: 'delivered' | 'bounced' | 'complained';
+      type: 'DELIVERED' | 'BOUNCED' | 'COMPLAINED';
       campaignId: string;
       recipientEmail: string;
       timestamp: Date;
@@ -80,7 +80,7 @@ export class EmailWebhookController {
         switch (event.event) {
           case 'delivered':
             batchEvents.push({
-              type: 'delivered',
+              type: 'DELIVERED',
               campaignId: event.campaign_id!,
               recipientEmail: event.email,
               timestamp: new Date(event.timestamp * 1000),
@@ -90,7 +90,7 @@ export class EmailWebhookController {
           case 'bounce':
             await this.handleBounce(event);
             batchEvents.push({
-              type: 'bounced',
+              type: 'BOUNCED',
               campaignId: event.campaign_id!,
               recipientEmail: event.email,
               timestamp: new Date(event.timestamp * 1000),
@@ -101,7 +101,7 @@ export class EmailWebhookController {
           case 'spamreport':
             await this.handleComplaint(event);
             batchEvents.push({
-              type: 'complained',
+              type: 'COMPLAINED',
               campaignId: event.campaign_id!,
               recipientEmail: event.email,
               timestamp: new Date(event.timestamp * 1000),
@@ -385,7 +385,7 @@ export class EmailWebhookController {
   /**
    * Handle Mailgun webhook
    */
-  private async handleMailgunWebhook(data: any): Promise<void> {
+  async handleMailgunWebhook(data: any): Promise<void> {
     const eventData = data['event-data'];
 
     switch (eventData.event) {
@@ -395,7 +395,7 @@ export class EmailWebhookController {
         await this.tracking.batchTrackEvents([
           {
             type:
-              eventData.event === 'bounced' ? 'bounced' : eventData.event === 'complained' ? 'complained' : 'delivered',
+              eventData.event === 'bounced' ? 'BOUNCED' : eventData.event === 'complained' ? 'COMPLAINED' : 'DELIVERED',
             campaignId: eventData['user-variables']?.['campaign-id'],
             recipientEmail: eventData.recipient,
             timestamp: new Date(eventData.timestamp * 1000),
@@ -409,7 +409,7 @@ export class EmailWebhookController {
   /**
    * Handle Postmark webhook
    */
-  private async handlePostmarkWebhook(data: any): Promise<void> {
+  async handlePostmarkWebhook(data: any): Promise<void> {
     switch (data.RecordType) {
       case 'Bounce':
         await this.handleBounce({

@@ -12,6 +12,8 @@ import {
   EmailAutomationEnrollment,
   Prisma,
   EmailAutomationStatus,
+  EmailAutomationDelayUnit,
+  EmailAutomationAction,
 } from '@prisma/client';
 import {
   CreateAutomationDTO,
@@ -81,8 +83,14 @@ export class EmailAutomationService {
 
     const automation = await this.prisma.client.emailAutomation.create({
       data: {
-        tenantId,
-        ...data,
+        tenant: { connect: { id: tenantId } }, // Use relation instead of direct tenantId
+        name: data.name || 'Untitled Automation',
+        description: data.description || null,
+        list: data.listId ? { connect: { id: data.listId } } : undefined,
+        trigger: data.trigger || EmailAutomationTrigger.LIST_SUBSCRIBE,
+        triggerConfig: data.triggerConfig || {},
+        active: data.active ?? false,
+        metadata: data.metadata || null,
       },
     });
 
@@ -236,8 +244,19 @@ export class EmailAutomationService {
 
     const step = await this.prisma.client.emailAutomationStep.create({
       data: {
-        automationId,
-        ...data,
+        automation: { connect: { id: automationId } }, // Use relation instead of direct automationId
+        name: data.name || 'Untitled Step',
+        subject: data.subject || null,
+        template: data.templateId ? { connect: { id: data.templateId } } : undefined,
+        htmlContent: data.htmlContent || null,
+        textContent: data.textContent || null,
+        conditions: data.conditions || [],
+        order: data.order !== undefined ? data.order : 0,
+        delayAmount: data.delayAmount || 0,
+        delayUnit: data.delayUnit || EmailAutomationDelayUnit.HOURS,
+        action: data.action || EmailAutomationAction.SEND_EMAIL,
+        actionConfig: data.actionConfig || {},
+        metadata: data.metadata || null,
       },
     });
 
@@ -806,7 +825,7 @@ export class EmailAutomationService {
         },
       },
       include: {
-        steps: true,
+        emailAutomationSteps: true,
       },
     });
 
@@ -832,7 +851,7 @@ export class EmailAutomationService {
     // Get step performance
     const stepPerformance = await Promise.all(
       automation.steps.map(async step => {
-        const stepStats = await this.prisma.client.emailAutomationStepExecution.aggregate({
+        const stepStats = await this.prisma.client.emailAutomationStepRun.aggregate({
           where: {
             stepId: step.id,
             executedAt: {
@@ -965,9 +984,10 @@ export class EmailAutomationService {
             return;
           }
 
-          // Check if there are custom conditions
-          if (automation.conditions) {
-            const meetsConditions = await this.evaluateConditions(data, automation.conditions as any);
+          // Check if there are custom conditions in triggerConfig
+          const conditions = (automation.triggerConfig as any)?.conditions;
+          if (conditions) {
+            const meetsConditions = await this.evaluateConditions(data, conditions);
             if (!meetsConditions) {
               return;
             }
@@ -1066,7 +1086,7 @@ export class EmailAutomationService {
       },
       include: {
         automation: true,
-        subscriber: true,
+        emailListSubscriber: true,
       },
     });
 

@@ -1,11 +1,12 @@
 // DTOs for subscriber management
 
 import { z } from 'zod';
+import { EmailActivityType, EmailEngagementLevel } from '@prisma/client';
 
 // Subscriber Activity
 export const subscriberActivitySchema = z.object({
   subscriberId: z.string(),
-  type: z.enum(['opened', 'clicked', 'unsubscribed', 'complained', 'bounced']),
+  type: z.nativeEnum(EmailActivityType),
   campaignId: z.string().optional(),
   clickedUrl: z.string().optional(),
   metadata: z.record(z.any()).optional()
@@ -20,7 +21,7 @@ export const subscriberFiltersSchema = z.object({
   subscribed: z.boolean().optional(),
   confirmed: z.boolean().optional(),
   tags: z.array(z.string()).optional(),
-  engagementLevel: z.enum(['high', 'medium', 'low', 'none']).optional(),
+  engagementLevel: z.nativeEnum(EmailEngagementLevel).optional(),
   dateFrom: z.coerce.date().optional(),
   dateTo: z.coerce.date().optional(),
   page: z.number().min(1).default(1),

@@ -159,7 +159,7 @@ export class EmailMarketingQueue {
       }
 
       // Get pending recipients
-      const recipients = await this.prisma.emailCampaignRecipient.findMany({
+      const recipients = await this.prisma.client.emailCampaignRecipient.findMany({
         where: {
           campaignId,
           status: EmailDeliveryStatus.PENDING
@@ -389,10 +389,10 @@ export class EmailMarketingQueue {
    */
   private async calculateCampaignProgress(campaignId: string): Promise<number> {
     const [total, sent] = await Promise.all([
-      this.prisma.emailCampaignRecipient.count({
+      this.prisma.client.emailCampaignRecipient.count({
         where: { campaignId }
       }),
-      this.prisma.emailCampaignRecipient.count({
+      this.prisma.client.emailCampaignRecipient.count({
         where: {
           campaignId,
           status: { not: EmailDeliveryStatus.PENDING }
@@ -416,10 +416,10 @@ export class EmailMarketingQueue {
 
     // Check if test group has been sent
     const [total, sent] = await Promise.all([
-      this.prisma.emailCampaignRecipient.count({
+      this.prisma.client.emailCampaignRecipient.count({
         where: { campaignId: campaign.id }
       }),
-      this.prisma.emailCampaignRecipient.count({
+      this.prisma.client.emailCampaignRecipient.count({
         where: {
           campaignId: campaign.id,
           status: { not: EmailDeliveryStatus.PENDING },

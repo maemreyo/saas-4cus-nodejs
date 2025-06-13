@@ -28,7 +28,7 @@ export class EmailTrackingService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly redis: RedisService,
-    private readonly analytics: EmailAnalyticsService
+    private readonly analytics: EmailAnalyticsService,
   ) {
     this.trackingDomain = process.env.EMAIL_TRACKING_DOMAIN || 'https://track.example.com';
     this.secretKey = process.env.EMAIL_TRACKING_SECRET || 'default-secret-key';
@@ -45,16 +45,13 @@ export class EmailTrackingService {
   /**
    * Generate tracked link
    */
-  generateTrackedLink(
-    originalUrl: string,
-    data: Omit<TrackingLinkData, 'originalUrl' | 'linkId'>
-  ): string {
+  generateTrackedLink(originalUrl: string, data: Omit<TrackingLinkData, 'originalUrl' | 'linkId'>): string {
     const linkId = crypto.randomBytes(8).toString('hex');
 
     const trackingData: TrackingLinkData = {
       ...data,
       originalUrl,
-      linkId
+      linkId,
     };
 
     const encoded = this.encodeTrackingData(trackingData);
@@ -69,7 +66,7 @@ export class EmailTrackingService {
     metadata: {
       userAgent?: string;
       ipAddress?: string;
-    }
+    },
   ): Promise<void> {
     try {
       const data = this.decodeTrackingData<TrackingPixelData>(encoded);
@@ -85,14 +82,14 @@ export class EmailTrackingService {
 
       if (!alreadyTracked) {
         // Get recipient info
-        const recipient = await this.prisma.emailCampaignRecipient.findFirst({
+        const recipient = await this.prisma.client.emailCampaignRecipient.findFirst({
           where: {
             id: data.recipientId,
-            campaignId: data.campaignId
+            campaignId: data.campaignId,
           },
           include: {
-            subscriber: true
-          }
+            subscriber: true,
+          },
         });
 
         if (recipient) {
@@ -101,7 +98,7 @@ export class EmailTrackingService {
             campaignId: data.campaignId,
             subscriberId: recipient.subscriberId,
             userAgent: metadata.userAgent,
-            ipAddress: metadata.ipAddress
+            ipAddress: metadata.ipAddress,
           });
 
           // Cache to prevent duplicate tracking
@@ -121,7 +118,7 @@ export class EmailTrackingService {
     metadata: {
       userAgent?: string;
       ipAddress?: string;
-    }
+    },
   ): Promise<string | null> {
     try {
       const data = this.decodeTrackingData<TrackingLinkData>(encoded);
@@ -132,14 +129,14 @@ export class EmailTrackingService {
       }
 
       // Get recipient info
-      const recipient = await this.prisma.emailCampaignRecipient.findFirst({
+      const recipient = await this.prisma.client.emailCampaignRecipient.findFirst({
         where: {
           id: data.recipientId,
-          campaignId: data.campaignId
+          campaignId: data.campaignId,
         },
         include: {
-          subscriber: true
-        }
+          subscriber: true,
+        },
       });
 
       if (recipient) {
@@ -149,7 +146,7 @@ export class EmailTrackingService {
           subscriberId: recipient.subscriberId,
           clickedUrl: data.originalUrl,
           userAgent: metadata.userAgent,
-          ipAddress: metadata.ipAddress
+          ipAddress: metadata.ipAddress,
         });
 
         // Also track as opened if not already
@@ -161,7 +158,7 @@ export class EmailTrackingService {
             campaignId: data.campaignId,
             subscriberId: recipient.subscriberId,
             userAgent: metadata.userAgent,
-            ipAddress: metadata.ipAddress
+            ipAddress: metadata.ipAddress,
           });
 
           await this.redis.set(openCacheKey, true, { ttl: 86400 });
@@ -183,7 +180,7 @@ export class EmailTrackingService {
     data: {
       campaignId: string;
       recipientId: string;
-    }
+    },
   ): string {
     // Regular expression to find links
     const linkRegex = /<a\s+(?:[^>]*?\s+)?href=(["'])((?:https?:\/\/)[^"']+)\1/gi;
@@ -202,10 +199,7 @@ export class EmailTrackingService {
   /**
    * Add tracking pixel to email content
    */
-  addTrackingPixel(
-    html: string,
-    data: TrackingPixelData
-  ): string {
+  addTrackingPixel(html: string, data: TrackingPixelData): string {
     const pixelUrl = this.generateTrackingPixel(data);
     const pixelHtml = `<img src="${pixelUrl}" width="1" height="1" border="0" alt="" style="display:block;width:1px;height:1px;border:0;" />`;
 
@@ -229,7 +223,7 @@ export class EmailTrackingService {
       campaign?: string;
       term?: string;
       content?: string;
-    }
+    },
   ): string {
     try {
       const urlObj = new URL(url);
@@ -268,7 +262,7 @@ export class EmailTrackingService {
       trackOpens: boolean;
       trackClicks: boolean;
       utmParams?: any;
-    }
+    },
   ): string {
     let processedHtml = html;
 
@@ -276,23 +270,20 @@ export class EmailTrackingService {
     if (options.trackClicks) {
       processedHtml = this.replaceLinksWithTracking(processedHtml, {
         campaignId: options.campaignId,
-        recipientId: options.recipientId
+        recipientId: options.recipientId,
       });
     }
 
     // Add UTM parameters
     if (options.utmParams) {
-      processedHtml = this.addUTMParametersToLinks(
-        processedHtml,
-        options.utmParams
-      );
+      processedHtml = this.addUTMParametersToLinks(processedHtml, options.utmParams);
     }
 
     // Add open tracking pixel
     if (options.trackOpens) {
       processedHtml = this.addTrackingPixel(processedHtml, {
         campaignId: options.campaignId,
-        recipientId: options.recipientId
+        recipientId: options.recipientId,
       });
     }
 
@@ -309,38 +300,38 @@ export class EmailTrackingService {
       recipientEmail: string;
       timestamp: Date;
       error?: string;
-    }>
+    }>,
   ): Promise<void> {
     for (const event of events) {
       try {
         // Find recipient
-        const recipient = await this.prisma.emailCampaignRecipient.findFirst({
+        const recipient = await this.prisma.client.emailCampaignRecipient.findFirst({
           where: {
             campaignId: event.campaignId,
             subscriber: {
-              email: event.recipientEmail
-            }
-          }
+              email: event.recipientEmail,
+            },
+          },
         });
 
         if (recipient) {
           await this.analytics.trackActivity(event.type, {
             campaignId: event.campaignId,
-            subscriberId: recipient.subscriberId
+            subscriberId: recipient.subscriberId,
           });
 
           // Update recipient status for bounces
           if (event.type === 'bounced' && event.error) {
-            await this.prisma.emailCampaignRecipient.update({
+            await this.prisma.client.emailCampaignRecipient.update({
               where: { id: recipient.id },
-              data: { error: event.error }
+              data: { error: event.error },
             });
           }
         }
       } catch (error) {
         logger.error('Failed to track batch event', {
           event,
-          error
+          error,
         });
       }
     }
@@ -362,58 +353,56 @@ export class EmailTrackingService {
       uniqueClicks: number;
     }>;
   }> {
-    const [
-      recipients,
-      clickActivities
-    ] = await Promise.all([
-      this.prisma.emailCampaignRecipient.findMany({
+    const [recipients, clickActivities] = await Promise.all([
+      this.prisma.client.emailCampaignRecipient.findMany({
         where: { campaignId },
         select: {
           status: true,
           openCount: true,
-          clickCount: true
-        }
+          clickCount: true,
+        },
       }),
-      this.prisma.emailActivity.findMany({
+      this.prisma.client.emailActivity.findMany({
         where: {
           campaignId,
           type: 'clicked',
-          clickedUrl: { not: null }
+          clickedUrl: { not: null },
         },
         select: {
           clickedUrl: true,
-          subscriberId: true
-        }
-      })
+          subscriberId: true,
+        },
+      }),
     ]);
 
     // Calculate stats
-    const stats = recipients.reduce((acc, recipient) => {
-      if (recipient.status !== 'PENDING') {
-        acc.totalSent++;
-      }
-      if (recipient.status === 'DELIVERED' ||
-          recipient.status === 'OPENED' ||
-          recipient.status === 'CLICKED') {
-        acc.totalDelivered++;
-      }
-      if (recipient.openCount > 0) {
-        acc.uniqueOpens++;
-        acc.totalOpens += recipient.openCount;
-      }
-      if (recipient.clickCount > 0) {
-        acc.uniqueClicks++;
-        acc.totalClicks += recipient.clickCount;
-      }
-      return acc;
-    }, {
-      totalSent: 0,
-      totalDelivered: 0,
-      totalOpens: 0,
-      uniqueOpens: 0,
-      totalClicks: 0,
-      uniqueClicks: 0
-    });
+    const stats = recipients.reduce(
+      (acc, recipient) => {
+        if (recipient.status !== 'PENDING') {
+          acc.totalSent++;
+        }
+        if (recipient.status === 'DELIVERED' || recipient.status === 'OPENED' || recipient.status === 'CLICKED') {
+          acc.totalDelivered++;
+        }
+        if (recipient.openCount > 0) {
+          acc.uniqueOpens++;
+          acc.totalOpens += recipient.openCount;
+        }
+        if (recipient.clickCount > 0) {
+          acc.uniqueClicks++;
+          acc.totalClicks += recipient.clickCount;
+        }
+        return acc;
+      },
+      {
+        totalSent: 0,
+        totalDelivered: 0,
+        totalOpens: 0,
+        uniqueOpens: 0,
+        totalClicks: 0,
+        uniqueClicks: 0,
+      },
+    );
 
     // Calculate clicked links
     const linkStats = new Map<string, Set<string>>();
@@ -430,13 +419,13 @@ export class EmailTrackingService {
       .map(([url, subscribers]) => ({
         url,
         clicks: clickActivities.filter(a => a.clickedUrl === url).length,
-        uniqueClicks: subscribers.size
+        uniqueClicks: subscribers.size,
       }))
       .sort((a, b) => b.clicks - a.clicks);
 
     return {
       ...stats,
-      clickedLinks
+      clickedLinks,
     };
   }
 
@@ -511,7 +500,7 @@ export class EmailTrackingService {
       /unsubscribe/i,
       /preferences/i,
       /privacy/i,
-      /\{\{.*\}\}/ // Template variables
+      /\{\{.*\}\}/, // Template variables
     ];
 
     return skipPatterns.some(pattern => pattern.test(url));
@@ -520,10 +509,7 @@ export class EmailTrackingService {
   /**
    * Add UTM parameters to all links in HTML
    */
-  private addUTMParametersToLinks(
-    html: string,
-    utmParams: any
-  ): string {
+  private addUTMParametersToLinks(html: string, utmParams: any): string {
     const linkRegex = /<a\s+(?:[^>]*?\s+)?href=(["'])((?:https?:\/\/)[^"']+)\1/gi;
 
     return html.replace(linkRegex, (match, quote, url) => {

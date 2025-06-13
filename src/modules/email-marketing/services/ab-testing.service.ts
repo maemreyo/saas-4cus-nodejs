@@ -11,7 +11,7 @@ import {
   EmailABTestVariant,
   EmailCampaignMessage,
   EmailCampaignRecipient,
-  Prisma
+  Prisma,
 } from '@prisma/client';
 
 export interface ABTestConfig {
@@ -48,16 +48,13 @@ export class ABTestingService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly eventBus: EventBus,
-    private readonly redis: RedisService
+    private readonly redis: RedisService,
   ) {}
 
   /**
    * Create A/B test variants for a campaign
    */
-  async createVariants(
-    campaignId: string,
-    variants: ABTestConfig['variants']
-  ): Promise<EmailABTestVariant[]> {
+  async createVariants(campaignId: string, variants: ABTestConfig['variants']): Promise<EmailABTestVariant[]> {
     // Validate weights sum to 100
     const totalWeight = variants.reduce((sum, v) => sum + v.weight, 0);
     if (totalWeight !== 100) {
@@ -67,22 +64,22 @@ export class ABTestingService {
     // Create variants
     const createdVariants = await Promise.all(
       variants.map(variant =>
-        this.prisma.emailABTestVariant.create({
+        this.prisma.client.emailABTestVariant.create({
           data: {
             campaignId,
             name: variant.name,
             weight: variant.weight,
             subject: variant.subject,
-            fromName: variant.fromName
-          }
-        })
-      )
+            fromName: variant.fromName,
+          },
+        }),
+      ),
     );
 
     // Create campaign messages for each variant
     await Promise.all(
       createdVariants.map((variant, index) =>
-        this.prisma.emailCampaignMessage.create({
+        this.prisma.client.emailCampaignMessage.create({
           data: {
             campaignId,
             variantId: variant.id,
@@ -90,20 +87,20 @@ export class ABTestingService {
             preheader: variants[index].preheader,
             htmlContent: variants[index].htmlContent || '',
             textContent: variants[index].textContent,
-            weight: variant.weight
-          }
-        })
-      )
+            weight: variant.weight,
+          },
+        }),
+      ),
     );
 
     await this.eventBus.emit('email.abtest.created', {
       campaignId,
-      variantCount: createdVariants.length
+      variantCount: createdVariants.length,
     });
 
     logger.info('A/B test variants created', {
       campaignId,
-      variants: createdVariants.map(v => ({ id: v.id, name: v.name }))
+      variants: createdVariants.map(v => ({ id: v.id, name: v.name })),
     });
 
     return createdVariants;
@@ -115,11 +112,11 @@ export class ABTestingService {
   async assignRecipientsToVariants(
     campaignId: string,
     recipientIds: string[],
-    testPercentage: number = 100
+    testPercentage: number = 100,
   ): Promise<Map<string, string[]>> {
-    const variants = await this.prisma.emailABTestVariant.findMany({
+    const variants = await this.prisma.client.emailABTestVariant.findMany({
       where: { campaignId },
-      orderBy: { createdAt: 'asc' }
+      orderBy: { createdAt: 'asc' },
     });
 
     if (variants.length === 0) {
@@ -137,10 +134,7 @@ export class ABTestingService {
 
     for (const variant of variants) {
       const variantSize = Math.floor(testRecipients.length * (variant.weight / 100));
-      const variantRecipients = testRecipients.slice(
-        assignedCount,
-        assignedCount + variantSize
-      );
+      const variantRecipients = testRecipients.slice(assignedCount, assignedCount + variantSize);
 
       assignments.set(variant.id, variantRecipients);
       assignedCount += variantSize;
@@ -150,10 +144,7 @@ export class ABTestingService {
     if (assignedCount < testRecipients.length) {
       const lastVariantId = variants[variants.length - 1].id;
       const lastVariantRecipients = assignments.get(lastVariantId) || [];
-      assignments.set(
-        lastVariantId,
-        [...lastVariantRecipients, ...testRecipients.slice(assignedCount)]
-      );
+      assignments.set(lastVariantId, [...lastVariantRecipients, ...testRecipients.slice(assignedCount)]);
     }
 
     // Store control group for later
@@ -161,14 +152,14 @@ export class ABTestingService {
       await this.redis.set(
         `abtest:control:${campaignId}`,
         controlRecipients,
-        { ttl: 7 * 24 * 3600 } // 7 days
+        { ttl: 7 * 24 * 3600 }, // 7 days
       );
     }
 
     // Update recipient records with variant assignments
     for (const [variantId, recipients] of assignments) {
       if (recipients.length > 0) {
-        await this.prisma.$executeRaw`
+        await this.prisma.client.$executeRaw`
           UPDATE "email_campaign_recipients"
           SET metadata = jsonb_set(
             COALESCE(metadata, '{}'),
@@ -186,12 +177,9 @@ export class ABTestingService {
   /**
    * Get variant for a recipient
    */
-  async getRecipientVariant(
-    campaignId: string,
-    recipientId: string
-  ): Promise<EmailABTestVariant | null> {
-    const recipient = await this.prisma.emailCampaignRecipient.findUnique({
-      where: { id: recipientId }
+  async getRecipientVariant(campaignId: string, recipientId: string): Promise<EmailABTestVariant | null> {
+    const recipient = await this.prisma.client.emailCampaignRecipient.findUnique({
+      where: { id: recipientId },
     });
 
     if (!recipient || !recipient.metadata) {
@@ -203,23 +191,20 @@ export class ABTestingService {
       return null;
     }
 
-    return this.prisma.emailABTestVariant.findUnique({
-      where: { id: variantId }
+    return this.prisma.client.emailABTestVariant.findUnique({
+      where: { id: variantId },
     });
   }
 
   /**
    * Get campaign message for a variant
    */
-  async getVariantMessage(
-    campaignId: string,
-    variantId: string
-  ): Promise<EmailCampaignMessage | null> {
-    return this.prisma.emailCampaignMessage.findFirst({
+  async getVariantMessage(campaignId: string, variantId: string): Promise<EmailCampaignMessage | null> {
+    return this.prisma.client.emailCampaignMessage.findFirst({
       where: {
         campaignId,
-        variantId
-      }
+        variantId,
+      },
     });
   }
 
@@ -227,50 +212,50 @@ export class ABTestingService {
    * Calculate A/B test results
    */
   async calculateResults(campaignId: string): Promise<ABTestResults[]> {
-    const variants = await this.prisma.emailABTestVariant.findMany({
-      where: { campaignId }
+    const variants = await this.prisma.client.emailABTestVariant.findMany({
+      where: { campaignId },
     });
 
     const results: ABTestResults[] = [];
 
     for (const variant of variants) {
       // Get recipient stats for this variant
-      const stats = await this.prisma.emailCampaignRecipient.aggregate({
+      const stats = await this.prisma.client.emailCampaignRecipient.aggregate({
         where: {
           campaignId,
           metadata: {
             path: ['variantId'],
-            equals: variant.id
-          }
+            equals: variant.id,
+          },
         },
         _count: {
-          _all: true
-        }
+          _all: true,
+        },
       });
 
       const [opens, clicks, conversions] = await Promise.all([
-        this.prisma.emailCampaignRecipient.count({
+        this.prisma.client.emailCampaignRecipient.count({
           where: {
             campaignId,
             metadata: {
               path: ['variantId'],
-              equals: variant.id
+              equals: variant.id,
             },
-            openedAt: { not: null }
-          }
+            openedAt: { not: null },
+          },
         }),
-        this.prisma.emailCampaignRecipient.count({
+        this.prisma.client.emailCampaignRecipient.count({
           where: {
             campaignId,
             metadata: {
               path: ['variantId'],
-              equals: variant.id
+              equals: variant.id,
             },
-            clickedAt: { not: null }
-          }
+            clickedAt: { not: null },
+          },
         }),
         // Conversions would need to be tracked separately
-        Promise.resolve(0)
+        Promise.resolve(0),
       ]);
 
       const sentCount = stats._count._all;
@@ -283,16 +268,16 @@ export class ABTestingService {
         metrics: {
           openRate: sentCount > 0 ? (opens / sentCount) * 100 : 0,
           clickRate: sentCount > 0 ? (clicks / sentCount) * 100 : 0,
-          conversionRate: sentCount > 0 ? (conversions / sentCount) * 100 : 0
+          conversionRate: sentCount > 0 ? (conversions / sentCount) * 100 : 0,
         },
-        isWinner: variant.isWinner
+        isWinner: variant.isWinner,
       });
     }
 
     // Calculate statistical significance if needed
     if (results.length === 2) {
       const confidence = this.calculateConfidence(results[0], results[1]);
-      results.forEach(r => r.confidence = confidence);
+      results.forEach(r => (r.confidence = confidence));
     }
 
     return results.sort((a, b) => b.metrics.clickRate - a.metrics.clickRate);
@@ -301,10 +286,7 @@ export class ABTestingService {
   /**
    * Determine and set winning variant
    */
-  async determineWinner(
-    campaignId: string,
-    config: ABTestConfig
-  ): Promise<EmailABTestVariant | null> {
+  async determineWinner(campaignId: string, config: ABTestConfig): Promise<EmailABTestVariant | null> {
     const results = await this.calculateResults(campaignId);
 
     if (results.length === 0) {
@@ -312,8 +294,8 @@ export class ABTestingService {
     }
 
     // Check if test duration has passed
-    const campaign = await this.prisma.emailCampaign.findUnique({
-      where: { id: campaignId }
+    const campaign = await this.prisma.client.emailCampaign.findUnique({
+      where: { id: campaignId },
     });
 
     if (!campaign || !campaign.sentAt) {
@@ -324,7 +306,7 @@ export class ABTestingService {
     if (new Date() < testEndTime) {
       logger.info('A/B test still in progress', {
         campaignId,
-        endsAt: testEndTime
+        endsAt: testEndTime,
       });
       return null;
     }
@@ -335,19 +317,19 @@ export class ABTestingService {
     switch (config.winningMetric) {
       case 'opens':
         winnerResult = results.reduce((best, current) =>
-          current.metrics.openRate > best.metrics.openRate ? current : best
+          current.metrics.openRate > best.metrics.openRate ? current : best,
         );
         break;
 
       case 'clicks':
         winnerResult = results.reduce((best, current) =>
-          current.metrics.clickRate > best.metrics.clickRate ? current : best
+          current.metrics.clickRate > best.metrics.clickRate ? current : best,
         );
         break;
 
       case 'conversions':
         winnerResult = results.reduce((best, current) =>
-          current.metrics.conversionRate > best.metrics.conversionRate ? current : best
+          current.metrics.conversionRate > best.metrics.conversionRate ? current : best,
         );
         break;
 
@@ -356,33 +338,32 @@ export class ABTestingService {
     }
 
     // Check for minimum statistical significance
-    const hasSignificance = results.length === 1 ||
-      (results.length === 2 && (winnerResult.confidence || 0) >= 95);
+    const hasSignificance = results.length === 1 || (results.length === 2 && (winnerResult.confidence || 0) >= 95);
 
     if (!hasSignificance) {
       logger.warn('A/B test lacks statistical significance', {
         campaignId,
-        confidence: winnerResult.confidence
+        confidence: winnerResult.confidence,
       });
     }
 
     // Update winning variant
-    const winner = await this.prisma.emailABTestVariant.update({
+    const winner = await this.prisma.client.emailABTestVariant.update({
       where: { id: winnerResult.variantId },
       data: {
         isWinner: true,
         openRate: winnerResult.metrics.openRate,
         clickRate: winnerResult.metrics.clickRate,
-        conversionRate: winnerResult.metrics.conversionRate
-      }
+        conversionRate: winnerResult.metrics.conversionRate,
+      },
     });
 
     // Update campaign with winning variant
-    await this.prisma.emailCampaign.update({
+    await this.prisma.client.emailCampaign.update({
       where: { id: campaignId },
       data: {
-        winningVariantId: winner.id
-      }
+        winningVariantId: winner.id,
+      },
     });
 
     await this.eventBus.emit('email.abtest.winner', {
@@ -390,13 +371,13 @@ export class ABTestingService {
       variantId: winner.id,
       variantName: winner.name,
       metric: config.winningMetric,
-      improvement: this.calculateImprovement(results)
+      improvement: this.calculateImprovement(results),
     });
 
     logger.info('A/B test winner determined', {
       campaignId,
       winner: winner.name,
-      metric: config.winningMetric
+      metric: config.winningMetric,
     });
 
     return winner;
@@ -406,8 +387,8 @@ export class ABTestingService {
    * Send to control group with winning variant
    */
   async sendToControlGroup(campaignId: string): Promise<void> {
-    const campaign = await this.prisma.emailCampaign.findUnique({
-      where: { id: campaignId }
+    const campaign = await this.prisma.client.emailCampaign.findUnique({
+      where: { id: campaignId },
     });
 
     if (!campaign || !campaign.winningVariantId) {
@@ -415,9 +396,7 @@ export class ABTestingService {
     }
 
     // Get control group recipients
-    const controlRecipients = await this.redis.get<string[]>(
-      `abtest:control:${campaignId}`
-    );
+    const controlRecipients = await this.redis.get<string[]>(`abtest:control:${campaignId}`);
 
     if (!controlRecipients || controlRecipients.length === 0) {
       logger.info('No control group recipients found', { campaignId });
@@ -425,7 +404,7 @@ export class ABTestingService {
     }
 
     // Assign control group to winning variant
-    await this.prisma.$executeRaw`
+    await this.prisma.client.$executeRaw`
       UPDATE "email_campaign_recipients"
       SET metadata = jsonb_set(
         COALESCE(metadata, '{}'),
@@ -441,12 +420,12 @@ export class ABTestingService {
     await this.eventBus.emit('email.abtest.control.sending', {
       campaignId,
       recipientCount: controlRecipients.length,
-      variantId: campaign.winningVariantId
+      variantId: campaign.winningVariantId,
     });
 
     logger.info('Sending to control group with winning variant', {
       campaignId,
-      recipientCount: controlRecipients.length
+      recipientCount: controlRecipients.length,
     });
   }
 
@@ -461,11 +440,11 @@ export class ABTestingService {
     results: ABTestResults[];
     improvement?: number;
   }> {
-    const campaign = await this.prisma.emailCampaign.findUnique({
+    const campaign = await this.prisma.client.emailCampaign.findUnique({
       where: { id: campaignId },
       include: {
-        abTestVariants: true
-      }
+        abTestVariants: true,
+      },
     });
 
     if (!campaign || !campaign.isABTest) {
@@ -488,17 +467,14 @@ export class ABTestingService {
       completedAt: campaign.completedAt || undefined,
       winningVariant: winner?.name,
       results,
-      improvement: status === 'completed' ? this.calculateImprovement(results) : undefined
+      improvement: status === 'completed' ? this.calculateImprovement(results) : undefined,
     };
   }
 
   /**
    * Calculate statistical confidence between two variants
    */
-  private calculateConfidence(
-    variantA: ABTestResults,
-    variantB: ABTestResults
-  ): number {
+  private calculateConfidence(variantA: ABTestResults, variantB: ABTestResults): number {
     // Simplified confidence calculation
     // In production, use proper statistical tests (Chi-square, Z-test, etc.)
 
@@ -544,8 +520,7 @@ export class ABTestingService {
       return 0;
     }
 
-    const improvement = ((winner.metrics.clickRate - baseline.metrics.clickRate) /
-                        baseline.metrics.clickRate) * 100;
+    const improvement = ((winner.metrics.clickRate - baseline.metrics.clickRate) / baseline.metrics.clickRate) * 100;
 
     return Math.round(improvement * 10) / 10;
   }

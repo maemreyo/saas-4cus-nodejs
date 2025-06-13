@@ -1,6 +1,7 @@
 // DTOs for email template management
 
 import { z } from 'zod';
+import { EmailVariableType } from '@prisma/client';
 
 // Create Template
 export const createTemplateSchema = z.object({
@@ -13,7 +14,7 @@ export const createTemplateSchema = z.object({
   textContent: z.string().optional(),
   variables: z.array(z.object({
     name: z.string(),
-    type: z.enum(['text', 'number', 'date', 'boolean', 'list']),
+    type: z.nativeEnum(EmailVariableType),
     defaultValue: z.any().optional(),
     required: z.boolean().optional()
   })).optional(),

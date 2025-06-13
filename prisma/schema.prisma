@@ -269,6 +269,7 @@ model Tenant {
   @@index([ownerId])
   @@index([status])
   @@map("tenants")
+  EmailSegment EmailSegment[]
 }
 
 model TenantMember {
@@ -1346,6 +1347,39 @@ enum EmailDeliveryStatus {
   FAILED
 }
 
+enum EmailAutomationStatus {
+  ACTIVE
+  PAUSED
+  COMPLETED
+  CANCELLED
+}
+
+enum EmailEngagementLevel {
+  HIGH
+  MEDIUM
+  LOW
+  NONE
+}
+
+enum EmailVariableType {
+  TEXT
+  NUMBER
+  DATE
+  BOOLEAN
+  LIST
+}
+
+enum EmailActivityType {
+  SENT
+  DELIVERED
+  OPENED
+  CLICKED
+  UNSUBSCRIBED
+  COMPLAINED
+  BOUNCED
+  FAILED
+}
+
 model EmailList {
   id          String          @id @default(cuid())
   tenantId    String
@@ -1410,8 +1444,9 @@ model EmailListSubscriber {
   tags       String[]
 
   // Engagement metrics
-  lastEngagedAt   DateTime?
-  engagementScore Float     @default(0)
+  lastEngagedAt    DateTime?
+  engagementScore  Float              @default(0)
+  engagementLevel  EmailEngagementLevel @default(MEDIUM)
 
   metadata Json? @db.JsonB
 
@@ -1429,6 +1464,7 @@ model EmailListSubscriber {
   @@index([email])
   @@index([confirmed])
   @@index([subscribedAt])
+  @@index([engagementLevel])
   @@map("email_list_subscribers")
 }
 
@@ -1609,7 +1645,10 @@ model EmailTemplate {
   textContent String? @db.Text
 
   // Template variables
-  variables Json? @db.JsonB
+  variables Json? @db.JsonB // Array of {name, type, defaultValue, required}
+
+  // Sample variable type to ensure EmailVariableType is included in Prisma Client
+  defaultVariableType EmailVariableType @default(TEXT)
 
   // Thumbnail
   thumbnail String? @db.Text
@@ -1631,18 +1670,24 @@ model EmailTemplate {
   @@index([tenantId])
   @@index([category])
   @@index([isPublic])
+  @@index([isArchived])
   @@map("email_templates")
 }
 
 model EmailSegment {
-  id     String @id @default(cuid())
-  listId String
+  id       String @id @default(cuid())
+  listId   String
+  tenantId String
 
   name        String  @db.VarChar(255)
   description String? @db.Text
 
   // Dynamic conditions
-  conditions Json @db.JsonB
+  conditions Json @db.JsonB // Contains operator (AND/OR) and condition groups
+
+  // Example of a condition that uses EmailSegmentOperator
+  // This is a sample field to ensure EmailSegmentOperator is included in the Prisma Client
+  defaultOperator EmailSegmentOperator @default(EQUALS)
 
   // Cached count
   subscriberCount  Int       @default(0)
@@ -1654,10 +1699,12 @@ model EmailSegment {
   updatedAt DateTime @updatedAt
 
   // Relations
-  list EmailList @relation(fields: [listId], references: [id], onDelete: Cascade)
+  list   EmailList @relation(fields: [listId], references: [id], onDelete: Cascade)
+  tenant Tenant    @relation(fields: [tenantId], references: [id])
 
   // Indexes
   @@index([listId])
+  @@index([tenantId])
   @@map("email_segments")
 }
 
@@ -1736,7 +1783,7 @@ model EmailAutomationEnrollment {
   automationId String
   subscriberId String
 
-  status        String  @default("active") // active, completed, cancelled
+  status        EmailAutomationStatus @default(ACTIVE)
   currentStepId String?
 
   enrolledAt  DateTime  @default(now())
@@ -1759,7 +1806,7 @@ model EmailActivity {
   campaignId   String?
   subscriberId String
 
-  type String @db.VarChar(50) // sent, delivered, opened, clicked, etc
+  type EmailActivityType
 
   // Click tracking
   clickedUrl String? @db.Text

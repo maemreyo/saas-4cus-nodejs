@@ -3,12 +3,7 @@
 import { Injectable } from '@/shared/decorators';
 import { PrismaService } from '@/infrastructure/database/prisma.service';
 import { RedisService } from '@/infrastructure/cache/redis.service';
-import {
-  EmailCampaignStats,
-  EmailActivity,
-  EmailDeliveryStatus,
-  Prisma
-} from '@prisma/client';
+import { EmailCampaignStats, EmailActivity, EmailDeliveryStatus, Prisma, EmailActivityType } from '@prisma/client';
 
 export interface CampaignAnalytics {
   campaignId: string;
@@ -89,7 +84,7 @@ export interface EngagementTrend {
 export class EmailAnalyticsService {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly redis: RedisService
+    private readonly redis: RedisService,
   ) {}
 
   /**
@@ -102,7 +97,7 @@ export class EmailAnalyticsService {
       includeClickMap?: boolean;
       includeDeviceStats?: boolean;
       includeLocationStats?: boolean;
-    }
+    },
   ): Promise<CampaignAnalytics> {
     const cacheKey = `campaign-analytics:${campaignId}`;
     const cached = await this.redis.get(cacheKey);
@@ -111,11 +106,11 @@ export class EmailAnalyticsService {
       return cached;
     }
 
-    const campaign = await this.prisma.emailCampaign.findUnique({
+    const campaign = await this.prisma.client.emailCampaign.findUnique({
       where: { id: campaignId },
       include: {
-        stats: true
-      }
+        stats: true,
+      },
     });
 
     if (!campaign) {
@@ -127,7 +122,7 @@ export class EmailAnalyticsService {
       name: campaign.name,
       subject: campaign.subject,
       sentAt: campaign.sentAt || undefined,
-      stats: campaign.stats!
+      stats: campaign.stats!,
     };
 
     if (options?.includeHourlyMetrics) {
@@ -164,72 +159,72 @@ export class EmailAnalyticsService {
       openData,
       clickData,
       unsubscribeCount,
-      complaintCount
+      complaintCount,
     ] = await Promise.all([
       // Total recipients
-      this.prisma.emailCampaignRecipient.count({
-        where: { campaignId }
+      this.prisma.client.emailCampaignRecipient.count({
+        where: { campaignId },
       }),
 
       // Sent count
-      this.prisma.emailCampaignRecipient.count({
+      this.prisma.client.emailCampaignRecipient.count({
         where: {
           campaignId,
-          sentAt: { not: null }
-        }
+          sentAt: { not: null },
+        },
       }),
 
       // Delivered count
-      this.prisma.emailCampaignRecipient.count({
+      this.prisma.client.emailCampaignRecipient.count({
         where: {
           campaignId,
-          status: EmailDeliveryStatus.DELIVERED
-        }
+          status: EmailDeliveryStatus.DELIVERED,
+        },
       }),
 
       // Bounced count
-      this.prisma.emailCampaignRecipient.count({
+      this.prisma.client.emailCampaignRecipient.count({
         where: {
           campaignId,
-          status: EmailDeliveryStatus.BOUNCED
-        }
+          status: EmailDeliveryStatus.BOUNCED,
+        },
       }),
 
       // Open data
-      this.prisma.emailCampaignRecipient.aggregate({
+      this.prisma.client.emailCampaignRecipient.aggregate({
         where: {
           campaignId,
-          openedAt: { not: null }
+          openedAt: { not: null },
         },
         _count: true,
-        _sum: { openCount: true }
+        _sum: { openCount: true },
       }),
 
       // Click data
-      this.prisma.emailCampaignRecipient.aggregate({
+      this.prisma.client.emailCampaignRecipient.aggregate({
         where: {
           campaignId,
-          clickedAt: { not: null }
+          clickedAt: { not: null },
         },
         _count: true,
-        _sum: { clickCount: true }
+        _sum: { clickCount: true },
       }),
 
       // Unsubscribe count
-      this.prisma.emailCampaignRecipient.count({
+      this.prisma.client.emailCampaignRecipient.count({
         where: {
           campaignId,
-          unsubscribedAt: { not: null }
-        }
+          unsubscribedAt: { not: null },
+        },
       }),
 
       // Complaint count
-      this.prisma.emailCampaignRecipient.count({
+      this.prisma.client.emailCampaignRecipient.count({
         where: {
           campaignId,
-          complainedAt: { not: null }
-        }
-      })
+          complainedAt: { not: null },
+        },
+      }),
     ]);
 
     // Calculate rates
@@ -241,7 +236,7 @@ export class EmailAnalyticsService {
     const complaintRate = deliveredCount > 0 ? (complaintCount / deliveredCount) * 100 : 0;
 
     // Update stats
-    await this.prisma.emailCampaignStats.upsert({
+    await this.prisma.client.emailCampaignStats.upsert({
       where: { campaignId },
       create: {
         id: `stats_${campaignId}`,
@@ -261,7 +256,7 @@ export class EmailAnalyticsService {
         clickRate,
         clickToOpenRate,
         unsubscribeRate,
-        complaintRate
+        complaintRate,
       },
       update: {
         totalRecipients,
@@ -280,8 +275,8 @@ export class EmailAnalyticsService {
         clickToOpenRate,
         unsubscribeRate,
         complaintRate,
-        updatedAt: new Date()
-      }
+        updatedAt: new Date(),
+      },
     });
 
     // Invalidate cache
@@ -292,14 +287,14 @@ export class EmailAnalyticsService {
    * Track email activity
    */
   async trackActivity(
-    type: string,
+    type: EmailActivityType,
     data: {
       campaignId?: string;
       subscriberId: string;
       clickedUrl?: string;
       userAgent?: string;
       ipAddress?: string;
-    }
+    },
   ): Promise<void> {
     // Parse user agent
     let device, os, browser;
@@ -317,7 +312,7 @@ export class EmailAnalyticsService {
     }
 
     // Create activity record
-    await this.prisma.emailActivity.create({
+    await this.prisma.client.emailActivity.create({
       data: {
         campaignId: data.campaignId,
         subscriberId: data.subscriberId,
@@ -328,8 +323,8 @@ export class EmailAnalyticsService {
         location,
         device,
         os,
-        browser
-      }
+        browser,
+      },
     });
 
     // Update recipient record if campaign activity
@@ -337,45 +332,45 @@ export class EmailAnalyticsService {
       const updateData: any = {};
 
       switch (type) {
-        case 'delivered':
+        case 'delivered' as EmailActivityType:
           updateData.status = EmailDeliveryStatus.DELIVERED;
           updateData.deliveredAt = new Date();
           break;
 
-        case 'opened':
+        case 'opened' as EmailActivityType:
           updateData.status = EmailDeliveryStatus.OPENED;
           updateData.openedAt = updateData.openedAt || new Date();
           updateData.openCount = { increment: 1 };
           break;
 
-        case 'clicked':
+        case 'clicked' as EmailActivityType:
           updateData.status = EmailDeliveryStatus.CLICKED;
           updateData.clickedAt = updateData.clickedAt || new Date();
           updateData.clickCount = { increment: 1 };
           break;
 
-        case 'bounced':
+        case 'bounced' as EmailActivityType:
           updateData.status = EmailDeliveryStatus.BOUNCED;
           updateData.bouncedAt = new Date();
           break;
 
-        case 'unsubscribed':
+        case 'unsubscribed' as EmailActivityType:
           updateData.status = EmailDeliveryStatus.UNSUBSCRIBED;
           updateData.unsubscribedAt = new Date();
           break;
 
-        case 'complained':
+        case 'complained' as EmailActivityType:
           updateData.status = EmailDeliveryStatus.COMPLAINED;
           updateData.complainedAt = new Date();
           break;
       }
 
-      await this.prisma.emailCampaignRecipient.updateMany({
+      await this.prisma.client.emailCampaignRecipient.updateMany({
         where: {
           campaignId: data.campaignId,
-          subscriberId: data.subscriberId
+          subscriberId: data.subscriberId,
         },
-        data: updateData
+        data: updateData,
       });
 
       // Update campaign stats
@@ -389,10 +384,7 @@ export class EmailAnalyticsService {
   /**
    * Get subscriber growth metrics
    */
-  async getSubscriberGrowth(
-    tenantId: string,
-    days: number = 30
-  ): Promise<GrowthMetric[]> {
+  async getSubscriberGrowth(tenantId: string, days: number = 30): Promise<GrowthMetric[]> {
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - days);
     startDate.setHours(0, 0, 0, 0);
@@ -408,38 +400,35 @@ export class EmailAnalyticsService {
 
       const [totalSubscribers, newSubscribers, unsubscribes] = await Promise.all([
         // Total subscribers at end of day
-        this.prisma.emailListSubscriber.count({
+        this.prisma.client.emailListSubscriber.count({
           where: {
             list: { tenantId },
             subscribedAt: { lt: nextDate },
-            OR: [
-              { unsubscribedAt: null },
-              { unsubscribedAt: { gte: nextDate } }
-            ]
-          }
+            OR: [{ unsubscribedAt: null }, { unsubscribedAt: { gte: nextDate } }],
+          },
         }),
 
         // New subscribers on this day
-        this.prisma.emailListSubscriber.count({
+        this.prisma.client.emailListSubscriber.count({
           where: {
             list: { tenantId },
             subscribedAt: {
               gte: date,
-              lt: nextDate
-            }
-          }
+              lt: nextDate,
+            },
+          },
         }),
 
         // Unsubscribes on this day
-        this.prisma.emailListSubscriber.count({
+        this.prisma.client.emailListSubscriber.count({
           where: {
             list: { tenantId },
             unsubscribedAt: {
               gte: date,
-              lt: nextDate
-            }
-          }
-        })
+              lt: nextDate,
+            },
+          },
+        }),
       ]);
 
       metrics.push({
@@ -447,7 +436,7 @@ export class EmailAnalyticsService {
         subscribers: totalSubscribers,
         newSubscribers,
         unsubscribes,
-        netGrowth: newSubscribers - unsubscribes
+        netGrowth: newSubscribers - unsubscribes,
       });
     }
 
@@ -457,27 +446,24 @@ export class EmailAnalyticsService {
   /**
    * Get engagement trends
    */
-  async getEngagementTrends(
-    tenantId: string,
-    days: number = 30
-  ): Promise<EngagementTrend[]> {
+  async getEngagementTrends(tenantId: string, days: number = 30): Promise<EngagementTrend[]> {
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - days);
     startDate.setHours(0, 0, 0, 0);
 
-    const campaigns = await this.prisma.emailCampaign.findMany({
+    const campaigns = await this.prisma.client.emailCampaign.findMany({
       where: {
         tenantId,
         sentAt: {
-          gte: startDate
-        }
+          gte: startDate,
+        },
       },
       include: {
-        stats: true
+        stats: true,
       },
       orderBy: {
-        sentAt: 'asc'
-      }
+        sentAt: 'asc',
+      },
     });
 
     // Group by date
@@ -493,7 +479,7 @@ export class EmailAnalyticsService {
           date: new Date(dateKey),
           openRate: 0,
           clickRate: 0,
-          unsubscribeRate: 0
+          unsubscribeRate: 0,
         });
       }
 
@@ -507,9 +493,7 @@ export class EmailAnalyticsService {
       trend.unsubscribeRate = (trend.unsubscribeRate + stats.unsubscribeRate * weight) / (weight + 1);
     }
 
-    return Array.from(trendsByDate.values()).sort((a, b) =>
-      a.date.getTime() - b.date.getTime()
-    );
+    return Array.from(trendsByDate.values()).sort((a, b) => a.date.getTime() - b.date.getTime());
   }
 
   /**
@@ -518,7 +502,7 @@ export class EmailAnalyticsService {
   async getComprehensiveAnalytics(
     tenantId: string,
     startDate: Date,
-    endDate: Date
+    endDate: Date,
   ): Promise<{
     overview: {
       totalCampaigns: number;
@@ -531,65 +515,54 @@ export class EmailAnalyticsService {
     subscriberGrowth: GrowthMetric[];
     engagementTrends: EngagementTrend[];
   }> {
-    const [
-      campaignStats,
-      topCampaigns,
-      subscriberGrowth,
-      engagementTrends
-    ] = await Promise.all([
+    const [campaignStats, topCampaigns, subscriberGrowth, engagementTrends] = await Promise.all([
       // Overview stats
-      this.prisma.emailCampaignStats.aggregate({
+      this.prisma.client.emailCampaignStats.aggregate({
         where: {
           campaign: {
             tenantId,
             sentAt: {
               gte: startDate,
-              lte: endDate
-            }
-          }
+              lte: endDate,
+            },
+          },
         },
         _count: true,
         _sum: {
           sentCount: true,
-          revenue: true
+          revenue: true,
         },
         _avg: {
           openRate: true,
-          clickRate: true
-        }
+          clickRate: true,
+        },
       }),
 
       // Top performing campaigns
-      this.prisma.emailCampaign.findMany({
+      this.prisma.client.emailCampaign.findMany({
         where: {
           tenantId,
           sentAt: {
             gte: startDate,
-            lte: endDate
-          }
+            lte: endDate,
+          },
         },
         include: {
-          stats: true
+          stats: true,
         },
         orderBy: {
           stats: {
-            clickRate: 'desc'
-          }
+            clickRate: 'desc',
+          },
         },
-        take: 10
+        take: 10,
       }),
 
       // Subscriber growth
-      this.getSubscriberGrowth(
-        tenantId,
-        Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24))
-      ),
+      this.getSubscriberGrowth(tenantId, Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24))),
 
       // Engagement trends
-      this.getEngagementTrends(
-        tenantId,
-        Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24))
-      )
+      this.getEngagementTrends(tenantId, Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24))),
     ]);
 
     return {
@@ -598,17 +571,17 @@ export class EmailAnalyticsService {
         totalEmailsSent: campaignStats._sum.sentCount || 0,
         averageOpenRate: campaignStats._avg.openRate || 0,
         averageClickRate: campaignStats._avg.clickRate || 0,
-        totalRevenue: campaignStats._sum.revenue || 0
+        totalRevenue: campaignStats._sum.revenue || 0,
       },
       topCampaigns: topCampaigns.map(c => ({
         campaignId: c.id,
         name: c.name,
         subject: c.subject,
         sentAt: c.sentAt || undefined,
-        stats: c.stats!
+        stats: c.stats!,
       })),
       subscriberGrowth,
-      engagementTrends
+      engagementTrends,
     };
   }
 
@@ -616,12 +589,12 @@ export class EmailAnalyticsService {
    * Get hourly metrics for a campaign
    */
   private async getHourlyMetrics(campaignId: string): Promise<HourlyMetric[]> {
-    const activities = await this.prisma.emailActivity.findMany({
+    const activities = await this.prisma.client.emailActivity.findMany({
       where: { campaignId },
       select: {
         type: true,
-        createdAt: true
-      }
+        createdAt: true,
+      },
     });
 
     const metrics = new Map<number, HourlyMetric>();
@@ -635,23 +608,23 @@ export class EmailAnalyticsService {
           sent: 0,
           delivered: 0,
           opened: 0,
-          clicked: 0
+          clicked: 0,
         });
       }
 
       const metric = metrics.get(hour)!;
 
       switch (activity.type) {
-        case 'sent':
+        case 'sent' as EmailActivityType:
           metric.sent++;
           break;
-        case 'delivered':
+        case 'delivered' as EmailActivityType:
           metric.delivered++;
           break;
-        case 'opened':
+        case 'opened' as EmailActivityType:
           metric.opened++;
           break;
-        case 'clicked':
+        case 'clicked' as EmailActivityType:
           metric.clicked++;
           break;
       }
@@ -664,57 +637,64 @@ export class EmailAnalyticsService {
    * Get click map for a campaign
    */
   private async getClickMap(campaignId: string): Promise<ClickMapEntry[]> {
-    const clicks = await this.prisma.emailActivity.groupBy({
-      by: ['clickedUrl'],
-      where: {
-        campaignId,
-        type: 'clicked',
-        clickedUrl: { not: null }
-      },
-      _count: true
-    });
+    // Use raw query to avoid circular reference issues with Prisma types
+    const clickData = await this.prisma.client.$queryRaw<
+      Array<{ clickedUrl: string; clicks: number }>
+    >`
+      SELECT "clickedUrl", COUNT(*) as "clicks"
+      FROM "EmailActivity"
+      WHERE "campaignId" = ${campaignId}
+      AND "type" = 'clicked'
+      AND "clickedUrl" IS NOT NULL
+      GROUP BY "clickedUrl"
+      ORDER BY "clicks" DESC
+    `;
 
-    const totalClicks = clicks.reduce((sum, c) => sum + c._count, 0);
+    const totalClicks = clickData.reduce((sum, c) => sum + Number(c.clicks), 0);
 
-    return clicks.map(click => ({
-      url: click.clickedUrl!,
-      clicks: click._count,
-      uniqueClicks: click._count, // Would need distinct count
-      percentage: (click._count / totalClicks) * 100
-    })).sort((a, b) => b.clicks - a.clicks);
+    return clickData.map(click => ({
+      url: click.clickedUrl,
+      clicks: Number(click.clicks),
+      uniqueClicks: Number(click.clicks), // Would need distinct count
+      percentage: totalClicks > 0 ? (Number(click.clicks) / totalClicks) * 100 : 0,
+    }));
   }
 
   /**
    * Get device statistics
    */
   private async getDeviceStats(campaignId: string): Promise<DeviceStats> {
-    const devices = await this.prisma.emailActivity.groupBy({
-      by: ['device'],
-      where: {
-        campaignId,
-        type: { in: ['opened', 'clicked'] },
-        device: { not: null }
-      },
-      _count: true
-    });
+    // Use raw query to avoid circular reference issues with Prisma types
+    const deviceData = await this.prisma.client.$queryRaw<
+      Array<{ device: string; count: number }>
+    >`
+      SELECT "device", COUNT(*) as "count"
+      FROM "EmailActivity"
+      WHERE "campaignId" = ${campaignId}
+      AND "type" IN ('opened', 'clicked')
+      AND "device" IS NOT NULL
+      GROUP BY "device"
+    `;
 
     const stats: DeviceStats = {
       desktop: 0,
       mobile: 0,
       tablet: 0,
-      other: 0
+      other: 0,
     };
 
-    for (const device of devices) {
+    for (const device of deviceData) {
       const type = device.device?.toLowerCase() || 'other';
+      const count = Number(device.count);
+
       if (type.includes('desktop')) {
-        stats.desktop += device._count;
+        stats.desktop += count;
       } else if (type.includes('mobile')) {
-        stats.mobile += device._count;
+        stats.mobile += count;
       } else if (type.includes('tablet')) {
-        stats.tablet += device._count;
+        stats.tablet += count;
       } else {
-        stats.other += device._count;
+        stats.other += count;
       }
     }
 
@@ -725,50 +705,66 @@ export class EmailAnalyticsService {
    * Get location statistics
    */
   private async getLocationStats(campaignId: string): Promise<LocationStats[]> {
-    const locations = await this.prisma.emailActivity.groupBy({
-      by: ['location'],
-      where: {
-        campaignId,
-        type: { in: ['opened', 'clicked'] },
-        location: { not: null }
-      },
-      _count: {
-        _all: true
-      }
-    });
+    // Use raw query to avoid circular reference issues with Prisma types
+    const locationData = await this.prisma.client.$queryRaw<
+      Array<{ location: string; count: number; type: string }>
+    >`
+      SELECT "location", "type", COUNT(*) as "count"
+      FROM "EmailActivity"
+      WHERE "campaignId" = ${campaignId}
+      AND "type" IN ('opened', 'clicked')
+      AND "location" IS NOT NULL
+      GROUP BY "location", "type"
+    `;
 
-    return locations.map(loc => ({
-      location: loc.location!,
-      opens: 0, // Would need to separate by type
-      clicks: 0
-    })).sort((a, b) => (b.opens + b.clicks) - (a.opens + a.clicks));
+    // Process the data to get opens and clicks by location
+    const locationMap = new Map<string, { opens: number; clicks: number }>();
+
+    for (const item of locationData) {
+      if (!locationMap.has(item.location)) {
+        locationMap.set(item.location, { opens: 0, clicks: 0 });
+      }
+
+      const stats = locationMap.get(item.location)!;
+      const count = Number(item.count);
+
+      if (item.type === 'opened') {
+        stats.opens += count;
+      } else if (item.type === 'clicked') {
+        stats.clicks += count;
+      }
+    }
+
+    // Convert to array and sort
+    return Array.from(locationMap.entries())
+      .map(([location, stats]) => ({
+        location,
+        opens: stats.opens,
+        clicks: stats.clicks,
+      }))
+      .sort((a, b) => (b.opens + b.clicks) - (a.opens + a.clicks));
   }
 
   /**
    * Update subscriber engagement score
    */
-  private async updateSubscriberEngagement(
-    subscriberId: string,
-    activityType: string
-  ): Promise<void> {
+  private async updateSubscriberEngagement(subscriberId: string, activityType: string): Promise<void> {
     const weights = {
       opened: 1,
       clicked: 3,
       unsubscribed: -10,
-      complained: -20
+      complained: -20,
     };
 
     const weight = weights[activityType as keyof typeof weights] || 0;
 
     if (weight !== 0) {
-      await this.prisma.emailListSubscriber.update({
+      await this.prisma.client.emailListSubscriber.update({
         where: { id: subscriberId },
         data: {
           engagementScore: { increment: weight },
-          lastEngagedAt: ['opened', 'clicked'].includes(activityType)
-            ? new Date()
-            : undefined
-        }
+          lastEngagedAt: ['opened', 'clicked'].includes(activityType) ? new Date() : undefined,
+        },
       });
     }
   }
@@ -782,19 +778,29 @@ export class EmailAnalyticsService {
     browser?: string;
   } {
     // Simple parsing - in production use a proper UA parser
-    const device = userAgent.includes('Mobile') ? 'mobile' :
-                  userAgent.includes('Tablet') ? 'tablet' : 'desktop';
+    const device = userAgent.includes('Mobile') ? 'mobile' : userAgent.includes('Tablet') ? 'tablet' : 'desktop';
 
-    const os = userAgent.includes('Windows') ? 'Windows' :
-               userAgent.includes('Mac') ? 'macOS' :
-               userAgent.includes('Linux') ? 'Linux' :
-               userAgent.includes('Android') ? 'Android' :
-               userAgent.includes('iOS') ? 'iOS' : 'Other';
+    const os = userAgent.includes('Windows')
+      ? 'Windows'
+      : userAgent.includes('Mac')
+        ? 'macOS'
+        : userAgent.includes('Linux')
+          ? 'Linux'
+          : userAgent.includes('Android')
+            ? 'Android'
+            : userAgent.includes('iOS')
+              ? 'iOS'
+              : 'Other';
 
-    const browser = userAgent.includes('Chrome') ? 'Chrome' :
-                   userAgent.includes('Firefox') ? 'Firefox' :
-                   userAgent.includes('Safari') ? 'Safari' :
-                   userAgent.includes('Edge') ? 'Edge' : 'Other';
+    const browser = userAgent.includes('Chrome')
+      ? 'Chrome'
+      : userAgent.includes('Firefox')
+        ? 'Firefox'
+        : userAgent.includes('Safari')
+          ? 'Safari'
+          : userAgent.includes('Edge')
+            ? 'Edge'
+            : 'Other';
 
     return { device, os, browser };
   }

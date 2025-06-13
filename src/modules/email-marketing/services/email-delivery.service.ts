@@ -214,7 +214,7 @@ export class EmailDeliveryService {
     recipientId: string
   ): Promise<void> {
     // Get recipient with subscriber info
-    const recipient = await this.prisma.emailCampaignRecipient.findUnique({
+    const recipient = await this.prisma.client.emailCampaignRecipient.findUnique({
       where: { id: recipientId },
       include: {
         subscriber: true
@@ -236,7 +236,7 @@ export class EmailDeliveryService {
 
     // Check subscriber status
     if (!recipient.subscriber.subscribed || !recipient.subscriber.confirmed) {
-      await this.prisma.emailCampaignRecipient.update({
+      await this.prisma.client.emailCampaignRecipient.update({
         where: { id: recipientId },
         data: {
           status: EmailDeliveryStatus.FAILED,
@@ -281,7 +281,7 @@ export class EmailDeliveryService {
       });
 
       // Update recipient status
-      await this.prisma.emailCampaignRecipient.update({
+      await this.prisma.client.emailCampaignRecipient.update({
         where: { id: recipientId },
         data: {
           status: EmailDeliveryStatus.SENT,
@@ -298,7 +298,7 @@ export class EmailDeliveryService {
       }]);
     } catch (error: any) {
       // Update recipient with error
-      await this.prisma.emailCampaignRecipient.update({
+      await this.prisma.client.emailCampaignRecipient.update({
         where: { id: recipientId },
         data: {
           status: EmailDeliveryStatus.FAILED,
@@ -345,7 +345,7 @@ export class EmailDeliveryService {
     }
 
     // Get list for sender info
-    const list = await this.prisma.emailList.findUnique({
+    const list = await this.prisma.client.emailList.findUnique({
       where: { id: step.automation.listId }
     });
 

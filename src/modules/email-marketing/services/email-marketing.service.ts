@@ -13,12 +13,7 @@ import { EmailDeliveryService } from './email-delivery.service';
 import { EmailSegmentService } from './email-segment.service';
 import { EmailTemplateService } from './email-template.service';
 import { AppError } from '@/shared/exceptions';
-import {
-  EmailListStatus,
-  EmailCampaignStatus,
-  EmailCampaignType,
-  EmailDeliveryStatus
-} from '@prisma/client';
+import { EmailListStatus, EmailCampaignStatus, EmailCampaignType, EmailDeliveryStatus } from '@prisma/client';
 
 export interface EmailMarketingStats {
   totalLists: number;
@@ -53,7 +48,7 @@ export class EmailMarketingService {
     private readonly analyticsService: EmailAnalyticsService,
     private readonly deliveryService: EmailDeliveryService,
     private readonly segmentService: EmailSegmentService,
-    private readonly templateService: EmailTemplateService
+    private readonly templateService: EmailTemplateService,
   ) {}
 
   /**
@@ -67,18 +62,12 @@ export class EmailMarketingService {
       return cached;
     }
 
-    const [
-      stats,
-      recentCampaigns,
-      topPerformingCampaigns,
-      subscriberGrowth,
-      engagementTrends
-    ] = await Promise.all([
+    const [stats, recentCampaigns, topPerformingCampaigns, subscriberGrowth, engagementTrends] = await Promise.all([
       this.getStats(tenantId),
       this.getRecentCampaigns(tenantId),
       this.getTopPerformingCampaigns(tenantId),
       this.analyticsService.getSubscriberGrowth(tenantId, 30),
-      this.analyticsService.getEngagementTrends(tenantId, 30)
+      this.analyticsService.getEngagementTrends(tenantId, 30),
     ]);
 
     const dashboard: EmailMarketingDashboard = {
@@ -86,7 +75,7 @@ export class EmailMarketingService {
       recentCampaigns,
       topPerformingCampaigns,
       subscriberGrowth,
-      engagementTrends
+      engagementTrends,
     };
 
     // Cache for 5 minutes
@@ -99,64 +88,59 @@ export class EmailMarketingService {
    * Get overall email marketing statistics
    */
   async getStats(tenantId: string): Promise<EmailMarketingStats> {
-    const [
-      lists,
-      campaigns,
-      automations,
-      overallStats
-    ] = await Promise.all([
+    const [lists, campaigns, automations, overallStats] = await Promise.all([
       // Count lists and subscribers
-      this.prisma.$transaction([
-        this.prisma.emailList.count({
-          where: { tenantId, deletedAt: null }
+      this.prisma.client.$transaction([
+        this.prisma.client.emailList.count({
+          where: { tenantId, deletedAt: null },
         }),
-        this.prisma.emailListSubscriber.count({
+        this.prisma.client.emailListSubscriber.count({
           where: {
             list: { tenantId },
             subscribed: true,
-            confirmed: true
-          }
-        })
+            confirmed: true,
+          },
+        }),
       ]),
 
       // Count campaigns
-      this.prisma.$transaction([
-        this.prisma.emailCampaign.count({
-          where: { tenantId }
+      this.prisma.client.$transaction([
+        this.prisma.client.emailCampaign.count({
+          where: { tenantId },
         }),
-        this.prisma.emailCampaign.count({
+        this.prisma.client.emailCampaign.count({
           where: {
             tenantId,
-            status: EmailCampaignStatus.SENDING
-          }
-        })
+            status: EmailCampaignStatus.SENDING,
+          },
+        }),
       ]),
 
       // Count automations
-      this.prisma.$transaction([
-        this.prisma.emailAutomation.count({
-          where: { tenantId }
+      this.prisma.client.$transaction([
+        this.prisma.client.emailAutomation.count({
+          where: { tenantId },
         }),
-        this.prisma.emailAutomation.count({
+        this.prisma.client.emailAutomation.count({
           where: {
             tenantId,
-            active: true
-          }
-        })
+            active: true,
+          },
+        }),
       ]),
 
       // Get aggregate stats
-      this.prisma.emailCampaignStats.aggregate({
+      this.prisma.client.emailCampaignStats.aggregate({
         where: {
-          campaign: { tenantId }
+          campaign: { tenantId },
         },
         _avg: {
           deliveryRate: true,
           openRate: true,
           clickRate: true,
-          unsubscribeRate: true
-        }
-      })
+          unsubscribeRate: true,
+        },
+      }),
     ]);
 
     return {
@@ -169,7 +153,7 @@ export class EmailMarketingService {
       deliveryRate: overallStats._avg.deliveryRate || 0,
       openRate: overallStats._avg.openRate || 0,
       clickRate: overallStats._avg.clickRate || 0,
-      unsubscribeRate: overallStats._avg.unsubscribeRate || 0
+      unsubscribeRate: overallStats._avg.unsubscribeRate || 0,
     };
   }
 
@@ -177,7 +161,7 @@ export class EmailMarketingService {
    * Get recent campaigns
    */
   async getRecentCampaigns(tenantId: string, limit: number = 10): Promise<any[]> {
-    return this.prisma.emailCampaign.findMany({
+    return this.prisma.client.emailCampaign.findMany({
       where: { tenantId },
       orderBy: { createdAt: 'desc' },
       take: limit,
@@ -185,10 +169,10 @@ export class EmailMarketingService {
         stats: true,
         _count: {
           select: {
-            recipients: true
-          }
-        }
-      }
+            recipients: true,
+          },
+        },
+      },
     });
   }
 
@@ -196,31 +180,24 @@ export class EmailMarketingService {
    * Get top performing campaigns
    */
   async getTopPerformingCampaigns(tenantId: string, limit: number = 10): Promise<any[]> {
-    return this.prisma.emailCampaign.findMany({
+    return this.prisma.client.emailCampaign.findMany({
       where: {
         tenantId,
-        status: EmailCampaignStatus.SENT
+        status: EmailCampaignStatus.SENT,
       },
       include: {
         stats: {
-          orderBy: [
-            { clickRate: 'desc' },
-            { openRate: 'desc' }
-          ]
-        }
+          orderBy: [{ clickRate: 'desc' }, { openRate: 'desc' }],
+        },
       },
-      take: limit
+      take: limit,
     });
   }
 
   /**
    * Send test email for a campaign
    */
-  async sendTestEmail(
-    tenantId: string,
-    campaignId: string,
-    recipientEmail: string
-  ): Promise<void> {
+  async sendTestEmail(tenantId: string, campaignId: string, recipientEmail: string): Promise<void> {
     const campaign = await this.campaignService.getCampaign(tenantId, campaignId);
 
     if (!campaign) {
@@ -233,7 +210,7 @@ export class EmailMarketingService {
       tenantId,
       campaignId,
       recipientEmail,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
   }
 
@@ -243,7 +220,7 @@ export class EmailMarketingService {
   async previewEmail(
     tenantId: string,
     campaignId: string,
-    subscriberId?: string
+    subscriberId?: string,
   ): Promise<{ subject: string; html: string; text?: string }> {
     const campaign = await this.campaignService.getCampaign(tenantId, campaignId);
 
@@ -253,11 +230,11 @@ export class EmailMarketingService {
 
     let subscriber = null;
     if (subscriberId) {
-      subscriber = await this.prisma.emailListSubscriber.findFirst({
+      subscriber = await this.prisma.client.emailListSubscriber.findFirst({
         where: {
           id: subscriberId,
-          list: { tenantId }
-        }
+          list: { tenantId },
+        },
       });
     }
 
@@ -269,7 +246,7 @@ export class EmailMarketingService {
    */
   async validateEmailContent(
     html: string,
-    text?: string
+    text?: string,
   ): Promise<{
     valid: boolean;
     errors: string[];
@@ -299,18 +276,13 @@ export class EmailMarketingService {
     }
 
     // Check content length
-    if (html.length > 102400) { // 100KB
+    if (html.length > 102400) {
+      // 100KB
       warnings.push('Email content is large and may be clipped by email clients');
     }
 
     // Check for common spam triggers
-    const spamTriggers = [
-      /free money/i,
-      /click here now/i,
-      /limited time offer/i,
-      /act now/i,
-      /100% guaranteed/i
-    ];
+    const spamTriggers = [/free money/i, /click here now/i, /limited time offer/i, /act now/i, /100% guaranteed/i];
 
     let spamScore = 0;
     for (const trigger of spamTriggers) {
@@ -324,7 +296,7 @@ export class EmailMarketingService {
       valid: errors.length === 0,
       errors,
       warnings,
-      spamScore
+      spamScore,
     };
   }
 
@@ -363,14 +335,14 @@ export class EmailMarketingService {
     }
 
     // Check bounces
-    const recentBounces = await this.prisma.emailCampaignRecipient.count({
+    const recentBounces = await this.prisma.client.emailCampaignRecipient.count({
       where: {
         campaign: { tenantId },
         status: EmailDeliveryStatus.BOUNCED,
         bouncedAt: {
-          gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) // Last 7 days
-        }
-      }
+          gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // Last 7 days
+        },
+      },
     });
 
     if (recentBounces > 100) {
@@ -378,13 +350,12 @@ export class EmailMarketingService {
       recommendations.push('Clean your email list and remove invalid addresses');
     }
 
-    const status = issues.length === 0 ? 'healthy' :
-                  issues.length <= 2 ? 'warning' : 'critical';
+    const status = issues.length === 0 ? 'healthy' : issues.length <= 2 ? 'warning' : 'critical';
 
     return {
       status,
       issues,
-      recommendations
+      recommendations,
     };
   }
 
@@ -400,44 +371,44 @@ export class EmailMarketingService {
       format?: 'json' | 'csv';
       dateFrom?: Date;
       dateTo?: Date;
-    }
+    },
   ): Promise<Buffer> {
     const data: any = {
       exportDate: new Date(),
-      tenant: tenantId
+      tenant: tenantId,
     };
 
     if (options.includeSubscribers) {
-      data.subscribers = await this.prisma.emailListSubscriber.findMany({
+      data.subscribers = await this.prisma.client.emailListSubscriber.findMany({
         where: {
           list: { tenantId },
           subscribedAt: {
             gte: options.dateFrom,
-            lte: options.dateTo
-          }
+            lte: options.dateTo,
+          },
         },
         include: {
           list: {
             select: {
-              name: true
-            }
-          }
-        }
+              name: true,
+            },
+          },
+        },
       });
     }
 
     if (options.includeCampaigns) {
-      data.campaigns = await this.prisma.emailCampaign.findMany({
+      data.campaigns = await this.prisma.client.emailCampaign.findMany({
         where: {
           tenantId,
           createdAt: {
             gte: options.dateFrom,
-            lte: options.dateTo
-          }
+            lte: options.dateTo,
+          },
         },
         include: {
-          stats: true
-        }
+          stats: true,
+        },
       });
     }
 
@@ -445,7 +416,7 @@ export class EmailMarketingService {
       data.analytics = await this.analyticsService.getComprehensiveAnalytics(
         tenantId,
         options.dateFrom || new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
-        options.dateTo || new Date()
+        options.dateTo || new Date(),
       );
     }
 

@@ -7,15 +7,8 @@ import { RedisService } from '@/infrastructure/cache/redis.service';
 import { StorageService } from '@/shared/services/storage.service';
 import { AppError } from '@/shared/exceptions';
 import { logger } from '@/shared/logger';
-import {
-  EmailTemplate,
-  Prisma
-} from '@prisma/client';
-import {
-  CreateTemplateDTO,
-  UpdateTemplateDTO,
-  TemplateFiltersDTO
-} from '../dto/email-template.dto';
+import { EmailTemplate, Prisma } from '@prisma/client';
+import { CreateTemplateDTO, UpdateTemplateDTO, TemplateFiltersDTO } from '../dto/email-template.dto';
 import * as handlebars from 'handlebars';
 import * as htmlMinifier from 'html-minifier-terser';
 import * as juice from 'juice';
@@ -35,7 +28,7 @@ export class EmailTemplateService {
     private readonly prisma: PrismaService,
     private readonly eventBus: EventBus,
     private readonly redis: RedisService,
-    private readonly storage: StorageService
+    private readonly storage: StorageService,
   ) {
     this.handlebars = handlebars.create();
     this.registerHelpers();
@@ -50,12 +43,12 @@ export class EmailTemplateService {
       return new Date(date).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
-        day: 'numeric'
+        day: 'numeric',
       });
     });
 
     // Conditional helper
-    this.handlebars.registerHelper('ifEquals', function(a: any, b: any, options: any) {
+    this.handlebars.registerHelper('ifEquals', function (a: any, b: any, options: any) {
       return a === b ? options.fn(this) : options.inverse(this);
     });
 
@@ -78,10 +71,7 @@ export class EmailTemplateService {
   /**
    * Create a new template
    */
-  async createTemplate(
-    tenantId: string,
-    data: CreateTemplateDTO
-  ): Promise<EmailTemplate> {
+  async createTemplate(tenantId: string, data: CreateTemplateDTO): Promise<EmailTemplate> {
     // Process and optimize HTML content
     const processedHtml = await this.processHtmlContent(data.htmlContent);
 
@@ -96,26 +86,26 @@ export class EmailTemplateService {
       thumbnail = await this.generateThumbnail(processedHtml);
     }
 
-    const template = await this.prisma.emailTemplate.create({
+    const template = await this.prisma.client.emailTemplate.create({
       data: {
         tenantId,
         ...data,
         htmlContent: processedHtml,
         thumbnail,
-        variables: data.variables || this.extractVariables(processedHtml)
-      }
+        variables: data.variables || this.extractVariables(processedHtml),
+      },
     });
 
     await this.eventBus.emit('email.template.created', {
       tenantId,
       templateId: template.id,
       name: template.name,
-      isPublic: template.isPublic
+      isPublic: template.isPublic,
     });
 
     logger.info('Email template created', {
       tenantId,
-      templateId: template.id
+      templateId: template.id,
     });
 
     return template;
@@ -124,11 +114,7 @@ export class EmailTemplateService {
   /**
    * Update a template
    */
-  async updateTemplate(
-    tenantId: string,
-    templateId: string,
-    data: UpdateTemplateDTO
-  ): Promise<EmailTemplate> {
+  async updateTemplate(tenantId: string, templateId: string, data: UpdateTemplateDTO): Promise<EmailTemplate> {
     const template = await this.getTemplate(tenantId, templateId);
 
     let processedData: any = { ...data };
@@ -149,9 +135,9 @@ export class EmailTemplateService {
       processedData.variables = data.variables || this.extractVariables(processedData.htmlContent);
     }
 
-    const updated = await this.prisma.emailTemplate.update({
+    const updated = await this.prisma.client.emailTemplate.update({
       where: { id: templateId },
-      data: processedData
+      data: processedData,
     });
 
     await this.invalidateTemplateCache(templateId);
@@ -159,7 +145,7 @@ export class EmailTemplateService {
     await this.eventBus.emit('email.template.updated', {
       tenantId,
       templateId,
-      changes: data
+      changes: data,
     });
 
     return updated;
@@ -168,10 +154,7 @@ export class EmailTemplateService {
   /**
    * Get template
    */
-  async getTemplate(
-    tenantId: string,
-    templateId: string
-  ): Promise<TemplateWithUsage> {
+  async getTemplate(tenantId: string, templateId: string): Promise<TemplateWithUsage> {
     const cacheKey = `email-template:${templateId}`;
     const cached = await this.redis.get(cacheKey);
 
@@ -179,23 +162,20 @@ export class EmailTemplateService {
       return cached;
     }
 
-    const template = await this.prisma.emailTemplate.findFirst({
+    const template = await this.prisma.client.emailTemplate.findFirst({
       where: {
         id: templateId,
-        OR: [
-          { tenantId },
-          { isPublic: true }
-        ],
-        isArchived: false
+        OR: [{ tenantId }, { isPublic: true }],
+        isArchived: false,
       },
       include: {
         _count: {
           select: {
             campaigns: true,
-            automationSteps: true
-          }
-        }
-      }
+            automationSteps: true,
+          },
+        },
+      },
     });
 
     if (!template) {
@@ -212,7 +192,7 @@ export class EmailTemplateService {
    */
   async listTemplates(
     tenantId: string,
-    filters: TemplateFiltersDTO
+    filters: TemplateFiltersDTO,
   ): Promise<{
     templates: TemplateWithUsage[];
     total: number;
@@ -220,10 +200,7 @@ export class EmailTemplateService {
     pages: number;
   }> {
     const where: Prisma.EmailTemplateWhereInput = {
-      OR: [
-        { tenantId },
-        { isPublic: true }
-      ],
+      OR: [{ tenantId }, { isPublic: true }],
       ...(filters.category && { category: filters.category }),
       ...(filters.isPublic !== undefined && { isPublic: filters.isPublic }),
       ...(filters.isArchived !== undefined && { isArchived: filters.isArchived }),
@@ -231,36 +208,36 @@ export class EmailTemplateService {
         OR: [
           { name: { contains: filters.search, mode: 'insensitive' } },
           { description: { contains: filters.search, mode: 'insensitive' } },
-          { subject: { contains: filters.search, mode: 'insensitive' } }
-        ]
-      })
+          { subject: { contains: filters.search, mode: 'insensitive' } },
+        ],
+      }),
     };
 
     const [templates, total] = await Promise.all([
-      this.prisma.emailTemplate.findMany({
+      this.prisma.client.emailTemplate.findMany({
         where,
         include: {
           _count: {
             select: {
               campaigns: true,
-              automationSteps: true
-            }
-          }
+              automationSteps: true,
+            },
+          },
         },
         orderBy: {
-          [filters.sortBy || 'updatedAt']: filters.sortOrder || 'desc'
+          [filters.sortBy || 'updatedAt']: filters.sortOrder || 'desc',
         },
         skip: (filters.page - 1) * filters.limit,
-        take: filters.limit
+        take: filters.limit,
       }),
-      this.prisma.emailTemplate.count({ where })
+      this.prisma.client.emailTemplate.count({ where }),
     ]);
 
     return {
       templates,
       total,
       page: filters.page,
-      pages: Math.ceil(total / filters.limit)
+      pages: Math.ceil(total / filters.limit),
     };
   }
 
@@ -270,7 +247,7 @@ export class EmailTemplateService {
   async renderTemplate(
     templateId: string,
     data: Record<string, any>,
-    tenantId?: string
+    tenantId?: string,
   ): Promise<{
     subject: string;
     html: string;
@@ -281,9 +258,7 @@ export class EmailTemplateService {
     // Compile templates
     const subjectTemplate = this.handlebars.compile(template.subject);
     const htmlTemplate = this.handlebars.compile(template.htmlContent);
-    const textTemplate = template.textContent
-      ? this.handlebars.compile(template.textContent)
-      : null;
+    const textTemplate = template.textContent ? this.handlebars.compile(template.textContent) : null;
 
     // Add default variables
     const renderData = {
@@ -292,24 +267,20 @@ export class EmailTemplateService {
       companyName: process.env.COMPANY_NAME || 'Company',
       unsubscribeUrl: data.unsubscribeUrl || '{{unsubscribe_url}}',
       preferencesUrl: data.preferencesUrl || '{{preferences_url}}',
-      viewInBrowserUrl: data.viewInBrowserUrl || '{{view_in_browser_url}}'
+      viewInBrowserUrl: data.viewInBrowserUrl || '{{view_in_browser_url}}',
     };
 
     return {
       subject: subjectTemplate(renderData),
       html: htmlTemplate(renderData),
-      text: textTemplate ? textTemplate(renderData) : this.generateTextFromHtml(htmlTemplate(renderData))
+      text: textTemplate ? textTemplate(renderData) : this.generateTextFromHtml(htmlTemplate(renderData)),
     };
   }
 
   /**
    * Clone a template
    */
-  async cloneTemplate(
-    tenantId: string,
-    templateId: string,
-    name?: string
-  ): Promise<EmailTemplate> {
+  async cloneTemplate(tenantId: string, templateId: string, name?: string): Promise<EmailTemplate> {
     const original = await this.getTemplate(tenantId, templateId);
 
     const { id, createdAt, updatedAt, ...templateData } = original;
@@ -317,13 +288,13 @@ export class EmailTemplateService {
     const clone = await this.createTemplate(tenantId, {
       ...templateData,
       name: name || `${original.name} (Copy)`,
-      isPublic: false // Clones are private by default
+      isPublic: false, // Clones are private by default
     });
 
     await this.eventBus.emit('email.template.cloned', {
       tenantId,
       originalId: templateId,
-      cloneId: clone.id
+      cloneId: clone.id,
     });
 
     return clone;
@@ -332,10 +303,7 @@ export class EmailTemplateService {
   /**
    * Archive a template
    */
-  async archiveTemplate(
-    tenantId: string,
-    templateId: string
-  ): Promise<void> {
+  async archiveTemplate(tenantId: string, templateId: string): Promise<void> {
     const template = await this.getTemplate(tenantId, templateId);
 
     if (template.tenantId !== tenantId) {
@@ -347,26 +315,23 @@ export class EmailTemplateService {
       throw new AppError('Cannot archive template that is in use', 400);
     }
 
-    await this.prisma.emailTemplate.update({
+    await this.prisma.client.emailTemplate.update({
       where: { id: templateId },
-      data: { isArchived: true }
+      data: { isArchived: true },
     });
 
     await this.invalidateTemplateCache(templateId);
 
     await this.eventBus.emit('email.template.archived', {
       tenantId,
-      templateId
+      templateId,
     });
   }
 
   /**
    * Delete a template
    */
-  async deleteTemplate(
-    tenantId: string,
-    templateId: string
-  ): Promise<void> {
+  async deleteTemplate(tenantId: string, templateId: string): Promise<void> {
     const template = await this.getTemplate(tenantId, templateId);
 
     if (template.tenantId !== tenantId) {
@@ -378,8 +343,8 @@ export class EmailTemplateService {
       throw new AppError('Cannot delete template that is in use', 400);
     }
 
-    await this.prisma.emailTemplate.delete({
-      where: { id: templateId }
+    await this.prisma.client.emailTemplate.delete({
+      where: { id: templateId },
     });
 
     // Delete thumbnail from storage
@@ -391,7 +356,7 @@ export class EmailTemplateService {
 
     await this.eventBus.emit('email.template.deleted', {
       tenantId,
-      templateId
+      templateId,
     });
   }
 
@@ -399,17 +364,14 @@ export class EmailTemplateService {
    * Get template categories
    */
   async getCategories(tenantId: string): Promise<string[]> {
-    const categories = await this.prisma.emailTemplate.findMany({
+    const categories = await this.prisma.client.emailTemplate.findMany({
       where: {
-        OR: [
-          { tenantId },
-          { isPublic: true }
-        ],
+        OR: [{ tenantId }, { isPublic: true }],
         isArchived: false,
-        category: { not: null }
+        category: { not: null },
       },
       select: { category: true },
-      distinct: ['category']
+      distinct: ['category'],
     });
 
     return categories.map(c => c.category!).filter(Boolean);
@@ -428,7 +390,7 @@ export class EmailTemplateService {
       removeComments: true,
       removeEmptyAttributes: true,
       removeOptionalTags: false, // Keep optional tags for email clients
-      minifyCSS: true
+      minifyCSS: true,
     });
 
     return minified;
@@ -466,7 +428,7 @@ export class EmailTemplateService {
     return Array.from(variables).map(name => ({
       name,
       type: 'text',
-      required: false
+      required: false,
     }));
   }
 
@@ -477,7 +439,8 @@ export class EmailTemplateService {
     try {
       // This would use a service like Puppeteer to generate a screenshot
       // For now, we'll just store a data URI placeholder
-      const placeholder = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y0ZjRmNCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM5OTkiPlRlbXBsYXRlIFByZXZpZXc8L3RleHQ+PC9zdmc+';
+      const placeholder =
+        'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y0ZjRmNCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM5OTkiPlRlbXBsYXRlIFByZXZpZXc8L3RleHQ+PC9zdmc+';
       return placeholder;
     } catch (error) {
       logger.error('Failed to generate template thumbnail', { error });

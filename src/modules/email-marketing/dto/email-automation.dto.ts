@@ -1,7 +1,7 @@
 // DTOs for email automation
 
 import { z } from 'zod';
-import { EmailAutomationTrigger } from '@prisma/client';
+import { EmailAutomationTrigger, EmailAutomationStatus, EmailSegmentOperator } from '@prisma/client';
 
 // Create Automation
 export const createAutomationSchema = z.object({
@@ -28,7 +28,7 @@ export const createAutomationStepSchema = z.object({
   textContent: z.string().optional(),
   conditions: z.array(z.object({
     field: z.string(),
-    operator: z.enum(['equals', 'not_equals', 'contains', 'greater_than', 'less_than']),
+    operator: z.nativeEnum(EmailSegmentOperator),
     value: z.any()
   })).optional()
 });
@@ -39,6 +39,14 @@ export type CreateAutomationStepDTO = z.infer<typeof createAutomationStepSchema>
 export const updateAutomationSchema = createAutomationSchema.partial();
 
 export type UpdateAutomationDTO = z.infer<typeof updateAutomationSchema>;
+
+// Automation Enrollment
+export const automationEnrollmentSchema = z.object({
+  subscriberId: z.string(),
+  status: z.nativeEnum(EmailAutomationStatus).default('ACTIVE')
+});
+
+export type AutomationEnrollmentDTO = z.infer<typeof automationEnrollmentSchema>;
 
 // Automation Filters
 export const automationFiltersSchema = z.object({

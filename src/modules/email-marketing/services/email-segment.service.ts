@@ -6,16 +6,8 @@ import { EventBus } from '@/shared/events/event-bus';
 import { RedisService } from '@/infrastructure/cache/redis.service';
 import { AppError } from '@/shared/exceptions';
 import { logger } from '@/shared/logger';
-import {
-  EmailSegment,
-  EmailSegmentOperator,
-  Prisma
-} from '@prisma/client';
-import {
-  CreateSegmentDTO,
-  UpdateSegmentDTO,
-  TestSegmentDTO
-} from '../dto/email-segment.dto';
+import { EmailSegment, EmailSegmentOperator, Prisma } from '@prisma/client';
+import { CreateSegmentDTO, UpdateSegmentDTO, TestSegmentDTO } from '../dto/email-segment.dto';
 
 export interface SegmentCondition {
   field: string;
@@ -39,19 +31,16 @@ export class EmailSegmentService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly eventBus: EventBus,
-    private readonly redis: RedisService
+    private readonly redis: RedisService,
   ) {}
 
   /**
    * Create a new segment
    */
-  async createSegment(
-    listId: string,
-    data: CreateSegmentDTO
-  ): Promise<EmailSegment> {
+  async createSegment(listId: string, data: CreateSegmentDTO): Promise<EmailSegment> {
     // Validate list exists
-    const list = await this.prisma.emailList.findUnique({
-      where: { id: listId }
+    const list = await this.prisma.client.emailList.findUnique({
+      where: { id: listId },
     });
 
     if (!list) {
@@ -59,12 +48,9 @@ export class EmailSegmentService {
     }
 
     // Calculate initial subscriber count
-    const subscriberCount = await this.calculateSegmentSize(
-      listId,
-      data.conditions
-    );
+    const subscriberCount = await this.calculateSegmentSize(listId, data.conditions);
 
-    const segment = await this.prisma.emailSegment.create({
+    const segment = await this.prisma.client.emailSegment.create({
       data: {
         listId,
         name: data.name,
@@ -72,8 +58,8 @@ export class EmailSegmentService {
         conditions: data.conditions,
         subscriberCount,
         lastCalculatedAt: new Date(),
-        metadata: data.metadata
-      }
+        metadata: data.metadata,
+      },
     });
 
     await this.eventBus.emit('email.segment.created', {
@@ -81,12 +67,12 @@ export class EmailSegmentService {
       listId,
       segmentId: segment.id,
       name: segment.name,
-      subscriberCount
+      subscriberCount,
     });
 
     logger.info('Email segment created', {
       listId,
-      segmentId: segment.id
+      segmentId: segment.id,
     });
 
     return segment;
@@ -95,33 +81,27 @@ export class EmailSegmentService {
   /**
    * Update a segment
    */
-  async updateSegment(
-    segmentId: string,
-    data: UpdateSegmentDTO
-  ): Promise<EmailSegment> {
+  async updateSegment(segmentId: string, data: UpdateSegmentDTO): Promise<EmailSegment> {
     const segment = await this.getSegment(segmentId);
 
     let updateData: any = { ...data };
 
     // Recalculate subscriber count if conditions changed
     if (data.conditions) {
-      updateData.subscriberCount = await this.calculateSegmentSize(
-        segment.listId,
-        data.conditions
-      );
+      updateData.subscriberCount = await this.calculateSegmentSize(segment.listId, data.conditions);
       updateData.lastCalculatedAt = new Date();
     }
 
-    const updated = await this.prisma.emailSegment.update({
+    const updated = await this.prisma.client.emailSegment.update({
       where: { id: segmentId },
-      data: updateData
+      data: updateData,
     });
 
     await this.invalidateSegmentCache(segmentId);
 
     await this.eventBus.emit('email.segment.updated', {
       segmentId,
-      changes: data
+      changes: data,
     });
 
     return updated;
@@ -138,11 +118,11 @@ export class EmailSegmentService {
       return cached;
     }
 
-    const segment = await this.prisma.emailSegment.findUnique({
+    const segment = await this.prisma.client.emailSegment.findUnique({
       where: { id: segmentId },
       include: {
-        list: true
-      }
+        list: true,
+      },
     });
 
     if (!segment) {
@@ -158,9 +138,9 @@ export class EmailSegmentService {
    * Get segments for a list
    */
   async getListSegments(listId: string): Promise<EmailSegment[]> {
-    return this.prisma.emailSegment.findMany({
+    return this.prisma.client.emailSegment.findMany({
       where: { listId },
-      orderBy: { name: 'asc' }
+      orderBy: { name: 'asc' },
     });
   }
 
@@ -169,7 +149,7 @@ export class EmailSegmentService {
    */
   async testSegment(
     listId: string,
-    data: TestSegmentDTO
+    data: TestSegmentDTO,
   ): Promise<{
     count: number;
     sample: any[];
@@ -177,15 +157,15 @@ export class EmailSegmentService {
     const count = await this.calculateSegmentSize(listId, data.conditions);
 
     const query = this.buildSegmentQuery(listId, data.conditions);
-    const sample = await this.prisma.emailListSubscriber.findMany({
+    const sample = await this.prisma.client.emailListSubscriber.findMany({
       where: query,
       take: data.limit,
       include: {
         activities: {
           take: 5,
-          orderBy: { createdAt: 'desc' }
-        }
-      }
+          orderBy: { createdAt: 'desc' },
+        },
+      },
     });
 
     return { count, sample };
@@ -194,15 +174,13 @@ export class EmailSegmentService {
   /**
    * Get subscribers in a segment
    */
-  async getSegmentSubscribers(
-    segmentIds: string[]
-  ): Promise<string[]> {
+  async getSegmentSubscribers(segmentIds: string[]): Promise<string[]> {
     if (segmentIds.length === 0) {
       return [];
     }
 
-    const segments = await this.prisma.emailSegment.findMany({
-      where: { id: { in: segmentIds } }
+    const segments = await this.prisma.client.emailSegment.findMany({
+      where: { id: { in: segmentIds } },
     });
 
     if (segments.length === 0) {
@@ -213,14 +191,11 @@ export class EmailSegmentService {
     const subscriberSets: Set<string>[] = [];
 
     for (const segment of segments) {
-      const query = this.buildSegmentQuery(
-        segment.listId,
-        segment.conditions as SegmentConditions
-      );
+      const query = this.buildSegmentQuery(segment.listId, segment.conditions as SegmentConditions);
 
-      const subscribers = await this.prisma.emailListSubscriber.findMany({
+      const subscribers = await this.prisma.client.emailListSubscriber.findMany({
         where: query,
-        select: { id: true }
+        select: { id: true },
       });
 
       subscriberSets.push(new Set(subscribers.map(s => s.id)));
@@ -243,17 +218,14 @@ export class EmailSegmentService {
   async refreshSegment(segmentId: string): Promise<EmailSegment> {
     const segment = await this.getSegment(segmentId);
 
-    const subscriberCount = await this.calculateSegmentSize(
-      segment.listId,
-      segment.conditions as SegmentConditions
-    );
+    const subscriberCount = await this.calculateSegmentSize(segment.listId, segment.conditions as SegmentConditions);
 
-    const updated = await this.prisma.emailSegment.update({
+    const updated = await this.prisma.client.emailSegment.update({
       where: { id: segmentId },
       data: {
         subscriberCount,
-        lastCalculatedAt: new Date()
-      }
+        lastCalculatedAt: new Date(),
+      },
     });
 
     await this.invalidateSegmentCache(segmentId);
@@ -262,7 +234,7 @@ export class EmailSegmentService {
       await this.eventBus.emit('email.segment.size.changed', {
         segmentId,
         oldCount: segment.subscriberCount,
-        newCount: subscriberCount
+        newCount: subscriberCount,
       });
     }
 
@@ -276,61 +248,53 @@ export class EmailSegmentService {
     const segment = await this.getSegment(segmentId);
 
     // Check if segment is in use
-    const campaignsUsingSegment = await this.prisma.emailCampaign.count({
+    const campaignsUsingSegment = await this.prisma.client.emailCampaign.count({
       where: {
-        OR: [
-          { segmentIds: { has: segmentId } },
-          { excludeSegmentIds: { has: segmentId } }
-        ]
-      }
+        OR: [{ segmentIds: { has: segmentId } }, { excludeSegmentIds: { has: segmentId } }],
+      },
     });
 
     if (campaignsUsingSegment > 0) {
       throw new AppError('Cannot delete segment that is in use by campaigns', 400);
     }
 
-    await this.prisma.emailSegment.delete({
-      where: { id: segmentId }
+    await this.prisma.client.emailSegment.delete({
+      where: { id: segmentId },
     });
 
     await this.invalidateSegmentCache(segmentId);
 
     await this.eventBus.emit('email.segment.deleted', {
       segmentId,
-      listId: segment.listId
+      listId: segment.listId,
     });
   }
 
   /**
    * Build Prisma query from segment conditions
    */
-  private buildSegmentQuery(
-    listId: string,
-    conditions: SegmentConditions
-  ): Prisma.EmailListSubscriberWhereInput {
+  private buildSegmentQuery(listId: string, conditions: SegmentConditions): Prisma.EmailListSubscriberWhereInput {
     const baseQuery: Prisma.EmailListSubscriberWhereInput = {
       listId,
       subscribed: true,
-      confirmed: true
+      confirmed: true,
     };
 
     if (!conditions.groups || conditions.groups.length === 0) {
       return baseQuery;
     }
 
-    const groupQueries = conditions.groups.map(group =>
-      this.buildGroupQuery(group)
-    );
+    const groupQueries = conditions.groups.map(group => this.buildGroupQuery(group));
 
     if (conditions.operator === 'AND') {
       return {
         ...baseQuery,
-        AND: groupQueries
+        AND: groupQueries,
       };
     } else {
       return {
         ...baseQuery,
-        OR: groupQueries
+        OR: groupQueries,
       };
     }
   }
@@ -339,9 +303,7 @@ export class EmailSegmentService {
    * Build query for a condition group
    */
   private buildGroupQuery(group: SegmentGroup): Prisma.EmailListSubscriberWhereInput {
-    const conditionQueries = group.conditions.map(condition =>
-      this.buildConditionQuery(condition)
-    );
+    const conditionQueries = group.conditions.map(condition => this.buildConditionQuery(condition));
 
     if (group.operator === 'AND') {
       return { AND: conditionQueries };
@@ -380,7 +342,7 @@ export class EmailSegmentService {
   private buildSubscriberCondition(
     field: string,
     operator: EmailSegmentOperator,
-    value: any
+    value: any,
   ): Prisma.EmailListSubscriberWhereInput {
     switch (field) {
       case 'email':
@@ -415,7 +377,7 @@ export class EmailSegmentService {
   private buildEngagementCondition(
     field: string,
     operator: EmailSegmentOperator,
-    value: any
+    value: any,
   ): Prisma.EmailListSubscriberWhereInput {
     switch (field) {
       case 'engagementScore':
@@ -428,14 +390,14 @@ export class EmailSegmentService {
         if (value) {
           return {
             activities: {
-              some: { type: 'opened' }
-            }
+              some: { type: 'opened' },
+            },
           };
         } else {
           return {
             activities: {
-              none: { type: 'opened' }
-            }
+              none: { type: 'opened' },
+            },
           };
         }
 
@@ -443,14 +405,14 @@ export class EmailSegmentService {
         if (value) {
           return {
             activities: {
-              some: { type: 'clicked' }
-            }
+              some: { type: 'clicked' },
+            },
           };
         } else {
           return {
             activities: {
-              none: { type: 'clicked' }
-            }
+              none: { type: 'clicked' },
+            },
           };
         }
 
@@ -465,14 +427,14 @@ export class EmailSegmentService {
   private buildCampaignCondition(
     field: string,
     operator: EmailSegmentOperator,
-    value: any
+    value: any,
   ): Prisma.EmailListSubscriberWhereInput {
     switch (field) {
       case 'receivedCampaign':
         return {
           recipients: {
-            some: { campaignId: value }
-          }
+            some: { campaignId: value },
+          },
         };
 
       case 'openedCampaign':
@@ -480,9 +442,9 @@ export class EmailSegmentService {
           recipients: {
             some: {
               campaignId: value,
-              openedAt: { not: null }
-            }
-          }
+              openedAt: { not: null },
+            },
+          },
         };
 
       case 'clickedCampaign':
@@ -490,9 +452,9 @@ export class EmailSegmentService {
           recipients: {
             some: {
               campaignId: value,
-              clickedAt: { not: null }
-            }
-          }
+              clickedAt: { not: null },
+            },
+          },
         };
 
       default:
@@ -506,7 +468,7 @@ export class EmailSegmentService {
   private buildCustomDataCondition(
     field: string,
     operator: EmailSegmentOperator,
-    value: any
+    value: any,
   ): Prisma.EmailListSubscriberWhereInput {
     // Use JSON path query for custom data
     const path = field.split('.');
@@ -516,24 +478,24 @@ export class EmailSegmentService {
         return {
           customData: {
             path,
-            equals: value
-          }
+            equals: value,
+          },
         };
 
       case EmailSegmentOperator.NOT_EQUALS:
         return {
           customData: {
             path,
-            not: value
-          }
+            not: value,
+          },
         };
 
       case EmailSegmentOperator.CONTAINS:
         return {
           customData: {
             path,
-            string_contains: value
-          }
+            string_contains: value,
+          },
         };
 
       default:
@@ -547,7 +509,7 @@ export class EmailSegmentService {
   private buildStringCondition(
     field: string,
     operator: EmailSegmentOperator,
-    value: any
+    value: any,
   ): Prisma.EmailListSubscriberWhereInput {
     switch (operator) {
       case EmailSegmentOperator.EQUALS:
@@ -579,7 +541,7 @@ export class EmailSegmentService {
   private buildNumberCondition(
     field: string,
     operator: EmailSegmentOperator,
-    value: any
+    value: any,
   ): Prisma.EmailListSubscriberWhereInput {
     const numValue = Number(value);
 
@@ -607,7 +569,7 @@ export class EmailSegmentService {
   private buildDateCondition(
     field: string,
     operator: EmailSegmentOperator,
-    value: any
+    value: any,
   ): Prisma.EmailListSubscriberWhereInput {
     const dateValue = new Date(value);
 
@@ -622,8 +584,8 @@ export class EmailSegmentService {
         return {
           [field]: {
             gte: startOfDay,
-            lte: endOfDay
-          }
+            lte: endOfDay,
+          },
         };
 
       case EmailSegmentOperator.GREATER_THAN:
@@ -643,7 +605,7 @@ export class EmailSegmentService {
   private buildArrayCondition(
     field: string,
     operator: EmailSegmentOperator,
-    value: any
+    value: any,
   ): Prisma.EmailListSubscriberWhereInput {
     const arrayValue = Array.isArray(value) ? value : [value];
 
@@ -653,7 +615,7 @@ export class EmailSegmentService {
 
       case EmailSegmentOperator.NOT_CONTAINS:
         return {
-          NOT: { [field]: { hasSome: arrayValue } }
+          NOT: { [field]: { hasSome: arrayValue } },
         };
 
       case EmailSegmentOperator.IN:
@@ -667,14 +629,11 @@ export class EmailSegmentService {
   /**
    * Calculate segment size
    */
-  private async calculateSegmentSize(
-    listId: string,
-    conditions: SegmentConditions
-  ): Promise<number> {
+  private async calculateSegmentSize(listId: string, conditions: SegmentConditions): Promise<number> {
     const query = this.buildSegmentQuery(listId, conditions);
 
-    return this.prisma.emailListSubscriber.count({
-      where: query
+    return this.prisma.client.emailListSubscriber.count({
+      where: query,
     });
   }
 

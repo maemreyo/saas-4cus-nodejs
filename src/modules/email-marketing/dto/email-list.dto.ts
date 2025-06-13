@@ -45,6 +45,7 @@ export type SubscribeDTO = z.infer<typeof subscribeSchema>;
 export const unsubscribeSchema = z.object({
   email: z.string().email(),
   listId: z.string().optional(),
+  tenantId: z.string().optional(),
   reason: z.string().optional(),
   feedback: z.string().optional(),
   globalUnsubscribe: z.boolean().optional()

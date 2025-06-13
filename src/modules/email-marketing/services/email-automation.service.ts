@@ -851,28 +851,53 @@ export class EmailAutomationService {
     // Get step performance
     const stepPerformance = await Promise.all(
       automation.steps.map(async step => {
-        const stepStats = await this.prisma.client.emailAutomationStepRun.aggregate({
+        // Count step runs with different statuses
+        const deliveredCount = await this.prisma.client.emailAutomationStepRun.count({
           where: {
             stepId: step.id,
             executedAt: {
               gte: start,
               lte: end,
             },
-          },
-          _count: {
-            id: true,
-          },
-          _sum: {
-            // Count boolean fields as numbers
-            delivered: true,
-            opened: true,
-            clicked: true,
-          },
+            delivered: true
+          }
         });
 
-        const delivered = stepStats._sum.delivered || 0;
-        const opened = stepStats._sum.opened || 0;
-        const clicked = stepStats._sum.clicked || 0;
+        const openedCount = await this.prisma.client.emailAutomationStepRun.count({
+          where: {
+            stepId: step.id,
+            executedAt: {
+              gte: start,
+              lte: end,
+            },
+            opened: true
+          }
+        });
+
+        const clickedCount = await this.prisma.client.emailAutomationStepRun.count({
+          where: {
+            stepId: step.id,
+            executedAt: {
+              gte: start,
+              lte: end,
+            },
+            clicked: true
+          }
+        });
+
+        const totalCount = await this.prisma.client.emailAutomationStepRun.count({
+          where: {
+            stepId: step.id,
+            executedAt: {
+              gte: start,
+              lte: end,
+            }
+          }
+        });
+
+        const delivered = deliveredCount;
+        const opened = openedCount;
+        const clicked = clickedCount;
 
         return {
           stepId: step.id,

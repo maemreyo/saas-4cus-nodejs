@@ -536,10 +536,17 @@ export class EmailCampaignService {
         JSON.parse(cleanCampaignData.utmParams) : cleanCampaignData.utmParams) :
       {};
 
+    // Convert abTestConfig to proper format if needed
+    const abTestConfig = cleanCampaignData.abTestConfig ?
+      (typeof cleanCampaignData.abTestConfig === 'string' ?
+        JSON.parse(cleanCampaignData.abTestConfig) : cleanCampaignData.abTestConfig) :
+      undefined;
+
     const duplicate = await this.createCampaign(tenantId, {
       ...cleanCampaignData,
       metadata,
       utmParams,
+      abTestConfig,
       name: name || `${original.name} (Copy)`,
       // status will be set to DRAFT in createCampaign
     });

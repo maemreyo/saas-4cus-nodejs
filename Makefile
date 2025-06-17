@@ -1,10 +1,10 @@
 # Database Bootstrap Makefile
 # Usage: make db-init, make db-reset, etc.
 
-.PHONY: help db-init db-start db-stop db-reset db-clean-reset db-fresh db-migrate db-seed db-test db-studio db-clean db-fix-permissions
+.PHONY: help help-legacy db-init db-start db-stop db-reset db-clean-reset db-fresh db-migrate db-seed db-test db-studio db-clean db-fix-permissions
 
 # Default target
-help:
+help-legacy:
 	@echo "🚀 Modern Backend Template - Enhanced Makefile"
 	@echo ""
 	@echo "🎯 QUICK START COMMANDS:"
@@ -332,3 +332,391 @@ cleanup-run:
 # Complete project modernization
 modernize: cleanup-verify cleanup-run install
 	@echo "🚀 Project modernization completed!"
+
+
+# Makefile - Updated with Deployment Support
+# Modern Backend Template - Universal Deployment
+
+.DEFAULT_GOAL := help
+
+# Colors for output
+BLUE := \033[36m
+GREEN := \033[32m
+YELLOW := \033[33m
+RED := \033[31m
+RESET := \033[0m
+
+# =============================================================================
+# 🚀 DEPLOYMENT COMMANDS (NEW!)
+# =============================================================================
+
+.PHONY: deploy deploy-render deploy-railway deploy-check deploy-status
+
+## 🚀 Universal deployment script (interactive)
+deploy:
+	@echo "$(BLUE)🚀 Starting universal deployment...$(RESET)"
+	@tsx scripts/deploy.ts
+
+## 🆓 Deploy to Render (FREE tier)
+deploy-render:
+	@echo "$(BLUE)🆓 Deploying to Render (FREE)...$(RESET)"
+	@tsx scripts/deploy.ts --provider=render
+
+## 💰 Deploy to Railway ($5/month)
+deploy-railway:
+	@echo "$(BLUE)💰 Deploying to Railway...$(RESET)"
+	@tsx scripts/deploy.ts --provider=railway
+
+## 🔍 Check deployment health
+deploy-check:
+	@echo "$(BLUE)🔍 Checking deployment...$(RESET)"
+	@read -p "Enter your deployment URL: " url; \
+	tsx scripts/check-deployment.ts $$url
+
+## 📊 Show deployment status
+deploy-status:
+	@echo "$(BLUE)📊 Checking deployment status...$(RESET)"
+	@if command -v railway >/dev/null 2>&1; then \
+		echo "$(GREEN)Railway Status:$(RESET)"; \
+		railway status || echo "$(YELLOW)Not deployed to Railway$(RESET)"; \
+	fi
+	@echo ""
+	@echo "$(GREEN)Render Status:$(RESET)"
+	@echo "Check manually at: https://dashboard.render.com"
+
+# =============================================================================
+# 📦 PRE-DEPLOYMENT SETUP
+# =============================================================================
+
+.PHONY: deploy-prep deploy-test deploy-build deploy-env
+
+## 🔧 Prepare for deployment
+deploy-prep: deploy-env deploy-build deploy-test
+	@echo "$(GREEN)✅ Deployment preparation completed!$(RESET)"
+
+## 🔐 Generate deployment environment file
+deploy-env:
+	@echo "$(BLUE)🔐 Generating deployment environment...$(RESET)"
+	@tsx scripts/generate-env.ts --production
+
+## 🏗️ Build for production
+deploy-build:
+	@echo "$(BLUE)🏗️ Building for production...$(RESET)"
+	@pnpm install --frozen-lockfile
+	@pnpm build
+
+## 🧪 Test before deployment
+deploy-test:
+	@echo "$(BLUE)🧪 Running pre-deployment tests...$(RESET)"
+	@pnpm test
+	@pnpm typecheck
+
+# =============================================================================
+# 🐳 DOCKER DEPLOYMENT
+# =============================================================================
+
+.PHONY: docker-deploy docker-build-prod docker-test-prod
+
+## 🐳 Build production Docker image
+docker-build-prod:
+	@echo "$(BLUE)🐳 Building production Docker image...$(RESET)"
+	@docker build -f Dockerfile.render -t saas-backend:latest .
+
+## 🧪 Test Docker image locally
+docker-test-prod: docker-build-prod
+	@echo "$(BLUE)🧪 Testing production Docker image...$(RESET)"
+	@docker-compose -f docker-compose.render.yml up -d
+	@sleep 10
+	@curl -f http://localhost:3000/health || echo "$(RED)❌ Health check failed$(RESET)"
+	@docker-compose -f docker-compose.render.yml down
+
+## 🚀 Deploy with Docker
+docker-deploy: docker-build-prod
+	@echo "$(BLUE)🚀 Deploying with Docker...$(RESET)"
+	@echo "$(YELLOW)Choose your platform:$(RESET)"
+	@echo "1. Local deployment (docker-compose)"
+	@echo "2. Push to registry for cloud deployment"
+	@read -p "Enter choice (1-2): " choice; \
+	case $$choice in \
+		1) docker-compose -f docker-compose.render.yml up -d ;; \
+		2) echo "$(YELLOW)Push to your container registry manually$(RESET)" ;; \
+		*) echo "$(RED)Invalid choice$(RESET)" ;; \
+	esac
+
+# =============================================================================
+# 🌐 DOMAIN & SSL SETUP
+# =============================================================================
+
+.PHONY: domain-setup ssl-check
+
+## 🌐 Setup custom domain (instructions)
+domain-setup:
+	@echo "$(BLUE)🌐 Custom Domain Setup Instructions$(RESET)"
+	@echo ""
+	@echo "$(GREEN)For Render:$(RESET)"
+	@echo "1. Go to https://dashboard.render.com"
+	@echo "2. Select your service"
+	@echo "3. Go to Settings > Custom Domains"
+	@echo "4. Add your domain"
+	@echo "5. Point your domain's DNS to the provided CNAME"
+	@echo ""
+	@echo "$(GREEN)For Railway:$(RESET)"
+	@echo "1. Go to https://railway.app"
+	@echo "2. Select your project"
+	@echo "3. Go to Settings > Domains"
+	@echo "4. Add your custom domain"
+	@echo "5. Update your DNS records as instructed"
+
+## 🔒 Check SSL certificate
+ssl-check:
+	@read -p "Enter your domain (e.g. api.yourdomain.com): " domain; \
+	echo "$(BLUE)🔒 Checking SSL for $$domain...$(RESET)"; \
+	curl -I https://$$domain/health || echo "$(RED)❌ SSL check failed$(RESET)"
+
+# =============================================================================
+# 📊 MONITORING & LOGS
+# =============================================================================
+
+.PHONY: logs-render logs-railway monitor
+
+## 📋 View Render logs (manual)
+logs-render:
+	@echo "$(BLUE)📋 Render Logs$(RESET)"
+	@echo "Go to: https://dashboard.render.com"
+	@echo "Select your service > Logs tab"
+
+## 📋 View Railway logs
+logs-railway:
+	@echo "$(BLUE)📋 Railway Logs$(RESET)"
+	@if command -v railway >/dev/null 2>&1; then \
+		railway logs; \
+	else \
+		echo "$(RED)Railway CLI not installed$(RESET)"; \
+		echo "Install: npm install -g @railway/cli"; \
+	fi
+
+## 📊 Monitor deployment
+monitor:
+	@echo "$(BLUE)📊 Monitoring deployed application...$(RESET)"
+	@read -p "Enter your deployment URL: " url; \
+	echo "Monitoring $$url/health every 30 seconds..."; \
+	echo "Press Ctrl+C to stop"; \
+	while true; do \
+		if curl -s $$url/health > /dev/null; then \
+			echo "$$(date): $(GREEN)✅ Healthy$(RESET)"; \
+		else \
+			echo "$$(date): $(RED)❌ Unhealthy$(RESET)"; \
+		fi; \
+		sleep 30; \
+	done
+
+# =============================================================================
+# 🔧 CLI TOOLS INSTALLATION
+# =============================================================================
+
+.PHONY: install-cli install-railway install-render-cli
+
+## 🔧 Install deployment CLI tools
+install-cli: install-railway
+	@echo "$(GREEN)✅ CLI tools installation completed$(RESET)"
+
+## 🚂 Install Railway CLI
+install-railway:
+	@echo "$(BLUE)🚂 Installing Railway CLI...$(RESET)"
+	@if command -v railway >/dev/null 2>&1; then \
+		echo "$(GREEN)✅ Railway CLI already installed$(RESET)"; \
+	else \
+		npm install -g @railway/cli; \
+		echo "$(GREEN)✅ Railway CLI installed$(RESET)"; \
+	fi
+
+## 🎨 Install Render CLI (not available, using manual approach)
+install-render-cli:
+	@echo "$(YELLOW)⚠️  Render CLI not available$(RESET)"
+	@echo "Render deployments are managed via:"
+	@echo "1. Git-based auto-deployment"
+	@echo "2. Web dashboard: https://dashboard.render.com"
+
+# =============================================================================
+# 💰 COST OPTIMIZATION
+# =============================================================================
+
+.PHONY: cost-estimate cost-optimize
+
+## 💰 Estimate deployment costs
+cost-estimate:
+	@echo "$(BLUE)💰 Deployment Cost Estimate$(RESET)"
+	@echo ""
+	@echo "$(GREEN)🆓 Render (FREE tier):$(RESET)"
+	@echo "  - Web Service: $$0/month (750 hours limit)"
+	@echo "  - PostgreSQL: $$0/month (1GB limit)"
+	@echo "  - Limitations: Auto-sleep, slower cold starts"
+	@echo ""
+	@echo "$(YELLOW)💰 Railway:$(RESET)"
+	@echo "  - Starter: $$5/month (after $$5 free credit)"
+	@echo "  - Includes: PostgreSQL, Redis, better performance"
+	@echo "  - Benefits: Always-on, faster deployments"
+	@echo ""
+	@echo "$(BLUE)📊 Break-even analysis:$(RESET)"
+	@echo "  - Render: Free forever (with limitations)"
+	@echo "  - Railway: Need 1 customer at $$29/month to break even"
+
+## 🎯 Cost optimization tips
+cost-optimize:
+	@echo "$(BLUE)🎯 Cost Optimization Tips$(RESET)"
+	@echo ""
+	@echo "$(GREEN)Start with Render FREE:$(RESET)"
+	@echo "✅ Perfect for MVP and validation"
+	@echo "✅ No upfront costs"
+	@echo "✅ Upgrade when you have paying customers"
+	@echo ""
+	@echo "$(GREEN)Upgrade to Railway when:$(RESET)"
+	@echo "✅ You have consistent traffic"
+	@echo "✅ Auto-sleep becomes problematic"
+	@echo "✅ You need better performance"
+	@echo "✅ You have revenue to justify $$5/month"
+	@echo ""
+	@echo "$(YELLOW)Free tier maximization:$(RESET)"
+	@echo "- Use Render for backend (free)"
+	@echo "- Use Vercel for frontend (free)"
+	@echo "- Use SendGrid for email (100/day free)"
+	@echo "- Use Cloudflare for CDN (free)"
+
+# =============================================================================
+# 🆘 TROUBLESHOOTING
+# =============================================================================
+
+.PHONY: deploy-troubleshoot deploy-logs deploy-debug
+
+## 🆘 Deployment troubleshooting
+deploy-troubleshoot:
+	@echo "$(BLUE)🆘 Deployment Troubleshooting$(RESET)"
+	@echo ""
+	@echo "$(YELLOW)Common issues and solutions:$(RESET)"
+	@echo ""
+	@echo "$(RED)❌ Build failed:$(RESET)"
+	@echo "  - Check your package.json scripts"
+	@echo "  - Ensure all dependencies are listed"
+	@echo "  - Test build locally: make deploy-build"
+	@echo ""
+	@echo "$(RED)❌ Database connection failed:$(RESET)"
+	@echo "  - Check DATABASE_URL environment variable"
+	@echo "  - Ensure database is created"
+	@echo "  - Run migrations: npm run db:migrate:prod"
+	@echo ""
+	@echo "$(RED)❌ App won't start:$(RESET)"
+	@echo "  - Check environment variables"
+	@echo "  - Review application logs"
+	@echo "  - Verify start command in package.json"
+
+## 📋 Get deployment logs
+deploy-logs:
+	@echo "$(BLUE)📋 How to access deployment logs:$(RESET)"
+	@echo ""
+	@echo "$(GREEN)Render:$(RESET)"
+	@echo "1. Go to https://dashboard.render.com"
+	@echo "2. Select your service"
+	@echo "3. Click 'Logs' tab"
+	@echo ""
+	@echo "$(GREEN)Railway:$(RESET)"
+	@echo "1. Use CLI: railway logs"
+	@echo "2. Or go to https://railway.app dashboard"
+
+## 🐛 Debug deployment
+deploy-debug:
+	@echo "$(BLUE)🐛 Debug deployment locally$(RESET)"
+	@docker-compose -f docker-compose.render.yml up
+	@echo "Test your app at: http://localhost:3000"
+	@echo "Stop with: Ctrl+C"
+
+# =============================================================================
+# 📚 HELP & DOCUMENTATION
+# =============================================================================
+
+## 📚 Show deployment help
+help-deploy:
+	@echo "$(BLUE)📚 Deployment Help$(RESET)"
+	@echo ""
+	@echo "$(GREEN)Quick Start:$(RESET)"
+	@echo "  make deploy              # Interactive deployment"
+	@echo "  make deploy-render       # Deploy to Render (FREE)"
+	@echo "  make deploy-railway      # Deploy to Railway ($$5/month)"
+	@echo ""
+	@echo "$(GREEN)Preparation:$(RESET)"
+	@echo "  make deploy-prep         # Prepare for deployment"
+	@echo "  make deploy-test         # Test before deployment"
+	@echo ""
+	@echo "$(GREEN)Monitoring:$(RESET)"
+	@echo "  make deploy-check        # Check deployment health"
+	@echo "  make monitor             # Monitor deployment"
+	@echo ""
+	@echo "$(GREEN)Cost:$(RESET)"
+	@echo "  make cost-estimate       # Estimate costs"
+	@echo "  make cost-optimize       # Optimization tips"
+
+# =============================================================================
+# 🔄 EXISTING COMMANDS (Updated)
+# =============================================================================
+
+.PHONY: setup-full dev-prod build-app start-prod test-all clean-all
+
+## 🎯 Complete setup for new developers (includes CLI tools)
+setup-full: install install-cli db-fresh
+	@echo "$(GREEN)🎉 Setup completed! Ready for development and deployment!$(RESET)"
+
+## 🚀 Start development environment (production mode)
+dev-prod: db-start
+	@echo "$(BLUE)🚀 Starting development environment (production mode)...$(RESET)"
+	@pnpm dev
+
+## 🏗️ Build application
+build-app:
+	@echo "$(BLUE)🏗️ Building application...$(RESET)"
+	@pnpm build
+
+## ▶️ Start production server
+start-prod:
+	@echo "$(BLUE)▶️ Starting production server...$(RESET)"
+	@pnpm start:prod
+
+## 🧪 Run all tests
+test-all:
+	@echo "$(BLUE)🧪 Running all tests...$(RESET)"
+	@pnpm test
+
+## 🧹 Clean everything (full cleanup)
+clean-all:
+	@echo "$(BLUE)🧹 Cleaning up everything...$(RESET)"
+	@docker-compose down -v
+	@docker system prune -f
+	@rm -rf node_modules dist coverage
+
+# =============================================================================
+# 📋 HELP
+# =============================================================================
+
+## 📋 Show this help message
+help:
+	@echo "$(BLUE)📋 Modern Backend Template - Makefile Commands$(RESET)"
+	@echo ""
+	@echo "$(GREEN)🚀 DEPLOYMENT (NEW!):$(RESET)"
+	@awk 'BEGIN {FS = ":.*##"; printf ""} /^[a-zA-Z_-]+:.*?##/ { if ($$0 ~ /deploy/) printf "  $(YELLOW)%-20s$(RESET) %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
+	@echo ""
+	@echo "$(GREEN)🔧 DEVELOPMENT:$(RESET)"
+	@awk 'BEGIN {FS = ":.*##"; printf ""} /^[a-zA-Z_-]+:.*?##/ { if ($$0 !~ /deploy/ && $$0 !~ /help/) printf "  $(YELLOW)%-20s$(RESET) %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
+	@echo ""
+	@echo "$(GREEN)📚 HELP:$(RESET)"
+	@echo "  $(YELLOW)help-deploy$(RESET)          Show detailed deployment help"
+	@echo "  $(YELLOW)help-legacy$(RESET)          Show legacy help message"
+	@echo "  $(YELLOW)cost-estimate$(RESET)        Show cost estimates"
+	@echo "  $(YELLOW)deploy-troubleshoot$(RESET)  Troubleshooting guide"
+	@echo ""
+	@echo "$(GREEN)🔄 UPDATED COMMANDS:$(RESET)"
+	@echo "  $(YELLOW)setup-full$(RESET)           Complete setup with CLI tools"
+	@echo "  $(YELLOW)dev-prod$(RESET)             Start development in production mode"
+	@echo "  $(YELLOW)build-app$(RESET)            Build application"
+	@echo "  $(YELLOW)start-prod$(RESET)           Start production server"
+	@echo "  $(YELLOW)test-all$(RESET)             Run all tests"
+	@echo "  $(YELLOW)clean-all$(RESET)            Full cleanup"
+	@echo ""
+	@echo "$(BLUE)💡 Quick start: make setup && make deploy$(RESET)"
